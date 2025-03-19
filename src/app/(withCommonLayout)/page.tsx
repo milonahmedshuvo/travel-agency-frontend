@@ -2,7 +2,11 @@
 import Banner from '@/components/home/banner/Banner';
 import ProductCarousel from '@/components/home/carousel/Carousel';
 import MultiFilterForm from '@/components/home/multipuleFilter/MultiFilterForm';
-import React from 'react'
+import TourExperience from '@/components/home/tourExperience/Tour';
+
+
+
+
 
 const page = () => {
 
@@ -12,6 +16,8 @@ const page = () => {
        <Banner></Banner>
        <MultiFilterForm></MultiFilterForm>
        <ProductCarousel></ProductCarousel>
+
+       <TourExperience/>
     
     </div>
   )

@@ -34,8 +34,8 @@ const MultiSelectForm: FC = () => {
   };
 
   return (
-    <div className="bg-[#F4F4F4]"> 
-    <div className="p-6 rounded-lg custom-container ">
+    <div className="bg-[#F4F4F4] "> 
+    <div className="p-6 rounded-lg max-w-[1145px] mx-auto">
      
 
       <form onSubmit={handleSubmit(onSubmit)} className=" grid grid-cols-1 md:grid-cols-3 gap-5 justify-between items-center">
