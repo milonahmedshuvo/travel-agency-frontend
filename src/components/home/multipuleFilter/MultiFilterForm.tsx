@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { Select, Button, message } from "antd";
+import { Select,  message } from "antd";
 import { CheckCircleOutlined, StarOutlined, HeartOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
@@ -39,26 +39,27 @@ const MultiSelectForm: FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className=" grid grid-cols-3 gap-5 justify-between items-center">
         {/* Category 1 */}
         <div>
-          <label className="block font-semibold mb-1">Category</label>
+          <label className="block font-medium mb-2 text-[16px]">Pick-up Location</label>
           <Controller
             name="category1"
             control={control}
             render={({ field }) => (
               <Select
+               
                 {...field}
                 onChange={field.onChange}
-                placeholder="Select Category 2"
-                className="w-full"
-                prefix={<CheckCircleOutlined className="mr-2 text-green-500" />}
+                placeholder="Select Category 2 eeee"
+                className="w-full border border-gray-300 !rounded-xl !py-6 !p-3 "
+                prefix={<CheckCircleOutlined className=" !text-[#FF914D] " />}
               >
                 <Option value="option1" label="Option 1">
-                  <CheckCircleOutlined className="mr-2 text-green-500" /> Option 1
+                  Option 1
                 </Option>
                 <Option value="option2" label="Option 2">
-                  <StarOutlined className="mr-2 text-yellow-500" /> Option 2
+                   Option 2
                 </Option>
                 <Option value="option3" label="Option 3">
-                  <HeartOutlined className="mr-2 text-red-500" /> Option 3
+                  Option 3
                 </Option>
               </Select>
             )}
@@ -67,7 +68,7 @@ const MultiSelectForm: FC = () => {
 
         {/* Category 2 */}
         <div>
-          <label className="block font-semibold mb-1">Category 2</label>
+        <label className="block font-medium mb-2 text-[16px]">Pick-up Location</label>
           <Controller
             name="category2"
             control={control}
@@ -76,8 +77,8 @@ const MultiSelectForm: FC = () => {
                 {...field}
                 onChange={field.onChange}
                 placeholder="Select Category 2"
-                className="w-full"
-                prefix={<StarOutlined className="mr-2 text-yellow-500" />}
+                className="w-full border border-gray-300 !rounded-xl !py-6 !p-3 "
+                prefix={<StarOutlined className=" !text-[#FF914D]" />}
               >
                 <Option value="optionA" label="Option A">
                   <CheckCircleOutlined className="mr-2 text-green-500" /> Option A
@@ -95,7 +96,7 @@ const MultiSelectForm: FC = () => {
 
         {/* Category 3 */}
         <div>
-          <label className="block font-semibold mb-1">Category 3</label>
+        <label className="block font-medium mb-2 text-[16px]">Pick-up Location</label>
           <Controller
             name="category3"
             control={control}
@@ -104,8 +105,8 @@ const MultiSelectForm: FC = () => {
                 {...field}
                 onChange={field.onChange}
                 placeholder="Select Category 3"
-                className="w-full"
-                prefix={<HeartOutlined className="mr-2 text-red-500" />}
+                className="w-full border border-gray-300 !rounded-xl !py-6 !p-3 "
+                prefix={<HeartOutlined className=" !text-[#FF914D]" />}
               >
                 <Option value="red" label="Red">
                   <HeartOutlined className="mr-2 text-red-500" /> Red
@@ -123,7 +124,7 @@ const MultiSelectForm: FC = () => {
 
         {/* Category 4 */}
         <div>
-          <label className="block font-semibold mb-1">Category 4</label>
+        <label className="block font-medium mb-2 text-[16px]">Pick-up Location</label>
           <Controller
             name="category4"
             control={control}
@@ -132,7 +133,7 @@ const MultiSelectForm: FC = () => {
                 {...field}
                 onChange={field.onChange}
                 placeholder="Select Category 4"
-                className="w-full"
+                className="w-full border border-gray-300 !rounded-xl !py-6 !p-3 "
               >
                 <Option value="small" label="Small">
                   Small
@@ -150,7 +151,7 @@ const MultiSelectForm: FC = () => {
 
         {/* Category 5 */}
         <div>
-          <label className="block font-semibold mb-1">Category 5</label>
+          <label className="block font-medium mb-2 text-[16px]">Pick-up Location</label>
           <Controller
             name="category5"
             control={control}
@@ -159,7 +160,7 @@ const MultiSelectForm: FC = () => {
                 {...field}
                 onChange={field.onChange}
                 placeholder="Select Category 5"
-                className="w-full"
+                className="w-full border border-gray-300 !rounded-xl !py-6 !p-3 "
               >
                 <Option value="yes" label="Yes">
                   Yes
@@ -173,9 +174,9 @@ const MultiSelectForm: FC = () => {
         </div>
 
         {/* Submit Button */}
-        <Button type="primary" htmlType="submit" className="w-full mt-6">
+        <button type="submit" className="w-full  bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] !rounded-xl !py-3 !p-3 mt-7 text-[#FFFFFF] text-[16px]">
           Submit
-        </Button>
+        </button>
       </form>
     </div>
   );

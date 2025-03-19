@@ -26,7 +26,7 @@ const Banner = () => {
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-3.5 md:gap-5 mt-5">
             <button className="text-[#156CF0] text-[16px] bg-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold"> Explore Tours </button>
-            <button className="bg-[#156CF0] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold w-[185px]"> Book Now </button>
+            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold w-[185px]"> Book Now </button>
             </div>
         </div>
       </div>

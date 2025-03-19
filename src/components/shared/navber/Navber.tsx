@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 // components/Navbar.js
 'use client'
 import React, { useState } from 'react';
@@ -43,7 +44,7 @@ const Navbar = () => {
             </button>
             <a
               href="/login"
-              className="bg-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
+              className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
             >
               Login
             </a>

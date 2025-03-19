@@ -25,3 +25,21 @@
 .vollkorn {
   font-family: 'Vollkorn', serif;
 }
+
+
+
+
+
+/* ant design style css  */
+.ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+
