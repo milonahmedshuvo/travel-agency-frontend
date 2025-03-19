@@ -5,6 +5,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Select,  message } from "antd";
 import { CheckCircleOutlined, StarOutlined, HeartOutlined } from "@ant-design/icons";
 
+
 const { Option } = Select;
 
 // Define TypeScript types
@@ -33,10 +34,11 @@ const MultiSelectForm: FC = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg custom-container ">
+    <div className="bg-[#F4F4F4]"> 
+    <div className="p-6 rounded-lg custom-container ">
      
 
-      <form onSubmit={handleSubmit(onSubmit)} className=" grid grid-cols-3 gap-5 justify-between items-center">
+      <form onSubmit={handleSubmit(onSubmit)} className=" grid grid-cols-1 md:grid-cols-3 gap-5 justify-between items-center">
         {/* Category 1 */}
         <div>
           <label className="block font-medium mb-2 text-[16px]">Pick-up Location</label>
@@ -178,6 +180,7 @@ const MultiSelectForm: FC = () => {
           Submit
         </button>
       </form>
+    </div>
     </div>
   );
 };
