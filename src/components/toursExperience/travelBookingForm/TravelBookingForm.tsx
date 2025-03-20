@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { ChevronDown, Calendar, Clock, Users, MapPin } from "lucide-react"
+
 
 // Reusable Dropdown component
 interface DropdownProps {
@@ -78,7 +78,7 @@ function DatePicker({ value, onChange }: { value: string; onChange: (value: stri
   )
 }
 
-export default function TravelBookingFormHome() {
+export default function TravelBookingForm() {
   // Sample data for dropdowns
   const locations = ["Dhaka, Bangladesh", "Kuala Lumpur, Malaysia", "Bangkok, Thailand", "Singapore", "Tokyo, Japan"]
   const destinations = ["Bali, Indonesia", "Phuket, Thailand", "Maldives", "Paris, France", "New York, USA"]
@@ -111,7 +111,8 @@ export default function TravelBookingFormHome() {
   }
 
   return (
-    <div className="w-full  mx-auto p-4 custom-container ">
+    <div className="bg-[#F4F4F4] ">   
+    <div className="w-full py-4 custom-container ">
       <form onSubmit={handleSearch}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div className="space-y-2">
@@ -185,6 +186,7 @@ export default function TravelBookingFormHome() {
           </div>
         </div>
       </form>
+    </div>
     </div>
   )
 }

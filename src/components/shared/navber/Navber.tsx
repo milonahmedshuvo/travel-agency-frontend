@@ -36,7 +36,7 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-4">
             <button
               
-              className="text-[#38B6FF] border border-[#E0E0E0] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"
+              className="text-[#38B6FF] border border-[#E0E0E0] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursorpo"
             >
               Sign Up
             </button>
