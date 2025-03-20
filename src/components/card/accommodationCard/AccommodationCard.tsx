@@ -22,7 +22,7 @@ const AccommodationCard: React.FC<CustomCardProps> = ({ imageUrl, title, price, 
       hoverable
       className="w-full rounded-lg border !border-none !hover:shadow-sm "
       cover={ <div className='overflow-hidden'>
-            <img alt={title} src={imageUrl.src} className='h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125' />
+            <img alt={title} src={imageUrl.src} className='w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125' />
       </div> }
     >
       <div className='flex flex-col justify-between'>

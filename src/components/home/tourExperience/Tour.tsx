@@ -80,19 +80,19 @@ const TourExperience = () => {
 
         {/* button group  */}
       <div className="flex flex-col md:flex-row gap-3.5 lg:gap-4 mt-6">
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer ">
+        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:text-[#FF914D] hover:border-[#FF914D]">
           Sea Tours
         </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer">
+        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:text-[#FF914D] hover:border-[#FF914D]">
           Land Tours
         </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer">
+        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:text-[#FF914D] hover:border-[#FF914D]">
           Cultural Tours
         </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer">
+        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:text-[#FF914D] hover:border-[#FF914D]">
           Gastro & Wine Tours
         </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer">
+        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:text-[#FF914D] hover:border-[#FF914D]">
           Gastro & oliva oil Tour
         </button>
       </div>

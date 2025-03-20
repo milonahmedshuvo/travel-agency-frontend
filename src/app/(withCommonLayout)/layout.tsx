@@ -1,3 +1,4 @@
+import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navber/Navber";
 
 
@@ -10,7 +11,7 @@ export default function RootLayout({
         <div className="overflow-hidden">
             <Navbar />
             {children}
-            {/* <Footer /> */}
+            <Footer />
         </div>
 
     );
