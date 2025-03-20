@@ -26,19 +26,17 @@ const Navbar = () => {
           {/* Content (can be links or any text) */}
           <div className="hidden md:flex space-x-8">
             <a href="/" className="text-[#676767] text-[18px] font-normal">Home</a>
-            <a href="/about" className="text-[#676767] text-[18px] font-normal">About</a>
-            <a href="/services" className="text-[#676767] text-[18px] font-normal">Services</a>
-            <a href="/contact" className="text-[#676767] text-[18px] font-normal">Contact</a>
-            <a href="/" className="text-[#676767] text-[18px] font-normal">Home</a>
-            <a href="/about" className="text-[#676767] text-[18px] font-normal">About</a>
-            
+            <a href="/toursExperience" className="text-[#676767] text-[18px] font-normal">Tours & Experience</a>
+            <a href="/services" className="text-[#676767] text-[18px] font-normal">Accommodations</a>
+            <a href="/contact" className="text-[#676767] text-[18px] font-normal">Blog</a>
+            <a href="/" className="text-[#676767] text-[18px] font-normal">About Us</a> 
           </div>
 
           {/* Sign Up and Login Buttons */}
           <div className="hidden md:flex space-x-4">
             <button
               
-              className="text-[#38B6FF] border border-[#E0E0E0] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold"
+              className="text-[#38B6FF] border border-[#E0E0E0] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"
             >
               Sign Up
             </button>
