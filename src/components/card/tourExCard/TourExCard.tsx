@@ -21,7 +21,7 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({ imageUrl, title, price,
   return (
     <Card
       hoverable
-      className="w-full rounded-lg border !border-none !shadow-none hover:shadow-lg "
+      className="w-full rounded-lg border !border-none hover:shadow-lg"
     //   style={{ width: 340,}}
       cover={<div className='overflow-hidden'>
         <img alt={title} src={imageUrl.src} className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'  />

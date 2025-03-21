@@ -41,5 +41,5 @@
   box-shadow: none !important;
 }
 
-
-
+/* Remove default border color  */
+.ant-pagination * { border-color: transparent !important; }
