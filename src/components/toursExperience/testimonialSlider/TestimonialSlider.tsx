@@ -55,7 +55,7 @@ export default function TestimonialSlider() {
         {/* Left side - Heading */}
         <div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            What{" "}
+            What
             <span className="text-[#FF8A65] relative">
               Our
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-[#4FC3F7]"></span>
@@ -65,7 +65,7 @@ export default function TestimonialSlider() {
             <span className="text-[#FF8A65] relative">
               Travelers
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-[#4FC3F7]"></span>
-            </span>{" "}
+            </span>
             Say
           </h2>
           <p className="text-gray-600 text-lg">Real Stories, Real Experiences</p>
