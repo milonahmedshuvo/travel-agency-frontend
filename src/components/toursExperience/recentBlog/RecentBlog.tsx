@@ -104,6 +104,8 @@ export default function TravelCarousel() {
     }
   };
 
+
+  
   return (
     <div>
       <div className="w-full custom-container px-4 sm:px-6 lg:px-8 py-8">
@@ -121,8 +123,7 @@ export default function TravelCarousel() {
                   className="absolute left-1/2 top-full -translate-x-1/2 w-full h-5 bg-cover bg-no-repeat"
                   style={{ backgroundImage: `url('${vector1.src}')` }}
                 ></span>
-              </span>
-
+              </span >
 
             </h2>
             <p className="text-gray-700 mt-10 max-w-2xl">

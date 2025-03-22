@@ -5,10 +5,12 @@ import React from 'react';
 import { Card } from 'antd';
 import { StaticImageData } from 'next/image';
 import { FaStar } from 'react-icons/fa';
+import Link from 'next/link';
 
 const {  } = Card;
 
 interface CustomCardProps {
+  id: string;
   imageUrl: StaticImageData;
   title: string;
   price: string;
@@ -17,14 +19,17 @@ interface CustomCardProps {
 }
 
 
-const TourExperienceCard: React.FC<CustomCardProps> = ({ imageUrl, title, price, day, ratting }) => {
+const TourExperienceCard: React.FC<CustomCardProps> = ({ imageUrl, title, price, day, ratting, id }) => {
+
+
   return (
     <Card
       hoverable
       className="w-full rounded-lg border !border-none hover:shadow-lg"
     //   style={{ width: 340,}}
-      cover={<div className='overflow-hidden'>
+      cover={<div className='overflow-hidden'> <Link href={`/toursExperience/${id}`} >
         <img alt={title} src={imageUrl.src} className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'  />
+        </Link>
       </div>}
     >
       <div>

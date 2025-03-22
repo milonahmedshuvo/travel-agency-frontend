@@ -11,6 +11,7 @@ const TourExperience = () => {
 
   const products = [
     {
+      id: '1',
       imageUrl: img1,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -18,6 +19,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '2',
       imageUrl:img2,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -25,6 +27,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '3',
       imageUrl:img3,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -32,6 +35,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '4',
       imageUrl:img4,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -39,6 +43,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '5',
       imageUrl:img5,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -46,6 +51,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '6',
       imageUrl:img6,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -53,6 +59,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '7',
       imageUrl:img2,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -60,6 +67,7 @@ const TourExperience = () => {
       ratting: "5.0",
     },
     {
+      id: '8',
       imageUrl:img3,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -67,6 +75,9 @@ const TourExperience = () => {
       ratting: "5.0",
     },
   ];
+
+
+
 
   return (
     <div className="custom-container">
@@ -79,7 +90,7 @@ const TourExperience = () => {
 
 
         {/* button group  */}
-      <div className="flex flex-col md:flex-row gap-3.5 lg:gap-4 mt-6">
+      <div className="flex flex-wrap gap-3.5 lg:gap-4 mt-6">
         <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:text-[#FF914D] hover:border-[#FF914D]">
           Sea Tours
         </button>
@@ -104,6 +115,7 @@ const TourExperience = () => {
         {products.map((product, index) => (
           <div key={index}>
             <TourExperienceCard
+               id={product.id}
               imageUrl={product.imageUrl}
               title={product.title}
               price={product.price}

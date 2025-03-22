@@ -17,8 +17,11 @@ import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import Pagination from "@/components/others/pagination/Pagination";
 
 const TourAllExperience = () => {
+
+  
   const products = [
     {
+      id: "1",
       imageUrl: img11,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -26,6 +29,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "2",
       imageUrl: img2,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -33,6 +37,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "3",
       imageUrl: img13,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -40,6 +45,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "4",
       imageUrl: img4,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -47,6 +53,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "5",
       imageUrl: img5,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -54,6 +61,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "6",
       imageUrl: img6,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -61,6 +69,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "7",
       imageUrl: img2,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -68,6 +77,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "8",
       imageUrl: img1,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -75,6 +85,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "9",
       imageUrl: img8,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -82,6 +93,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "10",
       imageUrl: img9,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -89,6 +101,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "11",
       imageUrl: img10,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -96,6 +109,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "12",
       imageUrl: img11,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -103,6 +117,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "13",
       imageUrl: img12,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -110,6 +125,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "14",
       imageUrl: img13,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -117,6 +133,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "15",
       imageUrl: img14,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -124,6 +141,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "16",
       imageUrl: img3,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -131,6 +149,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "17",
       imageUrl: img4,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -138,6 +157,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "18",
       imageUrl: img7,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -145,6 +165,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "19",
       imageUrl: img8,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -152,6 +173,7 @@ const TourAllExperience = () => {
       ratting: "5.0",
     },
     {
+      id: "20",
       imageUrl: img9,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
@@ -171,7 +193,8 @@ const TourAllExperience = () => {
       </p>
 
       {/* button group  */}
-      <div className="flex flex-col md:flex-row gap-3.5 lg:gap-4 mt-6 justify-center items-center">
+      <div className="flex flex-wrap gap-3.5 lg:gap-4 mt-6 justify-center items-center ">
+        
         <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer hover:bg-[#156CF0] hover:text-[#ffffff]  hover:border-[#156CF0]">
           Bike Tour
         </button>
@@ -190,6 +213,7 @@ const TourAllExperience = () => {
         {products.map((product, index) => (
           <div key={index}>
             <TourExperienceCard
+              id={product.id}
               imageUrl={product.imageUrl}
               title={product.title}
               price={product.price}

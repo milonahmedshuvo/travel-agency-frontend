@@ -11,6 +11,7 @@ const Accommodation = () => {
 
     const products = [
         {
+          id: '1',
           imageUrl: img1,
           title: "Cox's Bazar, Bangladesh",
           price: "$400",
@@ -19,6 +20,7 @@ const Accommodation = () => {
           address: "Cox Bazar, Bangladesh"
         },
         {
+            id: '2',
             imageUrl: img2,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -27,6 +29,7 @@ const Accommodation = () => {
             address: "Cox Bazar, Bangladesh"
           },
           {
+            id: '3',
             imageUrl: img3,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -35,6 +38,7 @@ const Accommodation = () => {
             address: "Cox Bazar, Bangladesh"
           },
           {
+            id: '4',
             imageUrl: img4,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -43,6 +47,7 @@ const Accommodation = () => {
             address: "Cox Bazar, Bangladesh"
           },
           {
+            id: '5',
             imageUrl: img5,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -51,6 +56,7 @@ const Accommodation = () => {
             address: "Cox Bazar, Bangladesh"
           },
           {
+            id: '6',
             imageUrl: img6,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -59,6 +65,7 @@ const Accommodation = () => {
             address: "Cox Bazar, Bangladesh"
           },
           {
+            id: '7',
             imageUrl: img5,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -67,6 +74,7 @@ const Accommodation = () => {
             address: "Cox Bazar, Bangladesh"
           },
           {
+            id: '8',
             imageUrl: img2,
             title: "Cox's Bazar, Bangladesh",
             price: "$400",
@@ -90,7 +98,7 @@ const Accommodation = () => {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
           {
             products.map((product, index) =><div key={index}>
-                <AccommodationCard imageUrl={product.imageUrl} title={product.title} address={product.address} price={product.price} ratting={product.ratting} ></AccommodationCard>
+                <AccommodationCard id={product.id} imageUrl={product.imageUrl} title={product.title} address={product.address} price={product.price} ratting={product.ratting} ></AccommodationCard>
             </div>)
           }
           </div>

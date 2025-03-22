@@ -4,10 +4,12 @@ import React from 'react';
 import { Card } from 'antd';
 import { FaStar } from "react-icons/fa";
 import { StaticImageData } from 'next/image';
+import Link from 'next/link';
 const {  } = Card;
 
 
 interface CustomCardProps {
+  id: string,
   imageUrl: StaticImageData;
   title: string;
   price: string;
@@ -16,17 +18,18 @@ interface CustomCardProps {
 }
 
 
-const AccommodationCard: React.FC<CustomCardProps> = ({ imageUrl, title, price,  ratting, address }) => {
+const AccommodationCard: React.FC<CustomCardProps> = ({ imageUrl, title, price,  ratting, address, id }) => {
   return (
     <Card
       hoverable
       className="w-full rounded-lg border !border-none !hover:shadow-sm "
       cover={ <div className='overflow-hidden'>
+            <Link href={`/acommodation/${id}`} > 
             <img alt={title} src={imageUrl.src} className='w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125' />
+            </Link>
       </div> }
     >
       <div className='flex flex-col justify-between'>
-
         <h2 className='font-medium text-[#15202E] text-[20px] poppins mt-[-10px]'>{title}</h2>
         <h2 className='font-[300] text-[#525252] text-[18px] poppins mt-3'>{address}</h2>
         <div className='flex justify-between items-center mt-3'>
