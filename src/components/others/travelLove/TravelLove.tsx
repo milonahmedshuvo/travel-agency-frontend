@@ -11,7 +11,8 @@ export default function TravelLove () {
    
 
   return (
-    <section className="custom-container mx-auto px-4 py-16 md:py-24">
+    <section className="bg-[#FAFAFA]">
+     <div className="custom-container mx-auto px-4 py-16 md:py-24"> 
       <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
 
 
@@ -78,6 +79,7 @@ export default function TravelLove () {
 
 
         
+      </div>
       </div>
     </section>
   )

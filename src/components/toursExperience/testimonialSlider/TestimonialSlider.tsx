@@ -9,6 +9,7 @@ import img3 from '../../../assets/logo/img3.jpg'
 
 
 
+
 // Sample testimonial data
 const testimonials = [
   {
@@ -47,10 +48,10 @@ export default function TestimonialSlider() {
   }
 
   return (
+    <div className="bg-[#FAFAFA]" >  
     <div className="custom-container mx-auto px-4 py-16 md:py-24">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-
-        
+       
         {/* Left side - Heading */}
         <div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -73,11 +74,10 @@ export default function TestimonialSlider() {
 
 
         {/* Right side - Testimonial */}
-         <div className="relative border border-red-600 h-[400px] md:h-[500px]">
+         <div className="relative h-[400px] md:h-[370px]">
 
-        
-
-        <div className="bg-[#FFFFFF] rounded-lg shadow-lg p-8 relative w-[85%] lg:w-[90%] xl:w-[90%] z-10">
+      
+        <div className="bg-[#FFFFFF] rounded-lg shadow-lg p-8 relative w-[85%] lg:w-[90%] xl:w-[90%] z-10 h-[250px]">
 
           <div className="absolute right-[-23%] md:right-[-82px] lg:right-[-68px] xl:right-[-90px] top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 ">
             <button
@@ -125,7 +125,7 @@ export default function TestimonialSlider() {
 
             
         {/* {currentIndex < testimonials.length - 1 && ( */}
-            <div className="mt-8 pl-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-100 xl:ml-10 h-[230px] md:h-[340px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
+            <div className="mt-8 pl-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-200 xl:ml-10 h-[230px] md:h-[270px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
               <p className="text-gray-500 text-sm">Next</p>
               <p className="font-medium">{testimonials[(currentIndex + 1) % testimonials.length].name}</p>
               <p className="text-gray-500 text-sm">{testimonials[(currentIndex + 1) % testimonials.length].location}</p>
@@ -136,6 +136,7 @@ export default function TestimonialSlider() {
 
 
       </div>
+    </div>
     </div>
   )
 }
