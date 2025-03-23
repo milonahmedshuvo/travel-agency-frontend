@@ -6,6 +6,9 @@ import Highlights from "@/components/common/highlights/Highlights";
 import PickupPreferences from "@/components/common/pickupPreferences/PickupPreferences";
 import RatingComponent from "@/components/common/rating/Rating";
 import TourOverviewCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
+import TravelItinerary, {
+  ItineraryItem,
+} from "@/components/common/travelItinerary/TravelItinerary";
 import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
 import WineTourItinerary from "@/components/common/wineTourItinerary/WineTourItinerary";
 import Image from "next/image";
@@ -58,17 +61,51 @@ const properties = [
 ];
 
 const features = [
-  { title: "Exclusive Vineyard Access", description: "Visit family-owned wineries & meet expert winemakers" },
-  { title: "Premium Wine Tasting", description: "Sample 5+ award-winning wines paired with local delicacies" },
-  { title: "Authentic Culinary Experience", description: "Savor a gourmet Tuscan meal with wine pairings" },
-  { title: "Instagram-Worthy Views", description: "Capture stunning landscapes & unforgettable memories" },
-  { title: "Local History & Culture", description: "Discover hidden gems & historic estates" },
+  {
+    title: "Exclusive Vineyard Access",
+    description: "Visit family-owned wineries & meet expert winemakers",
+  },
+  {
+    title: "Premium Wine Tasting",
+    description: "Sample 5+ award-winning wines paired with local delicacies",
+  },
+  {
+    title: "Authentic Culinary Experience",
+    description: "Savor a gourmet Tuscan meal with wine pairings",
+  },
+  {
+    title: "Instagram-Worthy Views",
+    description: "Capture stunning landscapes & unforgettable memories",
+  },
+  {
+    title: "Local History & Culture",
+    description: "Discover hidden gems & historic estates",
+  },
 ];
 
-
-
-
-
+// Example usage with custom data
+const baliItinerary: ItineraryItem[] = [
+  {
+    title: "Start Your Adventure",
+    description:
+      "Your tour begins with a pick-up from your hotel or a scenic drive to the starting point. Upon arrival, you'll meet your guide and receive a brief introduction.",
+  },
+  {
+    title: "Explore & Discover",
+    description:
+      "You'll hike, sail, ride, and explore through highlighted locations, landmarks, and activities, learning fascinating facts and stories along the way.",
+  },
+  {
+    title: "A Taste of Local Life",
+    description:
+      "Stop by a charming local café, vineyard, or cultural site to enjoy a wine tasting, traditional meal, or interactive experience.",
+  },
+  {
+    title: "Unforgettable Memories",
+    description:
+      "Enjoy plenty of opportunities to take stunning photos and immerse yourself in the beauty of your surroundings before heading back.",
+  },
+];
 
 export default function Page() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -155,22 +192,25 @@ export default function Page() {
 
         {/* image datails component  */}
         <div className="flex flex-col md:flex-row mt-10 gap-6">
-
-
           <div className="w-full md:w-[55%] lg:w-[65%]">
             <TourOverviewCalender />
             {/* WineTourFeatures */}
-            <WineTourFeatures heading="Why You'll Love This Tour" features={features} />
+            <WineTourFeatures
+              heading="Why You'll Love This Tour"
+              features={features}
+            />
             {/* WineTourItinerary */}
-            <WineTourItinerary />            
+            <WineTourItinerary />
             {/* ActivityCard */}
             <ActivityCard />
             {/* Highlights */}
             <Highlights />
+
+            {/* travel Itinerary  */}
+            <TravelItinerary destinationName="Bali" items={baliItinerary} />
           </div>
 
           <div className="w-full md:w-[45%] lg:w-[35%]">
-
             {/* <BookingCard /> */}
             <BookingCard
               title="Book Now!"
