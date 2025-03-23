@@ -16,8 +16,21 @@ import TravelItinerary, {
 } from "@/components/common/travelItinerary/TravelItinerary";
 import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
 import WineTourItinerary from "@/components/common/wineTourItinerary/WineTourItinerary";
+import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
+import TestimonialSlider from "@/components/toursExperience/testimonialSlider/TestimonialSlider";
 import Image from "next/image";
 import { useState } from "react";
+
+
+
+import img1 from '../../../../assets/tour/img1.png'
+import img2 from '../../../../assets/tour/img2.png'
+import img4 from '../../../../assets/tour/img4.png'
+import img5 from '../../../../assets/tour/img5.png'
+import img3 from "../../../../assets/card/tourexperience/img2.jpg";
+import img6 from "../../../../assets/card/tourexperience/img8.jpg";
+import { TravelCard } from "@/components/common/travelCard/TravelCard";
+
 
 // Sample property data with the saved image
 const properties = [
@@ -25,42 +38,42 @@ const properties = [
     id: 1,
     title: "Lakeside Resort",
     description: "Luxury waterfront property with stunning views",
-    image: "/images/property-grid.png",
+    image: img1,
     size: "medium",
   },
   {
     id: 2,
     title: "Historic Clock Tower",
     description: "Charming building with unique architecture",
-    image: "/images/property-grid.png",
+    image: img2,
     size: "large",
   },
   {
     id: 3,
     title: "Infinity Pool Villa",
     description: "Breathtaking sunset views from private infinity pool",
-    image: "/images/property-grid.png",
+    image: img3,
     size: "medium",
   },
   {
     id: 4,
     title: "Beachfront Resort",
     description: "Direct beach access with premium amenities",
-    image: "/images/property-grid.png",
+    image: img4,
     size: "large",
   },
   {
     id: 5,
     title: "Modern Apartments",
     description: "Contemporary living with sleek design",
-    image: "/images/property-grid.png",
+    image: img5,
     size: "medium",
   },
   {
     id: 6,
     title: "Heritage Building",
     description: "Classical architecture with modern comforts",
-    image: "/images/property-grid.png",
+    image: img6,
     size: "medium",
   },
 ];
@@ -153,13 +166,14 @@ export default function Page() {
     <div> 
     <div className="bg-[#F4F4F4] pb-10 md:pb-16">
       <div className="custom-container px-4 py-8 ">
+
         {/* Responsive masonry-style grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {properties.map((property) => (
             <div
               key={property.id}
               className={`
-              overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-1
+              overflow-hidden rounded-lg  transition-transform duration-300  hover:-translate-y-1
               ${property.size === "large" ? "sm:col-span-1 sm:row-span-2" : ""}
               relative cursor-pointer
             `}
@@ -238,6 +252,17 @@ export default function Page() {
 
 
           <div className="w-full md:w-[55%] lg:w-[65%]">
+            {/* travel card  */}
+            <TravelCard title ='Bali Sea Beach, Indonesia'
+                        location='Coxs Bazar, Bangladesh'
+                        duration='5 Days Trip'
+                        rating={4}
+                        reviewCount={2000}
+                        href=''
+                        className = ""
+                         />
+
+
             <TourOverviewCalender />
             {/* WineTourFeatures */}
             <WineTourFeatures
@@ -261,6 +286,8 @@ export default function Page() {
              <Checklist title="What to bring" items={items} />
              {/* KnowBeforeYouGo */}
              <KnowBeforeYouGo items={infoItems}/>
+
+             
           </div>
 
 
@@ -292,18 +319,13 @@ export default function Page() {
           </div>
         </div>
       </div>
-
-      
-       
-
-
-      
-
-      
     </div>
 
- {/* Releted component  */}
- <RelatedTour/>   
+     {/* Releted component  */}
+      <RelatedTour/>
+      <TestimonialSlider/>
+        <RecentBlog/>
+         
 
     </div>
   );

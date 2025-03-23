@@ -48,8 +48,8 @@ export default function TestimonialSlider() {
   }
 
   return (
-    <div className="bg-[#FAFAFA]" >  
-    <div className="custom-container mx-auto px-4 py-16 md:py-24">
+    <section className="bg-[#FAFAFA]" >  
+    <div className="custom-container mx-auto px-4 ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
        
         {/* Left side - Heading */}
@@ -137,7 +137,7 @@ export default function TestimonialSlider() {
 
       </div>
     </div>
-    </div>
+    </section>
   )
 }
 

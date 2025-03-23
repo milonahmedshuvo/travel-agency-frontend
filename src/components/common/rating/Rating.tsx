@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Star } from "lucide-react"
+import { SlLike } from "react-icons/sl";
 
 
 export default function RatingComponent() {
@@ -43,19 +44,28 @@ export default function RatingComponent() {
   const displayRating = hoveredRating !== null ? hoveredRating : rating
 
   return (
-    <div className="w-full p-4 mt-5 bg-[#ffffff] rounded-lg">
+    <div className="w-full px-4 pb-4 pt-14 mt-5 bg-[#ffffff] rounded-lg">
       {/* Thumbs up with stars */}
       <div className="flex justify-center mb-8">
         <div className="relative">
           {/* Thumbs up icon */}
           <div className="w-20 h-20 flex items-center justify-center">
             <div className="relative">
-              <div className="w-12 h-12 bg-blue-500 absolute bottom-0 left-0"></div>
-              <div className="w-16 h-16 rounded-full bg-[#FFCC80] relative">
-                <div className="w-8 h-12 bg-[#FFCC80] absolute -right-2 -top-2 rounded-tr-full rounded-tl-full"></div>
+
+              {/* <div className="w-12 h-12 bg-blue-500 absolute bottom-0 left-0"></div> */}
+
+
+
+              <div className="w-16 h-16 rounded-full relative flex justify-center items-center">
+                <SlLike className="w-full h-full text-[#FFCC80] " />
               </div>
+
+
             </div>
           </div>
+
+
+
 
           {/* Stars around thumbs up */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full">

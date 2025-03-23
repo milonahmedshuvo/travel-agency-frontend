@@ -49,11 +49,11 @@ const RelatedTour = () => {
 
 
   return (
-    <div className='custom-container mt-7'>
+    <section className='custom-container '>
 
 
      <h1 className="font-semibold text-[48px]">
-        Related<span className="text-[#FF914D] mx-4.5 ">Tour</span>
+        Related<span className="text-[#FF914D] mx-4.5 ">Tour</span >
       </h1>
       <p className="text-[#333333] text-[16px]  font-normal mt-1.5 lg:max-w-lg">
          Get expert travel tips, destination guides, and exclusive insights to make your next adventure unforgettable.
@@ -75,7 +75,7 @@ const RelatedTour = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 

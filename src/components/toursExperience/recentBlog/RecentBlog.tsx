@@ -4,9 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import vector1 from "../../../assets/logo/Vector 2.svg";
+import blog from "../../../assets/blog/blog.png"
 
 
-export default function TravelCarousel() {
+export default function RecentBlog() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -18,50 +19,47 @@ export default function TravelCarousel() {
       title: "The Most Scenic Rural Roads To Take A Road Trip",
       description:
         "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point..",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7WHgC0c_tgTHQDex4Byf3H7ZSBElbI2M2g&s",
+      imageUrl: blog,
     },
     {
       id: 2,
       title: "The Most Scenic Rural Roads To Take A Road Trip",
       description:
         "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7WHgC0c_tgTHQDex4Byf3H7ZSBElbI2M2g&s",
+      imageUrl: blog,
     },
     {
       id: 3,
       title: "The Most Scenic Rural Roads To Take A Road Trip",
       description:
         "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7WHgC0c_tgTHQDex4Byf3H7ZSBElbI2M2g&s",
+      imageUrl: blog,
     },
     {
       id: 4,
       title: "The Most Scenic Rural Roads To Take A Road Trip",
       description:
         "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7WHgC0c_tgTHQDex4Byf3H7ZSBElbI2M2g&s",
+      imageUrl: blog,
     },
     {
       id: 5,
       title: "The Most Scenic Rural Roads To Take A Road Trip",
       description:
         "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7WHgC0c_tgTHQDex4Byf3H7ZSBElbI2M2g&s",
+      imageUrl: blog,
     },
     {
       id: 6,
       title: "The Most Scenic Rural Roads To Take A Road Trip",
       description:
         "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7WHgC0c_tgTHQDex4Byf3H7ZSBElbI2M2g&s",
+      imageUrl: blog,
     },
   ];
+
+
+
 
   // Check if scroll buttons should be enabled/disabled
   const checkScrollButtons = () => {
@@ -107,8 +105,8 @@ export default function TravelCarousel() {
 
   
   return (
-    <div>
-      <div className="w-full custom-container px-4 sm:px-6 lg:px-8 py-8">
+    <section>
+      <div className="w-full custom-container px-4 ">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">
@@ -137,7 +135,8 @@ export default function TravelCarousel() {
         </div>
       </div>
 
-      <div className="px-4 py-12 relative xl:pl-[10%]">
+
+      <div className="px-4  relative xl:pl-[10%]">
         {/* Left Scroll Button */}
         <button
           onClick={() => scroll("left")}
@@ -198,6 +197,6 @@ export default function TravelCarousel() {
         {/* Right-side Gradient Overlay */}
         <div className="absolute right-0 top-0 h-full w-1/5 bg-gradient-to-l from-white via-white/50 to-transparent pointer-events-none"></div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
  /* @theme{
   --color-priamry: #000;
   --breakpoint-sm: 576;
@@ -9,6 +8,54 @@
   --breakpoint-xl: 1240;
   --breakpoint-2xl: 1440;
 } */
+
+
+
+:root {
+  --section-gap-top: 2rem;   /* Default top gap */
+  --section-gap-bottom: 2rem; /* Default bottom gap */
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) { /* Small screens (sm) */
+  :root {
+    --section-gap-top: 3rem;
+    --section-gap-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) { /* Medium screens (md) */
+  :root {
+    --section-gap-top: 4rem;
+    --section-gap-bottom: 4rem;
+  }
+}
+
+@media (min-width: 1280px) { /* Large screens (lg) */
+  :root {
+    --section-gap-top: 5rem;
+    --section-gap-bottom: 5rem;
+  }
+}
+
+section {
+  padding-top: var(--section-gap-top);
+  padding-bottom: var(--section-gap-bottom);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .custom-container{
   max-width: 1580px;

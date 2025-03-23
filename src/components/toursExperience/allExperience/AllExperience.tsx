@@ -22,7 +22,7 @@ const TourAllExperience = () => {
   const products = [
     {
       id: "1",
-      imageUrl: img11,
+      imageUrl: img1,
       title: "Cox's Bazar, Bangladesh",
       price: "$400",
       day: "5 Days Trip",
