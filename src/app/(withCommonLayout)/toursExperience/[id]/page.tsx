@@ -2,9 +2,14 @@
 
 import ActivityCard from "@/components/common/activityCard/ActivityCard";
 import BookingCard from "@/components/common/bookingCard/BookingCard";
+import Checklist from "@/components/common/checklist/Checklist";
 import Highlights from "@/components/common/highlights/Highlights";
+import ImportantInfo from "@/components/common/importantInfo/ImportantInfo";
+import { IncludedExcludedCard } from "@/components/common/includedExcludedCard/IncludedExcludedCard/IncludedExcludedCard";
+import KnowBeforeYouGo from "@/components/common/knowBeforeYouGo/KnowBeforeYouGo";
 import PickupPreferences from "@/components/common/pickupPreferences/PickupPreferences";
 import RatingComponent from "@/components/common/rating/Rating";
+import RelatedTour from "@/components/common/relatedTour/RelatedTour";
 import TourOverviewCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
 import TravelItinerary, {
   ItineraryItem,
@@ -107,11 +112,46 @@ const baliItinerary: ItineraryItem[] = [
   },
 ];
 
+
+
+// Sample data for the component
+const includedItems = [
+  { text: "Luxury hotel pickup & drop-off" },
+  { text: "Wine tastings (5+ wines) at top-rated wineries" },
+  { text: "Guided vineyard & cellar tours" },
+  { text: "3-course gourmet Tuscan lunch with wine pairing" },
+  { text: "Small-group experience (max 12 people)" },
+]
+
+const excludedItems = [{ text: "Tips for the guide (optional)" }, { text: "Travel insurance" }]
+
+
+
+// checklist data 
+const items = [
+  { text: "Comfortable shoes" },
+  { text: "Sunglasses & sunscreen" },
+  { text: "Hat or cap" },
+  { text: "Camera or smartphone" },
+  { text: "Extra cash for personal expenses" },
+];
+
+// Usage Know before you go Example
+const infoItems = [
+  { title: "Weather Conditions", description: "The tour may be adjusted in case of bad weather." },
+  { title: "Accessibility", description: "Not suitable for wheelchairs, strollers, etc." },
+  { title: "Refund Policy", description: "Free cancellation up to 24 hours before the tour." },
+  { title: "Health & Safety", description: "COVID-19 precautions, safety measures, or dietary restrictions." },
+];
+
+
+
 export default function Page() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (
-    <div className="bg-[#F4F4F4] pb-10 md:pb-24">
+    <div> 
+    <div className="bg-[#F4F4F4] pb-10 md:pb-16">
       <div className="custom-container px-4 py-8 ">
         {/* Responsive masonry-style grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -190,8 +230,13 @@ export default function Page() {
           </div>
         )}
 
+
+
+
         {/* image datails component  */}
         <div className="flex flex-col md:flex-row mt-10 gap-6">
+
+
           <div className="w-full md:w-[55%] lg:w-[65%]">
             <TourOverviewCalender />
             {/* WineTourFeatures */}
@@ -205,10 +250,26 @@ export default function Page() {
             <ActivityCard />
             {/* Highlights */}
             <Highlights />
-
-            {/* travel Itinerary  */}
+            {/* travel Itinerary  and drescription */}
             <TravelItinerary destinationName="Bali" items={baliItinerary} />
+
+            {/* {includedExcludedCard} */}
+            <IncludedExcludedCard includedItems={includedItems} excludedItems={excludedItems} className="mt-5" />
+            {/* ImportantInfo  */}
+             <ImportantInfo/>
+             {/* Checklist */}
+             <Checklist title="What to bring" items={items} />
+             {/* KnowBeforeYouGo */}
+             <KnowBeforeYouGo items={infoItems}/>
           </div>
+
+
+
+
+
+
+
+
 
           <div className="w-full md:w-[45%] lg:w-[35%]">
             {/* <BookingCard /> */}
@@ -231,6 +292,19 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      
+       
+
+
+      
+
+      
+    </div>
+
+ {/* Releted component  */}
+ <RelatedTour/>   
+
     </div>
   );
 }
