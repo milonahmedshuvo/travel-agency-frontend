@@ -6,7 +6,7 @@ export default function Footer() {
 
 
   return (
-    <footer className="bg-[#1a1f25] text-white py-12 mt-10 md:mt-24">
+    <footer className="bg-[#1a1f25] text-white py-12 ">
       {/* Subscription Section */}
       <div className="custom-container mx-auto px-4 md:px-6 mb-16">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">

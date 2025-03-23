@@ -43,7 +43,7 @@ export default function RatingComponent() {
   const displayRating = hoveredRating !== null ? hoveredRating : rating
 
   return (
-    <div className="w-full max-w-md mx-auto p-4">
+    <div className="w-full p-4 mt-5 bg-[#ffffff] rounded-lg">
       {/* Thumbs up with stars */}
       <div className="flex justify-center mb-8">
         <div className="relative">

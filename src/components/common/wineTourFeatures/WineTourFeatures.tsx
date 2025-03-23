@@ -1,42 +1,31 @@
-import { ChevronUp } from "lucide-react"
+import { ChevronUp } from "lucide-react";
 
+interface Feature {
+  title: string;
+  description: string;
+}
 
+interface FeatureListProps {
+  heading: string;
+  features: Feature[];
+}
 
-export default function WineTourFeatures() {
+export default function WineTourFeatures({ heading, features }: FeatureListProps) {
   return (
-    <div className="px-4 py-8 md:py-12">
-      <h2 className="text-3xl font-bold mb-8 text-gray-900">Why Youll Love This Tour</h2>
-
+    <div className="px-4 py-8 md:py-12 bg-white mt-5">
+      <h2 className="text-3xl font-medium mb-8 text-gray-800">{heading}</h2>
       <div className="space-y-6">
-        <FeatureItem
-          title="Exclusive Vineyard Access"
-          description="Visit family-owned wineries & meet expert winemakers"
-        />
-
-        <FeatureItem
-          title="Premium Wine Tasting"
-          description="Sample 5+ award-winning wines paired with local delicacies"
-        />
-
-        <FeatureItem
-          title="Authentic Culinary Experience"
-          description="Savor a gourmet Tuscan meal with wine pairings"
-        />
-
-        <FeatureItem
-          title="Instagram-Worthy Views"
-          description="Capture stunning landscapes & unforgettable memories"
-        />
-
-        <FeatureItem title="Local History & Culture" description="Discover hidden gems & historic estates" />
+        {features.map((feature, index) => (
+          <FeatureItem key={index} title={feature.title} description={feature.description} />
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
 function FeatureItem({ title, description }: { title: string; description: string }) {
   return (
-    <div className="flex items-start gap-3">
+    <div className="flex items-start gap-3 bg-white">
       <div className="mt-1 text-blue-500 flex-shrink-0">
         <ChevronUp className="w-5 h-5 rotate-90" />
       </div>
@@ -45,6 +34,5 @@ function FeatureItem({ title, description }: { title: string; description: strin
         <p className="mt-1 text-gray-600">{description}</p>
       </div>
     </div>
-  )
+  );
 }
-

@@ -220,8 +220,8 @@ const handleBookNow = () => {
 
 
   return (
-    <div className=" p-4 md:p-6 bg-white rounded-lg shadow-sm">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Tour Overview – Quick Facts at a Glance</h1>
+    <div className=" p-4 md:p-6 bg-white rounded-lg ">
+      <h1 className="text-2xl md:text-3xl font-medium text-gray-900 mb-6">Tour Overview – Quick Facts at a Glance</h1>
 
       <div className="space-y-4 mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center">
