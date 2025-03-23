@@ -1,8 +1,12 @@
+import AccommodationBanner from '@/components/accommodation/accommodationBanner/AccommodationBanner'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>accommodations all page  </div>
+    <div className=''>
+      <AccommodationBanner/>
+
+    </div>
   )
 }
 
