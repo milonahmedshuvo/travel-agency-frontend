@@ -12,26 +12,26 @@
 
 
 :root {
-  --section-gap-top: 2rem;   /* Default top gap */
-  --section-gap-bottom: 2rem; /* Default bottom gap */
+  --section-gap-top: 2rem;   
+  --section-gap-bottom: 2rem; 
 }
 
 /* Responsive adjustments */
-@media (min-width: 640px) { /* Small screens (sm) */
+@media (min-width: 640px) { 
   :root {
     --section-gap-top: 3rem;
     --section-gap-bottom: 3rem;
   }
 }
 
-@media (min-width: 1024px) { /* Medium screens (md) */
+@media (min-width: 1024px) { 
   :root {
     --section-gap-top: 4rem;
     --section-gap-bottom: 4rem;
   }
 }
 
-@media (min-width: 1280px) { /* Large screens (lg) */
+@media (min-width: 1280px) { 
   :root {
     --section-gap-top: 5rem;
     --section-gap-bottom: 5rem;
@@ -39,8 +39,8 @@
 }
 
 section {
-  padding-top: var(--section-gap-top);
-  padding-bottom: var(--section-gap-bottom);
+  padding-top: var(--section-gap-top) !important;
+  padding-bottom: var(--section-gap-bottom) !important;
 }
 
 

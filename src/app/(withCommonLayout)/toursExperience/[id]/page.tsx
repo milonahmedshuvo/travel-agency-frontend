@@ -10,7 +10,6 @@ import KnowBeforeYouGo from "@/components/common/knowBeforeYouGo/KnowBeforeYouGo
 import PickupPreferences from "@/components/common/pickupPreferences/PickupPreferences";
 import RatingComponent from "@/components/common/rating/Rating";
 import RelatedTour from "@/components/common/relatedTour/RelatedTour";
-import TourOverviewCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
 import TravelItinerary, {
   ItineraryItem,
 } from "@/components/common/travelItinerary/TravelItinerary";
@@ -30,6 +29,7 @@ import img5 from '../../../../assets/tour/img5.png'
 import img3 from "../../../../assets/card/tourexperience/img2.jpg";
 import img6 from "../../../../assets/card/tourexperience/img8.jpg";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
+import TourOverviewWithCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
 
 
 // Sample property data with the saved image
@@ -263,7 +263,7 @@ export default function Page() {
                          />
 
 
-            <TourOverviewCalender />
+            <TourOverviewWithCalender />
             {/* WineTourFeatures */}
             <WineTourFeatures
               heading="Why You'll Love This Tour"
@@ -318,6 +318,9 @@ export default function Page() {
             <RatingComponent />
           </div>
         </div>
+
+
+
       </div>
     </div>
 

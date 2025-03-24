@@ -12,7 +12,7 @@ type DateSelection = {
   year: number
 }
 
-export default function TourOverview() {
+export default function TourOverviewWithCalender() {
   const [currentMonth, setCurrentMonth] = useState(4) // May (0-indexed would be 4)
   const [currentYear, setCurrentYear] = useState(2024)
   const [startDate, setStartDate] = useState<DateSelection | null>(null)

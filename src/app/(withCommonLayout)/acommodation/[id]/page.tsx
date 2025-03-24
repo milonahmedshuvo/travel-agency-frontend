@@ -1,8 +1,18 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState } from "react"
-
+import Image from "next/image";
+import { useState } from "react";
+import img1 from "../../../../assets/accom/img1.jpg";
+import img2 from "../../../../assets/accom/img2.jpg";
+import img3 from "../../../../assets/accom/img3.jpg";
+import img4 from "../../../../assets/accom/img4.jpg";
+import img5 from "../../../../assets/accom/img5.jpg";
+import img6 from "../../../../assets/accom/img6.jpg";
+import BookingCard from "@/components/common/bookingCard/BookingCard";
+import RatingComponent from "@/components/common/rating/Rating";
+import TourOverviewWithCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
+import { TravelCard } from "@/components/common/travelCard/TravelCard";
+import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
 
 // Sample property data with the saved image
 const properties = [
@@ -10,56 +20,75 @@ const properties = [
     id: 1,
     title: "Lakeside Resort",
     description: "Luxury waterfront property with stunning views",
-    image: "/images/property-grid.png",
+    image: img1,
     size: "medium",
   },
   {
     id: 2,
     title: "Historic Clock Tower",
     description: "Charming building with unique architecture",
-    image: "/images/property-grid.png",
+    image: img2,
     size: "large",
   },
   {
     id: 3,
     title: "Infinity Pool Villa",
     description: "Breathtaking sunset views from private infinity pool",
-    image: "/images/property-grid.png",
+    image: img3,
     size: "medium",
   },
   {
     id: 4,
     title: "Beachfront Resort",
     description: "Direct beach access with premium amenities",
-    image: "/images/property-grid.png",
+    image: img4,
     size: "large",
   },
   {
     id: 5,
     title: "Modern Apartments",
     description: "Contemporary living with sleek design",
-    image: "/images/property-grid.png",
+    image: img5,
     size: "medium",
   },
   {
     id: 6,
     title: "Heritage Building",
     description: "Classical architecture with modern comforts",
-    image: "/images/property-grid.png",
+    image: img6,
     size: "medium",
   },
-  
-]
+];
 
+const features = [
+  {
+    title: "Exclusive Vineyard Access",
+    description: "Visit family-owned wineries & meet expert winemakers",
+  },
+  {
+    title: "Premium Wine Tasting",
+    description: "Sample 5+ award-winning wines paired with local delicacies",
+  },
+  {
+    title: "Authentic Culinary Experience",
+    description: "Savor a gourmet Tuscan meal with wine pairings",
+  },
+  {
+    title: "Instagram-Worthy Views",
+    description: "Capture stunning landscapes & unforgettable memories",
+  },
+  {
+    title: "Local History & Culture",
+    description: "Discover hidden gems & historic estates",
+  },
+];
 
-
-export default function Page  () {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null)
+export default function Page() {
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (
+    <div className="bg-[#F4F4F4] pb-10 md:pb-16"> 
     <div className="container mx-auto px-4 py-8">
-
-
       {/* Responsive masonry-style grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {properties.map((property) => (
@@ -72,8 +101,7 @@ export default function Page  () {
             `}
             onClick={() => setSelectedImage(property.id)}
           >
-
-            <div  className="relative h-full">
+            <div className="relative h-full">
               <Image
                 src={property.image || "/placeholder.svg"}
                 alt={property.title}
@@ -82,14 +110,9 @@ export default function Page  () {
                 className="object-cover w-full h-full"
               />
             </div>
-
           </div>
         ))}
       </div>
-
-
-
-
 
       {/* Image modal */}
       {selectedImage && (
@@ -101,8 +124,8 @@ export default function Page  () {
             <button
               className="absolute top-4 right-4 bg-white/20 rounded-full p-2 text-white hover:bg-white/40"
               onClick={(e) => {
-                e.stopPropagation()
-                setSelectedImage(null)
+                e.stopPropagation();
+                setSelectedImage(null);
               }}
             >
               <svg
@@ -128,14 +151,56 @@ export default function Page  () {
               className="w-full h-auto rounded-lg"
             />
             <div className="bg-white p-4 rounded-b-lg">
-              <h2 className="text-xl font-bold">{properties.find((p) => p.id === selectedImage)?.title}</h2>
-              <p className="text-gray-600">{properties.find((p) => p.id === selectedImage)?.description}</p>
+              <h2 className="text-xl font-bold">
+                {properties.find((p) => p.id === selectedImage)?.title}
+              </h2>
+              <p className="text-gray-600">
+                {properties.find((p) => p.id === selectedImage)?.description}
+              </p>
             </div>
           </div>
         </div>
       )}
 
-    </div>
-  )
-}
+      {/* add without image component  */}
+      <div className="flex flex-col md:flex-row mt-10 gap-6">
+        <div className="w-full md:w-[55%] lg:w-[65%]">
+          {/* travel card  */}
+          <TravelCard
+            title="Seaside Luxury Villa"
+            location="Coxs Bazar, Bangladesh"
+            duration="5 Days Trip"
+            rating={4}
+            reviewCount={2000}
+            href=""
+            className=""
+          />
 
+          <TourOverviewWithCalender />
+          {/* WineTourFeatures */}
+          <WineTourFeatures heading="About This Stay" features={features} />
+        </div>
+
+        <div className="w-full md:w-[45%] lg:w-[35%]">
+          {/* <BookingCard /> */}
+          <BookingCard
+            title="Book Now!"
+            features={[
+              "Indulge in a Once-in-a-Lifetime Wine & Culinary Adventure!",
+              "Limited Availability – Reserve Your Spot Now!",
+              "Secure Payment & Instant Confirmation",
+            ]}
+            paymentMethods="Accepts PayPal, Stripe Payment Method"
+            specialOffer="Special Offer: Book today & get a free souvenir bottle of wine!"
+            reserveInfo="Reserve now & pay later to book your spot and pay nothing today"
+            buttonText="Book Now"
+          />
+
+          {/* RatingComponent */}
+          <RatingComponent />
+        </div>
+      </div>
+    </div>
+    </div>
+  );
+}

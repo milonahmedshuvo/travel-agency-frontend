@@ -166,7 +166,7 @@ export default function RecentBlog() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                <h3 className="text-2xl font-medium text-gray-800 mb-3">
                   {card.title}
                 </h3>
                 <p className="text-gray-600 mb-4">{card.description}</p>
