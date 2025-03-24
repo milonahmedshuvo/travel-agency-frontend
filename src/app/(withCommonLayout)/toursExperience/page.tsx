@@ -8,6 +8,7 @@ import TestimonialSlider from '@/components/toursExperience/testimonialSlider/Te
 import ToursExperiBanner from '@/components/toursExperience/ToursExperiBanner/ToursExperiBanner'
 import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm'
 import React from 'react'
+import CulturalTours from '@/components/toursExperience/culturalTours/CulturalTours'
 
 
 const page = () => {
@@ -19,6 +20,9 @@ const page = () => {
       {/* show all tour  */}
       <SeaTour/>
       <LandToours/>
+       <CulturalTours/>
+
+
       <TravelLove/>
       <TestimonialSlider/>
       <RecentBlog/>
