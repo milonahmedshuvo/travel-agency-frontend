@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import Link from "next/link"
+import { BookingConfirmationData } from "./BookingConfirmationData"
 
 
 const formSchema = z.object({
@@ -76,6 +77,24 @@ export default function GuestDetailsFormTwo() {
 
 
 
+     
+      <div className=" mt-6">
+
+        <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">Santorini Sunset Catamaran Cruise</h1>
+
+        <BookingConfirmationData
+          email="milonahmedshuvo@gmail.com"
+          age="21 year"
+          phone="+880 1567808747"
+          specialRequests="N/A"
+        />
+
+        
+      </div>
+   
+
+
+
         <div className="space-y-2 mt-10">
           <label htmlFor="fullName" className="block text-sm font-medium">
             Full Name
@@ -83,7 +102,7 @@ export default function GuestDetailsFormTwo() {
           <input
             id="fullName"
             type="text"
-            placeholder="Saifur Rahman"
+            placeholder="milon ahmed shuvo"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               errors.fullName ? "border-red-500" : "border-gray-300"
             }`}
@@ -99,7 +118,7 @@ export default function GuestDetailsFormTwo() {
           <input
             id="email"
             type="email"
-            placeholder="ux.saifur.info@gmail.com"
+            placeholder="milonahmedshuvo@gmail.com"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               errors.email ? "border-red-500" : "border-gray-300"
             }`}

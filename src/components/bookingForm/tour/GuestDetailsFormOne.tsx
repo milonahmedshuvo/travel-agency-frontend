@@ -88,7 +88,7 @@ export default function GuestDetailsFormOne() {
           <input
             id="fullName"
             type="text"
-            placeholder="Saifur Rahman"
+            placeholder="milon ahmed shuvo"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               errors.fullName ? "border-red-500" : "border-gray-300"
             }`}
@@ -104,7 +104,7 @@ export default function GuestDetailsFormOne() {
           <input
             id="email"
             type="email"
-            placeholder="ux.saifur.info@gmail.com"
+            placeholder="milonahmedshuvo@gmail.com"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               errors.email ? "border-red-500" : "border-gray-300"
             }`}
