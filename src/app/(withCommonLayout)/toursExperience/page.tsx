@@ -9,6 +9,7 @@ import ToursExperiBanner from '@/components/toursExperience/ToursExperiBanner/To
 import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm'
 import React from 'react'
 import CulturalTours from '@/components/toursExperience/culturalTours/CulturalTours'
+import WineTours from '@/components/toursExperience/wineTours/WineTours'
 
 
 const page = () => {
@@ -20,8 +21,8 @@ const page = () => {
       {/* show all tour  */}
       <SeaTour/>
       <LandToours/>
-       <CulturalTours/>
-
+      <CulturalTours/>
+      <WineTours/>      
 
       <TravelLove/>
       <TestimonialSlider/>
