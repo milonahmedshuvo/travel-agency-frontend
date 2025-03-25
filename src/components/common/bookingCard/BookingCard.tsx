@@ -1,4 +1,5 @@
 import { ArrowRight, Info, Triangle, Flame } from "lucide-react";
+import Link from "next/link";
 
 interface BookingCardProps {
   title: string;
@@ -46,10 +47,15 @@ export default function BookingCard({
         </div>
       )}
 
+
+      {/* book now button  */}
+
+      <Link href='/booking/tourBookingStep1' > 
       <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md transition-colors flex justify-center">
         {buttonText}
         <ArrowRight className="ml-2 h-5 w-5" />
       </button>
+      </Link>
     </div>
   );
 }

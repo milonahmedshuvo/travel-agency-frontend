@@ -4,13 +4,15 @@ import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
 
 export default function BookingReview() {
+
+
   return (
     <section className="space-y-6 bg-[#F4F4F4] ">
       <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
         <div className="mb-3">
           <p className="text-lg font-medium mb-5">Step 05</p>
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
-            Review{" "}
+              Review{" "}
             <span className="text-[#F78C41]">
               & Confirm <br /> Booking
             </span>
@@ -58,7 +60,7 @@ export default function BookingReview() {
           </div>
         </div>
 
-        <Link href="/booking/reviewBooking">
+        <Link href="/booking/payment">
           <button
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
