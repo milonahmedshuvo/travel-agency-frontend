@@ -5,6 +5,7 @@ import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Calendar, ChevronDown, ChevronRight } from "lucide-react"
+import Link from "next/link"
 
 
 // Define the form validation schema with Zod
@@ -77,7 +78,7 @@ export default function TourBookingForm() {
 
   return (
     <section className="bg-[#F4F4F4]">
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff] ">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
       <div className="mb-3">
         <p className="text-lg font-medium mb-5">Step 01</p>
         <h1 className="text-4xl md:text-5xl font-semibold mb-5">
@@ -295,6 +296,7 @@ export default function TourBookingForm() {
         </div>
 
         {/* Submit Button */}
+        <Link href='/booking/tourBookingStep2' > 
         <button
           type="submit"
           disabled={isSubmitting}
@@ -309,6 +311,7 @@ export default function TourBookingForm() {
             </>
           )}
         </button>
+        </Link>
       </div>
     </form>
     </section>
