@@ -162,6 +162,8 @@ export default function Page() {
         </div>
       )}
 
+
+
       {/* add without image component  */}
       <div className="flex flex-col md:flex-row mt-10 gap-6">
         <div className="w-full md:w-[55%] lg:w-[65%]">
@@ -181,6 +183,9 @@ export default function Page() {
           <WineTourFeatures heading="About This Stay" features={features} />
         </div>
 
+
+
+
         <div className="w-full md:w-[45%] lg:w-[35%]">
           {/* <BookingCard /> */}
           <BookingCard
@@ -194,7 +199,9 @@ export default function Page() {
             specialOffer="Special Offer: Book today & get a free souvenir bottle of wine!"
             reserveInfo="Reserve now & pay later to book your spot and pay nothing today"
             buttonText="Book Now"
+            route="/booking/accommodation/selectStayForm"
           />
+
 
           {/* RatingComponent */}
           <RatingComponent />

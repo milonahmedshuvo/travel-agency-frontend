@@ -16,7 +16,7 @@ export default function SelectStayForm() {
 
 
   return (
-    <section className="max-w-[780px] mx-auto p-4 md:p-12 shadow bg-[#ffffff]">
+    <section className="max-w-[780px] mx-auto p-4 md:p-12 shadow bg-[#ffffff] ">
       <div className="mb-8">
         <p className="text-lg font-medium text-gray-600">Step 01</p>
         <h1 className="text-4xl md:text-5xl font-bold mt-2">
@@ -164,12 +164,14 @@ export default function SelectStayForm() {
           </div>
         </div>
 
+         <Link href='/booking/accommodation/guestFormOne' > 
         <button
           type="button"
           className="w-full py-3 px-4 mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md flex items-center justify-center transition-colors duration-200"
         >
           Enter Guest Details <ChevronRight className="ml-2" size={18} />
         </button>
+        </Link>
       </div>
     </section>
   )

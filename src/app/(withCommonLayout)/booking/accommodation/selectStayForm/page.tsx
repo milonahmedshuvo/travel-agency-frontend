@@ -3,9 +3,9 @@ import SelectStayForm from "@/components/bookingForm/accommodation/SelectStayFor
 
 const page = () => {
   return (
-    <div> 
+    <section> 
         <SelectStayForm/>
-    </div>
+    </section>
   )
 }
 

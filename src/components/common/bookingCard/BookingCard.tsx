@@ -8,6 +8,7 @@ interface BookingCardProps {
   specialOffer?: string;
   reserveInfo?: string;
   buttonText: string;
+  route: string
 }
 
 export default function BookingCard({
@@ -17,6 +18,7 @@ export default function BookingCard({
   specialOffer,
   reserveInfo,
   buttonText,
+  route
 }: BookingCardProps) {
   return (
     <div className="p-6 bg-white rounded-lg">
@@ -47,10 +49,10 @@ export default function BookingCard({
         </div>
       )}
 
-
+      {/* /booking/tourBookingStep1   */}
       {/* book now button  */}
 
-      <Link href='/booking/tourBookingStep1' > 
+      <Link href={`${route}`} > 
       <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md transition-colors flex justify-center">
         {buttonText}
         <ArrowRight className="ml-2 h-5 w-5" />
