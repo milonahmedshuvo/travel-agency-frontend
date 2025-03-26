@@ -1,7 +1,10 @@
 import { BirdIcon as Helicopter } from "lucide-react"
+import Link from "next/link"
 
 
 export default function PickupPreferences() {
+
+  
   return (
     <div className=" p-6 rounded-lg bg-[#ffffff] mt-5">
       <div className="flex items-center justify-start mb-4">
@@ -17,9 +20,12 @@ export default function PickupPreferences() {
         safe transportation for you.
       </p>
 
+      <Link href="/booking/vehicle/pickupLocation"> 
       <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md transition-colors">
         Fill Out Transportation Details
       </button>
+      </Link>
+
     </div>
   )
 }

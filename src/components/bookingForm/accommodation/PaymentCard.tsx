@@ -30,7 +30,7 @@ export default function AccommodationPaymentCard() {
           </p>
         </div>
         
-        <Link href="/booking/ConfirmedBooking">
+        <Link href="/">
           <button
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"

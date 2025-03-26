@@ -8,7 +8,7 @@ const Banner = () => {
       className="w-full relative h-[700px] bg-no-repeat bg-cover bg-center"
       style={{ backgroundImage: `url('${banner.src}')` }}
     >
-      <div className="absolute inset-0 bg-black/10 backdrop-brightness-50"></div>
+      <div className="absolute inset-0 bg-black/25 backdrop-brightness-75"></div>
 
       {/* Content */}
       <div className="relative z-10 flex justify-center items-center h-full">
