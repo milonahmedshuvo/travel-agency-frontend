@@ -30,12 +30,12 @@ export default function PaymentCard() {
           </p>
         </div>
         
-        <Link href="/booking/reviewBooking">
+        <Link href="/booking/ConfirmedBooking">
           <button
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
           >
-            Proceed to Review & Confirm
+               Stripe Payment 
             <svg
               className="w-5 h-5 ml-2"
               fill="none"
@@ -56,7 +56,7 @@ export default function PaymentCard() {
 
         <button
           type="button"
-          className="w-full py-3 px-4 border border-[#E8E8E8]  rounded-lg flex items-center justify-center bg-[#E8E8E8] text-[#fff] transition-colors mt-3"
+          className="w-full py-3 px-4 font-medium rounded-lg flex items-center justify-center bg-[#E8E8E8] text-[#101010]  mt-3"
           
         >
           <svg
@@ -68,10 +68,8 @@ export default function PaymentCard() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
           </svg>
-          Add Second Guest
+             PayPal Payment 
         </button>
-
-
 
       </div>
     </section>

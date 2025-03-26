@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import { BookingConfirmationData } from "./BookingConfirmationData";
-import { BookingSize } from "./ReviewSize";
+import { ConfirmedSize } from "./ConfirmedSize";
 
-export default function BookingReview() {
+
+export default function BookingConfirmed() {
 
 
   return (
@@ -12,19 +12,19 @@ export default function BookingReview() {
         <div className="mb-3">
           <p className="text-lg font-medium mb-5">Step 05</p>
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
-              Review{" "}
-            <span className="text-[#F78C41]">
-              & Confirm <br /> Booking
+          Booking 
+            <span className="text-[#F78C41] ml-2.5">
+            Confirmed!
             </span>
           </h1>
 
-          <p className="text-gray-600 mb-5">
-            We respect your privacy! Your details are securely stored and never
-            shared.
-          </p>
+          <p className="text-gray-600 mb-5"> A confirmation email has been sent to ux.saifur.info@gmail.com with your booking details, itinerary, and payment receipt.</p>
         </div>
 
+
+
         <div className=" mt-6">
+
           <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">
             Santorini Sunset Catamaran Cruise
           </h1>
@@ -32,32 +32,12 @@ export default function BookingReview() {
            
 
 
-           <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" />
+           {/* <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" /> */}
+           <ConfirmedSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" paymentMethod="Stripe" bookingReference=" #SANTORINI20250310-9876" />
 
 
 
-          <div className="grid grid-cols-1 md:grid-cols-2">
-          <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
-            specialRequests="N/A"
-          />
-
-          <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
-            specialRequests="N/A"
-          />
-
-          <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
-            specialRequests="N/A"
-          />
-          </div>
+          
         </div>
 
         <Link href="/booking/payment">
