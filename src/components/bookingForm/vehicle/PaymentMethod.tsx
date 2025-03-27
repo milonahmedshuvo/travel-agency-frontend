@@ -23,7 +23,7 @@ export default function VehiclePaymentMethod () {
 
       <p className="font-[400] text-[#333333] mt-4" >Need help? Contact our support team anytime.</p>
       <button className="w-full hover:bg-[#38B6FF] py-2 rounded text-[#fff] bg-[#156CF0] cursor-pointer mt-4">Stripe Payment</button>
-      <button className="w-full hover:bg-[#38B6FF] py-2 rounded text-[#101010] bg-[#E8E8E8] cursor-pointer mt-3">Stripe Payment</button>
+      <button className="w-full py-2 rounded text-[#101010] bg-[#E8E8E8] cursor-pointer mt-3">Stripe Payment</button>
 
       
     </div>

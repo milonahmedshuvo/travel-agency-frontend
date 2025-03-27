@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import logo from '../../../assets/logo/navlogo.png'
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 const Navbar = () => {
@@ -30,7 +31,7 @@ const Navbar = () => {
             <a href="/" className="text-[#676767] text-[18px] font-normal">Home</a>
             <a href="/toursExperience" className="text-[#676767] text-[18px] font-normal">Tours & Experience</a>
             <a href="/acommodation" className="text-[#676767] text-[18px] font-normal">Accommodations</a>
-            <a href="/contact" className="text-[#676767] text-[18px] font-normal">Blog</a>
+            <Link href="/blog" className="text-[#676767] text-[18px] font-normal">Blog</Link>
             <a href="/" className="text-[#676767] text-[18px] font-normal">About Us</a> 
           </div>
 
