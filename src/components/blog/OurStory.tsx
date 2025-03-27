@@ -8,7 +8,7 @@ export default function OurStory() {
 
 
   return (
-    <section className="custom-container px-6 py-12 md:py-20 flex flex-col md:flex-row justify-between">
+    <section className="custom-container px-6 py-12 md:py-20 flex flex-col md:flex-row justify-between items-center">
 
       <div>
         <div className="text-center md:text-left">
