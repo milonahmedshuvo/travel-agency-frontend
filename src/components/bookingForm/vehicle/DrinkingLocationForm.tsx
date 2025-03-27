@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { ChevronDown, ChevronRight } from "lucide-react"
+import Link from "next/link"
 
 
 export default function DrinkingLocationForm() {
@@ -90,6 +91,7 @@ export default function DrinkingLocationForm() {
           </div>
         </div>
 
+        <Link href='/booking/vehicle/returnPreferences'> 
         <button
           className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md flex items-center justify-center"
           onClick={() => console.log("Form submitted:", formData)}
@@ -97,6 +99,7 @@ export default function DrinkingLocationForm() {
           <span>Next</span>
           <ChevronRight className="ml-2 h-5 w-5" />
         </button>
+        </Link>
       </div>
     </div>
     </section>

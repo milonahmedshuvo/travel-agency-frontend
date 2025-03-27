@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ChevronRight } from "lucide-react"
+import Link from "next/link"
 
 export default function ReturnPreferencesForm() {
   const [sameAsPickup, setSameAsPickup] = useState(false)
@@ -22,7 +23,7 @@ export default function ReturnPreferencesForm() {
     setSameAsPickup(!sameAsPickup)
   }
 
-  
+
   const selectOption = (option: string) => {
     setNeedAdditionalStops(option)
     setIsSelectOpen(false)
@@ -120,6 +121,7 @@ export default function ReturnPreferencesForm() {
           </div>
         </div>
 
+        <Link href="/booking/vehicle/priceAdjustment" > 
         <button
           onClick={handleNext}
           className="w-full h-14 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md flex items-center justify-center"
@@ -127,6 +129,8 @@ export default function ReturnPreferencesForm() {
           Next
           <ChevronRight className="ml-2 h-5 w-5" />
         </button>
+        </Link>
+        
       </div>
     </div>
     </section>
