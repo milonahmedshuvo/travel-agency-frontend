@@ -1,16 +1,12 @@
-import ContactForm from "@/components/blog/ContactForm"
-import MissionValues from "@/components/blog/MissionValues"
-import OurStory from "@/components/blog/OurStory"
-import TravelLove from "@/components/others/travelLove/TravelLove"
+import BlogBanner from "@/components/blog/BlogBanner"
+import BlogItems from "@/components/blog/BlogItems"
+
 
 const page = () => {
-
   return (
-    <div>
-        <OurStory/>
-        <MissionValues/>
-        <TravelLove/>
-        <ContactForm/>
+    <div> 
+        <BlogBanner/>
+        <BlogItems/>
     </div>
   )
 }
