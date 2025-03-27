@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import { useState } from "react"
 
 
@@ -135,6 +136,7 @@ export default function PickupLocationForm() {
           </div>
         </div>
 
+        <Link href='/booking/vehicle/drinkingLocation' > 
         <button
           className="w-full h-12 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md flex items-center justify-center gap-2 transition-colors"
           onClick={() => console.log("Next clicked")}
@@ -154,6 +156,9 @@ export default function PickupLocationForm() {
             <path d="m9 18 6-6-6-6" />
           </svg>
         </button>
+        </Link>
+
+
       </div>
     </div>
     </section>
