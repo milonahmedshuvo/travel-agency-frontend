@@ -10,7 +10,7 @@ export default function PickupLocationForm() {
 
   return (
     <section className="bg-[#F4F4F4] rounded">  
-    <div className="space-y-6  max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff] rounded ">
+    <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff] rounded ">
       <div className="space-y-2">
         <h2 className="text-lg font-medium text-gray-700">Step 01</h2>
         <h1 className="text-3xl md:text-4xl font-bold">
