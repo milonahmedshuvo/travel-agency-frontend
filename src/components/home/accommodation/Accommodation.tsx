@@ -91,7 +91,7 @@ const Accommodation = () => {
   return (
     <div className="custom-container">
 
-        <h1 className="font-semibold text-[48px] ">Featured <span className="text-[#FF914D]">Accommodations</span></h1>
+        <h1 className="font-semibold text-[40px] md:text-[48px] ">Featured <span className="text-[#FF914D]">Accommodations</span></h1>
           <p className="text-[#333333] text-[16px] font-normal mt-1.5">Hit the open road and explore in style with the perfect bike, scooter, car, boat tour for your needs.</p>
 
      

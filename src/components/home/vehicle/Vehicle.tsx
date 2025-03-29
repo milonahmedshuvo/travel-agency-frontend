@@ -70,7 +70,7 @@ const Vehicle = () => {
 
   return (
     <div className='custom-container'>
-       <h1 className="font-semibold text-[48px] ">
+       <h1 className="font-semibold text-[40px] md:text-[48px] ">
        Featured  <span className="text-[#FF914D]">Vehicle</span>
       </h1>
       <p className="text-[#333333] text-[16px] font-normal mt-1.5">

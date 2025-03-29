@@ -33,7 +33,7 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({ imageUrl, title, price,
       </div>}
     >
       <div>
-        <h2 className='font-medium text-[#15202E] text-[20px] poppins mt-[-10px]'>{title}</h2>
+        <h2 className='font-medium text-[#15202E]  text-[16px] sm:text-[22px] md:text-[20px] poppins mt-[-10px]'>{title}</h2>
         <div className='flex justify-between items-center mt-4'>
             <span className='text-[24px] text-[#FF914D] font-[500] poppins'>{price}</span>
             <span className='text-[16px] text-[#525252] font-[300] poppins'>{day}</span>

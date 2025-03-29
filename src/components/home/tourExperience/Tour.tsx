@@ -81,8 +81,8 @@ const TourExperience = () => {
 
   return (
     <div className="custom-container">
-      <h1 className="font-semibold text-[48px] ">
-        Find Your <span className="text-[#FF914D]">Perfect Experience</span>{" "}
+      <h1 className="font-semibold text-[40px] md:text-[48px] ">
+        Find Your <span className="text-[#FF914D]">Perfect Experience</span>
       </h1>
       <p className="text-[#333333] text-[16px] font-normal mt-1.5">
         Explore our curated selection of unique and captivating properties.
