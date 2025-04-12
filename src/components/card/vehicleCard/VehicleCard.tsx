@@ -2,7 +2,7 @@
 'use client';
 import React from 'react';
 import { Card } from 'antd';
-import { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { FaStar } from 'react-icons/fa';
 const {  } = Card;
 
@@ -27,7 +27,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ imageUrl, title, price, time,
       hoverable
       className="w-full rounded-lg border !border-none !hover:shadow-sm"
       cover={<div className='overflow-hidden'>
-        <img alt={title} src={imageUrl.src} className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'  />
+        <Image  width={500} height={500} quality={75} priority alt={title} src={imageUrl.src} className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'  />
       </div>}
     >
       <div>

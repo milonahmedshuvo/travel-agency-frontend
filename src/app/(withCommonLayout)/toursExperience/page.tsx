@@ -13,12 +13,14 @@ import WineTours from '@/components/toursExperience/wineTours/WineTours'
 
 
 const page = () => {
+
+  
   return (
     <div>
       <ToursExperiBanner/>
       <TravelBookingForm/>
 
-      {/* show all tour  */}
+      {/*show all tour*/}
       <SeaTour/>
       <LandToours/>
       <CulturalTours/>

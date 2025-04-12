@@ -105,7 +105,9 @@ export default function ResponsiveCarousel() {
                     src={product.image}
                     width={500}
                     height={500}
+                    quality={75}
                     alt="img"
+                    priority
                     className="w-full h-full object-cover rounded-md"
                   />
 

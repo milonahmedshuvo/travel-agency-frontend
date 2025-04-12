@@ -8,6 +8,8 @@ import Link from "next/link";
 
 
 const SeaTour = () => {
+
+  
   const products = [
     {
       id: "1",
