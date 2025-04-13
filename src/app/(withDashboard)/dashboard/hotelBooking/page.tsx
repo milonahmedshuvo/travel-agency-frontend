@@ -5,7 +5,6 @@ import { Calendar, Users, DollarSign } from "lucide-react";
 import { StatCard } from "@/components/dashboard/StatCard/StatCard";
 import { TopPackages } from "@/components/dashboard/TopPackages/TopPackages";
 import { TripsOverview } from "@/components/dashboard/TripsOverview/TripsOverview";
-import { BookingsTable } from "@/components/dashboard/BookingsTable/BookingsTable";
 import Header from "@/components/dashboard/Header/Header";
 import AccommodationsBookings from "@/components/dashboard/AccommodationsBookings/AccommodationsBookings";
 
@@ -13,9 +12,8 @@ import AccommodationsBookings from "@/components/dashboard/AccommodationsBooking
 
 
 export default function HotelBooking() {
-  const [currentPage, setCurrentPage] = useState(1);
   const [timeRange, setTimeRange] = useState("12");
-  const [dateFilter, setDateFilter] = useState("today");
+
 
   return (
     <div> 
