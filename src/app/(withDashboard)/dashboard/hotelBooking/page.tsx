@@ -7,11 +7,12 @@ import { TopPackages } from "@/components/dashboard/TopPackages/TopPackages";
 import { TripsOverview } from "@/components/dashboard/TripsOverview/TripsOverview";
 import { BookingsTable } from "@/components/dashboard/BookingsTable/BookingsTable";
 import Header from "@/components/dashboard/Header/Header";
+import AccommodationsBookings from "@/components/dashboard/AccommodationsBookings/AccommodationsBookings";
 
 
 
 
-export default function TripBooking() {
+export default function HotelBooking() {
   const [currentPage, setCurrentPage] = useState(1);
   const [timeRange, setTimeRange] = useState("12");
   const [dateFilter, setDateFilter] = useState("today");
@@ -76,12 +77,7 @@ export default function TripBooking() {
         </div>
       </div>
 
-      <BookingsTable
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        dateFilter={dateFilter}
-        setDateFilter={setDateFilter}
-      /> 
+      <AccommodationsBookings/>
     </div> 
 
     </div>

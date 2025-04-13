@@ -26,7 +26,7 @@ export function StatCard({ title, value, change, trend, icon }: StatCardProps) {
         </button>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold">{value}</div>
+        <div className="text-[27px] font-bold">{value}</div>
         <div className="mt-2 flex items-center text-xs">
           {trend === "up" ? (
             <ArrowUp className="mr-1 h-3 w-3 text-green-500" />

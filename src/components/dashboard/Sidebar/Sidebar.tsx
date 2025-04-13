@@ -32,7 +32,7 @@ const Sidebar = ({collapsed, setCollapsed}: SidebarProps) => {
       { icon: <LayoutGrid size={20} />, label: "Overview", key: "1", path: '/dashboard/content' },
       { icon: <Users size={20} />, label: "Traveler List", key: "2", path: '/dashboard/travelerList'},
       { icon: <Car size={20} />, label: "Trip Booking", key: "3", path: '/dashboard/tripBooking'},
-      { icon: <Home size={20} />, label: "Hotel Booking", key: "4" },
+      { icon: <Home size={20} />, label: "Hotel Booking", key: "4", path: '/dashboard/hotelBooking' },
       { icon: <Gift size={20} />, label: "Tour Packages", key: "5" },
       { icon: <Home size={20} />, label: "Hotel Packages", key: "6" },
       { icon: <Mail size={20} />, label: "Email Marketing", key: "7" },

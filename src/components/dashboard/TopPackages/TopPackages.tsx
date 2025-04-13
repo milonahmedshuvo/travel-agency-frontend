@@ -16,12 +16,6 @@ export function TopPackages() {
 
 
 
-
-
-
-
-
-
       <CardContent className="p-0 pt-2 flex flex-row  xl:flex-col justify-between">
 
         <div className="relative mx-auto  max-w-[180px]  xl:max-w-[240px] pt-4 ">
@@ -82,7 +76,7 @@ export function TopPackages() {
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <div className="text-sm text-muted-foreground">This Week</div>
-              <div className="text-3xl font-bold">1,856</div>
+              <div className="text-[27px] font-bold">1,856</div>
               <div className="text-xs text-muted-foreground">Total Participants</div>
             </div>
           </div>
