@@ -3,10 +3,18 @@ import { MapPin, Clock, Plus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import popular from "../../../assets/avatars/popular.jpg";
 import SeaImg from "../../../assets/avatars/sea.jpg";
+import Header from "../Header/Header";
+
+
+
+
 
 export default function TourPackages() {
   return (
-    <div className="container mx-auto px-3.5 lg:px-0  py-6">
+      <div> 
+       <Header/>    
+    <div  className="container mx-auto px-3.5 lg:px-0  py-6">
+
       <h1 className="text-[#101010] text-[24px] font-[500] mb-6">
         Tour Packages
       </h1>
@@ -232,8 +240,13 @@ export default function TourPackages() {
         
       </div>
     </div>
+    </div>
   );
 }
+
+
+
+
 
 const popularPackages = [
   {
