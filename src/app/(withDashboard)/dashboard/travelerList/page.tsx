@@ -3,6 +3,7 @@ import studyFemale from "../../../../assets/avatars/avaters1.png"
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Search, SlidersHorizontal } from "lucide-react"
 import Image from "next/image"
+import Header from "@/components/dashboard/Header/Header"
 
 
 
@@ -152,8 +153,12 @@ export default function TravelerList() {
   ]
 
   return (
-    <div className="container mx-auto py-6 px-4 md:px-6">
+
+    <div>
+    <Header/>
+    <div className="container mx-auto py-8">
       <h1 className="text-2xl font-medium mb-6">Traveler List</h1>
+
 
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -246,7 +251,7 @@ export default function TravelerList() {
 
 
 
-        <div className="relative flex-1 mb-4">
+        <div className="relative flex-1 mb-1">
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             <Search className="h-4 w-4" />
           </div>
@@ -404,6 +409,7 @@ export default function TravelerList() {
       </div>
 
       <div className="mt-8 text-center text-sm text-gray-500">Copyright © 2024 Travel Agency</div>
+    </div>
     </div>
   )
 }
