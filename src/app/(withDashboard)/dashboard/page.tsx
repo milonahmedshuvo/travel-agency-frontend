@@ -1,8 +1,14 @@
+import Header from '@/components/dashboard/Header/Header'
+import TravelDashboardOverview from '@/components/dashboard/TravelOverview/TravelOverview'
 import React from 'react'
 
 const page = () => {
+  
   return (
-    <div>Dashboard content coming soon...</div>
+    <div>
+      <Header/>
+      <TravelDashboardOverview/>
+    </div>
   )
 }
 
