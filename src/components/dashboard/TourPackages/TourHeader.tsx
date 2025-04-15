@@ -77,9 +77,9 @@ export function Header({ title, onAddPackage }: HeaderProps) {
         </div>
         <button
           onClick={onAddPackage}
-          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% rounded-md  transition-colors"
         >
-          <Plus className="h-4 w-4 mr-2" /> Add Package
+          <Plus className="h-4 w-4 mr-2" /> Add Hotel
         </button>
       </div>
     </div>
