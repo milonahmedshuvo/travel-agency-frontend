@@ -38,7 +38,7 @@ const Sidebar = ({collapsed, setCollapsed}: SidebarProps) => {
       { icon: <Mail size={20} />, label: "Email Marketing", key: "7", },
       { icon: <XCircle size={20} />, label: "Cancel Package", key: "8", path: '/dashboard/cancelPackages' },
       { icon: <MessageSquare size={20} />, label: "Feedback", key: "9" },
-      { icon: <FileText size={20} />, label: "Blogs", key: "10", active: true },
+      { icon: <FileText size={20} />, label: "Blogs", key: "10", active: true, path: '/dashboard/blogs' },
       { icon: <HeadphonesIcon size={20} />, label: "Support", key: "11" },
     ]
 
