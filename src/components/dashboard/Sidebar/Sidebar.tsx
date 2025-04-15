@@ -35,7 +35,7 @@ const Sidebar = ({collapsed, setCollapsed}: SidebarProps) => {
       { icon: <Home size={20} />, label: "Hotel Booking", key: "4", path: '/dashboard/hotelBooking' },
       { icon: <Gift size={20} />, label: "Tour Packages", key: "5", path: '/dashboard/tourPackages' },
       { icon: <Home size={20} />, label: "Hotel Packages", key: "6", path: '/dashboard/hotelPackages' },
-      { icon: <Mail size={20} />, label: "Email Marketing", key: "7", },
+      { icon: <Mail size={20} />, label: "Email Leads", key: "7", path: '/dashboard/emailLeads' },
       { icon: <XCircle size={20} />, label: "Cancel Package", key: "8", path: '/dashboard/cancelPackages' },
       { icon: <MessageSquare size={20} />, label: "Feedback", key: "9" },
       { icon: <FileText size={20} />, label: "Blogs", key: "10", active: true, path: '/dashboard/blogs' },

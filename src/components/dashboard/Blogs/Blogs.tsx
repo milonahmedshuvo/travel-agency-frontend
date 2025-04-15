@@ -29,14 +29,17 @@ export default function BlogPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {blogPosts.map((post, index) => (
           <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <div className="relative h-60">
+
+            <div  className="relative h-60">
+                <Link href='/dashboard/blogs/id' >
               <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
+              </Link>
             </div>
             <div className="p-4">
               <h2 className="text-[#15202E] text-[20px] font-[500] mb-2">{post.title}</h2>
               <p className="text-gray-600 mb-4 text-sm">{post.excerpt}</p>
               <Link
-                href="#"
+                href='/dashboard/blogs/id'
                 className="text-blue-500 hover:text-blue-700 flex items-center justify-end gap-1 transition-colors"
               >
                 Read More
