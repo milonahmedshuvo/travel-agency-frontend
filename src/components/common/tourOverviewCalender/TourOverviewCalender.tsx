@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/components/lib/utils"
+import Link from "next/link"
 
 
 // Define types for date selection
@@ -19,6 +20,8 @@ export default function TourOverviewWithCalender() {
   const [endDate, setEndDate] = useState<DateSelection | null>(null)
   const [hoverDate, setHoverDate] = useState<DateSelection | null>(null)
   const [selectionMode, setSelectionMode] = useState<"start" | "end">("start")
+
+
 
   // Function to get the number of days in a month
   const getDaysInMonth = (month: number, year: number) => {
@@ -421,14 +424,20 @@ const handleBookNow = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">
+
+
+       
         <button
           onClick={handleBookNow}
           type="submit"
-          className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-md font-medium"
+          className="w-full sm:w-auto bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 px-6 rounded-md font-medium cursor-pointer"
           disabled={!startDate || !endDate}
         >
-          Book Now
+          <Link href='/booking/tourBookingStep1' >Book Now</Link>
         </button>
+        
+
+
 
         <button
           className="w-full sm:w-auto"

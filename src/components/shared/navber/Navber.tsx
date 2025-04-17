@@ -33,6 +33,7 @@ const Navbar = () => {
             <a href="/acommodation" className="text-[#676767] text-[18px] font-normal">Accommodations</a>
             <Link href="/blog" className="text-[#676767] text-[18px] font-normal">Blog</Link>
             <Link href="/aboutus" className="text-[#676767] text-[18px] font-normal">About Us</Link> 
+            <Link href="/dashboard" className="text-[#676767] text-[18px] font-normal">Dashboard</Link>
           </div>
 
           {/* Sign Up and Login Buttons */}

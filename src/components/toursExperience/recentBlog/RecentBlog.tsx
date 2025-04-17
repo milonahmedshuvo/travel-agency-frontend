@@ -129,7 +129,7 @@ export default function RecentBlog() {
               to make your next adventure unforgettable.
             </p>
           </div>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-6 py-3 self-start sm:self-center">
+          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-lg px-6 py-3 self-start sm:self-center">
               See All
           </button>
         </div>

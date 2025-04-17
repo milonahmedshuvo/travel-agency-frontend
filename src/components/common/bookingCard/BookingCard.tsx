@@ -52,8 +52,8 @@ export default function BookingCard({
       {/* /booking/tourBookingStep1   */}
       {/* book now button  */}
 
-      <Link href={`${route}`} > 
-      <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md transition-colors flex justify-center">
+      <Link href={`${route}`}> 
+      <button className="w-full cursor-pointer bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors flex justify-center">
         {buttonText}
         <ArrowRight className="ml-2 h-5 w-5" />
       </button>

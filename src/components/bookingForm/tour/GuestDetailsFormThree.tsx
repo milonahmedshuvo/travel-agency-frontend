@@ -55,16 +55,13 @@ export default function GuestDetailsFormThree() {
   
 
 
-
-
-
   return (
-    <section  className="space-y-6 bg-[#F4F4F4] ">
+    <section  className="space-y-6 bg-[#F4F4F4]">
       
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
 
       <div className="mb-3">
-        <p className="text-lg font-medium mb-5">Step 04</p>
+        <p className="text-lg font-medium mb-5">Step 02</p>
         <h1 className="text-4xl md:text-5xl font-semibold mb-5">
           Enter <span className="text-[#F78C41]">Guest Details</span>
         </h1>

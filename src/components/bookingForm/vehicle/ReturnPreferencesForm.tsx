@@ -124,7 +124,7 @@ export default function ReturnPreferencesForm() {
         <Link href="/booking/vehicle/priceAdjustment" > 
         <button
           onClick={handleNext}
-          className="w-full h-14 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md flex items-center justify-center"
+          className="w-full h-14 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white font-medium rounded-md flex items-center justify-center"
         >
           Next
           <ChevronRight className="ml-2 h-5 w-5" />

@@ -21,7 +21,7 @@ export default function PickupPreferences() {
       </p>
 
       <Link href="/booking/vehicle/pickupLocation"> 
-      <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md transition-colors">
+      <button className="w-full cursor-pointer bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors">
         Fill Out Transportation Details
       </button>
       </Link>

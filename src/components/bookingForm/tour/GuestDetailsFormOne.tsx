@@ -76,11 +76,6 @@ export default function GuestDetailsFormOne() {
       </div>
 
 
-
-
-
-
-
         <div className="space-y-2 mt-10">
           <label htmlFor="fullName" className="block text-sm font-medium">
             Full Name
@@ -247,7 +242,7 @@ export default function GuestDetailsFormOne() {
         </Link>  
          
          
-        <button
+        {/* <button
           type="submit"
           className="w-full py-3 px-4 mt-5 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-lg flex items-center justify-center transition-colors"
         >
@@ -261,7 +256,7 @@ export default function GuestDetailsFormOne() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
           </svg>
-        </button>
+        </button> */}
         
       </form>
     </section>

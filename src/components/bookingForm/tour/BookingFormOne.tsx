@@ -300,7 +300,7 @@ export default function TourBookingForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex items-center justify-center py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-base font-medium mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center py-2 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-md text-base font-medium mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             "Processing..."

@@ -179,7 +179,7 @@ export default function AccommodationBookingForm() {
           <div className="flex items-end">
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+              className="w-full bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white font-medium py-2 px-4 rounded-md transition-colors"
             >
               Search
             </button>

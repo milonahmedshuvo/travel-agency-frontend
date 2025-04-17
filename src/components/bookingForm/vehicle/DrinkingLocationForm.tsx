@@ -93,7 +93,7 @@ export default function DrinkingLocationForm() {
 
         <Link href='/booking/vehicle/returnPreferences'> 
         <button
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md flex items-center justify-center"
+          className="w-full bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md flex items-center justify-center"
           onClick={() => console.log("Form submitted:", formData)}
         >
           <span>Next</span>

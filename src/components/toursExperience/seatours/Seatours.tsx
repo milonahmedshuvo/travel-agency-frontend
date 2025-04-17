@@ -71,7 +71,7 @@ const SeaTour = () => {
 
       <Link href="/seatours"> 
       <div  className="flex justify-center items-center"> 
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-7 rounded-md transition-colors cursor-pointer ">
+          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white font-medium py-2 px-7 rounded-md transition-colors cursor-pointer ">
             See all
           </button>
       </div>

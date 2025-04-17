@@ -138,7 +138,7 @@ export default function PickupLocationForm() {
 
         <Link href='/booking/vehicle/drinkingLocation' > 
         <button
-          className="w-full h-12 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md flex items-center justify-center gap-2 transition-colors"
+          className="w-full h-12 mt-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2 transition-colors"
           onClick={() => console.log("Next clicked")}
         >
           Next

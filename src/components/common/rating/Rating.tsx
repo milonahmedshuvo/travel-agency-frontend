@@ -124,7 +124,7 @@ export default function RatingComponent() {
       {/* Share Button */}
       <button
         className={`w-full ${
-          submitted ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"
+          submitted ? "bg-green-500 hover:bg-green-600" : "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] cursor-pointer"
         } text-white font-medium py-3 px-4 rounded-lg transition-colors`}
         onClick={handleSubmit}
         disabled={submitted}

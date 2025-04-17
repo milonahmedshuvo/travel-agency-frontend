@@ -250,7 +250,7 @@ export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDate
                       variant={booking.status === "Confirmed" ? "default" : "outline"}
                       className={
                         booking.status === "Confirmed"
-                          ? "bg-blue-500 hover:bg-blue-600"
+                          ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]"
                           : "bg-blue-100 text-blue-500 hover:bg-blue-200"
                       }
                     >
@@ -295,7 +295,7 @@ export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDate
                   variant={currentPage === pageToShow ? "default" : "outline"}
                   size="icon"
                   onClick={() => setCurrentPage(pageToShow)}
-                  className={currentPage === pageToShow ? "bg-blue-500 hover:bg-blue-600" : ""}
+                  className={currentPage === pageToShow ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" : ""}
                 >
                   {pageToShow}
                 </CustomButton>
