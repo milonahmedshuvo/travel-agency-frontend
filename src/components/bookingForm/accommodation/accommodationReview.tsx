@@ -11,7 +11,7 @@ export default function AccommodationReview() {
     <section className="space-y-6 bg-[#F4F4F4] ">
       <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
         <div className="mb-3">
-          <p className="text-lg font-medium mb-5">Step 05</p>
+          <p className="text-lg font-medium mb-5">Step 03</p>
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
               Review{" "}
             <span className="text-[#F78C41]">

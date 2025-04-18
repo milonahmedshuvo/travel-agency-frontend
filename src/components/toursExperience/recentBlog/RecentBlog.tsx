@@ -4,8 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import vector1 from "../../../assets/logo/Vector 2.svg";
-import blog from "../../../assets/blog/blog.png"
-
+import blog from "../../../assets/blog/blog.png";
+import Link from "next/link";
 
 export default function RecentBlog() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -58,9 +58,6 @@ export default function RecentBlog() {
     },
   ];
 
-
-
-
   // Check if scroll buttons should be enabled/disabled
   const checkScrollButtons = () => {
     const container = scrollContainerRef.current;
@@ -102,39 +99,33 @@ export default function RecentBlog() {
     }
   };
 
-
-  
   return (
     <section>
-      <div className="w-full custom-container px-4 ">
+      <div className="w-full custom-container px-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">
               <span className="text-black">Our </span>
-
-              {/* <span className="text-[#FF9966] bg-cover bg-no-repeat" style={{backgroundImage: `url('${vector1.src}')`}} >Recent Blog</span> */}
-              {/* <div className="w-[120px] md:w-[180px] h-10  mt-1 rounded-full bg-cover bg-no-repeat "> </div> */}
-
-              <span  className="relative text-[#FF9966]">
+              <span className="relative text-[#FF9966]">
                 Recent Blog
                 <span
                   className="absolute left-1/2 top-full -translate-x-1/2 w-full h-5 bg-cover bg-no-repeat"
                   style={{ backgroundImage: `url('${vector1.src}')` }}
                 ></span>
-              </span >
-
+              </span>
             </h2>
             <p className="text-gray-700 mt-10 max-w-2xl">
               Get expert travel tips, destination guides, and exclusive insights
               to make your next adventure unforgettable.
             </p>
           </div>
-          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-lg px-6 py-3 self-start sm:self-center">
+          <Link href="/blog">
+            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-lg px-6 py-3 self-start sm:self-center cursor-pointer">
               See All
-          </button>
+            </button>
+          </Link>
         </div>
       </div>
-
 
       <div className="px-4  relative xl:pl-[10%]">
         {/* Left Scroll Button */}
@@ -158,12 +149,14 @@ export default function RecentBlog() {
               className="card-item flex-shrink-0 w-[calc(100%/3.5-16px)] min-w-[280px] bg-white rounded-3xl  overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 snap-start"
             >
               <div className="relative h-[350px] w-full">
-                <Image
-                  src={card.imageUrl || "/placeholder.svg"}
-                  alt="Scenic travel destination"
-                  fill
-                  className="object-cover"
-                />
+                <Link href={`/blog/${card.id}`}>
+                  <Image
+                    src={card.imageUrl || "/placeholder.svg"}
+                    alt="Scenic travel destination"
+                    fill
+                    className="object-cover"
+                  />
+                </Link>
               </div>
               <div className="p-6">
                 <h3 className="text-2xl font-medium text-gray-800 mb-3">
@@ -171,13 +164,13 @@ export default function RecentBlog() {
                 </h3>
                 <p className="text-gray-600 mb-4">{card.description}</p>
                 <div className="flex justify-end">
-                  <a
-                    href="#"
+                  <Link
+                    href={`/blog/${card.id}`}
                     className="inline-flex items-center text-blue-500 font-medium hover:text-blue-700 transition-colors"
                   >
                     Read More
                     <ArrowUpRight className="ml-1 h-4 w-4" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

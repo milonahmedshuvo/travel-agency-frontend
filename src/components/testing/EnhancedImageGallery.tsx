@@ -1,27 +1,32 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
+import Image, { StaticImageData } from "next/image"
 import { motion } from "framer-motion"
 import { cn } from "../lib/utils"
 
 
 interface ImageGalleryProps {
   images: {
-    src: string
+    src: string | StaticImageData
     alt: string
     caption: string
   }[]
   className?: string
 }
 
+
 export default function EnhancedImageGallery({ images, className }: ImageGalleryProps) {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   
+
+
+
+
   return (
-    <div className={cn("relative w-full max-w-5xl mx-auto px-4 py-8", className)}>
-      <div className="relative flex justify-center items-center h-[500px] md:h-[600px] overflow-visible">
+    <div className={cn("relative w-full mx-auto ", className)}>
+      <div className="relative flex justify-center items-center h-[300px] md:h-[500px] overflow-visible">
         {images.map((image, index) => (
           <motion.div
             key={index}

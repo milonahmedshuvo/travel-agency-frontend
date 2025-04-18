@@ -4,6 +4,7 @@ import Header from "@/components/dashboard/Header/Header";
 import FirstComponent from "@/components/dashboard/Blogs/Datails/FirstComponent";
 import SecoundComponent from "@/components/dashboard/Blogs/Datails/SecoundComponent";
 
+
 const page = () => {
   return (
     <div className="">

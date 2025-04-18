@@ -54,7 +54,7 @@ export default function TestimonialSlider() {
        
         {/* Left side - Heading */}
         <div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-[58px] font-bold mb-4">
             What
             <span className="text-[#FF8A65] relative">
               Our

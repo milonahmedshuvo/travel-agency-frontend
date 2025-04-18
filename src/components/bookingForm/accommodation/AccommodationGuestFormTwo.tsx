@@ -7,7 +7,6 @@ import Link from "next/link"
 import { BookingConfirmationData } from "../tour/BookingConfirmationData"
 
 
-
 const formSchema = z.object({
   fullName: z.string().min(2, {
     message: "Full name must be at least 2 characters.",
@@ -69,7 +68,7 @@ export default function AccommodationGuestFormTwo() {
       
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
       <div className="mb-3">
-        <p className="text-lg font-medium mb-5">Step 03</p>
+        <p className="text-lg font-medium mb-5">Step 02</p>
         <h1 className="text-4xl md:text-5xl font-semibold mb-5">
           Enter <span className="text-[#F78C41]">Guest Details</span>
         </h1>
@@ -255,14 +254,14 @@ export default function AccommodationGuestFormTwo() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
           </svg>
-          Add Second Guest
+          Add Third Guest
         </button>
         </Link>
 
 
 
         
-        <button
+        {/* <button
           type="submit"
           className="w-full py-3 px-4 mt-4 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-lg flex items-center justify-center transition-colors"
         >
@@ -276,7 +275,7 @@ export default function AccommodationGuestFormTwo() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
           </svg>
-        </button>
+        </button> */}
        
       </form>
     </section>

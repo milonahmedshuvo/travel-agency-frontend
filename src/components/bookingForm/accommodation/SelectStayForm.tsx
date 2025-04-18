@@ -167,7 +167,7 @@ export default function SelectStayForm() {
          <Link href='/booking/accommodation/guestFormOne' > 
         <button
           type="button"
-          className="w-full py-3 px-4 mt-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white font-medium rounded-md flex items-center justify-center transition-colors duration-200"
+          className="w-full py-3 px-4 mt-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white font-medium rounded-md flex items-center justify-center transition-colors duration-200 cursor-pointer"
         >
           Enter Guest Details <ChevronRight className="ml-2" size={18} />
         </button>

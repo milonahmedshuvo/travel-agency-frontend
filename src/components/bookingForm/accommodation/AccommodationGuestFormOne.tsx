@@ -247,11 +247,11 @@ export default function AccommodationGuestFormOne() {
         </Link>  
          
          
-        <button
+        {/* <button
           type="submit"
           className="w-full py-3 px-4 mt-5 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-lg flex items-center justify-center transition-colors"
         >
-          Choose Payment Method 
+          Choose Payment Method dddddddddddd
           <svg
             className="w-5 h-5 ml-2"
             fill="none"
@@ -261,7 +261,7 @@ export default function AccommodationGuestFormOne() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
           </svg>
-        </button>
+        </button> */}
         
       </form>
     </section>

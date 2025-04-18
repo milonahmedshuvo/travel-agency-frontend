@@ -1,7 +1,7 @@
-import { Plus } from "lucide-react";
 
 const FirstComponent = () => {
-    
+
+  
   return (
     <div>
       <div className="mt-10 flex items-center justify-between ">
@@ -13,13 +13,9 @@ const FirstComponent = () => {
             <span>Coxs Bazar, Bangladesh</span>
             <span>5 Days Trip</span>
           </div>
-        </div>
-
-        <button className="bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50%  text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors">
-          <Plus className="w-5 h-5" />
-          <span>Edit Blog</span>
-        </button>
+        </div>     
       </div>
+
 
       <p className="text-[#333] text-[16px] font-[400] mt-7">
         During World War II, the U.S. military built concrete bunkers all over

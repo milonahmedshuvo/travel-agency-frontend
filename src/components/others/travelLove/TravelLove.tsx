@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
+import ThreeImage from "@/components/testing/ThreeImage"
+
 
 
 
@@ -11,8 +13,9 @@ export default function TravelLove () {
    
 
   return (
-    <section className="bg-[#FAFAFA]">
-     <div className="custom-container mx-auto px-4 py-16 md:py-24"> 
+    <section  className="bg-[#FAFAFA]">
+
+<div className="custom-container mx-auto px-4"> 
       <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
 
 
@@ -25,6 +28,7 @@ export default function TravelLove () {
               <div className="absolute bottom-0 left-0 w-3/4 h-1 bg-blue-500"></div>
             </div>
           </div>
+
 
           <div className="space-y-6 mt-8">
             <div className="flex gap-4">
@@ -73,7 +77,8 @@ export default function TravelLove () {
 
         {/* Right Images */}
         <div className="w-full md:w-1/2 relative  mt-8 md:mt-0">
-         
+            <ThreeImage/>
+           
 
         </div>
 
@@ -81,6 +86,7 @@ export default function TravelLove () {
         
       </div>
       </div>
+    
     </section>
   )
 }

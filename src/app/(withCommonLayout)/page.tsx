@@ -5,7 +5,6 @@ import ProductCarousel from '@/components/home/carousel/Carousel';
 import TestimonialSection from '@/components/home/testimonial/testimonial';
 import TourExperience from '@/components/home/tourExperience/Tour';
 import Vehicle from '@/components/home/vehicle/Vehicle';
-import HomeThreeImage from '@/components/testing/ThreeImage';
 import RecentBlog from '@/components/toursExperience/recentBlog/RecentBlog';
 import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm';
 
@@ -26,7 +25,7 @@ const page = () => {
        <TestimonialSection/>
       <RecentBlog/>
       
-      <HomeThreeImage/>
+     
 
     </div>
   )
