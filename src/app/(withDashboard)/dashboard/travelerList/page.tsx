@@ -4,6 +4,151 @@ import { useState } from "react"
 import { ChevronLeft, ChevronRight, Search, SlidersHorizontal } from "lucide-react"
 import Image from "next/image"
 import Header from "@/components/dashboard/Header/Header"
+import TravelarListModal from "@/components/dashboard/modal/TravelarListModal"
+export interface TTravelersList {
+  id: number | string,
+  name: string,
+  email: string,
+  date: string,
+  phone: string,
+  package: string,
+  address: string,
+  avatar: string | null
+}
+
+const travelers = [
+  {
+    id: 1,
+    name: "Camellia Swan",
+    email: "camellia.swan@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 123-4567",
+    package: "Sea Tour",
+    address: "Bali, Indonesia",
+    avatar: null,
+  },
+  {
+    id: 2,
+    name: "Raphael Goodman",
+    email: "raphael.goodman@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 234-5678",
+    package: "Land Tour",
+    address: "Jakarta, Indonesia",
+    avatar: null,
+  },
+  {
+    id: 3,
+    name: "Ludwig Contessa",
+    email: "ludwig.contessa@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 345-6789",
+    package: "Cultural Tours",
+    address: "Bandung, Indonesia",
+    avatar: null,
+  },
+  {
+    id: 4,
+    name: "Armina Raul Meyes",
+    email: "armina.meyes@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 456-7890",
+    package: "Sea Tour",
+    address: "Surabaya, Indonesia",
+    avatar: null,
+  },
+  {
+    id: 5,
+    name: "James Dunn",
+    email: "james.dunn@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 567-8901",
+    package: "Cultural Tours",
+    address: "Yogyakarta, Indonesia",
+    avatar: null,
+  },
+  {
+    id: 6,
+    name: "Hillary Grey",
+    email: "hillary.grey@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 345-6780",
+    package: "Sea Tour",
+    address: "Melbourne, Australia",
+    avatar: null,
+  },
+  {
+    id: 7,
+    name: "Lucas O'connor",
+    email: "lucas.oconnor@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 901-2345",
+    package: "Cultural Tours",
+    address: "Munich, Germany",
+    avatar: null,
+  },
+  {
+    id: 8,
+    name: "Layla Linch",
+    email: "layla.linch@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 012-3456",
+    package: "Sea Tour",
+    address: "Cape Town, South Africa",
+    avatar: null,
+  },
+  {
+    id: 9,
+    name: "Sophia Lee",
+    email: "sophia.lee@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 678-9012",
+    package: "Culinary & Wine Adventures",
+    address: "Seoul, South Korea",
+    avatar: null,
+  },
+  {
+    id: 10,
+    name: "Michael Smith",
+    email: "michael.smith@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 789-0123",
+    package: "Cultural Tours",
+    address: "Sydney, Australia",
+    avatar: null,
+  },
+  {
+    id: 11,
+    name: "Zaire Dorwart",
+    email: "zaire.dorwart@example.com",
+    date: "March 12, 2025",
+    phone: "+1 (555) 345-7890",
+    package: "Culinary & Wine Adventures",
+    address: "Madrid, Spain",
+    avatar: null,
+  },
+]
+
+const packageOptions = [
+  { value: "sea-tour", label: "Sea Tour" },
+  { value: "land-tour", label: "Land Tour" },
+  { value: "cultural-tours", label: "Cultural Tours" },
+  { value: "culinary-wine", label: "Culinary & Wine Adventures" },
+]
+
+const categoryOptions = [
+  { value: "regular", label: "Regular" },
+  { value: "premium", label: "Premium" },
+  { value: "vip", label: "VIP" },
+]
+
+const itemsOptions = [
+  { value: "10", label: "10" },
+  { value: "11", label: "11" },
+  { value: "20", label: "20" },
+  { value: "50", label: "50" },
+  { value: "100", label: "100" },
+]
 
 
 
@@ -16,141 +161,25 @@ export default function TravelerList() {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
   const [showItemsDropdown, setShowItemsDropdown] = useState(false)
   
+  const [showModal, setShowModal] = useState(false)
+  const [selectedTraveler, setSelectedTraveler] = useState<TTravelersList | null >(null)
 
+  
 
-  const travelers = [
-    {
-      id: 1,
-      name: "Camellia Swan",
-      email: "camellia.swan@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 123-4567",
-      package: "Sea Tour",
-      address: "Bali, Indonesia",
-      avatar: null,
-    },
-    {
-      id: 2,
-      name: "Raphael Goodman",
-      email: "raphael.goodman@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 234-5678",
-      package: "Land Tour",
-      address: "Jakarta, Indonesia",
-      avatar: null,
-    },
-    {
-      id: 3,
-      name: "Ludwig Contessa",
-      email: "ludwig.contessa@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 345-6789",
-      package: "Cultural Tours",
-      address: "Bandung, Indonesia",
-      avatar: null,
-    },
-    {
-      id: 4,
-      name: "Armina Raul Meyes",
-      email: "armina.meyes@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 456-7890",
-      package: "Sea Tour",
-      address: "Surabaya, Indonesia",
-      avatar: null,
-    },
-    {
-      id: 5,
-      name: "James Dunn",
-      email: "james.dunn@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 567-8901",
-      package: "Cultural Tours",
-      address: "Yogyakarta, Indonesia",
-      avatar: null,
-    },
-    {
-      id: 6,
-      name: "Hillary Grey",
-      email: "hillary.grey@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 345-6780",
-      package: "Sea Tour",
-      address: "Melbourne, Australia",
-      avatar: null,
-    },
-    {
-      id: 7,
-      name: "Lucas O'connor",
-      email: "lucas.oconnor@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 901-2345",
-      package: "Cultural Tours",
-      address: "Munich, Germany",
-      avatar: null,
-    },
-    {
-      id: 8,
-      name: "Layla Linch",
-      email: "layla.linch@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 012-3456",
-      package: "Sea Tour",
-      address: "Cape Town, South Africa",
-      avatar: null,
-    },
-    {
-      id: 9,
-      name: "Sophia Lee",
-      email: "sophia.lee@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 678-9012",
-      package: "Culinary & Wine Adventures",
-      address: "Seoul, South Korea",
-      avatar: null,
-    },
-    {
-      id: 10,
-      name: "Michael Smith",
-      email: "michael.smith@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 789-0123",
-      package: "Cultural Tours",
-      address: "Sydney, Australia",
-      avatar: null,
-    },
-    {
-      id: 11,
-      name: "Zaire Dorwart",
-      email: "zaire.dorwart@example.com",
-      date: "March 12, 2025",
-      phone: "+1 (555) 345-7890",
-      package: "Culinary & Wine Adventures",
-      address: "Madrid, Spain",
-      avatar: null,
-    },
-  ]
+  
+   
+  const handleRowClick = (travelers:TTravelersList) => {
+        setSelectedTraveler(travelers)
+        setShowModal(true)
+  }
 
-  const packageOptions = [
-    { value: "sea-tour", label: "Sea Tour" },
-    { value: "land-tour", label: "Land Tour" },
-    { value: "cultural-tours", label: "Cultural Tours" },
-    { value: "culinary-wine", label: "Culinary & Wine Adventures" },
-  ]
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedTraveler(null);
+  };
 
-  const categoryOptions = [
-    { value: "regular", label: "Regular" },
-    { value: "premium", label: "Premium" },
-    { value: "vip", label: "VIP" },
-  ]
+  
 
-  const itemsOptions = [
-    { value: "10", label: "10" },
-    { value: "11", label: "11" },
-    { value: "20", label: "20" },
-    { value: "50", label: "50" },
-    { value: "100", label: "100" },
-  ]
 
   return (
 
@@ -276,7 +305,7 @@ export default function TravelerList() {
 
 
 
-      <div className="bg-white border-0 rounded-lg  overflow-hidden">
+      <div className="bg-white border-0 rounded-lg  overflow-hidden ">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-[#E8F5FF]  text-left">
@@ -292,7 +321,7 @@ export default function TravelerList() {
 
             <tbody className="divide-y divide-gray-200">
               {travelers.map((traveler) => (
-                <tr key={traveler.id} className="hover:bg-gray-50">
+                <tr key={traveler.id} className="hover:bg-gray-50" onClick={()=>handleRowClick(traveler)}>
                   <td className="px-6 py-6 whitespace-nowrap">
                     <div className="flex items-center gap-3">
                       <div className="h-10 w-10 bg-sky-100 flex-shrink-0 rounded-full overflow-hidden">
@@ -318,6 +347,14 @@ export default function TravelerList() {
               ))}
             </tbody>
           </table>
+         {/* show modal  */}
+         {
+           showModal && selectedTraveler && <TravelarListModal 
+           selectedTraveler={selectedTraveler} 
+           closeModal={closeModal} 
+         />
+         }
+
         </div>
       </div>
 
