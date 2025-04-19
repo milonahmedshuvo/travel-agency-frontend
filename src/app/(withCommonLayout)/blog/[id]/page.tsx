@@ -8,9 +8,10 @@ import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
 
 
 const page = () => {
+
+
   return (
 
-    
     <section>     
 
       <div className="mt-10 bg-[#FFF] rounded-2xl custom-container ">
@@ -35,7 +36,7 @@ const page = () => {
 
       <RecentBlog/>
 
-      <p>dddddddddd</p>
+      
     </section>
   );
 };

@@ -78,11 +78,17 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
     {
       icon: <FileText size={20} />,
       label: "Blogs",
-      key: "10",
+      key: "9",
       active: true,
       path: "/dashboard/blogs",
     },
     { icon: <HeadphonesIcon size={20} />, label: "Support", key: "11" },
+    {
+      icon: <XCircle size={20} />,
+      label: "Facebook",
+      key: "10",
+      path: "/dashboard/facebook",
+    },
   ];
 
  
