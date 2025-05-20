@@ -247,6 +247,9 @@ export default function Page() {
 
 
 
+
+
+
         {/* image datails component  */}
         <div className="flex flex-col md:flex-row mt-10 gap-6">
 
@@ -311,7 +314,9 @@ export default function Page() {
               specialOffer="Special Offer: Book today & get a free souvenir bottle of wine!"
               reserveInfo="Reserve now & pay later to book your spot and pay nothing today"
               buttonText="Book Now"
-              route="/booking/tourBookingStep1"
+              route="/booking/booking"
+              // route="/booking/manageTourBooking"
+
             />
             {/* PickupPreferences */}
             <PickupPreferences />

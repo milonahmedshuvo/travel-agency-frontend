@@ -38,18 +38,20 @@ const Navbar = () => {
 
           {/* Sign Up and Login Buttons */}
           <div className="hidden lg:flex space-x-2.5 xl:space-x-4">
+            <Link href='/signup'> 
             <button
-              
+               
               className="text-[#38B6FF] border border-[#E0E0E0] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursorpo"
             >
               Sign Up
             </button>
-            <a
+            </Link>
+            <Link
               href="/login"
               className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
             >
               Login
-            </a>
+            </Link>
           </div>
         </div>
 

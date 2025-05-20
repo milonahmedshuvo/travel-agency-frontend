@@ -15,6 +15,8 @@ export default function RootLayout({
 }>) {
 const [collapsed, setCollapsed] = useState(false)
 
+
+
   return (
     <html lang="en">
       <body className={inter.className}>

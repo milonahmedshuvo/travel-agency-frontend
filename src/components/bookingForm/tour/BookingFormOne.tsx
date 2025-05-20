@@ -1,11 +1,17 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Calendar, ChevronDown, ChevronRight } from "lucide-react"
-import Link from "next/link"
+import {  ChevronDown, ChevronRight } from "lucide-react"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { setBookingSelectTourDateDatails } from "@/redux/slice/booking/booking"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
+// import Link from "next/link"
+
+
 
 
 // Define the form validation schema with Zod
@@ -22,32 +28,38 @@ const bookingFormSchema = z.object({
   }),
 })
 
-
-
 // Create a TypeScript type from the schema
 type BookingFormValues = z.infer<typeof bookingFormSchema>
 
 export default function TourBookingForm() {
   // Initialize React Hook Form with validation schema
+  const selectTourDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
+  console.log("slectrrrrrrr", selectTourDateDatails)
+  
   const {
     register,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
-    // reset,
+    reset,
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
-      tourName: "Santorini Sunset Catamaran Cruise",
-      date: "16 March, 2025",
-      duration: "5 Hours",
-      groupSize: "3 Person",
+      tourName: "",
+      date: "",
+      duration: "",
+      groupSize: "",
       dataConsent: false,
       termsConsent: false,
     },
   })
 
-
+  // resert useForm after reload redux state 
+  useEffect(()=>{
+    if(selectTourDateDatails){
+      reset(selectTourDateDatails)
+    }
+  },[selectTourDateDatails, reset])
 
   // State for custom dropdowns
   const [showDurationDropdown, setShowDurationDropdown] = useState(false)
@@ -55,6 +67,10 @@ export default function TourBookingForm() {
 
   const durations = ["3 Hours", "4 Hours", "5 Hours", "6 Hours", "Full Day"]
   const groupSizes = ["1 Person", "2 Person", "3 Person", "4 Person", "5+ Person"]
+
+  // manage redux all  state
+  const dispatch = useAppDispatch()
+  const router  = useRouter()
 
 
 
@@ -68,11 +84,19 @@ export default function TourBookingForm() {
 
       console.log("Form submitted successfully:", data)
 
-      alert("Booking information submitted successfully! Proceeding to guest details...")
+      dispatch(setBookingSelectTourDateDatails(data))
+      reset()
+      toast.success('Successfully created!');
+      router.push('/booking/gustDatailsOne')
+
+      // alert("Booking information submitted successfully! Proceeding to guest details...")
     } catch (error) {
       console.error("Error submitting form:", error)
     }
   }
+
+
+
 
 
 
@@ -116,13 +140,13 @@ export default function TourBookingForm() {
           <div className="relative">
             <input
               id="date"
-              type="text"
+              type="date"
               aria-invalid={errors.date ? "true" : "false"}
               aria-describedby={errors.date ? "date-error" : undefined}
               className={`w-full border ${errors.date ? "border-red-500" : "border-gray-300"} rounded-md p-4 text-base pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500`}
               {...register("date")}
             />
-            <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} />
+            {/* <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} /> */}
             {errors.date && (
               <p id="date-error" className="mt-1 text-sm text-red-600">
                 {errors.date.message}
@@ -295,8 +319,11 @@ export default function TourBookingForm() {
           )}
         </div>
 
+
+
+
         {/* Submit Button */}
-        <Link href='/booking/tourBookingStep2' > 
+        {/* <Link href='/booking/tourBookingStep2' >  */}
         <button
           type="submit"
           disabled={isSubmitting}
@@ -311,7 +338,7 @@ export default function TourBookingForm() {
             </>
           )}
         </button>
-        </Link>
+        {/* </Link> */}
       </div>
     </form>
     </section>

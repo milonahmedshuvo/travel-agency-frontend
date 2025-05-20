@@ -16,6 +16,10 @@ export default function TripBooking() {
   const [timeRange, setTimeRange] = useState("12");
   const [dateFilter, setDateFilter] = useState("today");
 
+
+
+
+  
   return (
     <div> 
       <Header/>

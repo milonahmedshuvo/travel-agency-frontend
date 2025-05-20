@@ -58,6 +58,14 @@ export default function BookingCard({
         <ArrowRight className="ml-2 h-5 w-5" />
       </button>
       </Link>
+
+      <Link href={`${route}`}> 
+      <button className="w-full my-4 cursor-pointer bg-[#333333] text-white py-3 rounded-md transition-colors flex justify-center">
+         Package Inquiry
+      </button>
+      </Link>
+
+
     </div>
   );
 }

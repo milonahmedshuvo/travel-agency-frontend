@@ -1,0 +1,66 @@
+{
+  "title": "Maldives Tropical Paradise Escap23e 122222",
+  "description": "Relax on pristine white-sand beaches and explore vibrant coral reefs in the Maldives.",
+  "slug": "maldives-tropical-paradise",
+  "location": "Male, Maldives",
+  "packageDate": "2025-05-26T20:02:46.071Z",
+  "tourType": "luxury",
+  "category": "SEA_TOUR",
+  "duration": 5,
+  "price": 2800.0,
+  "isVehicleService": true,
+  "importantInfo": {
+    "transportation": "Entry Requirements",
+    "dressCode": "Passport valid for 6 months required; visa on arrival.",
+    "ageRequirement": "Passport valid for 6 months required; visa on arrival.",
+    "meetingPointGoogleMap": "Passport valid for 6 months required; visa on arrival."
+  },
+  "tourLovingReasons": [
+    {
+      "title": "Overwater Villas",
+      "description": "Stay in private overwater bungalows with direct ocean access."
+    }
+  ],
+  "detailedItineraries": [
+    {
+      "title": "Day 1: Arrival in Male",
+      "description": "Private speedboat transfer to resort, welcome drink, and sunset cruise."
+    }
+  ],
+  "activities": [
+    {
+      "name": "Snorkeling",
+      "value": "Guided coral reef exploration with marine biologists."
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Biyadhoo Island Coral Reefs"
+    }
+  ],
+  "descriptions": [
+    {
+      "title": "Dining",
+      "description": "Gourmet seafood dinners under the stars."
+    }
+  ],
+  "includes": [
+    {
+      "title": "All-Inclusive Meals"
+    }
+  ],
+  "brings": [
+    {
+      "title": "Sunscreen & Swimwear"
+    }
+  ],
+  "knowBeforeYouGoes": [
+    {
+      "title": "Cultural Etiquette",
+      "description": "Dress modestly when visiting local islands."
+    }
+  ],
+  "tourPackageVehicles": [
+    { "vehicleType": "BOAT", "vehicleId": "682a9af7f48e24526cdcc2f1" }
+  ]
+}

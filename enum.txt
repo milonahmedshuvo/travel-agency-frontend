@@ -1,0 +1,16 @@
+
+export enum TourPackageCategory {
+  SEA_TOUR = "SEA_TOUR",
+  LAND_TOUR = "LAND_TOUR",
+  CULTURAL_TOUR = "CULTURAL_TOUR",
+  GASTRO_WINE_TOUR = "GASTRO_WINE_TOUR",
+}
+
+
+export enum VehicleType {
+  BOAT = "BOAT",
+  CAR = "CAR",
+  VAN = "VAN",
+  AIRCRAFT = "AIRCRAFT",
+}
+

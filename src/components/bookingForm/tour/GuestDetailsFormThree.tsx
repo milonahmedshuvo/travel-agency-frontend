@@ -4,6 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import Link from "next/link"
 import { BookingConfirmationData } from "./BookingConfirmationData"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { setGustDatailsThree } from "@/redux/slice/booking/booking"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 
 const formSchema = z.object({
@@ -27,13 +31,16 @@ type FormValues = z.infer<typeof formSchema>
 
 
 export default function GuestDetailsFormThree() {
-  
+  const dispatch = useAppDispatch()
+  const gustDatailsThree = useAppSelector((state) => state.booking.gustDatailsThree)
+  const router = useRouter()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     // watch,
+    reset
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,9 +54,18 @@ export default function GuestDetailsFormThree() {
     },
   })
 
+  useEffect(()=>{
+    if(gustDatailsThree){
+      reset(gustDatailsThree)
+    }
+  }, [gustDatailsThree, reset])
+
+
   function onSubmit(values: FormValues) {
-    console.log(values)
     // Here you would typically send the form data to your backend
+    dispatch(setGustDatailsThree(values))
+    // router.push('/booking/reviewBooking')
+    router.push('/booking/pickupReturn')
   }
 
   
@@ -238,7 +254,7 @@ export default function GuestDetailsFormThree() {
         
 
 
-        <Link href='/booking/reviewBooking'>   
+        {/* <Link href='/booking/reviewBooking'>   
         <button
           type="submit"
           className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
@@ -254,7 +270,37 @@ export default function GuestDetailsFormThree() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </button>
-        </Link>
+        </Link> */}
+
+        <div className="flex items-center gap-3">
+           
+          <button
+          type="button"
+          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-[#fff] transition-colors cursor-pointer"
+          
+        >
+          <Link href='/booking/gustDatailsTwo'>
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg> </Link>
+          <Link href='/booking/gustDatailsTwo'>  Previous Pages </Link>
+        </button>
+        
+
+        <button
+          type="submit"
+          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[#fff] transition-colors cursor-pointer gap-3.5"
+        >
+           Next
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        </div>
 
 
       </form>

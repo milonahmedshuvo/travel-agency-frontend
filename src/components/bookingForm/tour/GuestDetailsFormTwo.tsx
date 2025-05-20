@@ -1,10 +1,14 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import Link from "next/link"
 import { BookingConfirmationData } from "./BookingConfirmationData"
+import { useDispatch } from "react-redux"
+import { setGustDatailsTwo } from "@/redux/slice/booking/booking"
+import { useAppSelector } from "@/redux/hook"
+import { useRouter } from "next/navigation"
 
 
 const formSchema = z.object({
@@ -29,11 +33,13 @@ type FormValues = z.infer<typeof formSchema>
 
 export default function GuestDetailsFormTwo() {
   const [guests, setGuests] = useState(1)
+  const gustDatailsTwo = useAppSelector((state)=> state.booking.gustDatailsTwo)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
     // watch,
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -48,9 +54,24 @@ export default function GuestDetailsFormTwo() {
     },
   })
 
+  // manage all state reduxt 
+  const dispatch = useDispatch()
+  const router = useRouter()
+  useEffect(()=>{
+    if( gustDatailsTwo){
+      reset( gustDatailsTwo)
+    }
+  },[ gustDatailsTwo, reset])
+
+
+
+
+
   function onSubmit(values: FormValues) {
     console.log(values)
     // Here you would typically send the form data to your backend
+    dispatch(setGustDatailsTwo(values))
+    router.push('/booking/gustDatailsThree')
   }
 
   const addGuest = () => {
@@ -239,10 +260,33 @@ export default function GuestDetailsFormTwo() {
           </div>
         </div>
 
-        <Link href='/booking/tourBookingStep4'>
-        <button
+       
+
+
+        <div className="flex items-center gap-3">
+           
+          <button
           type="button"
-          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-[#fff] transition-colors"
+          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-[#fff] transition-colors cursor-pointer"
+          onClick={addGuest}
+        >
+          <Link href='/booking/gustDatailsOne'>
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg> </Link>
+          <Link href='/booking/gustDatailsOne'>  Previous Page  </Link>
+        </button>
+        
+
+        <button
+          type="submit"
+          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[#fff] transition-colors cursor-pointer"
           onClick={addGuest}
         >
           <svg
@@ -256,7 +300,7 @@ export default function GuestDetailsFormTwo() {
           </svg>
           Add Third Guest
         </button>
-        </Link>
+        </div>
 
 
 

@@ -87,9 +87,11 @@ export default function RatingComponent() {
       </div>
 
       {/* Overall Rating */}
-      <div className="text-center mb-4">
-        <h2 className="text-gray-700 text-lg font-medium mb-2">Overall Rating</h2>
-        <div className="flex justify-center mb-6" onMouseLeave={handleStarLeave}>
+      <div className="mb-4 ">
+
+
+        <h2 className="text-[#475467] text-xl font-medium mb-2">Overall Rating</h2>
+        <div className="flex justify-start gap-2 mb-6" onMouseLeave={handleStarLeave}>
           {[1, 2, 3, 4, 5].map((star) => (
             <div
               key={star}
@@ -98,7 +100,7 @@ export default function RatingComponent() {
               onMouseEnter={() => handleStarHover(star)}
             >
               <Star
-                className={`w-8 h-8 ${
+                className={`w-10 h-10 ${
                   star <= displayRating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
                 } transition-colors duration-150`}
               />
@@ -109,10 +111,10 @@ export default function RatingComponent() {
 
       {/* Rate Your Experience */}
       <div className="mb-6">
-        <h3 className="text-gray-700 text-lg font-medium mb-2">Rate Your Experience</h3>
+        <h3 className="text-[#475467] text-lg font-medium mb-2">Rate Your Experience</h3>
         <div className="border border-gray-300 rounded-lg p-4">
           <textarea
-            className="w-full resize-none outline-none text-gray-700"
+            className="w-full resize-none outline-none text-[#475467]"
             rows={3}
             placeholder="We appreciate your feedback! Please rate the following aspects of your tour experience."
             value={feedback}

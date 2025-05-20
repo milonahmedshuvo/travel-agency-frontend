@@ -2,8 +2,12 @@
 import Link from "next/link";
 import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
+import { useAppSelector } from "@/redux/hook";
+
+
 
 export default function BookingReview() {
+  // const bookingDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
 
 
   return (
@@ -29,12 +33,7 @@ export default function BookingReview() {
             Santorini Sunset Catamaran Cruise
           </h1>
            
-           
-
-
            <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" />
-
-
 
           <div className="grid grid-cols-1 md:grid-cols-2">
           <BookingConfirmationData
