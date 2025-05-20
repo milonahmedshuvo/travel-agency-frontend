@@ -9,7 +9,11 @@ import Image from "next/image"
 import Link from "next/link"
 import toast from "react-hot-toast"
 import logos from "../../../assets/logo/logos.png"
-// import { Separator } from "@/components/ui/Separator"
+import { useLoginMutation } from "@/redux/api/auth/authApi"
+import { jwtDecode } from "jwt-decode"
+import { useAppDispatch } from "@/redux/hook"
+import { setUser } from "@/redux/slice/auth/authSlice"
+
 
 
 // Form validation schema
@@ -30,6 +34,9 @@ type FormValues = z.infer<typeof formSchema>
 
 export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+
 
   const {
     register,
@@ -44,23 +51,46 @@ export default function LoginForm() {
     },
   })
 
-  const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true)
+ 
+const onSubmit = async (data: FormValues) => {
 
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+  try {
+    const response = await login(data).unwrap();
+    console.log("Login Success:", response);
 
-      console.log("Form submitted singup:", data)
+
+     console.log('access token', response?.access_token)
+     
+    if(response?.access_token){
+         
+            toast.success('Login success!!') 
+            localStorage.setItem('token', response?.access_token )
+
+            const decodedUser = jwtDecode(response?.access_token)
+            console.log('decoded user', decodedUser)
+
+
+            dispatch(setUser({user: decodedUser, token: response?.access_token}))
       
-      toast.success('Your account has been successfully created.')
-      reset()
-    } catch (error) {
-      toast.error('There was a problem creating your account.')
-    } finally {
-      setIsSubmitting(false)
-    }
+            // router.push('/') 
+        }
+
+
+
+
+
+
+
+
+  } catch (err) {
+    console.error("Login Failed:", err);
   }
+
+}
+
+
+
+
 
 
 

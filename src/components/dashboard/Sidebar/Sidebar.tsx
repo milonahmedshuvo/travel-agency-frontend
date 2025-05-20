@@ -39,6 +39,12 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       path: "/dashboard/travelerList",
     },
     {
+      icon: <Users size={20} />,
+      label: "Vehicle List",
+      key: "2",
+      path: "/dashboard/vehiclelist",
+    },
+    {
       icon: <Car size={20} />,
       label: "Trip Booking",
       key: "3",

@@ -5,7 +5,7 @@ export type TUser = {
   id:string
   name: string;
   email: string;
-  profilePicture: string | null;
+  avatar: string | null;
   role: string;
   iat: number;
   exp: number;

@@ -15,6 +15,8 @@ import {
 } from "redux-persist";
 import authReducer from "./slice/auth/authSlice"
 import bookingReducer from "./slice/booking/booking"
+import { baseApi } from "./api/baseApi";
+
 
 
 const createNoopStorage = () => {
@@ -67,18 +69,18 @@ export const makeStore = () => {
   return configureStore({
 
     reducer: {
-    //   [baseApi.reducerPath]: baseApi.reducer,
+      [baseApi.reducerPath]: baseApi.reducer,
       auth: persistedAuthReducer,
       booking: persistedBookingReducer
     },
 
     
-    // middleware: (getDefaultMiddlewares) =>
-    //   getDefaultMiddlewares({
-    //     serializableCheck: {
-    //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    //     },
-    //   }).concat(baseApi.middleware),
+    middleware: (getDefaultMiddlewares) =>
+      getDefaultMiddlewares({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }).concat(baseApi.middleware),
 
 
   });
