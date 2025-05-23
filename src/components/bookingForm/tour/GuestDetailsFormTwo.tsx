@@ -34,6 +34,7 @@ type FormValues = z.infer<typeof formSchema>
 export default function GuestDetailsFormTwo() {
   const [guests, setGuests] = useState(1)
   const gustDatailsTwo = useAppSelector((state)=> state.booking.gustDatailsTwo)
+  const gustDatailsOne = useAppSelector((state) => state.booking.gustDatailsOne)
 
   const {
     register,
@@ -104,10 +105,10 @@ export default function GuestDetailsFormTwo() {
         <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">Santorini Sunset Catamaran Cruise</h1>
 
         <BookingConfirmationData
-          email="milonahmedshuvo@gmail.com"
-          age="21 year"
-          phone="+880 1567808747"
-          specialRequests="N/A"
+          email={gustDatailsOne?.email as string}
+            age={gustDatailsOne?.age as string}
+            phone={gustDatailsOne?.phoneNumber as string}
+          specialRequests={gustDatailsOne?.specialRequests || "N/A" }
         />
 
         

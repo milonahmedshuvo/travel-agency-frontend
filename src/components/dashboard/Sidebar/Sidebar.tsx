@@ -117,7 +117,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       >
         {/* Logo */}
         <div className="p-4 h-20 flex items-center border-b border-gray-200">
-          <div className="text-4xl font-bold text-[#FF8A65]">LOGO</div>
+          <Link href='/'> <div className="text-4xl font-bold text-[#FF8A65]">LOGO</div></Link>
         </div>
 
         {/* Menu Items */}

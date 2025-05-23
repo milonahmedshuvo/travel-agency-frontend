@@ -13,6 +13,7 @@ import { useLoginMutation } from "@/redux/api/auth/authApi"
 import { jwtDecode } from "jwt-decode"
 import { useAppDispatch } from "@/redux/hook"
 import { setUser } from "@/redux/slice/auth/authSlice"
+import { useRouter } from "next/navigation"
 
 
 
@@ -36,6 +37,7 @@ export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
+  const router = useRouter()
 
 
   const {
@@ -59,20 +61,21 @@ const onSubmit = async (data: FormValues) => {
     console.log("Login Success:", response);
 
 
-     console.log('access token', response?.access_token)
+     console.log('access token', response?.data?.access_token)
      
-    if(response?.access_token){
+    if(response?.data?.access_token){
          
             toast.success('Login success!!') 
-            localStorage.setItem('token', response?.access_token )
+            localStorage.setItem('token', response?.data?.access_token )
 
-            const decodedUser = jwtDecode(response?.access_token)
+            const decodedUser = jwtDecode(response?.data?.access_token)
             console.log('decoded user', decodedUser)
 
 
-            dispatch(setUser({user: decodedUser, token: response?.access_token}))
-      
-            // router.push('/') 
+            dispatch(setUser({user: decodedUser, token: response?.data?.access_token}))
+
+            reset()  
+            router.push('/') 
         }
 
 

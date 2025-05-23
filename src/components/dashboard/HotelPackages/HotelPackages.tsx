@@ -4,8 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import popular from "../../../assets/avatars/popular.jpg";
 import SeaImg from "../../../assets/avatars/sea.jpg";
 import Header from "../Header/Header";
+import Link from "next/link";
 
 export default function HotelPackages() {
+
+
   return (
     <div>
       <Header />
@@ -22,9 +25,11 @@ export default function HotelPackages() {
               <h2 className="text-[#101010] text-[14px] font-[500]">
                 New Package
               </h2>
+              <Link href='/dashboard/addHotelPackages'> 
               <button className="bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% px-4 py-1.5 rounded flex items-center justify-center text-white ">
-                <Plus className="h-4 w-4 mr-2" /> Add Hotel
+                <Plus className="h-4 w-4 mr-2" /> Add Hotels
               </button>
+              </Link>
             </div>
 
             <Card className="overflow-hidden">

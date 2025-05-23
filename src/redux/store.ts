@@ -15,6 +15,8 @@ import {
 } from "redux-persist";
 import authReducer from "./slice/auth/authSlice"
 import bookingReducer from "./slice/booking/booking"
+import vehicleBookingReducer from "./slice/vehicleBooking/vehicleBookingSlice"
+
 import { baseApi } from "./api/baseApi";
 
 
@@ -50,8 +52,14 @@ const booking = {
   storage,
 };
 
+const VehicleBookingConfig = {
+  key: "vehicleBooking",
+  storage,
+};
+
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedBookingReducer = persistReducer(booking, bookingReducer )
+const persistedVehicleBookingReducer = persistReducer(VehicleBookingConfig, vehicleBookingReducer)
 
 
 
@@ -67,11 +75,12 @@ const persistedBookingReducer = persistReducer(booking, bookingReducer )
 export const makeStore = () => {
 
   return configureStore({
-
+    
     reducer: {
       [baseApi.reducerPath]: baseApi.reducer,
       auth: persistedAuthReducer,
-      booking: persistedBookingReducer
+      booking: persistedBookingReducer,
+      vehicleBooking: persistedVehicleBookingReducer
     },
 
     

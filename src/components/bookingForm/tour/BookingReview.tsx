@@ -6,8 +6,15 @@ import { useAppSelector } from "@/redux/hook";
 
 
 
+
 export default function BookingReview() {
-  // const bookingDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
+   
+    const gustDatailsOne = useAppSelector((state) => state.booking.gustDatailsOne)
+    const gustDatailsTwo = useAppSelector((state) => state.booking.gustDatailsTwo)
+    const gustDatailsThree = useAppSelector((state) => state.booking.gustDatailsThree)
+  
+    const selectTourDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
+
 
 
   return (
@@ -33,27 +40,27 @@ export default function BookingReview() {
             Santorini Sunset Catamaran Cruise
           </h1>
            
-           <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" />
+           <BookingSize date={selectTourDateDatails?.date as string } duration={selectTourDateDatails?.duration as string} groupSize={selectTourDateDatails?.groupSize as string} />
 
           <div className="grid grid-cols-1 md:grid-cols-2">
           <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
+           email={gustDatailsOne?.email as string}
+            age={gustDatailsOne?.age as string}
+            phone={gustDatailsOne?.phoneNumber as string}
             specialRequests="N/A"
           />
 
           <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
+            email={gustDatailsTwo?.email as string}
+            age={gustDatailsTwo?.age as string}
+            phone={gustDatailsTwo?.phoneNumber as string}
             specialRequests="N/A"
           />
 
           <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
+            email={gustDatailsThree?.email as string}
+            age={gustDatailsThree?.age as string}
+            phone={gustDatailsThree?.phoneNumber as string}
             specialRequests="N/A"
           />
           </div>

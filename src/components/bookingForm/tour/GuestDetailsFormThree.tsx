@@ -33,6 +33,9 @@ type FormValues = z.infer<typeof formSchema>
 export default function GuestDetailsFormThree() {
   const dispatch = useAppDispatch()
   const gustDatailsThree = useAppSelector((state) => state.booking.gustDatailsThree)
+    const gustDatailsTwo = useAppSelector((state) => state.booking.gustDatailsTwo)
+    const gustDatailsOne = useAppSelector((state) => state.booking.gustDatailsOne)
+
   const router = useRouter()
 
   const {
@@ -65,7 +68,10 @@ export default function GuestDetailsFormThree() {
     // Here you would typically send the form data to your backend
     dispatch(setGustDatailsThree(values))
     // router.push('/booking/reviewBooking')
-    router.push('/booking/pickupReturn')
+    // router.push('/booking/pickupReturn')
+    // /booking/vehicle/pickupLocation
+    router.push('/booking/vehicle/pickupLocation')
+
   }
 
   
@@ -84,22 +90,22 @@ export default function GuestDetailsFormThree() {
         <p className="text-gray-600 mb-5">We respect your privacy! Your details are securely stored and never shared.</p>
       </div>
 
-       <div className=" mt-6">
+          <div className=" mt-6">
       
             <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">Santorini Sunset Catamaran Cruise</h1>
       
               <BookingConfirmationData
-                email="milonahmedshuvo@gmail.com"
-                age="21 year"
-                phone="+880 1567808747"
-                specialRequests="N/A"
+                email={gustDatailsOne?.email as string}
+               age={gustDatailsOne?.age as string}
+               phone={gustDatailsOne?.phoneNumber as string}
+                specialRequests={gustDatailsOne?.specialRequests || "N/A"}
               />
       
               <BookingConfirmationData
-                email="milonahmedshuvo@gmail.com"
-                age="21 year"
-                phone="+880 1567808747"
-                specialRequests="N/A"
+                email={gustDatailsTwo?.email as string}
+                age={gustDatailsTwo?.age as string}
+                phone={gustDatailsTwo?.phoneNumber as string}
+                specialRequests={gustDatailsTwo?.specialRequests || "N/A" }
               />
             </div>
 

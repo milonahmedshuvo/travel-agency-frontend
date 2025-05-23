@@ -1,4 +1,7 @@
+import Header from "@/components/dashboard/Header/Header"
 import AddTourPackagesForm from "@/components/dashboard/TourPackages/AddPakages/AddTourPackages"
+// import GroupLanguageForm from "@/components/dashboard/TourPackages/AddPakages/TextActions"
+
 
 
 
@@ -8,8 +11,13 @@ import AddTourPackagesForm from "@/components/dashboard/TourPackages/AddPakages/
 const page = () => {
   return (
     <div>
-       
-        <AddTourPackagesForm/>
+        <Header/>
+         <AddTourPackagesForm/>
+        {/* <GroupLanguageForm/> */}
+
+     
+        
+
     </div>
   )
 }

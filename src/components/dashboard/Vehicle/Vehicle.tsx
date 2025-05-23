@@ -1,9 +1,20 @@
+"use client"
+
 import Image, { StaticImageData } from "next/image"
 import { ChevronLeft, ChevronRight, ListFilter, MoveRight, Plus } from "lucide-react"
 import VehicleImg  from "../../../assets/landTour/img1.jpg"
 import Link from "next/link"
+import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi"
 
 export default function VehicleListPage() {
+  const {data, isSuccess} = useGetAllVehicleQuery(undefined)
+
+  if(isSuccess){
+    console.log('get vehicle', data)
+  }
+
+
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">

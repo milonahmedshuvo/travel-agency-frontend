@@ -5,10 +5,17 @@ export const vehicleApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
     getAllVehicle : builder.query({
     query : () => '/vehicles'
+   }),
+
+   createVehicle : builder.mutation({
+    query : (vehicleData) => ({
+        url : '/vehicles',
+        method: 'POST',
+        body: vehicleData
+    })
    }) 
-
-
+   
     }),
   });
   
-  export const {} = vehicleApi;
+  export const {useGetAllVehicleQuery, useCreateVehicleMutation} = vehicleApi;

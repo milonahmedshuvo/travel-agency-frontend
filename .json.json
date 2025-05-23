@@ -1,66 +1,52 @@
 {
-  "title": "Maldives Tropical Paradise Escap23e 122222",
-  "description": "Relax on pristine white-sand beaches and explore vibrant coral reefs in the Maldives.",
-  "slug": "maldives-tropical-paradise",
-  "location": "Male, Maldives",
-  "packageDate": "2025-05-26T20:02:46.071Z",
-  "tourType": "luxury",
+  "title": "Sunset Sea Adventure  20252 sl",
+  "description": "Experience a magical sunset on the sea.",
+  "slug": "sunset-sea-adventure",
+  "location": "Maldives",
+  "tourType": "Relaxation",
+  "packageDate": "2025-05-25T20:24:58.290Z",
   "category": "SEA_TOUR",
-  "duration": 5,
-  "price": 2800.0,
+  "duration": 4,
+  "price": 120,
   "isVehicleService": true,
   "importantInfo": {
-    "transportation": "Entry Requirements",
-    "dressCode": "Passport valid for 6 months required; visa on arrival.",
-    "ageRequirement": "Passport valid for 6 months required; visa on arrival.",
-    "meetingPointGoogleMap": "Passport valid for 6 months required; visa on arrival."
+    "meetingPointGoogleMap": "https://maps.google.com/seapoint ",
+    "transportation": "Boat included",
+    "dressCode": "Swimwear and hat",
+    "ageRequirement": "All ages welcome",
+    "mobileTicket": "Yes"
   },
   "tourLovingReasons": [
-    {
-      "title": "Overwater Villas",
-      "description": "Stay in private overwater bungalows with direct ocean access."
-    }
+    { "title": "Beautiful Views", "description": "Stunning ocean views." }
   ],
   "detailedItineraries": [
-    {
-      "title": "Day 1: Arrival in Male",
-      "description": "Private speedboat transfer to resort, welcome drink, and sunset cruise."
-    }
+    { "title": "Departure", "description": "Board the boat at 3 PM." }
   ],
-  "activities": [
-    {
-      "name": "Snorkeling",
-      "value": "Guided coral reef exploration with marine biologists."
-    }
+  "activity": [
+    { "groupSize": 15, "languages": ["English", "Maldivian"] }
   ],
   "highlights": [
-    {
-      "title": "Biyadhoo Island Coral Reefs"
-    }
+    { "title": "Sunset Cruise" }
   ],
   "descriptions": [
-    {
-      "title": "Dining",
-      "description": "Gourmet seafood dinners under the stars."
-    }
+    { "title": "Overview", "description": "A romantic evening at sea." }
   ],
   "includes": [
-    {
-      "title": "All-Inclusive Meals"
-    }
+    { "title": "Boat Ride" }
+  ],
+  "excludes": [
+    { "title": "Dinner" }
   ],
   "brings": [
-    {
-      "title": "Sunscreen & Swimwear"
-    }
+    { "title": "Camera" }
   ],
   "knowBeforeYouGoes": [
-    {
-      "title": "Cultural Etiquette",
-      "description": "Dress modestly when visiting local islands."
-    }
+    { "title": "Weather Conditions", "description": "Check weather before booking." }
   ],
   "tourPackageVehicles": [
-    { "vehicleType": "BOAT", "vehicleId": "682a9af7f48e24526cdcc2f1" }
+    {
+      "vehicleId": "60d5ec479f8bb61ce8c12345",
+      "vehicleType": "BOAT"
+    }
   ]
 }

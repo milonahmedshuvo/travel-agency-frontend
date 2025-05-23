@@ -9,6 +9,8 @@ import Image from "next/image"
 import Link from "next/link"
 import toast from "react-hot-toast"
 import logos from "../../../assets/logo/logos.png"
+import { useRegisterUserMutation } from "@/redux/api/auth/authApi"
+import { useRouter } from "next/navigation"
 // import { Separator } from "@/components/ui/Separator"
 
 
@@ -22,6 +24,8 @@ const formSchema = z
   .object({
     firstName: z.string().min(2, { message: "First name must be at least 2 characters" }),
     lastName: z.string().min(2, { message: "Last name must be at least 2 characters" }),
+    userName : z.string().min(2, { message: "user name must be at least 2 characters" }),
+    contactNo: z.string().min(2, { message: "contactNo name must be at least 2 characters" }),
     email: z.string().email({ message: "Please enter a valid email address" }),
     password: z
       .string()
@@ -41,6 +45,8 @@ type FormValues = z.infer<typeof formSchema>
 
 export default function SignupForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [registerUser, { isLoading, isError, isSuccess }] = useRegisterUserMutation();
+  const router = useRouter()
 
   const {
     register,
@@ -53,6 +59,8 @@ export default function SignupForm() {
       firstName: "",
       lastName: "",
       email: "",
+      userName: "",
+      contactNo: "",
       password: "",
       confirmPassword: "",
     },
@@ -61,14 +69,37 @@ export default function SignupForm() {
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true)
 
+
+    const payload = {
+      customer: {
+        firstName: data?.firstName,
+        lastName: data?.lastName
+      },
+      username: data?.userName,
+      email: data?.email,
+      password: data?.password,
+      contactNo: data?.contactNo,
+      role: "CUSTOMER"
+    };
+
+
+
+
+
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       console.log("Form submitted singup:", data)
-      
+
+
+      const res = await registerUser(payload).unwrap();
+
+      console.log("response", res)
+
       toast.success('Your account has been successfully created.')
       reset()
+      router.push('/login')
     } catch (error) {
       toast.error('There was a problem creating your account.')
     } finally {
@@ -136,6 +167,37 @@ export default function SignupForm() {
           />
           {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
         </div>
+
+        
+        <div className="space-y-2">
+          <label htmlFor="email">user Name</label>
+          <input
+            id="userName"
+            type="text"
+            placeholder="Enter your email address"
+            {...register("userName")}
+            className={`border border-[#98A2B3] mt-2 py-2 px-3 w-full rounded focus:outline-none ${errors.userName ? "border-red-500" : ""}`}
+          />
+          {errors.userName && <p className="text-red-500 text-xs">{errors.userName.message}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="email">Contact No</label>
+          <input
+            id="contactNo"
+            type="text"
+            placeholder="Enter your email address"
+            {...register("contactNo")}
+            className={`border border-[#98A2B3] mt-2 py-2 px-3 w-full rounded focus:outline-none ${errors.contactNo ? "border-red-500" : ""}`}
+          />
+          {errors.contactNo && <p className="text-red-500 text-xs">{errors.contactNo.message}</p>}
+        </div>
+
+
+
+
+
+
 
         <div className="space-y-2">
           <label htmlFor="password">Password</label>
