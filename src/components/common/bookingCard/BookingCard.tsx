@@ -9,6 +9,7 @@ interface BookingCardProps {
   reserveInfo?: string;
   buttonText: string;
   route: string
+   handleOrder: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function BookingCard({
@@ -18,8 +19,16 @@ export default function BookingCard({
   specialOffer,
   reserveInfo,
   buttonText,
-  route
+  route,
+  handleOrder
 }: BookingCardProps) {
+
+
+
+
+
+
+
   return (
     <div className="p-6 bg-white rounded-lg">
       <h1 className="text-3xl font-semibold mb-6">{title}</h1>
@@ -49,15 +58,16 @@ export default function BookingCard({
         </div>
       )}
 
-      {/* /booking/tourBookingStep1   */}
+    
       {/* book now button  */}
 
-      <Link href={`${route}`}> 
-      <button className="w-full cursor-pointer bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors flex justify-center">
+      {/* <Link href={`${route}`}>  */}
+      <button onClick={handleOrder} className="w-full cursor-pointer bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors flex justify-center">
         {buttonText}
         <ArrowRight className="ml-2 h-5 w-5" />
       </button>
-      </Link>
+     
+      {/* </Link> */}
 
       <Link href={`${route}`}> 
       <button className="w-full my-4 cursor-pointer bg-[#333333] text-white py-3 rounded-md transition-colors flex justify-center">

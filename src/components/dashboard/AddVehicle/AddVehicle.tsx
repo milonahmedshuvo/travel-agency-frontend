@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -28,14 +29,12 @@ type FormValues = z.infer<typeof formSchema>;
 export default function AddVehicleForm() {
   const [file, setFile] = useState<File | null>(null);
   const [createVehicle] = useCreateVehicleMutation();
-
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     // setValue,
-    // reset
+    reset
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,11 +43,15 @@ export default function AddVehicleForm() {
       pricePerHR: 0,
     },
   });
+  const [loadding, setLoadding] = useState(false)
+
 
 
 
 
   const onSubmit = async (data: FormValues) => {
+
+    setLoadding(true)
     const formData = new FormData();
     formData.append(
       "data",
@@ -69,7 +72,8 @@ export default function AddVehicleForm() {
       console.log("Vehicle created successfully:", result);
 
       toast.success( result.message || "Vehicle created successfully!");
-      // reset();
+      reset();
+      setLoadding(false)
     } catch (err: any) {
       console.error("Failed to create vehicle:", err);
     }
@@ -82,6 +86,13 @@ export default function AddVehicleForm() {
       setFile(e.target.files[0]);
     }
   };
+
+  // image delete 
+ const handleDelete = () => {
+      setFile(null)
+  };
+
+
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 mt-10 mb-10">
@@ -170,20 +181,31 @@ export default function AddVehicleForm() {
                 Browse Files
               </button>
               {file && (
-                <p className="text-sm text-green-600 mt-2">
-                  Selected: {file.name}
-                </p>
+           <div className="relative w-24 h-24 rounded overflow-hidden">
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`Preview`}
+              className="w-full h-full object-cover"
+            />
+            <button
+              onClick={() => handleDelete()}
+              className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded-bl hover:bg-red-600"
+            >
+              ✖
+            </button>
+          </div>
               )}
             </div>
           </div>
         </div>
+
 
         {/* Submit Button */}
         <button
           type="submit"
           className="w-full py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-semibold"
         >
-          Add Vehicle
+          { loadding? "Creatting vehicle...": "Add Vehicle" }
         </button>
       </form>
     </div>

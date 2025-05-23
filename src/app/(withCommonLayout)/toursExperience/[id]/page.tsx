@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import ActivityCard from "@/components/common/activityCard/ActivityCard";
@@ -18,7 +19,7 @@ import WineTourItinerary from "@/components/common/wineTourItinerary/WineTourIti
 import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
 import TestimonialSlider from "@/components/toursExperience/testimonialSlider/TestimonialSlider";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 
 
 
@@ -30,6 +31,11 @@ import img3 from "../../../../assets/card/tourexperience/img2.jpg";
 import img6 from "../../../../assets/card/tourexperience/img8.jpg";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import TourOverviewWithCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
+import { useGetSingleTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useParams } from "next/navigation";
+import { TPackageImage } from "@/components/lib/types";
+import { useAppDispatch } from "@/redux/hook";
+import { setTourPackageId } from "@/redux/slice/vehicleBooking/vehicleBookingSlice";
 
 
 // Sample property data with the saved image
@@ -160,7 +166,32 @@ const infoItems = [
 
 
 export default function Page() {
+  const dispatch =useAppDispatch()
+  const params = useParams()
+  const id = params.id 
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const {data} = useGetSingleTourQuery(id)
+  
+
+  console.log('single tour data:', data?.data?.images)
+  console.log('single tour data:', data?.data)
+  console.log('tour packages id:', data?.data?.id)
+  console.log('tour packages vihecle id:', data?.data)
+ 
+
+  
+
+
+  
+
+   const handleOrder = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    console.log('order click')
+    dispatch(setTourPackageId(id))
+   }
+
+
+
 
   return (
     <div> 
@@ -168,7 +199,7 @@ export default function Page() {
       <div className="custom-container px-4 py-8 ">
 
         {/* Responsive masonry-style grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {properties.map((property) => (
             <div
               key={property.id}
@@ -190,7 +221,33 @@ export default function Page() {
               </div>
             </div>
           ))}
+        </div> */}
+
+        {/* exarsize it  */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {data?.data?.images?.map((image:TPackageImage, index:number) => (
+            <div
+              key={index}
+              className={`
+              overflow-hidden rounded-lg  transition-transform duration-300  hover:-translate-y-1
+              ${  [1, 3].includes(index)  ? "sm:col-span-1 sm:row-span-2" : ""}
+              relative cursor-pointer
+            `}
+             
+            >
+              <div className="relative h-full">
+                <img
+                  src={image.url || "/placeholder.svg"}
+                  alt='dkdd'
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
+          ))}
         </div>
+
+
 
         {/* Image modal */}
         {selectedImage && (
@@ -249,10 +306,8 @@ export default function Page() {
 
 
 
-
         {/* image datails component  */}
         <div className="flex flex-col md:flex-row mt-10 gap-6">
-
 
           <div className="w-full md:w-[55%] lg:w-[65%]">
             {/* travel card  */}
@@ -288,19 +343,8 @@ export default function Page() {
              {/* Checklist */}
              <Checklist title="What to bring" items={items} />
              {/* KnowBeforeYouGo */}
-             <KnowBeforeYouGo items={infoItems}/>
-
-             
+             <KnowBeforeYouGo items={infoItems}/>             
           </div>
-
-
-
-
-
-
-
-
-
           <div className="w-full md:w-[45%] lg:w-[35%]">
             {/* <BookingCard /> */}
             <BookingCard
@@ -316,6 +360,7 @@ export default function Page() {
               buttonText="Book Now"
               route="/booking/booking"
               // route="/booking/manageTourBooking"
+              handleOrder={handleOrder}
 
             />
             {/* PickupPreferences */}

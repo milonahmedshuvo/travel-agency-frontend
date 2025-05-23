@@ -13,11 +13,18 @@ export const tourPackagesApi = baseApi.injectEndpoints({
         body: tourPackagesData
     })
    }),
-   
-   
+    // GET LAND TOUR 
+    getLandTour : builder.query({
+        query: () => '/tour-packages?category=LAND_TOUR' 
+    }),
+    // GET SINGLE TOUR 
+    getSingleTour : builder.query({
+        query : (id) => `/tour-packages/${id}`
+    })
+
 
    
     }),
   });
   
-  export const {useCreatetourPackagesMutation} = tourPackagesApi;
+  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery } = tourPackagesApi;

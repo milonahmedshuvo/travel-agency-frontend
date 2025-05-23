@@ -21,7 +21,7 @@ export default function VehicleListPage() {
         <h1 className="text-3xl font-bold">Vehicle List</h1>
         <div className="flex gap-2">
             <Link href='/dashboard/addVehicle' > 
-          <button className="bg-blue-500 hover:bg-blue-600 flex justify-center items-center py-2 px-2.5 text-white rounded">
+          <button className="bg-blue-500 hover:bg-blue-600 flex justify-center items-center py-2 px-2.5 text-white rounded cursor-pointer ">
             <Plus className="mr-2 h-4 w-4" /> Add New Vehicle
           </button>
           </Link>

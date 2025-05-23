@@ -90,6 +90,7 @@ export const {
   setNeedsAdditionalStops,
   setTourPackageVehicleId,
   setCustomerId,
+  setTourPackageId,
   resetVehicleBooking
 } = vehicleBookingSlice.actions;
 

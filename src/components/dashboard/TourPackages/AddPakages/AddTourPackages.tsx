@@ -51,10 +51,6 @@ export type TVehicleOfObject = {
 export default function TourPackageForm() {
    const {data} = useGetAllVehicleQuery("")
    const [createTourPackages, {data:tourData, error}] = useCreatetourPackagesMutation()
-  //  console.log("get valicle", data?.data?.data)
-     console.log('vehcle error show from redux',{tourData})
-     console.log('vehierle create error', error)
-
 
 
 
@@ -352,107 +348,20 @@ const onChange = (checked: boolean) => {
     height: 400,
     tabIndex: 2,
   };
+const [loadding, setLoadding] = useState(false)
 
 
 
 
 
 
-  // Handle form submission
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault()
-
-//     // Combine all data
-//     const packageData = {
-//       ...formData,
-//       content,
-//       tourLovingReasons,
-//       detailedItinerarys,
-//       activity,
-//       highlights,
-//       descriptions,
-//       includeds,
-//       excludeds,
-//       bring,
-//       knowBeforeYouGoes,
-//       tourPackageVehicles,
-//     }
-
-// // Convert to FormData
-// const formDatas = new FormData();
-
-
-// formDatas.append("data",
-//   JSON.stringify({
-//     title: formData?.title,
-//   })
-// );
-
-// formDatas.append("data", JSON.stringify({description: content}));
-// formDatas.append("slug", data.slug);
-// formDatas.append("data", JSON.stringify({location: formData.location }));
-// formDatas.append("data", JSON.stringify({tourType: 'type'}));
-// formDatas.append("data", JSON.stringify({ packageDate: formData.date }));
-// formDatas.append("data", JSON.stringify({ category: formData.category }));
-// formDatas.append("data", JSON.stringify({duration: formData.duration }));
-// formDatas.append("data", JSON.stringify({price: formData.price }) );
-// formDatas.append("data", JSON.stringify({isVehicleService: formData.isVehicleService}));
-
-
-
-
-// // Append nested object as JSON string
-// formDatas.append("data", JSON.stringify({ importantInfo: {
-//   meetingPointGoogleMap: formData.meetingPointGoogleMap,
-//   transportation: formData.transportation,
-//   dressCode: formData.dressCode,
-//   ageRequirement: formData.ageRequirement,
-//   mobileTicket: formData.mobileTicket
-// } }));
-
-// // Append arrays as JSON strings
-// formDatas.append("data", JSON.stringify({tourLovingReasons: tourLovingReasons }));
-// formDatas.append("data", JSON.stringify({detailedItineraries: detailedItinerarys }));
-// formDatas.append("data", JSON.stringify( {activity: activity}));
-// formDatas.append("data", JSON.stringify( {highlights: highlights }));
-// formDatas.append("data", JSON.stringify({descriptions: descriptions}));
-// formDatas.append("data", JSON.stringify({includes: includeds }));
-// formDatas.append("data", JSON.stringify({excludes: excludeds }));
-// formDatas.append("data", JSON.stringify({brings: bring }));
-// formDatas.append("data", JSON.stringify({knowBeforeYouGoes:knowBeforeYouGoes}));
-// formDatas.append("data", JSON.stringify({tourPackageVehicles: tourPackageVehicles}));
-
-//  if (file.length > 0) {
-//   file.forEach((f) => {
-//     formDatas.append("images", f); 
-//   });
-// }
- 
-//      try {
-//       const result = await createTourPackages({data: formDatas}).unwrap();
-//       console.log("Tour Packages created successfully:", result);
-
-//       toast.success( result.message || "Tour Packages created successfully!");
-//       // reset();
-//     } catch (err: any) {
-//       console.error("Failed to create Tour Packages:", err);
-//     }
-
-
-
-
-
-
-
-
-
-//     console.log("Submitting package data:", packageData)
-//     // Here you would typically send this data to your API
-//   }
+  
 
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault()
+  setLoadding(true)
+
 
   const fullData = {
   title: formData.title,
@@ -463,7 +372,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   // packageDate: formData.date, 
   packageDate: new Date(formData.date).toISOString(),
   // category: formData.category, 
-  category: 'SEA_TOUR',
+  category: formData.category,
   duration: Number(formData.duration),
   price: Number(formData.price),
   isVehicleService: formData.isVehicleService,
@@ -498,9 +407,11 @@ file.forEach(f => formDatas.append("images", f));
     const result = await createTourPackages(formDatas).unwrap()
     console.log("Tour Packages created successfully:", result)
     toast.success(result.message || "Tour Packages created successfully!")
+    setLoadding(false)
   } catch (err: any) {
     console.error("Failed to create Tour Packages:", err)
     toast.error("Failed to create Tour Packages.")
+     setLoadding(false)
   }
 }
 
@@ -1289,7 +1200,11 @@ file.forEach(f => formDatas.append("images", f));
         {/* <button type="button" >
           Cancel
         </button> */}
-        <button type="submit" className="bg-[#1F90FF] px-3 py-2.5 rounded text-white ">Submit Package</button>
+        <button type="submit" className="bg-[#1F90FF] px-3 py-2.5 rounded text-white ">
+          {
+            loadding ? "Creating Packages..." : "Submit Package"
+          }
+          </button>
       </div>
     </form>
   )
