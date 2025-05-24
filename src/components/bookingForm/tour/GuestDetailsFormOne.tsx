@@ -18,9 +18,12 @@ const formSchema = z.object({
     message: "Please enter a valid email address.",
   }),
   guestType: z.string(),
-  age: z.string(),
-  phoneNumber: z.string().optional(),
-  specialRequests: z.string().optional(),
+  age: z.preprocess(
+      (val) => (val === "" ? undefined : Number(val)),
+      z.number({ invalid_type_error: "Duration is required" }).min(1, "Duration must be at least 1")
+    ),
+  contactNo: z.string().min(3, { message : "Phone number is required" }),
+  requestMessage: z.string().optional(),
   consent: z.boolean().refine((val) => val === true, {
     message: "You must agree to the terms and conditions.",
   }),
@@ -35,6 +38,9 @@ export default function GuestDetailsFormOne() {
   const gustDatailsOne = useAppSelector((state) => state.booking.gustDatailsOne)
   
 
+  // {
+  //   gustDatailsOne?.isAdult === true? "Adult" : "Child"
+  // }
   const {
     register,
     handleSubmit,
@@ -46,10 +52,10 @@ export default function GuestDetailsFormOne() {
     defaultValues: {
       fullName: "",
       email: "",
-      guestType: "",
-      age: "",
-      phoneNumber: "",
-      specialRequests: "",
+      guestType: gustDatailsOne?.isAdult === true? "Adult" : "Child", 
+      age: 0,
+      contactNo: "",
+      requestMessage: "",
       consent: false,
     },
   })
@@ -69,10 +75,24 @@ const router = useRouter()
 
   function onSubmit(values: FormValues) {
     // Here you would typically send the form data to your backend or store redux
-    dispatch(setGustDatailsOne(values))
+    console.log(values)
+    let isAdult = false
+
+    if(values?.guestType ==="Adult"){
+      isAdult = true
+    }else if(values?.guestType === "Child"){
+      isAdult = false
+    }
+
+   const payload = { fullName: values?.fullName, email: values?.email,isAdult: isAdult, age: values?.age, contactNo: values?.contactNo, requestMessage: values?.requestMessage }
+    
+
+    dispatch(setGustDatailsOne(payload))
     reset()
     router.push('/booking/gustDatailsTwo')
   }
+
+
 
 
   const addGuest = () => {
@@ -88,10 +108,8 @@ const router = useRouter()
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
 
-
-
       <div className="mb-3">
-        <p className="text-lg font-medium mb-5">Step 02</p>
+        {/* <p className="text-lg font-medium mb-5">Step 02</p> */}
         <h1 className="text-4xl md:text-5xl font-semibold mb-5">
           Enter <span className="text-[#F78C41]">Guest Details</span>
         </h1>
@@ -164,7 +182,23 @@ const router = useRouter()
             <label htmlFor="age" className="block text-sm font-medium">
               Age
             </label>
-            <div className="relative">
+
+             <input
+            id="age"
+            type="number"
+            placeholder="Age"
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.age ? "border-red-500" : "border-gray-300"
+            }`}
+            {...register("age")}
+          />
+          {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}   
+
+
+
+
+
+            {/* <div className="relative">
               <select
                 id="age"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -187,36 +221,36 @@ const router = useRouter()
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </div>
-            </div>
+            </div> */}
             {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}
           </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="phoneNumber" className="block text-sm font-medium">
+          <label htmlFor="contactNo" className="block text-sm font-medium">
             Phone Number <span className="text-gray-400">(Optional)</span>
           </label>
           <input
-            id="phoneNumber"
+            id="contactNo"
             type="tel"
             placeholder="+880 1567808747"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("phoneNumber")}
+            {...register("contactNo")}
           />
-          {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
+          {errors.contactNo && <p className="text-red-500 text-sm">{errors.contactNo.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="specialRequests" className="block text-sm font-medium">
+          <label htmlFor="requestMessage" className="block text-sm font-medium">
             Special Requests
           </label>
           <textarea
-            id="specialRequests"
+            id="requestMessage"
             placeholder="Message"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("specialRequests")}
+            {...register("requestMessage")}
           />
-          {errors.specialRequests && <p className="text-red-500 text-sm">{errors.specialRequests.message}</p>}
+          {errors.requestMessage && <p className="text-red-500 text-sm">{errors.requestMessage.message}</p>}
         </div>
 
         <div className="flex items-start space-x-3">

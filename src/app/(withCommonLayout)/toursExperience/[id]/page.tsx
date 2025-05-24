@@ -32,10 +32,11 @@ import img6 from "../../../../assets/card/tourexperience/img8.jpg";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import TourOverviewWithCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
 import { useGetSingleTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { TPackageImage } from "@/components/lib/types";
 import { useAppDispatch } from "@/redux/hook";
 import { setTourPackageId } from "@/redux/slice/vehicleBooking/vehicleBookingSlice";
+import Loading from "@/components/shared/loading/Loading";
 
 
 // Sample property data with the saved image
@@ -166,11 +167,12 @@ const infoItems = [
 
 
 export default function Page() {
+  const router = useRouter()
   const dispatch =useAppDispatch()
   const params = useParams()
   const id = params.id 
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const {data} = useGetSingleTourQuery(id)
+  const {data, isLoading} = useGetSingleTourQuery(id)
   
 
   console.log('single tour data:', data?.data?.images)
@@ -179,15 +181,15 @@ export default function Page() {
   console.log('tour packages vihecle id:', data?.data)
  
 
-  
-
-
-  
+  if(isLoading){
+    return <Loading/>
+  }
 
    const handleOrder = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     console.log('order click')
     dispatch(setTourPackageId(id))
+    router.push('/booking/booking')
    }
 
 
@@ -231,10 +233,9 @@ export default function Page() {
               key={index}
               className={`
               overflow-hidden rounded-lg  transition-transform duration-300  hover:-translate-y-1
-              ${  [1, 3].includes(index)  ? "sm:col-span-1 sm:row-span-2" : ""}
+              ${  [1, 3].includes(index)  ? "sm:col-span-1 sm:row-span-2" : "" }
               relative cursor-pointer
             `}
-             
             >
               <div className="relative h-full">
                 <img

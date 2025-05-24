@@ -1,11 +1,13 @@
 
 interface BookingConfirmationProps {
   email: string
-  age: string
+  age: number
   phone: string
   specialRequests?: string
   className?: string
 }
+
+
 
 export function BookingConfirmationData({
   email,

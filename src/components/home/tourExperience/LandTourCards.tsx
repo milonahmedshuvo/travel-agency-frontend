@@ -7,6 +7,7 @@ import TourExperienceCard from "@/components/card/tourExCard/TourExCard"
 // import img6 from '../../../assets/landTour/img6.jpg'
 import { useGetLandTourQuery } from "@/redux/api/tourPackages/tourPackagesApi"
 import { TTourPackage } from "@/components/lib/types"
+import Loading from "@/components/shared/loading/Loading"
 
 // const products = [
 //     {
@@ -78,9 +79,11 @@ import { TTourPackage } from "@/components/lib/types"
 
 
   const TabLandTourCards = () => {
-  const {data} = useGetLandTourQuery(undefined)
+  const {data, isLoading } = useGetLandTourQuery(undefined)
 
-
+  if(isLoading){
+    return <Loading/>
+  }
 
     
 

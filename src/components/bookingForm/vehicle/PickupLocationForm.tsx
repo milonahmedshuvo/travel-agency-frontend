@@ -1,9 +1,12 @@
 "use client"
+import { TVehicleOfObject } from "@/components/dashboard/HotelPackages/AddHotelPackages/AddHotelPackages"
+import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi"
 import { useAppDispatch } from "@/redux/hook"
-import { setPickUpAddr, setPickUpDate, setPickUpTime, setVehicleType } from "@/redux/slice/vehicleBooking/vehicleBookingSlice"
+import { setPickUpAddr, setPickUpDate, setPickUpTime, setTourPackageVehicleId, setVehicleType } from "@/redux/slice/vehicleBooking/vehicleBookingSlice"
 import { ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 type FormValues = {
@@ -27,19 +30,36 @@ export default function PickupLocationForm() {
   })
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const {data:vehicleData} = useGetAllVehicleQuery(undefined)
+  const [vehicleId, setVehicleId] = useState("")
+  
+
+
+
+  
+
 
 
   const onSubmit = (data: FormValues) => {
     console.log("Form Data:", data)
     // Add your navigation logic or data handling here
+    const vehicleType = JSON.parse(data.vehicleType)
 
    dispatch(setPickUpAddr(data.address))
    dispatch(setPickUpDate(data.date))
    dispatch(setPickUpTime(data.time))
-   dispatch( setVehicleType(data.vehicleType))
+   dispatch( setVehicleType(vehicleType.vehicleType))
+   dispatch(setTourPackageVehicleId(vehicleId))
 
+
+
+
+       
+
+    //console.log("vehicle type:", vehicleType.vehicleType, vehicleType.id)
     router.push('/booking/vehicle/drinkingLocation')
   }
+
 
   return (
     <section className="bg-[#F4F4F4] rounded">
@@ -149,6 +169,8 @@ export default function PickupLocationForm() {
             </div>
           </div>
 
+
+
           {/* Vehicle Type Field */}
           <div className="space-y-2">
             <label htmlFor="vehicleType" className="text-gray-700 font-medium">
@@ -160,11 +182,20 @@ export default function PickupLocationForm() {
                 id="vehicleType"
                 {...register("vehicleType")}
                 className="w-full h-12 px-3 rounded-md border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                onChange={(e) => { 
+                  const selected = JSON.parse(e.target.value)
+                  // console.log('current vehicle selected', selected.id)
+                  setVehicleId(selected.id)
+                }}
               >
-                <option value="BOAT">BOAT</option>
+                {
+                  vehicleData?.data?.data?.map((vehicle:TVehicleOfObject) => <option key={vehicle.id} value={JSON.stringify({vehicleType: vehicle?.vehicleType, id: vehicle.id }) }>{vehicle?.vehicleType}</option> )
+                }
+
+                {/* <option value="BOAT">BOAT</option>
                 <option value="CAR">CAR</option>
                 <option value="VAN">VAN</option>
-                <option value="AIRCRAFT">AIRCRAFT</option>
+                <option value="AIRCRAFT">AIRCRAFT</option> */}
               </select>
               <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
                 <svg
@@ -190,7 +221,7 @@ export default function PickupLocationForm() {
             <Link href="/booking/gustDatailsThree" className="w-full">
               <button
                 type="button"
-                className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-white"
+                className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-white cursor-pointer"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -212,7 +243,7 @@ export default function PickupLocationForm() {
 
             <button
               type="submit"
-              className="w-full h-12 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full h-12 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2 cursor-pointer"
             >
               Next
               <svg

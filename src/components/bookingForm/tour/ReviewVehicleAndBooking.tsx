@@ -1,65 +1,87 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+import { useCreateTourBookingMutation } from "@/redux/api/tourPackages/tourPackagesApi";
 import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
 import { useAppSelector } from "@/redux/hook";
 import { useRouter } from "next/navigation";
 
 
-
-
 export default function BookingAndVehicleReview() {
   const router = useRouter()
   const pickupLocation = useAppSelector((state) => state.vehicleBooking.pickUpAddr)
+  const pickUpDate = useAppSelector((state) => state.vehicleBooking.pickUpDate)
   const pickupTime = useAppSelector((state) => state.vehicleBooking.pickUpTime)
+  const vehicleType = useAppSelector((state) => state.vehicleBooking.vehicleType)
+  const duration = useAppSelector((state)=> state.vehicleBooking.duration)
   const pickupRestaurant = useAppSelector((state) => state.vehicleBooking.restaurant)
-
+  const tourPackagesId = useAppSelector((state) => state.vehicleBooking.tourPackageId)
+  const address = useAppSelector((state) => state.vehicleBooking.address)
+  const expTimeSty = useAppSelector((state) => state.vehicleBooking.expTimeSty)
+  const sameCarReturn = useAppSelector((state) => state.vehicleBooking.sameCarReturn)
+  const dropOffAddr = useAppSelector((state) => state.vehicleBooking.dropOffAddr)
+  const needsAdditionalStops = useAppSelector((state) => state.vehicleBooking.needsAdditionalStops)
+  const tourPackageVehicleId = useAppSelector((state) => state.vehicleBooking.tourPackageVehicleId)
+  
   const gustDatailsOne = useAppSelector((state) => state.booking.gustDatailsOne)
   const gustDatailsTwo = useAppSelector((state) => state.booking.gustDatailsTwo)
   const gustDatailsThree = useAppSelector((state) => state.booking.gustDatailsThree)
 
   const selectTourDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
   
+  // customer datails 
+  const user = useAppSelector((state) => state.auth.user)
+  const [createTourBooking] = useCreateTourBookingMutation()
+ 
 
 
 
 
 
-
-
-  const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];
+const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];
   
-const handleBookingDataSend = () => {
+const handleBookingDataSend = async () => {
+
    const payload = {
-  tourPackageId: "682bb0330f1cc49088ec767c",
-  availableDate: "2025-05-25T00:42:55.105Z",
-  duration: 3,
-  groupSize: 5,
-  customerId: "682bcfba4f18aa937f95a66f",
+  tourPackageId: tourPackagesId,
+  availableDate: selectTourDateDatails?.date,
+  duration: selectTourDateDatails?.duration,
+  groupSize: selectTourDateDatails?.groupSize,
+  customerId: user?.id,
   isVehicleBooking: true,
   guests: guests,
 
   vehicleBooking: {
-    pickUpAddr: "123 Main Street",
-    pickUpDate: "2025-05-25T00:42:55.105Z",
-    pickUpTime: "08:00 AM",
-    vehicleType: "Sedan",
-    duration: 3,
-    restaurant: "Ocean View Restaurant",
-    address: "456 Ocean Road",
-    expTimeSty: "10:00 AM",
-    sameCarReturn: true,
-    dropOffAddr: "123 Main Street",
-    needsAdditionalStops: false,
-    tourPackageVehicleId: "682bb0340f1cc49088ec7687",
-    customerId: "682bcfba4f18aa937f95a66f"
+    pickUpAddr: pickupLocation,
+    pickUpDate: pickUpDate,
+    pickUpTime: pickupTime,
+    vehicleType: vehicleType ,
+    duration: 6,
+    restaurant:  pickupRestaurant,
+    address: address,
+    expTimeSty: expTimeSty,
+    sameCarReturn: sameCarReturn,
+    dropOffAddr: dropOffAddr,
+    needsAdditionalStops: needsAdditionalStops,
+    tourPackageVehicleId: tourPackageVehicleId,
+    customerId: user?.id,
   }
 };
 
+console.log('vehicle booking payload..', payload)
+  //  router.push('/booking/payment')
+
+ try{
+  const result = await createTourBooking(payload)
+  console.log('result tourbooking', result)
+ }catch(err){
+  console.log('error tour booking', err)
+ }
 
 
-   router.push('/booking/payment')
+
 }
+
 
   
 
@@ -69,7 +91,7 @@ const handleBookingDataSend = () => {
     <section className="space-y-6 bg-[#F4F4F4] ">
       <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
         <div className="mb-3">
-          <p className="text-lg font-medium mb-5">Step 05</p>
+          <p className="text-lg font-medium mb-5">Send data in backend </p>
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
               Review{" "}
             <span className="text-[#F78C41]">
@@ -116,7 +138,7 @@ const handleBookingDataSend = () => {
 
         <h1  className="!text-2xl sm:text-3xl  font-medium mb-6  mt-12" >Vehicle booking information</h1>
 
-              <div className="flex gap-3">
+              <div className="flex gap-1">
                  <h1 className="font-medium">Pick up location :</h1>
                  <h1>{pickupLocation}</h1>
               </div>
@@ -137,7 +159,7 @@ const handleBookingDataSend = () => {
 
         {/* <Link href="/booking/payment"> */}
           <button
-            onClick={() => handleBookingDataSend}
+            onClick={() => handleBookingDataSend()}
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
           >

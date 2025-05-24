@@ -106,9 +106,9 @@ export default function GuestDetailsFormTwo() {
 
         <BookingConfirmationData
           email={gustDatailsOne?.email as string}
-            age={gustDatailsOne?.age as string}
-            phone={gustDatailsOne?.phoneNumber as string}
-          specialRequests={gustDatailsOne?.specialRequests || "N/A" }
+            age={Number(gustDatailsOne?.age)}
+            phone={gustDatailsOne?.contactNo as string}
+          specialRequests={gustDatailsOne?.requestMessage || "N/A" }
         />
 
         

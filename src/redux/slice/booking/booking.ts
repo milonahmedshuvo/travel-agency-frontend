@@ -3,40 +3,40 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface TBookingSelectTourDate {
     tourName: string,
     date: string,
-    duration: string,
-    groupSize: string,
+    duration: number,
+    groupSize: number,
     dataConsent: boolean,
     termsConsent: boolean,
 }
 
 interface TGustDatailsOne {
+fullName: string  
+isAdult : boolean
+email: string
+age: number
+contactNo: string
+requestMessage?: string
+}
+
+
+interface TGustDatailsTwo {
+fullName: string  
+isAdult : boolean
+email: string
+age: number
+contactNo: string
+requestMessage?: string 
+}
+
+
+interface TGustDatailsThree {
 age: string ;
 consent: boolean;
 email: string;
 fullName: string;
 guestType : string;
-phoneNumber?: string 
-specialRequests?: string 
-}
-
-interface TGustDatailsTwo {
-  age: string ;
-consent: boolean;
-email: string;
-fullName: string;
-guestType : string;
-phoneNumber?: string 
-specialRequests?: string 
-}
-
-interface TGustDatailsThree {
-  age: string ;
-consent: boolean;
-email: string;
-fullName: string;
-guestType : string;
-phoneNumber?: string 
-specialRequests?: string 
+phoneNumber: string | number 
+specialRequests: string 
 }
 
 

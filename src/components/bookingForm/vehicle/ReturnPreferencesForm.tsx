@@ -56,8 +56,8 @@ export default function ReturnPreferencesForm() {
     <section className="bg-[#F4F4F4] rounded">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full max-w-[780px] mx-auto p-4 md:p-12 shadow bg-[#ffffff] rounded">
-          <div className="mb-8">
-            <p className="text-lg font-medium text-gray-600">Step 03</p>
+          <div className="mb-6">
+            {/* <p className="text-lg font-medium text-gray-600">Step 03</p> */}
             <h1 className="text-4xl font-bold">
               Return <span className="text-orange-400">Preferences</span>
             </h1>
@@ -65,24 +65,25 @@ export default function ReturnPreferencesForm() {
 
           <div className="space-y-6">
             {/* Toggle */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
+            <div className="space-y-8">
+              <div className="flex-col items-center justify-between">
                 <label className="text-base font-medium">Same as Pick-Up?</label>
                 <Controller
                   control={control}
                   name="sameAsPickup"
                   render={({ field }) => (
-                    <div className="flex items-center gap-2 cursor-pointer" onClick={() => field.onChange(!field.value)}>
+                    <div className="flex items-center gap-2 cursor-pointer mt-2" onClick={() => field.onChange(!field.value)}>
                       <span className={`text-sm ${!field.value ? "text-red-500 font-medium" : "text-gray-500"}`}>No</span>
                       <div className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${field.value ? "bg-green-500" : "bg-gray-200"}`}>
                         <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${field.value ? "translate-x-6" : "translate-x-1"}`} />
                       </div>
-                      <span className={`text-sm ${field.value ? "text-green-600 font-medium" : "text-gray-500"}`}>Yes</span>
+                      <span className={`text-sm  ${field.value ? "text-green-600 font-medium" : "text-gray-500"}`}>Yes</span>
                     </div>
                   )}
                 />
               </div>
             </div>
+
 
             {/* Drop-off input */}
             {!sameAsPickup && (
@@ -155,7 +156,7 @@ export default function ReturnPreferencesForm() {
 
             <button
               type="submit"
-              className="w-full h-12 bg-gradient-to-t from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full h-12 bg-gradient-to-t from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2 cursor-pointer"
             >
               Next
               <svg

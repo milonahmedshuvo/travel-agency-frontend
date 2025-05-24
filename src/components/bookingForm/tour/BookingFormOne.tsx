@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 "use client"
-import { useEffect, useState } from "react"
-import { useForm, Controller, type SubmitHandler } from "react-hook-form"
+import { useEffect} from "react"
+import { useForm, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import {  ChevronDown, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { setBookingSelectTourDateDatails } from "@/redux/slice/booking/booking"
 import { useRouter } from "next/navigation"
@@ -18,15 +18,22 @@ import toast from "react-hot-toast"
 const bookingFormSchema = z.object({
   tourName: z.string().min(1, "Tour name is required"),
   date: z.string().min(1, "Date is required"),
-  duration: z.string().min(1, "Duration is required"),
-  groupSize: z.string().min(1, "Group size is required"),
-  dataConsent: z.boolean().refine((val: boolean) => val === true, {
+  duration: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number({ invalid_type_error: "Duration is required" }).min(1, "Duration must be at least 1")
+  ),
+  groupSize: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number({ invalid_type_error: "Group size is required" }).min(1, "Group size must be at least 1")
+  ),
+  dataConsent: z.boolean().refine((val) => val === true, {
     message: "You must agree to the data storage policy",
   }),
-  termsConsent: z.boolean().refine((val: boolean) => val === true, {
+  termsConsent: z.boolean().refine((val) => val === true, {
     message: "You must agree to the terms and conditions",
   }),
 })
+
 
 // Create a TypeScript type from the schema
 type BookingFormValues = z.infer<typeof bookingFormSchema>
@@ -34,21 +41,15 @@ type BookingFormValues = z.infer<typeof bookingFormSchema>
 export default function TourBookingForm() {
   // Initialize React Hook Form with validation schema
   const selectTourDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
-  console.log("slectrrrrrrr", selectTourDateDatails)
-  
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors, isSubmitting },
+  const { register, handleSubmit,formState: { errors, isSubmitting },
     reset,
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
       tourName: "",
       date: "",
-      duration: "",
-      groupSize: "",
+      duration: 0,
+      groupSize: 0,
       dataConsent: false,
       termsConsent: false,
     },
@@ -61,12 +62,6 @@ export default function TourBookingForm() {
     }
   },[selectTourDateDatails, reset])
 
-  // State for custom dropdowns
-  const [showDurationDropdown, setShowDurationDropdown] = useState(false)
-  const [showGroupSizeDropdown, setShowGroupSizeDropdown] = useState(false)
-
-  const durations = ["3 Hours", "4 Hours", "5 Hours", "6 Hours", "Full Day"]
-  const groupSizes = ["1 Person", "2 Person", "3 Person", "4 Person", "5+ Person"]
 
   // manage redux all  state
   const dispatch = useAppDispatch()
@@ -155,117 +150,48 @@ export default function TourBookingForm() {
           </div>
         </div>
 
-        {/* Duration Field */}
+
+        {/* Duration Field  duration */}
         <div>
           <label htmlFor="duration" className="block text-lg font-medium mb-2">
-            Duration
+             Duration Hours
           </label>
-          <Controller
-            name="duration"
-            control={control}
-            render={({ field }) => (
-              <div className="relative">
-                <button
-                  type="button"
-                  id="duration"
-                  onClick={() => setShowDurationDropdown(!showDurationDropdown)}
-                  aria-haspopup="listbox"
-                  aria-expanded={showDurationDropdown}
-                  aria-invalid={errors.duration ? "true" : "false"}
-                  aria-describedby={errors.duration ? "duration-error" : undefined}
-                  className={`w-full flex items-center justify-between border ${errors.duration ? "border-red-500" : "border-gray-300"} rounded-md p-4 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                >
-                  <span>{field.value}</span>
-                  <ChevronDown size={20} className="text-gray-500" />
-                </button>
-
-                {showDurationDropdown && (
-                  <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-                    <ul className="py-1 max-h-60 overflow-auto" role="listbox">
-                      {durations.map((item) => (
-                        <li key={item} role="option" aria-selected={field.value === item}>
-                          <button
-                            type="button"
-                            className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                              field.value === item ? "bg-gray-100" : ""
-                            }`}
-                            onClick={() => {
-                              field.onChange(item)
-                              setShowDurationDropdown(false)
-                            }}
-                          >
-                            {item}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {errors.duration && (
-                  <p id="duration-error" className="mt-1 text-sm text-red-600">
-                    {errors.duration.message}
-                  </p>
-                )}
-              </div>
-            )}
+          <input
+            id="duration"
+            type="number"
+            className={`w-full border ${errors.duration ? "border-red-500" : "border-gray-300"} rounded-md p-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            {...register("duration")}
           />
+          {errors.duration && (
+            <p id="duration-error" className="mt-1 text-sm text-red-600">
+              {errors.duration.message}
+            </p>
+          )}
         </div>
 
-        {/* Group Size Field */}
-        <div>
-          <label htmlFor="groupSize" className="block text-lg font-medium mb-2">
+
+
+        {/* Group Size Field  groupSize*/}
+         <div>
+          <label htmlFor="duration" className="block text-lg font-medium mb-2">
             Group Size
           </label>
-          <Controller
-            name="groupSize"
-            control={control}
-            render={({ field }) => (
-              <div className="relative">
-                <button
-                  type="button"
-                  id="groupSize"
-                  onClick={() => setShowGroupSizeDropdown(!showGroupSizeDropdown)}
-                  aria-haspopup="listbox"
-                  aria-expanded={showGroupSizeDropdown}
-                  aria-invalid={errors.groupSize ? "true" : "false"}
-                  aria-describedby={errors.groupSize ? "groupSize-error" : undefined}
-                  className={`w-full flex items-center justify-between border ${errors.groupSize ? "border-red-500" : "border-gray-300"} rounded-md p-4 text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                >
-                  <span>{field.value}</span>
-                  <ChevronDown size={20} className="text-gray-500" />
-                </button>
-
-                {showGroupSizeDropdown && (
-                  <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-                    <ul className="py-1 max-h-60 overflow-auto" role="listbox">
-                      {groupSizes.map((item) => (
-                        <li key={item} role="option" aria-selected={field.value === item}>
-                          <button
-                            type="button"
-                            className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                              field.value === item ? "bg-gray-100" : ""
-                            }`}
-                            onClick={() => {
-                              field.onChange(item)
-                              setShowGroupSizeDropdown(false)
-                            }}
-                          >
-                            {item}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {errors.groupSize && (
-                  <p id="groupSize-error" className="mt-1 text-sm text-red-600">
-                    {errors.groupSize.message}
-                  </p>
-                )}
-              </div>
-            )}
+          <input
+            id="groupSize"
+            type="number"
+            aria-invalid={errors.groupSize ? "true" : "false"}
+            aria-describedby={errors.groupSize ? "groupSize-error" : undefined}
+            className={`w-full border ${errors.groupSize ? "border-red-500" : "border-gray-300"} rounded-md p-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            {...register("groupSize")}
           />
+          {errors.groupSize && (
+            <p id="groupSize-error" className="mt-1 text-sm text-red-600">
+              {errors.groupSize.message}
+            </p>
+          )}
         </div>
+
+        
 
         {/* Consent Checkboxes */}
         <div className="space-y-4 pt-2">

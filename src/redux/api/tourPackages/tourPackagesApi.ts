@@ -20,11 +20,20 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     // GET SINGLE TOUR 
     getSingleTour : builder.query({
         query : (id) => `/tour-packages/${id}`
-    })
+    }),
+
+    // POST tOUR bOOKING 
+    createTourBooking : builder.mutation({
+        query: (tourBooking) => ({
+            url : '/tour-bookings',
+            method: 'POST',
+            body: tourBooking
+        })
+    }), 
 
 
    
     }),
   });
   
-  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery } = tourPackagesApi;
+  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation } = tourPackagesApi;

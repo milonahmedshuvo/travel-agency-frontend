@@ -56,7 +56,7 @@ export default function DrinkingLocationForm() {
         className="w-full max-w-[780px] mx-auto p-4 md:p-12 shadow bg-white rounded"
       >
         <div className="mb-8">
-          <p className="text-gray-700 font-medium mb-1">Step 02</p>
+          {/* <p className="text-gray-700 font-medium mb-1">Step 02</p> */}
           <h1 className="text-3xl md:text-4xl font-bold">
             <span className="text-orange-400">Drinking Location</span> Details
           </h1>
@@ -143,7 +143,7 @@ export default function DrinkingLocationForm() {
 
             <button
               type="submit"
-              className="w-full h-12 bg-gradient-to-t from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full h-12 bg-gradient-to-t from-[#156CF0] to-[#38B6FF] text-white rounded-md flex items-center justify-center gap-2 cursor-pointer"
             >
               Next
               <svg
