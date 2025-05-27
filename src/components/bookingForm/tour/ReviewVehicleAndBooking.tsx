@@ -5,6 +5,7 @@ import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
 import { useAppSelector } from "@/redux/hook";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 export default function BookingAndVehicleReview() {
@@ -13,7 +14,7 @@ export default function BookingAndVehicleReview() {
   const pickUpDate = useAppSelector((state) => state.vehicleBooking.pickUpDate)
   const pickupTime = useAppSelector((state) => state.vehicleBooking.pickUpTime)
   const vehicleType = useAppSelector((state) => state.vehicleBooking.vehicleType)
-  const duration = useAppSelector((state)=> state.vehicleBooking.duration)
+  // const duration = useAppSelector((state)=> state.vehicleBooking.duration)
   const pickupRestaurant = useAppSelector((state) => state.vehicleBooking.restaurant)
   const tourPackagesId = useAppSelector((state) => state.vehicleBooking.tourPackageId)
   const address = useAppSelector((state) => state.vehicleBooking.address)
@@ -42,9 +43,13 @@ const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];
   
 const handleBookingDataSend = async () => {
 
+  if (!selectTourDateDatails || !selectTourDateDatails.date) {
+  throw new Error("Tour date is required.");
+}
+
    const payload = {
   tourPackageId: tourPackagesId,
-  availableDate: selectTourDateDatails?.date,
+  availableDate: new Date(selectTourDateDatails?.date).toISOString(),
   duration: selectTourDateDatails?.duration,
   groupSize: selectTourDateDatails?.groupSize,
   customerId: user?.id,
@@ -53,7 +58,7 @@ const handleBookingDataSend = async () => {
 
   vehicleBooking: {
     pickUpAddr: pickupLocation,
-    pickUpDate: pickUpDate,
+    pickUpDate: new Date(pickUpDate).toISOString(),
     pickUpTime: pickupTime,
     vehicleType: vehicleType ,
     duration: 6,
@@ -67,19 +72,17 @@ const handleBookingDataSend = async () => {
     customerId: user?.id,
   }
 };
-
 console.log('vehicle booking payload..', payload)
   //  router.push('/booking/payment')
 
  try{
-  const result = await createTourBooking(payload)
+  const result = await createTourBooking(payload).unwrap()
   console.log('result tourbooking', result)
+  toast.success( result.message || "Tour Bookings success!!")
  }catch(err){
   console.log('error tour booking', err)
+  toast.error("bookings error")
  }
-
-
-
 }
 
 
@@ -110,28 +113,29 @@ console.log('vehicle booking payload..', payload)
             Santorini Sunset Catamaran Cruise
           </h1>
            
-           <BookingSize date={selectTourDateDatails?.date as string } duration={selectTourDateDatails?.duration as string} groupSize={selectTourDateDatails?.groupSize as string} />
+           <BookingSize date={selectTourDateDatails?.date as string } duration={selectTourDateDatails?.duration as number } groupSize={selectTourDateDatails?.groupSize as number} />
 
           <div className="grid grid-cols-1 md:grid-cols-2">
           <BookingConfirmationData
             email={gustDatailsOne?.email as string}
-            age={gustDatailsOne?.age as string}
-            phone={gustDatailsOne?.phoneNumber as string}
-            specialRequests={gustDatailsOne?.specialRequests || "N/A"}
-          />
+            age={Number(gustDatailsOne?.age)}
+            phone={gustDatailsOne?.contactNo as string}
+             specialRequests={gustDatailsOne?.requestMessage || "N/A" }
+        />
+
 
           <BookingConfirmationData
             email={gustDatailsTwo?.email as string}
-            age={gustDatailsTwo?.age as string}
-            phone={gustDatailsTwo?.phoneNumber as string}
-            specialRequests={gustDatailsTwo?.specialRequests || "N/A"}
+            age={Number(gustDatailsTwo?.age)}
+            phone={gustDatailsTwo?.contactNo as string}
+            specialRequests={gustDatailsTwo?.requestMessage || "N/A"}
           />
 
           <BookingConfirmationData
             email={gustDatailsThree?.email as string}
-            age={gustDatailsThree?.age as string}
-            phone={gustDatailsThree?.phoneNumber as string}
-            specialRequests={gustDatailsThree?.specialRequests || "N/A"}
+            age={gustDatailsThree?.age as number}
+            phone={gustDatailsThree?.contactNo as string}
+            specialRequests={gustDatailsThree?.requestMessage || "N/A"}
           />
           </div>
         </div>

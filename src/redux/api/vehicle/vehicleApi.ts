@@ -13,9 +13,13 @@ export const vehicleApi = baseApi.injectEndpoints({
         method: 'POST',
         body: vehicleData
     })
-   }) 
-   
-    }),
+   }),
+    
+
+
+
+
+    }), 
   });
   
   export const {useGetAllVehicleQuery, useCreateVehicleMutation} = vehicleApi;

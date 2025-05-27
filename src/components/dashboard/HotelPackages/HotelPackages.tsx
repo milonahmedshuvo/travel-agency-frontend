@@ -26,7 +26,7 @@ export default function HotelPackages() {
                 New Package
               </h2>
               <Link href='/dashboard/addHotelPackages'> 
-              <button className="bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% px-4 py-1.5 rounded flex items-center justify-center text-white ">
+              <button className="bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% px-4 py-1.5 rounded flex items-center justify-center text-white cursor-pointer ">
                 <Plus className="h-4 w-4 mr-2" /> Add Hotels
               </button>
               </Link>

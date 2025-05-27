@@ -16,6 +16,7 @@ import {
 import authReducer from "./slice/auth/authSlice"
 import bookingReducer from "./slice/booking/booking"
 import vehicleBookingReducer from "./slice/vehicleBooking/vehicleBookingSlice"
+import accommodationBookingReducer from "./slice/accommodationBooking/accommodationBooking"
 
 import { baseApi } from "./api/baseApi";
 
@@ -57,9 +58,18 @@ const VehicleBookingConfig = {
   storage,
 };
 
+const accommodationStayBookingConfig = {
+  key: "accommodationBooking",
+  storage,
+};
+
+
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedBookingReducer = persistReducer(booking, bookingReducer )
 const persistedVehicleBookingReducer = persistReducer(VehicleBookingConfig, vehicleBookingReducer)
+const persistedAccommodationBookingReducer = persistReducer(accommodationStayBookingConfig, accommodationBookingReducer)
+
+
 
 
 
@@ -80,7 +90,8 @@ export const makeStore = () => {
       [baseApi.reducerPath]: baseApi.reducer,
       auth: persistedAuthReducer,
       booking: persistedBookingReducer,
-      vehicleBooking: persistedVehicleBookingReducer
+      vehicleBooking: persistedVehicleBookingReducer,
+      accommodationBooking: persistedAccommodationBookingReducer
     },
 
     
@@ -100,6 +111,7 @@ export const makeStore = () => {
 
 export const store = makeStore();
 export const persistor = persistStore(store);
+
 
 
 // Infer the type of makeStore

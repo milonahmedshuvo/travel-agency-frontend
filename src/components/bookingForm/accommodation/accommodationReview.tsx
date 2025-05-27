@@ -1,21 +1,74 @@
 "use client";
-import Link from "next/link";
-import { BookingConfirmationData } from "../tour/BookingConfirmationData";
+import { useAppSelector } from "@/redux/hook";
+import toast from "react-hot-toast";
 import { ReviewItems } from "./ReviewItems";
+import { BookingConfirmationData } from "../tour/BookingConfirmationData";
+import { useCreateRoomBookingMutation } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import { useRouter } from "next/navigation";
 
 
-export default function AccommodationReview() {
+export default function BookingReview() {
+    const router = useRouter()
+    const acommodationStayBooking = useAppSelector((state) => state.accommodationBooking.acommodationStayBooking)
+
+     const accommodationGustDatailsOne = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsOne)
+     const accommodationGustDatailsTwo = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsTwo)
+     const accommodationGustDatailsThree = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsThree)
+   
+    // const hotelPackageId = useAppSelector((state) => state.accommodationBooking.hotelPackageId)
+
+
+    // customer datails 
+      const user = useAppSelector((state) => state.auth.user)
+      const [createRoomBooking] = useCreateRoomBookingMutation()
+
+      
+
+      console.log('current user id',  user?.id)
+
+
+const guests = [accommodationGustDatailsOne, accommodationGustDatailsTwo, accommodationGustDatailsThree];  
+const handleBookingDataSend = async () => {
+
+if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
+  throw new Error("Hotel date is required.");
+}
+
+
+ const payload = {
+    checkInDate: new Date(acommodationStayBooking.checkInDate).toISOString(),
+    checkOutDate: new Date(acommodationStayBooking.checkOutDate).toISOString(),
+    numberOfGuests: acommodationStayBooking.numberOfGuests,
+    roomType: acommodationStayBooking.roomType,
+    hotelPackageId: "68359870981abc53052aa9cf",
+    customerId: user?.id,
+    guests: guests
+  }
+
+
+ try{
+  const result = await createRoomBooking(payload).unwrap()
+  console.log('Result Room booking', result)
+  toast.success( result.message || "Room Bookings success!!")
+  router.push("/booking/accommodation/paymentCard")
+ }catch(err){
+  console.log('error Room booking', err)
+  toast.error("Room bookings Filed")
+ }
+}
+
+
 
 
   return (
     <section className="space-y-6 bg-[#F4F4F4] ">
       <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
         <div className="mb-3">
-          <p className="text-lg font-medium mb-5">Step 03</p>
+          {/* <p className="text-lg font-medium mb-5">Step 05</p> */}
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
               Review{" "}
             <span className="text-[#F78C41]">
-              & Confirm <br /> Booking
+              & Confirm <br /> Bookings
             </span>
           </h1>
 
@@ -27,45 +80,41 @@ export default function AccommodationReview() {
 
         <div className=" mt-6">
           <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">
-          Deluxe Room – $155/per night
+            Santorini Sunset Catamaran Cruise
           </h1>
-           
-           
-
-
-           <ReviewItems checkIn=" March 12, 2025" checkOut="6 Hours" numberGuests="3 Parson" />
-
-
+        
+           <ReviewItems checkIn={acommodationStayBooking?.checkInDate as string}  checkOut={acommodationStayBooking?.checkOutDate as string} numberGuests={acommodationStayBooking?.numberOfGuests as number} ></ReviewItems>
 
 
           <div className="grid grid-cols-1 md:grid-cols-2">
           <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
-            specialRequests="N/A"
+            email={accommodationGustDatailsOne?.email as string}
+            age={Number(accommodationGustDatailsOne?.age)}
+            phone={accommodationGustDatailsOne?.contactNo as string}
+             specialRequests={accommodationGustDatailsOne?.requestMessage || "N/A" }
+        />
+
+          <BookingConfirmationData
+            email={accommodationGustDatailsTwo?.email as string}
+            age={Number(accommodationGustDatailsTwo?.age)}
+            phone={accommodationGustDatailsTwo?.contactNo as string}
+            specialRequests={accommodationGustDatailsTwo?.requestMessage || "N/A"}
           />
 
           <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
-            specialRequests="N/A"
-          />
-
-          <BookingConfirmationData
-            email="milonahmedshuvo@gmail.com"
-            age="21 year"
-            phone="+880 1567808747"
-            specialRequests="N/A"
+            email={accommodationGustDatailsThree?.email as string}
+            age={accommodationGustDatailsThree?.age as number}
+            phone={accommodationGustDatailsThree?.contactNo as string}
+            specialRequests={accommodationGustDatailsThree?.requestMessage || "N/A"}
           />
           </div>
         </div>
 
-        <Link href="/booking/accommodation/paymentCard">
+        {/* <Link href="/booking/payment"> */}
           <button
+            onClick={() => handleBookingDataSend()}
             type="submit"
-            className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
+            className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]  hover:bg-blue-600 rounded-lg flex items-center justify-center text-white cursor-pointer"
           >
             Confirm & Pay Now
             <svg
@@ -83,7 +132,8 @@ export default function AccommodationReview() {
               ></path>
             </svg>
           </button>
-        </Link>
+        {/* </Link> */}
+
       </div>
     </section>
   );

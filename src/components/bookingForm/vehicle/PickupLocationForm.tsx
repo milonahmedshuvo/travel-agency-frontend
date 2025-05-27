@@ -1,7 +1,8 @@
 "use client"
 import { TVehicleOfObject } from "@/components/dashboard/HotelPackages/AddHotelPackages/AddHotelPackages"
-import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi"
-import { useAppDispatch } from "@/redux/hook"
+import Loading from "@/components/shared/loading/Loading"
+import { useGetSingleTourQuery } from "@/redux/api/tourPackages/tourPackagesApi"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { setPickUpAddr, setPickUpDate, setPickUpTime, setTourPackageVehicleId, setVehicleType } from "@/redux/slice/vehicleBooking/vehicleBookingSlice"
 import { ChevronRight } from "lucide-react"
 import Link from "next/link"
@@ -24,14 +25,26 @@ export default function PickupLocationForm() {
   } = useForm<FormValues>({
     defaultValues: {
       date: "16 March, 2025",
-      time: "8.00 AM",
+      time: "10:00",
       vehicleType: "Boat"
     }
   })
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const {data:vehicleData} = useGetAllVehicleQuery(undefined)
   const [vehicleId, setVehicleId] = useState("")
+  // Single Vehicle data 
+  const TourPackagesId = useAppSelector((state) => state.vehicleBooking.tourPackageId)
+  const {data:SingleTourpackagesData, isLoading} = useGetSingleTourQuery(TourPackagesId)
+  if(isLoading){
+    return <Loading/>
+  }
+
+  console.log(SingleTourpackagesData?.data?.tourPackageVehicles)
+
+
+
+
+
   
 
 
@@ -41,9 +54,10 @@ export default function PickupLocationForm() {
 
 
   const onSubmit = (data: FormValues) => {
-    console.log("Form Data:", data)
+    console.log("Form Data:", data,)
     // Add your navigation logic or data handling here
     const vehicleType = JSON.parse(data.vehicleType)
+
 
    dispatch(setPickUpAddr(data.address))
    dispatch(setPickUpDate(data.date))
@@ -54,7 +68,11 @@ export default function PickupLocationForm() {
 
 
 
-       
+  //  console.log("id", vehicleType.id, vehicleId)
+
+
+
+
 
     //console.log("vehicle type:", vehicleType.vehicleType, vehicleType.id)
     router.push('/booking/vehicle/drinkingLocation')
@@ -69,7 +87,7 @@ export default function PickupLocationForm() {
       >
         <div className="flex justify-end items-center mb-4">
           <Link href="/booking/reviewBooking">
-            <button type="button" className="text-gray-700 flex items-center">
+            <button type="button" className="text-gray-700 flex items-center cursor-pointer">
               Skip <ChevronRight className="ml-1 h-4 w-4" />
             </button>
           </Link>
@@ -107,29 +125,12 @@ export default function PickupLocationForm() {
             <div className="relative">
               <input
                 id="date"
-                type="text"
+                type="date"
                 {...register("date", { required: "Date is required" })}
                 className="w-full h-12 px-3 rounded-md border border-gray-300 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-gray-500"
-                >
-                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                  <line x1="16" x2="16" y1="2" y2="6" />
-                  <line x1="8" x2="8" y1="2" y2="6" />
-                  <line x1="3" x2="21" y1="10" y2="10" />
-                </svg>
-              </div>
+              
+           
             </div>
           </div>
 
@@ -138,36 +139,23 @@ export default function PickupLocationForm() {
             <label htmlFor="time" className="text-gray-700 font-medium">
               Time Selector
             </label>
-            <div className="relative">
-              <select
-                id="time"
-                {...register("time")}
-                className="w-full h-12 px-3 rounded-md border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="7.00 AM">7.00 AM</option>
-                <option value="7.30 AM">7.30 AM</option>
-                <option value="8.00 AM">8.00 AM</option>
-                <option value="8.30 AM">8.30 AM</option>
-                <option value="9.00 AM">9.00 AM</option>
-              </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-gray-500"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </div>
-            </div>
+
+           <input
+        type="time"
+        id="time"
+        {...register("time")}
+        className="border p-2 rounded block w-full"
+      />
           </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -189,7 +177,7 @@ export default function PickupLocationForm() {
                 }}
               >
                 {
-                  vehicleData?.data?.data?.map((vehicle:TVehicleOfObject) => <option key={vehicle.id} value={JSON.stringify({vehicleType: vehicle?.vehicleType, id: vehicle.id }) }>{vehicle?.vehicleType}</option> )
+                  SingleTourpackagesData?.data?.tourPackageVehicles?.map((vehicle:TVehicleOfObject) => <option key={vehicle.id} value={JSON.stringify({vehicleType: vehicle?.vehicleType, id: vehicle.id }) }>{vehicle?.vehicleType}</option> )
                 }
 
                 {/* <option value="BOAT">BOAT</option>
@@ -215,6 +203,9 @@ export default function PickupLocationForm() {
               </div>
             </div>
           </div>
+
+
+
 
           {/* Buttons */}
           <div className="flex items-center gap-4">

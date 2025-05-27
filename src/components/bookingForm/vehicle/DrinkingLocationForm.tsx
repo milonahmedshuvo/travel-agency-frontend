@@ -1,12 +1,11 @@
 "use client"
 
 import { useForm } from "react-hook-form"
-import { ChevronDown } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAppDispatch } from "@/redux/hook"
 import { setAddress, setExpTimeSty, setRestaurant } from "@/redux/slice/vehicleBooking/vehicleBookingSlice"
+
 
 type FormValues = {
   restaurantName: string
@@ -19,21 +18,18 @@ export default function DrinkingLocationForm() {
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors }
   } = useForm<FormValues>({
     defaultValues: {
       restaurantName: "Tanmoy Bar & Restaurant",
       address: "Dhaka, Bangladesh",
-      stayDuration: "5 Hours"
+      stayDuration: "10:00"
     }
   })
 
-  const stayDuration = watch("stayDuration")
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+ 
 
-  const timeOptions = ["1 Hour", "2 Hours", "3 Hours", "4 Hours", "5 Hours", "6+ Hours"]
+
   const dispatch = useAppDispatch()
 
 
@@ -42,6 +38,9 @@ export default function DrinkingLocationForm() {
   const onSubmit = (data: FormValues) => {
     console.log("Submitted data:", data)
     // handle navigation or state updates here
+
+
+
      dispatch(setRestaurant(data.restaurantName))
      dispatch(setAddress(data.address))
      dispatch(setExpTimeSty(data.stayDuration))
@@ -94,34 +93,18 @@ export default function DrinkingLocationForm() {
             <label htmlFor="stayDuration" className="block text-gray-700">
               Expected Time of Stay
             </label>
-            <div className="relative">
-              <button
-                type="button"
-                className="w-full p-3 border rounded-md flex justify-between items-center bg-white"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              >
-                <span>{stayDuration}</span>
-                <ChevronDown className="h-5 w-5 text-gray-500" />
-              </button>
-
-              {isDropdownOpen && (
-                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
-                  {timeOptions.map((time) => (
-                    <div
-                      key={time}
-                      className="p-3 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        setValue("stayDuration", time)
-                        setIsDropdownOpen(false)
-                      }}
-                    >
-                      {time}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <input
+        type="time"
+        id="stayDuration"
+        {...register("stayDuration")}
+        className="border p-2 rounded block w-full"
+      />
           </div>
+
+
+
+
+
 
           {/* Buttons */}
           <div className="flex items-center gap-4">

@@ -30,13 +30,12 @@ requestMessage?: string
 
 
 interface TGustDatailsThree {
-age: string ;
-consent: boolean;
-email: string;
-fullName: string;
-guestType : string;
-phoneNumber: string | number 
-specialRequests: string 
+  fullName: string  
+  isAdult : boolean
+  email: string
+  age: number
+  contactNo: string
+  requestMessage?: string
 }
 
 

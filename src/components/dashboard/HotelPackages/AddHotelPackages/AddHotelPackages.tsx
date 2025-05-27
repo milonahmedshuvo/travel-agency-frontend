@@ -7,7 +7,7 @@ import { useRef, useState } from "react"
 import { PlusCircle, X, Upload } from "lucide-react"
 import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
-import { useCreateHotelPackagesMutation } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });;
 
 
@@ -40,14 +40,21 @@ export type TVehicleOfObject = {
 
 
 export default function AddHotelTourPackageForm () {
+   const [loading, setLoading] = useState(false)
    const [createHotelPackages, {data, error}] = useCreateHotelPackagesMutation()
   //  console.log("get valicle", data?.data?.data)
-     console.log('Hotel packages success',{data})
+     console.log('Hotel packages success',data?.data?.data)
      console.log('Hotel packages error', error)
 
+     const {data:hotelPackages} = useGetAllHotelPackagesQuery("")
+     const {data: singleHotel } = useGetSingleHotelPackagesQuery("68359870981abc53052aa9cf")
+
+     console.log("gel all Hotels", hotelPackages?.data )
+     console.log("Get single hotel", singleHotel )
 
 
 
+     
   // State for form data
   const [formData, setFormData] = useState({
     title: "",
@@ -229,49 +236,7 @@ const handleChangeamenities = (index: number, field: keyof Tamenities, value: st
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault()
-
-
-
-//   {
-//     "title": "Ocean Vieddw Suite 2 234",
-//     "description": "Luxury suite with a view of the ocean.",
-//     "startDate": "2025-06-01T00:00:00.000Z",
-//     "endDate": "2025-06-07T00:00:00.000Z",
-//     "roomCategory": "SUITE",
-//     "price": 1500.5,
-//     "bedRoom": 2,
-//     "bathRoom": 2,
-//     "livingRoom": 1,
-//     "kitchen": 1,
-//     "mapLocation": "Malibu, California",
-//     "duration": "6 nights",
-//     "bestPlaces": [
-//       {
-//         "title": "Malibu Beach",
-//         "description": "White sand beach near the hotel."
-//       }
-//     ],
-//     "aboutStays": [
-//       {
-//         "title": "Complimentary Breakfast",
-//         "description": "Served daily from 7AM to 10AM."
-//       }
-//     ],
-//     "activity" : {
-//       "groupSize": 10,
-//       "languages": ["English", "Spanish"]
-//     },
-//     "amenities": {
-//       "title": "Pool, Wi-Fi, Gym"
-//     },
-//     "distances": {
-//       "title": "10 km from airport"
-//     }
-//   }
-
-
-
-
+  setLoading(true)
 
 
   const fullData = {
@@ -295,9 +260,8 @@ const handleSubmit = async (e: React.FormEvent) => {
   distances
 }
 
-console.log('full data', fullData)
 
-
+console.log({fullData})
 
 const formDatas = new FormData();
 formDatas.append("data", JSON.stringify(fullData));
@@ -311,9 +275,11 @@ file.forEach(f => formDatas.append("images", f));
     const result = await createHotelPackages(formDatas).unwrap()
     console.log("Hotel Packages created successfully:", result)
     toast.success(result.message || "Hotel Packages created successfully!")
+    setLoading(false)
   } catch (err: any) {
     console.error("Failed to create Hotel Packages:", err)
     toast.error("Failed to create Hotel Packages.")
+    setLoading(false)
   }
 }
 
@@ -355,10 +321,18 @@ file.forEach(f => formDatas.append("images", f));
             Hotel Room room Category <span className="text-red-500">*</span>
           </label>
           <select value={formData.roomCategory} onChange={(e) => handleSelectChange("roomCategory", e.target.value)}  className="py-2.5 px-2 border border-[#98A2B3] w-full rounded focus:outline-none ">
+              <option value="SINGLE">SINGLE</option>
+              <option value="DOUBLE">DOUBLE</option>
+              <option value="TWIN">SUITE</option>
+              <option value="TRIPLE">TRIPLE</option>
               <option value="SUITE">SUITE</option>
-              <option value="SUITE">SUITE</option>
-              <option value="SUITE">SUITE</option>
-              <option value="SUITE">SUITE</option>
+              <option value="DELUXE">DELUXE</option>
+              <option value="FAMILY">FAMILY</option>
+              <option value="EXECUTIVE">EXECUTIVE</option>
+              <option value="PRESIDENTIAL">PRESIDENTIAL</option>
+              <option value="STUDIO">STUDIO</option>
+              <option value="PRESIDENTIAL">PRESIDENTIAL</option>
+              <option value="APARTMENT">APARTMENT</option>
           </select>
         </div>
 
@@ -904,7 +878,11 @@ file.forEach(f => formDatas.append("images", f));
         {/* <button type="button" >
           Cancel
         </button> */}
-        <button type="submit" className="bg-[#1F90FF] px-3 py-2.5 rounded text-white ">Submit Package</button>
+        <button type="submit" className="bg-[#1F90FF] px-3 py-2.5 rounded text-white ">
+          {
+            loading ? "Creating processing" : "Submit Package"
+          }
+        </button>
       </div>
     </form>
   )

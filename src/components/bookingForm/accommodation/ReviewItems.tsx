@@ -2,7 +2,7 @@
 interface BookingSizeProps {
     checkIn: string
     checkOut: string
-    numberGuests: string
+    numberGuests: number
     className?: string
   }
   

@@ -360,8 +360,8 @@ export default function Page() {
               reserveInfo="Reserve now & pay later to book your spot and pay nothing today"
               buttonText="Book Now"
               route="/booking/booking"
-              // route="/booking/manageTourBooking"
               handleOrder={handleOrder}
+
 
             />
             {/* PickupPreferences */}

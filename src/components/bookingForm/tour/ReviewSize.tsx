@@ -1,10 +1,11 @@
 
 interface BookingSizeProps {
     date: string
-    duration: string
-    groupSize: string
+    duration: number
+    groupSize: number
     className?: string
   }
+  
   
   export function BookingSize({
     date,

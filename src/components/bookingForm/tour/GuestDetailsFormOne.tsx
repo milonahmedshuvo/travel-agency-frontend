@@ -84,7 +84,14 @@ const router = useRouter()
       isAdult = false
     }
 
-   const payload = { fullName: values?.fullName, email: values?.email,isAdult: isAdult, age: values?.age, contactNo: values?.contactNo, requestMessage: values?.requestMessage }
+   const payload = { 
+    fullName: values?.fullName, 
+    email: values?.email,
+    isAdult: isAdult, 
+    age: values?.age, 
+    contactNo: values?.contactNo, 
+    requestMessage: values?.requestMessage 
+  }
     
 
     dispatch(setGustDatailsOne(payload))
@@ -297,7 +304,7 @@ const router = useRouter()
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
           </svg> </Link>
-          <Link href='/booking/tourBookingStep1'>  Previous Page  </Link>
+          <Link href='/booking/booking'>  Previous Page  </Link>
         </button>
         
 

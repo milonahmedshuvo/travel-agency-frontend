@@ -1,9 +1,13 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import Link from "next/link"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { useRouter } from "next/navigation"
+import { setaccommodationGustDatailsOne } from "@/redux/slice/accommodationBooking/accommodationBooking"
+
 
 
 const formSchema = z.object({
@@ -14,9 +18,12 @@ const formSchema = z.object({
     message: "Please enter a valid email address.",
   }),
   guestType: z.string(),
-  age: z.string(),
-  phoneNumber: z.string().optional(),
-  specialRequests: z.string().optional(),
+  age: z.preprocess(
+      (val) => (val === "" ? undefined : Number(val)),
+      z.number({ invalid_type_error: "Duration is required" }).min(1, "Duration must be at least 1")
+    ),
+  contactNo: z.string().min(3, { message : "Phone number is required" }),
+  requestMessage: z.string().optional(),
   consent: z.boolean().refine((val) => val === true, {
     message: "You must agree to the terms and conditions.",
   }),
@@ -26,31 +33,77 @@ type FormValues = z.infer<typeof formSchema>
 
 
 
-export default function AccommodationGuestFormOne() {
-  const [guests, setGuests] = useState(1)
 
+
+export default function GuestDetailsFormOne() {
+  const [guests, setGuests] = useState(1)
+  const accommodationGustDatailsOne = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsOne)
+  
+  
+  
+
+  // {
+  //   gustDatailsOne?.isAdult === true? "Adult" : "Child"
+  // }
   const {
     register,
     handleSubmit,
     formState: { errors },
     // watch,
+    reset,
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
       email: "",
-      guestType: "Adult",
-      age: "21 Year",
-      phoneNumber: "",
-      specialRequests: "",
+      guestType: accommodationGustDatailsOne?.isAdult === true? "Adult" : "Child", 
+      age: 0,
+      contactNo: "",
+      requestMessage: "",
       consent: false,
     },
   })
 
+  // reset useForm after reload redux state 
+  useEffect(()=> {
+    if(accommodationGustDatailsOne){
+      reset(accommodationGustDatailsOne)
+    }
+  }, [accommodationGustDatailsOne, reset])
+
+// manage state redux 
+const dispatch = useAppDispatch()
+const router = useRouter()
+
+
+
   function onSubmit(values: FormValues) {
+    // Here you would typically send the form data to your backend or store redux
     console.log(values)
-    // Here you would typically send the form data to your backend
+    let isAdult = false
+
+    if(values?.guestType ==="Adult"){
+      isAdult = true
+    }else if(values?.guestType === "Child"){
+      isAdult = false
+    }
+
+   const payload = { 
+    fullName: values?.fullName, 
+    email: values?.email,
+    isAdult: isAdult, 
+    age: values?.age, 
+    contactNo: values?.contactNo, 
+    requestMessage: values?.requestMessage 
   }
+    
+    dispatch(setaccommodationGustDatailsOne(payload))
+    reset()
+    router.push('/booking/accommodation/guestFormTwo')
+  }
+
+
+
 
   const addGuest = () => {
     setGuests(guests + 1)
@@ -65,20 +118,13 @@ export default function AccommodationGuestFormOne() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
 
-
-
       <div className="mb-3">
-        <p className="text-lg font-medium mb-5">Step 02</p>
+        {/* <p className="text-lg font-medium mb-5">Step 02</p> */}
         <h1 className="text-4xl md:text-5xl font-semibold mb-5">
           Enter <span className="text-[#F78C41]">Guest Details</span>
         </h1>
         <p className="text-gray-600 mb-5">We respect your privacy! Your details are securely stored and never shared.</p>
       </div>
-
-
-
-
-
 
 
         <div className="space-y-2 mt-10">
@@ -146,7 +192,23 @@ export default function AccommodationGuestFormOne() {
             <label htmlFor="age" className="block text-sm font-medium">
               Age
             </label>
-            <div className="relative">
+
+             <input
+            id="age"
+            type="number"
+            placeholder="Age"
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.age ? "border-red-500" : "border-gray-300"
+            }`}
+            {...register("age")}
+          />
+          {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}   
+
+
+
+
+
+            {/* <div className="relative">
               <select
                 id="age"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -169,36 +231,36 @@ export default function AccommodationGuestFormOne() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </div>
-            </div>
+            </div> */}
             {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}
           </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="phoneNumber" className="block text-sm font-medium">
+          <label htmlFor="contactNo" className="block text-sm font-medium">
             Phone Number <span className="text-gray-400">(Optional)</span>
           </label>
           <input
-            id="phoneNumber"
+            id="contactNo"
             type="tel"
             placeholder="+880 1567808747"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("phoneNumber")}
+            {...register("contactNo")}
           />
-          {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
+          {errors.contactNo && <p className="text-red-500 text-sm">{errors.contactNo.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="specialRequests" className="block text-sm font-medium">
+          <label htmlFor="requestMessage" className="block text-sm font-medium">
             Special Requests
           </label>
           <textarea
-            id="specialRequests"
+            id="requestMessage"
             placeholder="Message"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-            {...register("specialRequests")}
+            {...register("requestMessage")}
           />
-          {errors.specialRequests && <p className="text-red-500 text-sm">{errors.specialRequests.message}</p>}
+          {errors.requestMessage && <p className="text-red-500 text-sm">{errors.requestMessage.message}</p>}
         </div>
 
         <div className="flex items-start space-x-3">
@@ -227,10 +289,31 @@ export default function AccommodationGuestFormOne() {
 
 
 
-        <Link href='/booking/accommodation/guestFormTwo'> 
-        <button
+        
+        <div className="flex items-center gap-3">
+           
+          <button
           type="button"
-          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-[#fff] transition-colors"
+          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-[#475467] text-[#fff] transition-colors cursor-pointer"
+          onClick={addGuest}
+        >
+          <Link href='/booking/accommodation/selectStayForm'>
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg> </Link>
+          <Link href='/booking/accommodation/selectStayForm'>  Previous Page  </Link>
+        </button>
+        
+
+        <button
+          type="submit"
+          className="w-full py-3 px-4 border border-gray-300 rounded-lg flex items-center justify-center bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[#fff] transition-colors cursor-pointer"
           onClick={addGuest}
         >
           <svg
@@ -244,24 +327,8 @@ export default function AccommodationGuestFormOne() {
           </svg>
           Add Second Guest
         </button>
-        </Link>  
-         
-         
-        {/* <button
-          type="submit"
-          className="w-full py-3 px-4 mt-5 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-lg flex items-center justify-center transition-colors"
-        >
-          Choose Payment Method dddddddddddd
-          <svg
-            className="w-5 h-5 ml-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </button> */}
+        </div>
+       
         
       </form>
     </section>

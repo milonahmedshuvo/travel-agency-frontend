@@ -397,6 +397,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   tourPackageVehicles,
 }
 
+
 const formDatas = new FormData();
 formDatas.append("data", JSON.stringify(fullData));
 
