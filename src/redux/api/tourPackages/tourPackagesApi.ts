@@ -13,10 +13,17 @@ export const tourPackagesApi = baseApi.injectEndpoints({
         body: tourPackagesData
     })
    }),
+
     // GET LAND TOUR 
     getLandTour : builder.query({
         query: () => '/tour-packages?category=LAND_TOUR' 
     }),
+    
+    // Get sea tour 
+    getSeaTour : builder.query({
+        query: () => '/tour-packages?category=SEA_TOUR' 
+    }),
+
     // GET SINGLE TOUR // /tour-packages/68307a3e2bcdc10c882ce89b
     getSingleTour : builder.query({
         query : (id) => `/tour-packages/${id}`
@@ -30,7 +37,8 @@ export const tourPackagesApi = baseApi.injectEndpoints({
             body: tourBooking
         })
     }), 
-    // SINGLE TOUR PACKAGES 
+
+     
    
 
 
@@ -38,4 +46,4 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     }),
   });
   
-  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation } = tourPackagesApi;
+  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery } = tourPackagesApi;

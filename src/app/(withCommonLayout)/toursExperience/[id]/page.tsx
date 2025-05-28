@@ -238,10 +238,12 @@ export default function Page() {
             `}
             >
               <div className="relative h-full">
-                <img
+                <img 
                   src={image.url || "/placeholder.svg"}
                   alt='dkdd'
                   className="object-cover w-full h-full"
+                  loading="eager" 
+                  decoding="async"
                 />
               </div>
             </div>

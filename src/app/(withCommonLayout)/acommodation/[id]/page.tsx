@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -13,7 +14,12 @@ import RatingComponent from "@/components/common/rating/Rating";
 import TourOverviewWithCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hook";
+import { useGetSingleHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import { THotelImage } from "@/components/lib/types";
+import { setHotelPackageseId } from "@/redux/slice/accommodationBooking/accommodationBooking";
+import Loading from "@/components/shared/loading/Loading";
 
 // Sample property data with the saved image
 const properties = [
@@ -87,6 +93,21 @@ const features = [
 export default function Page() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const router= useRouter()
+  const dispatch =useAppDispatch()
+  const params = useParams()
+  const id = params.id 
+  const {data, isLoading } = useGetSingleHotelPackagesQuery(id)
+
+
+  if(isLoading){
+    return <Loading/>
+  }
+  
+
+
+
+
+
   
 
 
@@ -94,6 +115,8 @@ export default function Page() {
 
   const handleOrder = () => {
         console.log("accomdation click")
+
+        dispatch(setHotelPackageseId(id))
         router.push('/booking/accommodation/selectStayForm')
   };
 
@@ -102,7 +125,7 @@ export default function Page() {
     <div className="bg-[#F4F4F4] pb-10 md:pb-16">
       <div className="container mx-auto px-4 py-8">
         {/* Responsive masonry-style grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {properties.map((property) => (
             <div
               key={property.id}
@@ -124,7 +147,33 @@ export default function Page() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
+          
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {data?.data?.images?.map((image:THotelImage, index:number) => (
+                      <div
+                        key={index}
+                        className={`
+                        overflow-hidden rounded-lg  transition-transform duration-300  hover:-translate-y-1
+                        ${  [1, 3].includes(index)  ? "sm:col-span-1 sm:row-span-2" : "" }
+                        relative cursor-pointer
+                      `}
+                      >
+                        <div className="relative h-full">
+                          <img 
+                            src={image.url || "/placeholder.svg"}
+                            alt='dkdd'
+                            className="object-cover w-full h-full"
+                            loading="eager" 
+                            decoding="async"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+
 
         {/* Image modal */}
         {selectedImage && (

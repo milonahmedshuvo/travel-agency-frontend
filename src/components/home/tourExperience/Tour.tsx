@@ -8,6 +8,9 @@ import TabGrastroWineTourCards from "./GrastroWineTours";
 import { ChevronRight } from 'lucide-react';
 import Link from "next/link";
 
+
+
+
 const TourExperience = () => {
   const [activeTab, setActiveTab] = useState("Sea Tours");
 
@@ -82,9 +85,9 @@ const TourExperience = () => {
         >
           Gastro & Wine Tours
         </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  focus:bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] focus:text-white focus:border-0">
+        {/* <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  focus:bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] focus:text-white focus:border-0">
           Gastro & oliva oil Tour
-        </button>
+        </button> */}
       </div>
 
       {/* tour card  */}

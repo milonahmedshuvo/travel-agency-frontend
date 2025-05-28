@@ -18,6 +18,7 @@ import Image from "next/image"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts"
 import { PieChart, Pie, Cell } from "recharts"
 import blogImg from '../../../assets/blog/blog.png'
+import { useAnalytiseDashboardQuery } from "@/redux/api/analytise/analytiseApi"
 
 
 
@@ -267,7 +268,6 @@ export default function TravelDashboardOverview () {
   const [sortBy, setSortBy] = useState("Latest")
   const [searchQuery, setSearchQuery] = useState("")
 
-
   const filteredBookings = bookingsData.filter(
     (booking) =>
       booking.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -275,21 +275,29 @@ export default function TravelDashboardOverview () {
   )
 
 
+  // ANALYTISE DASHBORAD API FROM REDUX 
+  const {data} = useAnalytiseDashboardQuery("")
+   
+
+
+
+
+
   return (
     <div className=" px-4 md:px-6 space-y-6 mt-7">
      
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-200 bg-white shadow-xs">
           <div className="flex items-center justify-between p-6">
             <div className="flex items-center space-x-4">
               <div className="rounded-full bg-blue-50 p-3">
-                <CalendarCheck className="h-6 w-6 text-blue-500" />
+                <CalendarCheck className="h-6 w-6 text-blue-500"/>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Total Booking</p>
-                <h3 className="text-2xl font-bold">1,200</h3>
+                <p className="text-sm font-medium text-gray-500">Tour Booking</p>
+                <h3 className="text-2xl font-bold">{data?.data?.tourBookingCount}</h3>
               </div>
             </div>
             <div className="rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">+2.98%</div>
@@ -303,8 +311,8 @@ export default function TravelDashboardOverview () {
                 <Users className="h-6 w-6 text-blue-500" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Total New Customers</p>
-                <h3 className="text-2xl font-bold">2,845</h3>
+                <p className="text-sm font-medium text-gray-500">Room Booking</p>
+                <h3 className="text-2xl font-bold">{data?.data?.roomBookingCount}</h3>
               </div>
             </div>
             <div className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">-1.45%</div>
@@ -315,11 +323,27 @@ export default function TravelDashboardOverview () {
           <div className="flex items-center justify-between p-6">
             <div className="flex items-center space-x-4">
               <div className="rounded-full bg-blue-50 p-3">
+                <Users className="h-6 w-6 text-blue-500" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-500">Total Customer</p>
+                <h3 className="text-2xl font-bold">{data?.data?.totalCustomer}</h3>
+              </div>
+            </div>
+            <div className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">-1.45%</div>
+          </div>
+        </div>
+
+
+        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+          <div className="flex items-center justify-between p-6">
+            <div className="flex items-center space-x-4">
+              <div className="rounded-full bg-blue-50 p-3">
                 <DollarSign className="h-6 w-6 text-blue-500" />
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-500">Total Earnings</p>
-                <h3 className="text-2xl font-bold">$12,890</h3>
+                <h3 className="text-2xl font-bold">${data?.data?.totalEarnings}</h3>
               </div>
             </div>
             <div className="rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">+3.75%</div>

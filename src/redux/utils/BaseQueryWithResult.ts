@@ -13,7 +13,9 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl,
-//   credentials: "include",
+  // credentials: "include",
+
+  
   prepareHeaders: (headers) => {
     // const token = Cookies.get("token");
     const token = localStorage.getItem('token')
