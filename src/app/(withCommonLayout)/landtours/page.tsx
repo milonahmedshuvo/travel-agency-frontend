@@ -1,6 +1,6 @@
 import TravelLove from '@/components/others/travelLove/TravelLove';
 import LandtourBanner from '@/components/toursExperience/landTours/Landtourbanner';
-// import LandTourItems from '@/components/toursExperience/landTours/LandTourItems';
+import LandTourItems from '@/components/toursExperience/landTours/LandTourItems';
 import RecentBlog from '@/components/toursExperience/recentBlog/RecentBlog';
 import TestimonialSlider from '@/components/toursExperience/testimonialSlider/TestimonialSlider';
 import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm';
@@ -12,7 +12,7 @@ const page = () => {
     <div>
       <LandtourBanner/>
       <TravelBookingForm/>
-      {/* <LandTourItems/> */}
+      <LandTourItems/>
       <TravelLove/>
       <TestimonialSlider/>
       <RecentBlog/>

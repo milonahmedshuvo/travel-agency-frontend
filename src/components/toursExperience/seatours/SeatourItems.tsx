@@ -6,16 +6,13 @@ import { useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { TTourPackage } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
 
+
 const SeaTourItems = () => {
       const {data, isLoading} = useGetSeaTourQuery("")
-      console.log('dddddddd', data?.data)
-
       if(isLoading){
         return <Loading/>
       }
-
-      
-       
+ 
   
 
 
