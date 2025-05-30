@@ -21,6 +21,7 @@ const BlogDatailsPage = () => {
 
 
 
+
       
 
 
@@ -59,11 +60,7 @@ const BlogDatailsPage = () => {
           
           <span>Cancel</span>
         </button>
-        
-        {/* <button className="bg-linear-to-t from-[#FF383B] cursor-pointer via-50%  to-[#C00003] to-50% text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors">  
-          <span>Delete Blog</span>
-        </button> */}
-
+      
         {/* blog delete modal  */}
           <BlogDeleteModal />
           </div>

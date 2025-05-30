@@ -1,13 +1,25 @@
+"use client"
+
 import Image from "next/image";
-import blogImg from "../../../../assets/blog/datails.jpg";
 import FirstComponent from "@/components/dashboard/Blogs/Datails/FirstComponent";
-import SecoundComponent from "@/components/dashboard/Blogs/Datails/SecoundComponent";
 import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
+import { useParams } from "next/navigation";
+import Loading from "@/components/shared/loading/Loading";
+import { useGetSingleBlogQuery } from "@/redux/api/blog/blogApi";
 
 
 
 
-const page = () => {
+const BlogDatailsPage = () => {
+   const params = useParams()
+      const id = params.id 
+      const {data, isLoading } = useGetSingleBlogQuery(id)
+
+      if(isLoading){
+        return <Loading/>
+      }
+
+
 
 
   return (
@@ -17,19 +29,21 @@ const page = () => {
       <div className="mt-10 bg-[#FFF] rounded-2xl custom-container ">
         <div>
           <Image
-            src={blogImg}
+            src={data?.data?.img}
             width={500}
             height={500}
             alt="blog"
             className="w-full h-[500px] rounded-2xl cursor-pointer"
+            unoptimized
+            loading="lazy"
           />
         </div>
 
-        <FirstComponent/>
-        <SecoundComponent title="1. Lanikai / Kailua Pillboxes" />
-        <SecoundComponent title="2. Maili / Pink Pillbox Hike" />
-        <SecoundComponent title="3. Ehukai Pillboxes" />
-        <SecoundComponent title="4. Diamond Head Hike" />
+        
+       <FirstComponent title={data?.data?.title} subTitle={data?.data?.subTitle} />
+   
+
+          <p className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: data?.data?.description }} ></p>
 
           
       </div>
@@ -41,4 +55,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default BlogDatailsPage;
