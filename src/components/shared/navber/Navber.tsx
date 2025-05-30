@@ -21,6 +21,7 @@ const Navbar = () => {
         {/* Left Side: Logo */}
         <div className="text-2xl font-semibold">
           {/* <a href="/">Logo</a> */}
+          {/* https://nyc3.digitaloceanspaces.com/smtech-space/9K_c6tbvneRMSIvzQrbEA-img4.jpg */}
           <Image src={logo} width={500} height={500} alt='logo' className='w-[175px] lg:w-[100px] xl:w-[175px]' />
         </div>
 

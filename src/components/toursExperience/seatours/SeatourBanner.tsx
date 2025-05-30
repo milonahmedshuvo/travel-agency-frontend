@@ -14,8 +14,8 @@ const SeatourBanner = () => {
       <div className="relative z-10 flex items-center justify-center h-full  text-center ">
         <div>
           <h2 className="text-[56px] text-white font-[600] vollkorn leading-16">
-            <span className="text-[#FF914D]">Tours & Experiences,</span>{" "}
-            Discover <br /> Extraordinary Adventures
+            <span className="text-[#FF914D]">Tours & Experiences, </span>{" "}
+             Sea Tours 
           </h2>
           <p className="text-[#ffffff] mt-5">
             Explore the worlds most exciting experiences, from thrilling
@@ -25,7 +25,7 @@ const SeatourBanner = () => {
           </p>
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-3.5 md:gap-5 mt-6">
-            <button className="text-[#156CF0] text-[16px] bg-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"> Get Personalized Recommendations </button>
+            <button className="text-[#156CF0] text-[16px] bg-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"> View All Sea Tours </button>
             <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold w-[185px] cursor-pointer"> Book Now </button>
             </div>
 

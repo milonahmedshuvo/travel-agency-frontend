@@ -3,25 +3,20 @@ import { Check, X } from "lucide-react"
 
 
 export type ListItem = {
-  text: string
+  title: string
 }
 
 export type IncludedExcludedListProps = {
-  title?: string
   includedItems: ListItem[]
   excludedItems: ListItem[]
-  className?: string
 }
 
 export function IncludedExcludedList({
-  title = "What's Included & Excluded?",
   includedItems,
   excludedItems,
-  className,
 }: IncludedExcludedListProps) {
   return (
-    <div className={cn("w-full max-w-3xl space-y-6", className)}>
-      <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
+    <div className={cn("w-full max-w-3xl space-y-6",)}>
 
       <div className="space-y-6">
         {/* Included Items */}
@@ -47,7 +42,7 @@ export function IncludedExcludedList({
                     />
                   </svg>
                 </div>
-                <span>{item.text}</span>
+                <span>{item.title}</span>
               </li>
             ))}
           </ul>
@@ -76,7 +71,7 @@ export function IncludedExcludedList({
                     />
                   </svg>
                 </div>
-                <span className="" >{item.text}</span>
+                <span className="" >{item.title}</span>
               </li>
             ))}
           </ul>

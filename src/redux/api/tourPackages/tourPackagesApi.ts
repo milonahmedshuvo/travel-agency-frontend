@@ -11,18 +11,29 @@ export const tourPackagesApi = baseApi.injectEndpoints({
         url : '/tour-packages',
         method: 'POST',
         body: tourPackagesData
-    })
+    }),
+    invalidatesTags : ['tourPackages']
    }),
+
+
+    // Get sea tour 
+    getSeaTour : builder.query({
+        query: () => '/tour-packages?category=SEA_TOUR', 
+        providesTags: ['tourPackages']
+    }),
 
     // GET LAND TOUR 
     getLandTour : builder.query({
         query: () => '/tour-packages?category=LAND_TOUR' 
     }),
     
-    // Get sea tour 
-    getSeaTour : builder.query({
-        query: () => '/tour-packages?category=SEA_TOUR' 
+    // GET CULTURAL_TOUR
+    getCurturalTour: builder.query({
+        query: () => '/tour-packages?category=CULTURAL_TOUR'
     }),
+
+
+   
 
     // GET SINGLE TOUR // /tour-packages/68307a3e2bcdc10c882ce89b
     getSingleTour : builder.query({
@@ -38,6 +49,10 @@ export const tourPackagesApi = baseApi.injectEndpoints({
         })
     }), 
 
+    // GET all tour booking
+    getAllTourBookings: builder.query({
+        query : () => "/tour-bookings" 
+    })
      
    
 
@@ -46,4 +61,4 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     }),
   });
   
-  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery } = tourPackagesApi;
+  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery, useGetAllTourBookingsQuery, useGetCurturalTourQuery,} = tourPackagesApi;

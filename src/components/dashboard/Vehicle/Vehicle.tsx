@@ -1,17 +1,35 @@
 "use client"
 
-import Image, { StaticImageData } from "next/image"
+import Image from "next/image"
 import { ChevronLeft, ChevronRight, ListFilter, MoveRight, Plus } from "lucide-react"
-import VehicleImg  from "../../../assets/landTour/img1.jpg"
+// import VehicleImg  from "../../../assets/landTour/img1.jpg"
 import Link from "next/link"
 import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi"
+import Loading from "@/components/shared/loading/Loading"
+
+
+export type TVehicle = {
+  id: string;
+  name: string;
+  slug: string;
+  img: string;
+  pricePerHR: number;
+  vehicleType: string; 
+  createdAt: string;
+  updatedAt: string;
+};
+
+
+
 
 export default function VehicleListPage() {
-  const {data, isSuccess} = useGetAllVehicleQuery(undefined)
-
-  if(isSuccess){
-    console.log('get vehicle', data)
+  const {data, isLoading} = useGetAllVehicleQuery(undefined)
+  console.log('get vehicle', data?.data?.data) 
+  if(isLoading){
+    return <Loading/>
   }
+ 
+
 
 
 
@@ -32,10 +50,11 @@ export default function VehicleListPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {vehicles.map((vehicle, index) => (
+        {data?.data?.data?.map((vehicle:TVehicle, index:number) => (
           <VehicleCard key={index} vehicle={vehicle} />
         ))}
       </div>
+
 
       <div className="mt-8 flex items-center justify-between">
         <div className="text-sm text-gray-500">
@@ -71,18 +90,13 @@ export default function VehicleListPage() {
   )
 }
 
-interface Vehicle {
-  name: string
-  type: string
-  price: string
-  image: string | StaticImageData
-}
 
-function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
+
+function VehicleCard({ vehicle }: { vehicle: TVehicle }) {
   return (
     <div className="rounded-lg overflow-hidden">
       <div className="relative h-56">
-        <Image src={vehicle.image || "/placeholder.svg"} alt={vehicle.name} fill className="object-cover" />
+        <Image src={vehicle.img || "/placeholder.svg"} alt={vehicle.name} fill className="object-cover" />
       </div>
 
       <div className="p-4">
@@ -90,11 +104,11 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         <div className="mt-2 space-y-1">
           <div className="flex justify-start items-center gap-1.5">
             <span className="text-[#101010]">Vehicle Type:</span>
-            <span className="text-[#757D83]">{vehicle.type}</span>
+            <span className="text-[#757D83]">{vehicle.vehicleType}</span>
           </div>
           <div className="flex justify-start items-center gap-1.5">
             <span className="text-[#101010]">Price:</span>
-            <span className="text-[#757D83]">{vehicle.price}</span>
+            <span className="text-[#757D83]">{vehicle.pricePerHR}</span>
           </div>
         </div>
         <button className="w-full mt-4 bg-blue-500 hover:bg-blue-600 flex items-center justify-center text-white py-2.5 px-2 rounded ">          View Service History <MoveRight className="ml-2 h-4 w-4" />
@@ -105,59 +119,59 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 }
 
 // Sample data
-const vehicles: Vehicle[] = [
-  {
-    name: "Toyota Corolla 2020",
-    type: "Private Car",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Helicopter",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Boat",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Private Car",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Helicopter",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Boat",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Private Car",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Helicopter",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-  {
-    name: "Toyota Corolla 2020",
-    type: "Boat",
-    price: "$25/per hour",
-    image: VehicleImg,
-  },
-]
+// const vehicles: Vehicle[] = [
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Private Car",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Helicopter",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Boat",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Private Car",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Helicopter",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Boat",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Private Car",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Helicopter",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+//   {
+//     name: "Toyota Corolla 2020",
+//     type: "Boat",
+//     price: "$25/per hour",
+//     image: VehicleImg,
+//   },
+// ]

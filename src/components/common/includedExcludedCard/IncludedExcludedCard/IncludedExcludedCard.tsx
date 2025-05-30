@@ -1,27 +1,24 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { IncludedExcludedList, ListItem } from "../IncludedExcludedList/IncludedExcludedList"
 
 
 export interface IncludedExcludedCardProps {
-  title?: string
   includedItems: ListItem[]
   excludedItems: ListItem[]
-  className?: string
+  
 }
 
+
+
 export function IncludedExcludedCard({
-  title = "What's Included & Excluded?",
   includedItems,
   excludedItems,
-  className,
 }: IncludedExcludedCardProps) {
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
+    <Card >
+        <h1 className="text-[28px] ml-6 mb-10 pt-4 mt-9 font-semibold ">Whats Included & Excluded?</h1>
       <CardContent>
-        <IncludedExcludedList title="" includedItems={includedItems} excludedItems={excludedItems} />
+        <IncludedExcludedList includedItems={includedItems} excludedItems={excludedItems} />
       </CardContent>
     </Card>
   )

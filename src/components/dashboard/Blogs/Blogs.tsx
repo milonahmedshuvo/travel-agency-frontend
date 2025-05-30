@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Plus, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 // import blogImg from "../../../assets/blog/blog.png";
 import { useGetAllBlogsQuery } from "@/redux/api/blog/blogApi";
-import Loading from "@/components/shared/loading/Loading";
 import Image from "next/image";
+import Loading from "@/components/shared/loading/Loading";
 
 interface TBlogs {
   createdAt: string;
@@ -57,22 +57,29 @@ export default function BlogPage() {
               <Link href="/dashboard/blogs/id">
                 {/* <Image src={post.img || "/public/vercel.svg"} alt={post.title} width={500} height={500} /> */}
 
-                <Image
+                {/* <Image
                   src={post.img || "/vercel.svg"}
                   alt={post.title}
                   width={500}
                   height={300}
                   className="w-full h-full object-cover"
                   priority={true}
-                  unoptimized
-                />
-
+                  // unoptimized
+                /> */}
                 
+                <Image
+                  src={post?.img || "/placeholder.svg"}
+                  alt={post?.title}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                  loading="lazy"
+                />
               </Link>
             </div>
             <div className="p-4">
               <h2 className="text-[#15202E] text-[20px] font-[500] mb-2">
-                {post.title}
+                {post?.title}
               </h2>
 
               {/* <p className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: post.description }} ></p> */}

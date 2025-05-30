@@ -1,35 +1,47 @@
-import { Clock, DollarSign, Users, Globe } from "lucide-react";
 
-type InfoItemProps = {
-  icon: React.ElementType;
-  title: string;
-  description: string;
+type ActivityType = {
+  // id: string;
+  groupSize: number;
+  languages: string[];
+  // tourPackageId: string;
 };
 
+type ActivityCardProps = {
+  activity: ActivityType;
+};
+
+
 // Reusable InfoItem Component
-function InfoItem({ icon: Icon, title, description }: InfoItemProps) {
+function InfoItem({ groupSize, languages }: ActivityType) {
   return (
     <div className="flex items-start">
-      <div className="mt-1 mr-3">
-        <Icon className="h-5 w-5 text-slate-600" />
-      </div>
-      <div>
-        <h3 className="font-semibold text-slate-800">{title}</h3>
-        <p className="text-slate-700">{description}</p>
+
+      <div className="space-y-2.5">
+
+        <div className="flex gap-2.5 !text-[#101010] text-[18px] " >
+            <h1>GroupSize : </h1>
+           <h3 className=" text-slate-800"> {`Small groups (Max ${groupSize} people)`}  </h3>
+        </div>
+        
+        <div className="flex gap-2.5 !text-[#101010] text-[18px] ">
+           <h1>Language : </h1>
+           <p className="text-slate-700">{
+           languages.map((item, index ) => <span key={index}> {item} </span>)
+          }</p>
+        </div>
       </div>
     </div>
   );
 }
 
-export default function ActivityCard() {
+export default function ActivityCard({activity}:ActivityCardProps) {
   return (
     <div className="bg-white rounded-lg p-6 md:p-8">
       <h2 className="text-2xl md:text-3xl font-medium text-slate-800 mb-6">About this activity</h2>
       <div className="space-y-4">
-        <InfoItem icon={Clock} title="Duration:" description="8 Hours (Full-day tour)" />
-        <InfoItem icon={DollarSign} title="Price:" description="$129 per person" />
-        <InfoItem icon={Users} title="Group Size:" description="Small groups (Max 12 people)" />
-        <InfoItem icon={Globe} title="Languages:" description="English, German, Bengali" />
+
+        <InfoItem groupSize={activity.groupSize} languages={activity.languages}  />
+
       </div>
     </div>
   );
