@@ -4,59 +4,35 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import vector1 from "../../../assets/logo/Vector 2.svg";
-import blog from "../../../assets/blog/blog.png";
 import Link from "next/link";
+import { useGetAllBlogsQuery } from "@/redux/api/blog/blogApi";
+import Loading from "@/components/shared/loading/Loading";
+
+interface TBlogs {
+  createdAt: string;
+  description: string;
+  id: string;
+  img: string;
+  slug: string;
+  title: string;
+  subTitle:string;
+  updatedAt: string;
+}
+
+
 
 export default function RecentBlog() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+   const { data, isLoading } = useGetAllBlogsQuery("");
+  
 
-  // Sample data for the travel cards
-  const travelCards = [
-    {
-      id: 1,
-      title: "The Most Scenic Rural Roads To Take A Road Trip",
-      description:
-        "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point..",
-      imageUrl: blog,
-    },
-    {
-      id: 2,
-      title: "The Most Scenic Rural Roads To Take A Road Trip",
-      description:
-        "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl: blog,
-    },
-    {
-      id: 3,
-      title: "The Most Scenic Rural Roads To Take A Road Trip",
-      description:
-        "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl: blog,
-    },
-    {
-      id: 4,
-      title: "The Most Scenic Rural Roads To Take A Road Trip",
-      description:
-        "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl: blog,
-    },
-    {
-      id: 5,
-      title: "The Most Scenic Rural Roads To Take A Road Trip",
-      description:
-        "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl: blog,
-    },
-    {
-      id: 6,
-      title: "The Most Scenic Rural Roads To Take A Road Trip",
-      description:
-        "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point...",
-      imageUrl: blog,
-    },
-  ];
+   
+
+
+  
+  
 
   // Check if scroll buttons should be enabled/disabled
   const checkScrollButtons = () => {
@@ -99,9 +75,16 @@ export default function RecentBlog() {
     }
   };
 
+
+
+  if(isLoading){
+    return <Loading/>
+  }
+
   return (
     <section>
-      <div className="w-full custom-container px-4">
+      <div className="w-full px-4  relative xl:pl-[10%] xl:pr-[10%] py-11">
+
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">
@@ -127,6 +110,12 @@ export default function RecentBlog() {
         </div>
       </div>
 
+
+
+
+
+
+
       <div className="px-4  relative xl:pl-[10%]">
         {/* Left Scroll Button */}
         <button
@@ -143,7 +132,7 @@ export default function RecentBlog() {
           className="flex overflow-x-auto gap-6 pb-4 scrollbar-hide snap-x"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {travelCards.map((card) => (
+          {data?.data?.data?.map((card:TBlogs) => (
             <div
               key={card.id}
               className="card-item flex-shrink-0 w-[calc(100%/3.5-16px)] min-w-[280px] bg-white rounded-3xl  overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 snap-start"
@@ -151,10 +140,11 @@ export default function RecentBlog() {
               <div className="relative h-[350px] w-full">
                 <Link href={`/blog/${card.id}`}>
                   <Image
-                    src={card.imageUrl || "/placeholder.svg"}
+                    src={card.img || "/placeholder.svg"}
                     alt="Scenic travel destination"
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 </Link>
               </div>
@@ -162,7 +152,7 @@ export default function RecentBlog() {
                 <h3 className="text-2xl font-medium text-gray-800 mb-3">
                   {card.title}
                 </h3>
-                <p className="text-gray-600 mb-4">{card.description}</p>
+                <p className="text-gray-600 mb-4">{card.subTitle}</p>
                 <div className="flex justify-end">
                   <Link
                     href={`/blog/${card.id}`}
