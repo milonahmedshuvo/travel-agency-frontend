@@ -1,6 +1,6 @@
 import TravelLove from '@/components/others/travelLove/TravelLove'
 import CultularTourBanner from '@/components/toursExperience/culturalTours/CulturalTourBanner'
-// import CulturalTourItems from '@/components/toursExperience/culturalTours/CulturalToursItems'
+import CulturalTourItems from '@/components/toursExperience/culturalTours/CulturalToursItems'
 import RecentBlog from '@/components/toursExperience/recentBlog/RecentBlog'
 import TestimonialSlider from '@/components/toursExperience/testimonialSlider/TestimonialSlider'
 import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm'
@@ -11,7 +11,7 @@ const page = () => {
     <div>
      <CultularTourBanner/>
       <TravelBookingForm/>
-       {/* <CulturalTourItems/> */}
+       <CulturalTourItems/>
       <TravelLove/>
       <TestimonialSlider/>
       <RecentBlog/>
