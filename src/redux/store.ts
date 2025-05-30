@@ -103,6 +103,10 @@ export const makeStore = () => {
       }).concat(baseApi.middleware),
 
 
+    // middleware: (getDefaultMiddleware) =>
+    // getDefaultMiddleware().concat(baseApi.middleware),
+
+
   });
 };
 

@@ -4,7 +4,7 @@ import TestimonialSlider from '@/components/toursExperience/testimonialSlider/Te
 import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm'
 import WineTourBanner from '@/components/toursExperience/wineTours/wineTourBanner'
 
-// import WineTourItems from '@/components/toursExperience/wineTours/WineTourItems'
+import WineTourItems from '@/components/toursExperience/wineTours/WineTourItems'
 
 import React from 'react'
 
@@ -14,7 +14,7 @@ const page = () => {
     <div>
       <WineTourBanner/>
       <TravelBookingForm/>
-      {/* <WineTourItems/> */}
+      <WineTourItems/>
       <TravelLove/>
       <TestimonialSlider/>
       <RecentBlog/>

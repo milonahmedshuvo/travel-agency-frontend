@@ -12,6 +12,7 @@ const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });;
 
 export default function NewBlogPage() {
   const [title, setTitle] = useState("")
+  const [subTitle, setSubTitle] = useState("")
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
 
@@ -45,8 +46,13 @@ export default function NewBlogPage() {
     setLoadding(true)
     const fullData = {
       title: title,
-      description: content
+      description: content,
+      subTitle: subTitle
     }
+
+
+    console.log("blogs full data:", fullData)
+
 
     const formData = new FormData()
           formData.append("data", JSON.stringify(fullData))
@@ -58,7 +64,7 @@ export default function NewBlogPage() {
         const result = await createBlog(formData).unwrap()
         // console.log("blog response", result)
         toast.success(result?.message || "Blog created successfully" )
-        setLoadding(false)
+        setLoadding(false) 
       }catch(error){
         console.log("blog error", error)
         toast.error("Blog created Filed")
@@ -98,6 +104,26 @@ export default function NewBlogPage() {
                 className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none  "
               />
             </div>
+
+
+           <div className="space-y-2">
+              <label htmlFor="title" className="text-base font-medium flex items-center">
+                Blog Sub-Title <span className="text-red-500 ml-1">*</span>
+              </label>
+              <textarea
+                rows={3}
+                id="title"
+                placeholder="Tips To Keep Your Relevant To All The Positions"
+                value={subTitle}
+                onChange={(e) => setSubTitle(e.target.value)}
+                required
+                className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none  "
+              />
+            </div>
+
+
+
+
 
             <div className="space-y-2">
               <label htmlFor="image" className="text-base font-medium flex items-center">

@@ -32,6 +32,11 @@ export const tourPackagesApi = baseApi.injectEndpoints({
         query: () => '/tour-packages?category=CULTURAL_TOUR'
     }),
 
+     // GET GASTRO_WINE_TOUR
+    getGastroTour: builder.query({
+        query: () => '/tour-packages?category=GASTRO_WINE_TOUR'
+    }),
+
 
    
 
@@ -61,4 +66,4 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     }),
   });
   
-  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery, useGetAllTourBookingsQuery, useGetCurturalTourQuery,} = tourPackagesApi;
+  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery, useGetAllTourBookingsQuery, useGetCurturalTourQuery, useGetGastroTourQuery } = tourPackagesApi;

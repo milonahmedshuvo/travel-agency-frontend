@@ -1,11 +1,31 @@
+"use client"
+
 import Image from "next/image";
-import blogImg from "../../../../../assets/avatars/tour.jpg";
 import Header from "@/components/dashboard/Header/Header";
 import FirstComponent from "@/components/dashboard/Blogs/Datails/FirstComponent";
-import SecoundComponent from "@/components/dashboard/Blogs/Datails/SecoundComponent";
+import { useParams } from "next/navigation";
+import { useGetSingleBlogQuery } from "@/redux/api/blog/blogApi";
+import Loading from "@/components/shared/loading/Loading";
+import BlogDeleteModal from "@/components/ui/BlogDeleteModal";
 
 
-const page = () => {
+const BlogDatailsPage = () => {
+      const params = useParams()
+      const id = params.id 
+      const {data, isLoading } = useGetSingleBlogQuery(id)
+
+      if(isLoading){
+        return <Loading/>
+      }
+
+
+
+
+      
+
+
+
+
   return (
     <div className="">
       <Header />
@@ -13,19 +33,26 @@ const page = () => {
       <div className="mt-10 mx-4 md:mx-6 bg-[#FFF] rounded-2xl p-6">
         <div>
           <Image
-            src={blogImg}
+            src={data?.data?.img}
             width={500}
             height={500}
             alt="blog"
             className="w-full h-[500px] rounded-2xl cursor-pointer"
+            unoptimized
+            loading="lazy"
           />
         </div>
 
-        <FirstComponent/>
-        <SecoundComponent title="1. Lanikai / Kailua Pillboxes" />
+        <FirstComponent title={data?.data?.title} subTitle={data?.data?.subTitle} />
+   
+
+          <p className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: data?.data?.description }} ></p>
+
+
+        {/* <SecoundComponent title="1. Lanikai / Kailua Pillboxes" />
         <SecoundComponent title="2. Maili / Pink Pillbox Hike" />
         <SecoundComponent title="3. Ehukai Pillboxes" />
-        <SecoundComponent title="4. Diamond Head Hike" />
+        <SecoundComponent title="4. Diamond Head Hike" /> */}
 
           <div className="flex gap-2.5 justify-end">
           <button className="bg-[#EEE] px-8  text-black py-2 rounded-md flex items-center gap-2 transition-colors cursor-pointer">
@@ -33,13 +60,16 @@ const page = () => {
           <span>Cancel</span>
         </button>
         
-        <button className="bg-linear-to-t from-[#FF383B] cursor-pointer via-50%  to-[#C00003] to-50% text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors">  
+        {/* <button className="bg-linear-to-t from-[#FF383B] cursor-pointer via-50%  to-[#C00003] to-50% text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors">  
           <span>Delete Blog</span>
-        </button>
+        </button> */}
+
+        {/* blog delete modal  */}
+          <BlogDeleteModal />
           </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default BlogDatailsPage;

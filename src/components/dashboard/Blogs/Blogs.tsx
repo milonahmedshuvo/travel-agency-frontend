@@ -16,29 +16,24 @@ interface TBlogs {
   img: string;
   slug: string;
   title: string;
+  subTitle:string;
   updatedAt: string;
 }
 
 export default function BlogPage() {
   const { data: Blogs, isLoading } = useGetAllBlogsQuery("");
-  console.log("Blogs", Blogs?.data?.data);
+  // console.log("Blogs", Blogs?.data?.data);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  // Sample blog post data
-  // const blogPosts = Array(6).fill({
-  //   title: "The Most Scenic Rural Roads To Take A Road Trip",
-  //   excerpt:
-  //     "When it comes to road trips, the journey itself often becomes just as memorable as the destination. While highways and city roads may get you from point A to point B...",
-  //   image: blogImg,
-  // })
+  
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="px-4 md:px-6 py-8 ">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-[20px] font-[500] ">Our Blog</h1>
+        <h1 className="text-[25px] font-[500] ">Our Blog</h1>
         <Link href="/dashboard/blogs/addBlog">
           <button className="bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50%  text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors cursor-pointer">
             <Plus className="w-5 h-5" />
@@ -84,8 +79,10 @@ export default function BlogPage() {
 
               {/* <p className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: post.description }} ></p> */}
 
+              <p className="text-muted-foreground mb-4">{`${post.subTitle.length > 150 ? post.subTitle.slice(0, 150) : post.subTitle}...`}</p>
+
               <Link
-                href="/dashboard/blogs/id"
+                href={`/dashboard/blogs/${post.id}`}
                 className="text-blue-500 hover:text-blue-700 flex items-center justify-end gap-1 transition-colors"
               >
                 Read More
