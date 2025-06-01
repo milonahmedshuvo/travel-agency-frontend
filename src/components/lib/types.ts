@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 //  vehicle data type 
 export interface TVehicle {
@@ -245,3 +246,71 @@ export type TourBooking = {
   transactions: any; // Change `any` to a specific type if transaction structure is known
   splitPayment: any; // Change `any` to a specific type if splitPayment structure is known
 };
+
+
+
+// Room Bookings 
+export interface TRoomBooking {
+  id: string;
+  checkInDate: string; // ISO date string
+  checkOutDate: string; // ISO date string
+  numberOfGuests: number;
+  roomType: string;
+  createdAt: string;
+  updatedAt: string;
+  isCancelled: boolean;
+  cancelReason: string;
+  customerId: string;
+  isPaid: boolean;
+  hotelPackageId: string;
+  guests: RoomGuest[];
+  hotelPackage: HotelPackage;
+  transactions: Transaction | null;
+}
+
+interface RoomGuest {
+  id: string;
+  fullName: string;
+  email: string;
+  isAdult: boolean;
+  age: number;
+  contactNo: string;
+  requestMessage: string;
+  tourBookingId: string | null;
+  roomBookingId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface HotelPackage {
+  id: string;
+  title: string;
+  description: string;
+  startDate: string; // ISO date string
+  endDate: string;   // ISO date string
+  slug: string;
+  roomCategory: string;
+  price: number;
+  bedRoom: number;
+  bathRoom: number;
+  livingRoom: number;
+  kitchen: number;
+  mapLocation: string;
+  duration: string;
+  amenities: Amenity[];
+  distances: Distance[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface Amenity {
+  title: string;
+}
+
+interface Distance {
+  title: string;
+}
+
+interface Transaction {
+  // Define if needed; currently null
+}

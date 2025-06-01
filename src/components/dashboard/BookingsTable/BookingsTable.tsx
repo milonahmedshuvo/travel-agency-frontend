@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { useState } from "react"
@@ -24,125 +25,14 @@ interface BookingsTableProps {
 
 
 // Sample data
-const bookings = [
-  {
-    id: 1,
-    name: "Camellia Swan",
-    bookingCode: "BKG12345",
-    package: "Sea Tour",
-    duration: "5 Hr",
-    vehicle: "Bike",
-    date: "June 25 - June 30",
-    price: "$1,500",
-    status: "Confirmed",
-  },
-  {
-    id: 2,
-    name: "Raphael Goodman",
-    bookingCode: "BKG12346",
-    package: "Land Tour",
-    duration: "5 Hr",
-    vehicle: "Scottie",
-    date: "Jun 25 - Jul 2",
-    price: "$3,200",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    name: "Ludwig Contessa",
-    bookingCode: "BKG12347",
-    package: "Cultural Tours",
-    duration: "5 Hr",
-    vehicle: "Boat",
-    date: "Jun 26 - Jul 2",
-    price: "$2,100",
-    status: "Confirmed",
-  },
-  {
-    id: 4,
-    name: "Raphael Goodman",
-    bookingCode: "BKG12348",
-    package: "Wine Adventures",
-    duration: "5 Hr",
-    vehicle: "N/A",
-    date: "Jun 25 - Jul 2",
-    price: "$3,200",
-    status: "Pending",
-  },
-  {
-    id: 5,
-    name: "James Dunn",
-    bookingCode: "BKG12349",
-    package: "Cultural Tours",
-    duration: "5 Hr",
-    vehicle: "Bike",
-    date: "Jun 26 - Jun 30",
-    price: "$1,200",
-    status: "Confirmed",
-  },
-  {
-    id: 6,
-    name: "Hillary Grey",
-    bookingCode: "BKG12350",
-    package: "Sea Tour",
-    duration: "5 Hr",
-    vehicle: "N/A",
-    date: "Jun 27 - Jul 3",
-    price: "$1,800",
-    status: "Confirmed",
-  },
-  {
-    id: 7,
-    name: "Lucas O'Connor",
-    bookingCode: "BKG12351",
-    package: "Cultural Tours",
-    duration: "5 Hr",
-    vehicle: "Boat",
-    date: "Jun 28 - Jul 7",
-    price: "$2,500",
-    status: "Pending",
-  },
-  {
-    id: 8,
-    name: "Lucas O'Connor",
-    bookingCode: "BKG12351",
-    package: "Land Tour",
-    duration: "5 Hr",
-    vehicle: "Boat",
-    date: "Jun 28 - Jul 7",
-    price: "$2,500",
-    status: "Pending",
-  },
-  {
-    id: 9,
-    name: "Layla Linch",
-    bookingCode: "BKG12352",
-    package: "Cultural Tours",
-    duration: "5 Hr",
-    vehicle: "Scottie",
-    date: "Jun 29 - Jul 6",
-    price: "$1,600",
-    status: "Confirmed",
-  },
-  {
-    id: 10,
-    name: "Layla Linch",
-    bookingCode: "BKG12352",
-    package: "Land Tour",
-    duration: "5 Hr",
-    vehicle: "Scottie",
-    date: "Jun 29 - Jul 6",
-    price: "$1,600",
-    status: "Confirmed",
-  },
-]
+
 
 export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDateFilter }: BookingsTableProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const {data:tourBookings} = useGetAllTourBookingsQuery("")
 
   // Items per page
-  const itemsPerPage = 3
+  const itemsPerPage = 8
   const totalPages = Math.ceil(tourBookings?.data?.length / itemsPerPage)
 
   // Get current items
@@ -165,8 +55,8 @@ const dateFormate = (date:string) => {
     <Card>
       <CardHeader className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0 pb-4">
         <CardTitle className="text-[20px] font-[500]">Bookings</CardTitle>
-        <div className="flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
-          <div className="relative w-full md:w-64">
+        {/* <div className="flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
+          <div  className="relative w-full md:w-64">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <CustomInput
               type="search"
@@ -213,7 +103,7 @@ const dateFormate = (date:string) => {
               </div>
             </CustomSelectItem>
           </CustomSelect>
-        </div>
+        </div> */}
       </CardHeader>
       <CardContent>
         
@@ -222,7 +112,7 @@ const dateFormate = (date:string) => {
             <CustomTableHeader>
               <CustomTableRow>
                 <CustomTableHead className="w-[150px]">
-                  Name <ChevronDown className="ml-1 h-3 w-3 inline" />
+                  Name <ChevronDown className="ml-1 h-3 w-3 inline " />
                 </CustomTableHead>
                 <CustomTableHead>
                   Booking Code <ChevronDown className="ml-1 h-3 w-3 inline" />
@@ -282,7 +172,7 @@ const dateFormate = (date:string) => {
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, bookings.length)} out of {bookings.length}
+            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length}
           </div>
           <div className="flex items-center space-x-2">
             <CustomButton

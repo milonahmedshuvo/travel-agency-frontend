@@ -28,12 +28,21 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
         method: "POST",
         body: roomBookingData
       }) 
-    }) 
+    }),
+    
+    getAllRoomBookings : builder.query({
+      query : () => '/room-bookings'
+    })
+    
+
+
+
+
      
 
 
   }),
 });
 
-export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation } =
+export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery } =
   hotelPackagesApi;
