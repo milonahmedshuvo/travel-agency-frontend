@@ -34,7 +34,6 @@ import { setTourPackageId } from "@/redux/slice/vehicleBooking/vehicleBookingSli
 import Loading from "@/components/shared/loading/Loading";
 
 
-
 export default function Page() {
   const router = useRouter()
   const dispatch =useAppDispatch()
@@ -162,7 +161,7 @@ export default function Page() {
 
 
             {/* Highlights */}
-            <Highlights highlights={data?.data?.highlights} />
+            <Highlights title="Highlights" highlights={data?.data?.highlights} />
             {/* travel Itinerary  and drescription */}
             <TravelItinerary  items={data?.data?.descriptions} />
             {/* {includedExcludedCard} */}

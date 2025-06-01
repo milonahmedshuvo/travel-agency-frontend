@@ -6,17 +6,18 @@ interface Thighlights {
 
 interface TThighlightsType {
   highlights: Thighlights[]
+  title: string
 }
 
 
 
-export default function Highlights({highlights}: TThighlightsType) {
+export default function Highlights({highlights, title}: TThighlightsType) {
 
   
 
   return (
     <section className="w-full px-4 py-12 md:py-16 bg-white mt-5 rounded-lg">
-      <h2 className="text-3xl md:text-4xl font-medium mb-8 text-gray-900">Highlights</h2>
+      <h2 className="text-3xl md:text-4xl font-medium mb-8 text-gray-900">{title}</h2>
       <div className="space-y-6">        
         {
           highlights?.map((item, index)=> <HighlightItem key={index} title={item.title} /> ) 

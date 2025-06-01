@@ -1,17 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-
-import Image from "next/image";
-import { useState } from "react";
-import img1 from "../../../../assets/accom/img1.jpg";
-import img2 from "../../../../assets/accom/img2.jpg";
-import img3 from "../../../../assets/accom/img3.jpg";
-import img4 from "../../../../assets/accom/img4.jpg";
-import img5 from "../../../../assets/accom/img5.jpg";
-import img6 from "../../../../assets/accom/img6.jpg";
 import BookingCard from "@/components/common/bookingCard/BookingCard";
 import RatingComponent from "@/components/common/rating/Rating";
-import TourOverviewWithCalender from "@/components/common/tourOverviewCalender/TourOverviewCalender";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
 import { useParams, useRouter } from "next/navigation";
@@ -20,84 +10,20 @@ import { useGetSingleHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelP
 import { THotelImage } from "@/components/lib/types";
 import { setHotelPackageseId } from "@/redux/slice/accommodationBooking/accommodationBooking";
 import Loading from "@/components/shared/loading/Loading";
+import BestPlaces from "@/components/common/roomCard/bestPlaces/BestPlaces";
+import ActivityCard from "@/components/common/activityCard/ActivityCard";
+import Highlights from "@/components/common/highlights/Highlights";
+import TestimonialSlider from "@/components/toursExperience/testimonialSlider/TestimonialSlider";
+import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
 
-// Sample property data with the saved image
-const properties = [
-  {
-    id: 1,
-    title: "Lakeside Resort",
-    description: "Luxury waterfront property with stunning views",
-    image: img1,
-    size: "medium",
-  },
-  {
-    id: 2,
-    title: "Historic Clock Tower",
-    description: "Charming building with unique architecture",
-    image: img2,
-    size: "large",
-  },
-  {
-    id: 3,
-    title: "Infinity Pool Villa",
-    description: "Breathtaking sunset views from private infinity pool",
-    image: img3,
-    size: "medium",
-  },
-  {
-    id: 4,
-    title: "Beachfront Resort",
-    description: "Direct beach access with premium amenities",
-    image: img4,
-    size: "large",
-  },
-  {
-    id: 5,
-    title: "Modern Apartments",
-    description: "Contemporary living with sleek design",
-    image: img5,
-    size: "medium",
-  },
-  {
-    id: 6,
-    title: "Heritage Building",
-    description: "Classical architecture with modern comforts",
-    image: img6,
-    size: "medium",
-  },
-];
 
-const features = [
-  {
-    title: "Exclusive Vineyard Access",
-    description: "Visit family-owned wineries & meet expert winemakers",
-  },
-  {
-    title: "Premium Wine Tasting",
-    description: "Sample 5+ award-winning wines paired with local delicacies",
-  },
-  {
-    title: "Authentic Culinary Experience",
-    description: "Savor a gourmet Tuscan meal with wine pairings",
-  },
-  {
-    title: "Instagram-Worthy Views",
-    description: "Capture stunning landscapes & unforgettable memories",
-  },
-  {
-    title: "Local History & Culture",
-    description: "Discover hidden gems & historic estates",
-  },
-];
 
 export default function Page() {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const router= useRouter()
   const dispatch =useAppDispatch()
   const params = useParams()
   const id = params.id 
   const {data, isLoading } = useGetSingleHotelPackagesQuery(id)
-
 
   if(isLoading){
     return <Loading/>
@@ -105,6 +31,7 @@ export default function Page() {
   
 
 
+  // console.log('ROOM Datails Page', data?.data)
 
 
 
@@ -175,76 +102,70 @@ export default function Page() {
 
 
 
-        {/* Image modal */}
-        {selectedImage && (
-          <div
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
-          >
-            <div className="relative max-w-4xl w-full">
-              <button
-                className="absolute top-4 right-4 bg-white/20 rounded-full p-2 text-white hover:bg-white/40"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedImage(null);
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-              <Image
-                src={
-                  properties.find((p) => p.id === selectedImage)?.image || ""
-                }
-                alt={
-                  properties.find((p) => p.id === selectedImage)?.title || ""
-                }
-                width={1200}
-                height={800}
-                className="w-full h-auto rounded-lg"
-              />
-              <div className="bg-white p-4 rounded-b-lg">
-                <h2 className="text-xl font-bold">
-                  {properties.find((p) => p.id === selectedImage)?.title}
-                </h2>
-                <p className="text-gray-600">
-                  {properties.find((p) => p.id === selectedImage)?.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+       
 
         {/* add without image component  */}
         <div className="flex flex-col md:flex-row mt-10 gap-6">
           <div className="w-full md:w-[55%] lg:w-[65%]">
             {/* travel card  */}
-            <TravelCard
-              title="Seaside Luxury Villa"
-              location="Coxs Bazar, Bangladesh"
-              duration="5 Days Trip"
-              rating={4}
-              reviewCount={2000}
-              href=""
-              className=""
-            />
+           <TravelCard title ={data?.data?.title}
+                        location={data?.data?.location}
+                        duration={`${data?.data?.duration} Hours`}
+                        rating={4}
+                        reviewCount={2000}
+                        href=''
+                        className = ""
+                         />
 
-            <TourOverviewWithCalender />
+            <div className=" my-5">
+              <div className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: data?.data?.description }} ></div>
+            </div>
+
+            {/* <TourOverviewWithCalender /> */}
             {/* WineTourFeatures */}
-            <WineTourFeatures heading="About This Stay" features={features} />
+            <WineTourFeatures heading="About This Stay" features={data?.data?.aboutStays } />
+           
+           
+             <ActivityCard activity={data?.data?.activity} />
+              <Highlights title="Amenities & Services" highlights={data?.data?.amenities} />
+              <Highlights title="Distance from the property" highlights={data?.data?.distances} />
+
+
+            
+                <div className="bg-white my-6">
+                   <h1 className="text-base md:text-lg lg:text-3xl font-medium text-slate-800 py-4" >Gallery – Visual Storytelling</h1>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {data?.data?.images?.map((image:THotelImage, index:number) => (
+                      <div
+                        key={index}
+                        className={`
+                        overflow-hidden rounded-lg  transition-transform duration-300  hover:-translate-y-1
+                        ${  [1, 3].includes(index)  ? "sm:col-span-1 sm:row-span-2" : "" }
+                        relative cursor-pointer
+                      `}
+                      >
+                        <div className="relative h-full">
+                          <img 
+                            src={image.url || "/placeholder.svg"}
+                            alt='dkdd'
+                            className="object-cover w-full h-full"
+                            loading="eager" 
+                            decoding="async"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+
+                <BestPlaces title="Best places to visit in Croatia"  detailedItineraries={data?.data?.bestPlaces} ></BestPlaces>   
+
+
           </div>
+
+
+
 
           <div className="w-full md:w-[45%] lg:w-[35%]">
             {/* <BookingCard /> */}
@@ -268,6 +189,9 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+       <TestimonialSlider/>
+        <RecentBlog/>
     </div>
   );
 }

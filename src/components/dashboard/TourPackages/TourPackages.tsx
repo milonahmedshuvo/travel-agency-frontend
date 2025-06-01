@@ -108,7 +108,7 @@ export default function TourPackages() {
                         </div>
 
                         <div className="w-full sm:w-auto bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% rounded py-3 text-center text-white font-[500] ">
-                          <button>Edit Detail</button>
+                          <button> Details page</button>
                         </div>
                       </div>
                     </div>
