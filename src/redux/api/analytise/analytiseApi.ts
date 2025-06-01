@@ -11,9 +11,14 @@ export const analytiseApi = baseApi.injectEndpoints({
         analytiseTourBookings : builder.query({
            query : () => "/analytics/tour-bookings"
         }),
+
+        // /analytics/hotel-bookings
+        analyticsHotelBookings : builder.query({
+            query : () => "/analytics/hotel-bookings"
+        })
     })
 })
 
 
 
-export const { useAnalytiseDashboardQuery, useAnalytiseTourBookingsQuery } = analytiseApi;
+export const { useAnalytiseDashboardQuery, useAnalytiseTourBookingsQuery, useAnalyticsHotelBookingsQuery } = analytiseApi;

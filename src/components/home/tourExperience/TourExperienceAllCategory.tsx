@@ -50,7 +50,6 @@ const TourExperienceAllCategory = () => {
 
 
 
-
   return (
     <div>
       <div className="custom-container">

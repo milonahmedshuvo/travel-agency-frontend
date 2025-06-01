@@ -5,6 +5,7 @@ import React from "react";
 import { Card } from "antd";
 import { FaStar } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 // import Image from "next/image";
 const {} = Card;
 
@@ -34,29 +35,28 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({
       cover={
         <div className="overflow-hidden">
           <Link href={`/toursExperience/${id}`}>
-            {/* <Image
+            <Image
          width={500} 
          height={500} 
          quality={75} 
-         priority 
          alt={title} 
          src={imageUrl} 
          unoptimized
         loading='lazy'
          className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'
-           /> */}
+           />
 
            
            
 
-            <img
+            {/* <img
               src={imageUrl}
               alt="Description"
               width={500}
               height={300}
               loading="lazy" // or "lazy"
               className=" w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125"
-            />
+            /> */}
 
           </Link>
         </div>

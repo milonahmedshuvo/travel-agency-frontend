@@ -16,10 +16,10 @@ export function Header({ title, onAddPackage }: HeaderProps) {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
-  const handleSortSelection = (option: string) => {
-    setSelectedSort(option)
-    setIsDropdownOpen(false)
-  }
+  
+  console.log(selectedSort)
+  
+
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -48,25 +48,25 @@ export function Header({ title, onAddPackage }: HeaderProps) {
                 <ul className="py-1">
                   <li
                     className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleSortSelection("Sea Tour")}
+                    onClick={() => setSelectedSort("Sea Tour")}
                   >
                     Sea Tour
                   </li>
                   <li
                     className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleSortSelection("Price: Low to High")}
+                    onClick={() => setSelectedSort("Low to High")}
                   >
-                    Price: Low to High
+                    Low to High
                   </li>
                   <li
                     className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleSortSelection("Price: High to Low")}
+                    onClick={() => setSelectedSort("High to Low")}
                   >
-                    Price: High to Low
+                    High to Low
                   </li>
                   <li
                     className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleSortSelection("Rating")}
+                    onClick={() => setSelectedSort("Rating")}
                   >
                     Rating
                   </li>

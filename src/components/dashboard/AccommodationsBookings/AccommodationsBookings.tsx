@@ -16,22 +16,8 @@ export default function AccommodationsBookings() {
 
   const [dateFilter, setDateFilter] = useState("Today")
   const [showDateDropdown, setShowDateDropdown] = useState(false)
-  const [showEntriesDropdown, setShowEntriesDropdown] = useState(false)
-  const [entriesPerPage, setEntriesPerPage] = useState("8")
-
-
-
-  // console.log( "ROOm BOOKING", data?.data?.data)
-  // Sample data for the bookings
-  // const bookings = Array(10).fill({
-  //   name: "Camellia Swan",
-  //   bookingCode: "BKG12345",
-  //   roomType: "Deluxe Suite",
-  //   checkIn: "March 12, 2025",
-  //   checkOut: "March 15, 2025",
-  //   price: "$1500",
-  //   status: "Confirmed",
-  // })
+  // const [showEntriesDropdown, setShowEntriesDropdown] = useState(false)
+  // const [entriesPerPage, setEntriesPerPage] = useState("8")
 
   const dateOptions = ["Today", "Yesterday", "This Week", "This Month", "Custom Range"]
 
@@ -51,7 +37,7 @@ export default function AccommodationsBookings() {
 
 
   return (
-    <div className="container mx-auto  space-y-6">
+    <div className="space-y-6 ">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-[#101010] text-[20px]">Accommodations Bookings</h1>
         <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
@@ -172,8 +158,8 @@ export default function AccommodationsBookings() {
       </div>
 
       {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div className="text-sm text-gray-500">
+      <div className="flex flex-col sm:flex-row justify-end items-center gap-4">
+        {/* <div className="text-sm text-gray-500">
           Showing{" "}
           <div className="relative inline-block w-16 mx-1">
             <button
@@ -205,7 +191,10 @@ export default function AccommodationsBookings() {
             )}
           </div>{" "}
           out of 286
-        </div>
+        </div> */}
+
+
+
         <div className="flex items-center space-x-2">
           <button
             className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-400 cursor-not-allowed"

@@ -26,7 +26,7 @@ export default function TripBooking() {
 
 
 
-  
+
   return (
     <div> 
       <Header/>
