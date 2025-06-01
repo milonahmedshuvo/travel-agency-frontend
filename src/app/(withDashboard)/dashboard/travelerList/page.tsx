@@ -160,11 +160,16 @@ export default function TravelerList() {
   const [showPackageDropdown, setShowPackageDropdown] = useState(false)
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
   const [showItemsDropdown, setShowItemsDropdown] = useState(false)
-  
+
   const [showModal, setShowModal] = useState(false)
   const [selectedTraveler, setSelectedTraveler] = useState<TTravelersList | null >(null)
 
-  
+//  show  travel list data
+// const {data} = useGetAllTourBookingsQuery("")
+// console.log("tour booking data", data)
+
+
+
 
   
    

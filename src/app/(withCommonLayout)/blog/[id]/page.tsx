@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import FirstComponent from "@/components/dashboard/Blogs/Datails/FirstComponent";
@@ -7,25 +7,18 @@ import { useParams } from "next/navigation";
 import Loading from "@/components/shared/loading/Loading";
 import { useGetSingleBlogQuery } from "@/redux/api/blog/blogApi";
 
-
-
-
 const BlogDatailsPage = () => {
-   const params = useParams()
-      const id = params.id 
-      const {data, isLoading } = useGetSingleBlogQuery(id)
+  const params = useParams();
+  const id = params.id;
+  const { data, isLoading } = useGetSingleBlogQuery(id);
 
-      if(isLoading){
-        return <Loading/>
-      }
+  if (isLoading) {
+    return <Loading />;
+  }
 
-
-
-
+  
   return (
-
-    <section>     
-
+    <section>
       <div className="mt-10 bg-[#FFF] rounded-2xl custom-container ">
         <div>
           <Image
@@ -39,18 +32,18 @@ const BlogDatailsPage = () => {
           />
         </div>
 
-        
-       <FirstComponent title={data?.data?.title} subTitle={data?.data?.subTitle} />
-   
+        <FirstComponent
+          title={data?.data?.title}
+          subTitle={data?.data?.subTitle}
+        />
 
-          <p className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: data?.data?.description }} ></p>
-
-          
+        <p
+          className="text-gray-600 mb-4 text-sm"
+          dangerouslySetInnerHTML={{ __html: data?.data?.description }}
+        ></p>
       </div>
 
-      <RecentBlog/>
-
-      
+      <RecentBlog />
     </section>
   );
 };

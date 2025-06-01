@@ -1,3 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+//  vehicle data type 
+export interface TVehicle {
+  id: string;
+  name: string;
+  slug: string;
+  img: string;
+  pricePerHR: number;
+  vehicleType: 'BOAT' | 'CAR' | 'VAN' | 'AIRCRAFT'; 
+  createdAt: string; 
+  updatedAt: string; 
+}
+
+ 
  export type TPackageImage = {
   id: string;
   url: string;
@@ -16,6 +30,7 @@ export type THotelImage = {
   tourPackageId: string | null;
 };
  
+
 
  export type TTourPackage = {
   id: string;
@@ -167,4 +182,66 @@ export type THotelPackage = {
     groupSize: number;
     languages: string[];
   };
+};
+
+
+
+
+
+
+// GET Tour Booking type 
+type Guest = {
+  id: string;
+  fullName: string;
+  email: string;
+  isAdult: boolean;
+  age: number;
+  contactNo: string;
+  requestMessage: string;
+  tourBookingId: string;
+  roomBookingId: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type VehicleBooking = {
+  id: string;
+  pickUpAddr: string;
+  pickUpDate: string;
+  pickUpTime: string;
+  duration: number;
+  price: number;
+  restaurant: string;
+  address: string;
+  expTimeSty: string;
+  sameCarReturn: boolean;
+  dropOffAddr: string;
+  needsAdditionalStops: boolean;
+  tourBookingId: string;
+  customerId: string;
+  isCancelled: boolean;
+  isPaid: boolean;
+  cancelReason: string | null;
+  createdAt: string;
+  updatedAt: string;
+  tourPackageVehicleId: string;
+};
+
+export type TourBooking = {
+  id: string;
+  tourPackageId: string;
+  availableDate: string;
+  duration: number;
+  groupSize: number;
+  customerId: string;
+  isCancelled: boolean;
+  cancelReason: string;
+  isPaid: boolean;
+  isVehicleBooking: boolean;
+  createdAt: string;
+  updatedAt: string;
+  guests: Guest[];
+  vehicleBooking: VehicleBooking | null;
+  transactions: any; // Change `any` to a specific type if transaction structure is known
+  splitPayment: any; // Change `any` to a specific type if splitPayment structure is known
 };

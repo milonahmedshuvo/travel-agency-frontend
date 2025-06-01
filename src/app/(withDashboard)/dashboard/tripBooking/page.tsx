@@ -8,7 +8,7 @@ import { TripsOverview } from "@/components/dashboard/TripsOverview/TripsOvervie
 import { BookingsTable } from "@/components/dashboard/BookingsTable/BookingsTable";
 import Header from "@/components/dashboard/Header/Header";
 import { useAnalytiseTourBookingsQuery } from "@/redux/api/analytise/analytiseApi";
-import { useGetAllTourBookingsQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+
 
 
 
@@ -19,8 +19,7 @@ export default function TripBooking() {
   const [dateFilter, setDateFilter] = useState("today");
   
   const {data} = useAnalytiseTourBookingsQuery("")
-  const {data:tourBookings} = useGetAllTourBookingsQuery("")
-  console.log("tour bookings", tourBookings?.data)
+  
 
 
 

@@ -3,8 +3,10 @@ import { baseApi } from "../baseApi";
     
 export const vehicleApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+
     getAllVehicle : builder.query({
-    query : () => '/vehicles'
+    query : () => '/vehicles',
+    providesTags: ['vehicles']
    }),
 
    createVehicle : builder.mutation({
@@ -12,7 +14,8 @@ export const vehicleApi = baseApi.injectEndpoints({
         url : '/vehicles',
         method: 'POST',
         body: vehicleData
-    })
+    }),
+    invalidatesTags: ['vehicles']
    }),
     
 

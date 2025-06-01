@@ -6,8 +6,10 @@ import { ChevronLeft, ChevronRight, Search, ChevronDown, Calendar } from "lucide
 import { CustomTable, CustomTableBody, CustomTableCell, CustomTableHead, CustomTableHeader, CustomTableRow } from "@/components/ui/CustomTable"
 import { CustomInput } from "@/components/ui/CustomInput"
 import { CustomSelect, CustomSelectItem } from "@/components/ui/CustomSelect"
-import { CustomBadge } from "@/components/ui/CustomBadge"
 import { CustomButton } from "@/components/ui/CustomButton"
+import { useGetAllTourBookingsQuery } from "@/redux/api/tourPackages/tourPackagesApi"
+import { TourBooking } from "@/components/lib/types"
+import { CustomBadge } from "@/components/ui/CustomBadge"
 
 
 
@@ -137,15 +139,25 @@ const bookings = [
 
 export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDateFilter }: BookingsTableProps) {
   const [searchQuery, setSearchQuery] = useState("")
+  const {data:tourBookings} = useGetAllTourBookingsQuery("")
 
   // Items per page
-  const itemsPerPage = 8
-  const totalPages = Math.ceil(bookings.length / itemsPerPage)
+  const itemsPerPage = 3
+  const totalPages = Math.ceil(tourBookings?.data?.length / itemsPerPage)
 
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = bookings.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = tourBookings?.data?.slice(indexOfFirstItem, indexOfLastItem)
+
+  
+
+const dateFormate = (date:string) => {
+   const DateObject = new Date(date)
+   const updateDate = DateObject.toLocaleDateString()
+   return updateDate
+}
+
 
 
 
@@ -236,17 +248,18 @@ export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDate
               </CustomTableRow>
             </CustomTableHeader>
             <CustomTableBody>
-              {currentItems.map((booking) => (
+              {currentItems?.map((booking:TourBooking) => (
                 <CustomTableRow key={booking.id}>
-                  <CustomTableCell className="font-medium">{booking.name}</CustomTableCell>
-                  <CustomTableCell>{booking.bookingCode}</CustomTableCell>
-                  <CustomTableCell>{booking.package}</CustomTableCell>
-                  <CustomTableCell>{booking.duration}</CustomTableCell>
-                  <CustomTableCell>{booking.vehicle}</CustomTableCell>
-                  <CustomTableCell>{booking.date}</CustomTableCell>
-                  <CustomTableCell>{booking.price}</CustomTableCell>
+                  <CustomTableCell className="font-medium">{'tour name N/A'}</CustomTableCell>
+                  <CustomTableCell>{booking.id.slice(0, 4)}</CustomTableCell>
+                  <CustomTableCell>{'tour package type'}</CustomTableCell>
+                  <CustomTableCell>{`${booking.duration} Hours`}</CustomTableCell>
+                  <CustomTableCell>{'vehicle type'}</CustomTableCell>
+                  <CustomTableCell>{dateFormate(booking.updatedAt)}</CustomTableCell>
+                  <CustomTableCell>{"tour price N/A"}</CustomTableCell>
                   <CustomTableCell>
-                    <CustomBadge
+
+                    {/* <CustomBadge
                       variant={booking.status === "Confirmed" ? "default" : "outline"}
                       className={
                         booking.status === "Confirmed"
@@ -255,7 +268,11 @@ export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDate
                       }
                     >
                       {booking.status}
-                    </CustomBadge>
+                    </CustomBadge> */}
+
+                    <CustomBadge className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" > Confirmed </CustomBadge>
+
+
                   </CustomTableCell>
                 </CustomTableRow>
               ))}
