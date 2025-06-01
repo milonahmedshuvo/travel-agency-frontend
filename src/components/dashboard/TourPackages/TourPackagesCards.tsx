@@ -4,7 +4,6 @@ import { TourGrid } from "./TourGrid"
 
 
 
-
 export default function TourPackagesCardsPage() {
   
 

@@ -13,7 +13,7 @@ export default function HotelPackages() {
     <div>
       <Header />
 
-      <div className="container mx-auto px-3.5 lg:px-0  py-6">
+      <div className=" px-4 md:px-5  py-6">
         <h1 className="text-[#101010] text-[24px] font-[500] mb-6">
           Tour Packages
         </h1>
@@ -111,7 +111,7 @@ export default function HotelPackages() {
                         </div>
 
                         <div className="w-full sm:w-auto bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% rounded py-3 text-center text-white font-[500] ">
-                          <button>Edit Detail</button>
+                          <button>Datails View</button>
                         </div>
                       </div>
                     </div>
