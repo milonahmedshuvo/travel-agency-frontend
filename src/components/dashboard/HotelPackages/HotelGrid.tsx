@@ -6,7 +6,8 @@ import Link from "next/link"
 import { Plus } from "lucide-react"
 import { THotelPackage } from "@/components/lib/types"
 import AccommodationCard from "@/components/card/accommodationCard/AccommodationCard"
-import ReusePagination from "@/common/Pagination/ReusePagination"
+import CustomPagination from "@/components/others/pagination/CustomPagination"
+
 
 
 
@@ -19,8 +20,7 @@ export function HotelGrid( ) {
   const [hotelPackages, setHotelPackages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+ const [newPage, setNewPage] = useState(0)
 
 
 
@@ -46,7 +46,7 @@ export function HotelGrid( ) {
 
         const data = await response.json();
         // console.log("HOtel packages", data?.meta?.totalPage)
-        setTotalPages( data?.meta?.totalPage)
+        // setTotalPages( data?.meta?.totalPage)
         setHotelPackages(data?.data || []);
       } catch (error) {
         console.error("Failed to fetch tours:", error);
@@ -75,6 +75,7 @@ export function HotelGrid( ) {
 
     //  console.log("hotel type", selectedSort)
     //  console.log("HOtel packages", hotelPackages)
+    console.log(newPage)
 
 
 
@@ -212,11 +213,20 @@ export function HotelGrid( ) {
           }
     </div>
 
-      < ReusePagination
-       currentPage={page}
-       totalPages={totalPages}
-       onPageChange={(newPage:number) => setPage(newPage)}
-        />
+       {/* call custom pagination handle here  */}
+            <CustomPagination
+              meta={{
+                page: 3,
+                limit: 10,
+                total: 100,
+                totalPage: 5,
+              }}
+              onPageChange={(newPage) => {
+                console.log("Go to page:", newPage);
+                // fetch new data here
+                setNewPage(newPage);
+              }}
+            />
 
 
     </div>

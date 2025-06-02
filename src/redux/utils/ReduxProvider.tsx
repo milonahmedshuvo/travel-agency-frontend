@@ -6,6 +6,13 @@ import { useMemo } from "react";
 import { makeStore } from "../store";
 
 
+// STRIPE SETUP 
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe("pk_test_51QmZ4RDhyWl1vHdf6mc3qGwy01FggtxkhqhmLRF1AC9JNwWmgPgoW5RAA2XNbpptbHe870nz9yODruy7S2dzCTVV001dlz7QZ8");
+
+
 
 export default function ReduxStoreProvider({ 
   children 
@@ -20,6 +27,8 @@ export default function ReduxStoreProvider({
 
 
   return (
+
+    <Elements stripe={stripePromise}> 
     <Provider store={store}>
       <PersistGate 
         loading={<div>Loading Redux state...</div>} 
@@ -28,5 +37,6 @@ export default function ReduxStoreProvider({
         {children}
       </PersistGate>
     </Provider>
+    </Elements>
   );
 }

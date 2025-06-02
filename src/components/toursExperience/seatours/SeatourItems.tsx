@@ -26,7 +26,7 @@ const SeaTourItems = () => {
       </p>
 
       {/* button group  */}
-      <div className="flex flex-wrap gap-3.5 lg:gap-4 mt-6 justify-center items-center ">
+      {/* <div className="flex flex-wrap gap-3.5 lg:gap-4 mt-6 justify-center items-center ">
         <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer hover:bg-[#156CF0] hover:text-[#ffffff]  hover:border-[#156CF0]">
           Boat Trips
         </button>
@@ -39,7 +39,7 @@ const SeaTourItems = () => {
         <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0] hover:text-[#ffffff] hover:border-[#156CF0]  ">
           Fishing
         </button>
-      </div>
+      </div> */}
 
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 mb-10">
         {data?.data?.map((product: TTourPackage, index: number) => (

@@ -1,14 +1,16 @@
 "use client";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import toast from "react-hot-toast";
 import { ReviewItems } from "./ReviewItems";
 import { BookingConfirmationData } from "../tour/BookingConfirmationData";
 import { useCreateRoomBookingMutation } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useRouter } from "next/navigation";
+import { setRoomBookingId } from "@/redux/slice/booking/booking";
 
 
 export default function BookingReview() {
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const acommodationStayBooking = useAppSelector((state) => state.accommodationBooking.acommodationStayBooking)
 
      const accommodationGustDatailsOne = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsOne)
@@ -24,7 +26,7 @@ export default function BookingReview() {
 
       
 
-      console.log('current user id',  user?.id)
+      // console.log('current user id',  user?.id)
 
 
 const guests = [accommodationGustDatailsOne, accommodationGustDatailsTwo, accommodationGustDatailsThree];  
@@ -49,6 +51,13 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
  try{
   const result = await createRoomBooking(payload).unwrap()
   console.log('Result Room booking', result)
+
+  console.log(result?.data)
+  // store clientSecret and amount in redux 
+  //  dispatch(setRoomBookingPayment({clientSecret: "", amount: 10 }))
+    
+    dispatch(setRoomBookingId(result?.data.id))
+
   toast.success( result.message || "Room Bookings success!!")
   router.push("/booking/accommodation/paymentCard")
  }catch(err){
