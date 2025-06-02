@@ -1,27 +1,38 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Pagination as AntPagination } from "antd"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/components/lib/utils"
 
+interface Meta {
+  page: number
+  limit: number
+  total: number
+  totalPage: number
+}
 
 interface PaginationProps {
-  total?: number
-  defaultCurrent?: number
-  onChange?: (page: number) => void
+  meta: Meta
+  onPageChange?: (page: number) => void
   className?: string
 }
 
-export default function Pagination({ total = 50, defaultCurrent = 1, onChange, className }: PaginationProps) {
-  const [current, setCurrent] = useState(defaultCurrent)
+export default function CustomPagination({
+  meta,
+  onPageChange,
+  className,
+}: PaginationProps) {
+  const [current, setCurrent] = useState(meta.page)
+
+  useEffect(() => {
+    setCurrent(meta.page)
+  }, [meta.page])
 
   const handleChange = (page: number) => {
     setCurrent(page)
-    onChange?.(page)
+    onPageChange?.(page)
   }
-
 
   const itemRender = (
     page: number,
@@ -44,7 +55,7 @@ export default function Pagination({ total = 50, defaultCurrent = 1, onChange, c
         <button
           className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 border-none"
           onClick={() => handleChange(current + 1)}
-          disabled={current === Math.ceil(total / 10)}
+          disabled={current === meta.totalPage}
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -70,8 +81,8 @@ export default function Pagination({ total = 50, defaultCurrent = 1, onChange, c
     <div className={cn("flex justify-center", className)}>
       <AntPagination
         current={current}
-        total={total}
-        pageSize={10}
+        total={meta.total}
+        pageSize={meta.limit}
         onChange={handleChange}
         itemRender={itemRender}
         showSizeChanger={false}
@@ -84,4 +95,3 @@ export default function Pagination({ total = 50, defaultCurrent = 1, onChange, c
     </div>
   )
 }
-
