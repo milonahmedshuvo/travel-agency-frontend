@@ -87,8 +87,8 @@ makeStripePayment();
 
     if(data?.success){
       // go to payment final page 
-      console.log("amount", data?.data?.transactions?.amount)
-      console.log("clientSecret", data?.data?.transactions?.clientSecret)
+      // console.log("amount", data?.data?.transactions?.amount)
+      // console.log("clientSecret", data?.data?.transactions?.clientSecret)
 
       const link = data?.data?.transactions?.clientSecret
 
@@ -97,14 +97,6 @@ makeStripePayment();
   } else {
     toast.error('Payment link not found!');
   }
-
-
-
-
-
-      // store clientSecret and amount in redux 
-      // dispatch(setRoomBookingPayment({clientSecret: data?.data?.transactions?.clientSecret,  amount: data?.data?.transactions?.amount }))
-      // router.push("/roomStripeFullPayment")
     }
 
   } catch (error) {
@@ -120,6 +112,11 @@ makeStripePayment();
 
   
 
+
+
+
+
+
   // TWENTY PARSEN payment Stripe and Paypal 
   const handleRoomBookingTwenty = () => {
      setModalOpen(true)   
@@ -134,8 +131,8 @@ makeStripePayment();
     console.log('Selected Methods:', methods);
     // Proceed with your API call or logic
 
+    // THIS IS STRIPE PAYMENT 
     if(methods.initialPaymentMethod === "STRIPE"){
-       console.log('tumi STRIPE payment korte chasso')
 
     const makeStripePayment = async () => {
     const token = localStorage.getItem('token'); 
@@ -152,7 +149,7 @@ makeStripePayment();
     });
 
     const data = await response.json();
-    console.log('20% payment Success:', data);
+    console.log('20% payment stripe Success:', data);
 
 
     if(data?.initial){
@@ -179,6 +176,59 @@ makeStripePayment();
        
        
     }
+
+
+
+
+
+    // THIS IS PAYPAL PAYMENET 
+
+    if(methods.initialPaymentMethod === "PAYPAL"){
+       console.log("tumi Paypal payment method choise korso")
+
+       const makeStripePayment = async () => {
+       const token = localStorage.getItem('token'); 
+       const url = `http://localhost:6333/api/v1/room-bookings/${id}/split-pay`;
+
+      try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      },
+      body: JSON.stringify(methods)
+    });
+
+    const data = await response.json();
+
+
+     console.log('20% payment paypal Success:', data);
+
+
+
+    if(data?.initial){
+      // go to payment final page 
+        console.log("clientSecret paypal", data?.initial?.clientSecret)
+        const link = data?.initial?.clientSecret
+
+      if (link) {
+    window.location.href = link;
+  } else {
+    toast.error('Payment link not found!');
+  }
+    }
+  } catch (error) {
+    console.error('Room payment requst error:', error);
+  }
+};
+
+// Call the function
+makeStripePayment();
+}
+
+
+    
 
   
 
