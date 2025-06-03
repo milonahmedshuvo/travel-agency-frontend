@@ -31,7 +31,7 @@ export function HotelGrid( ) {
         const token = localStorage.getItem("token");
 
         // Build URL based on tab
-        let url = "https://supermariobos-api.code-commando.com/api/v1/hotel-packages";
+        let url = "http://localhost:6333/api/v1/hotel-packages";
         if (selectedSort !== "ALL") {
           url += `?roomCategory=${selectedSort}`;
         }
@@ -208,7 +208,7 @@ export function HotelGrid( ) {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {
             hotelPackages?.map((product:THotelPackage, index:number) =><div key={index}>
-                <AccommodationCard id={product.id} imageUrl={product.images[1].url} title={product.title} address={"address"}  price={product.price} ratting={'5.0'}/>
+                <AccommodationCard id={product.id} imageUrl={product?.images[1]?.url} title={product.title} address={"address"}  price={product.price} ratting={'5.0'}/>
             </div>)
           }
     </div>

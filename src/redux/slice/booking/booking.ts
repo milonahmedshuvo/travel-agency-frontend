@@ -59,6 +59,7 @@ interface BookingState {
   roomBookingPayment : TRoomBookingPayment | null
   // Room Booking id without payment 
   roomBookingId : string | null
+  hotelPackagesId : string | null
 }
 
 const initialState:BookingState = {
@@ -68,7 +69,8 @@ const initialState:BookingState = {
     gustDatailsThree : null,
     roomBookingPayment: null,
     // Room Booking id without payment 
-    roomBookingId : null
+    roomBookingId : null,
+    hotelPackagesId : null
 }
 
 const booking = createSlice({
@@ -120,7 +122,16 @@ const booking = createSlice({
    },
    clearRoomBookingId(state){
     state.roomBookingId = null
+   },
+
+
+   setHotelPackagesId (state, action){
+    state.hotelPackagesId = action.payload
+   },
+   clearhotelPackagesId(state) {
+    state.hotelPackagesId = null
    }
+
 
 
 
@@ -129,7 +140,7 @@ const booking = createSlice({
   },
 });
 
-export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment } = booking.actions;
+export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setHotelPackagesId } = booking.actions;
 export default booking.reducer;
 
 

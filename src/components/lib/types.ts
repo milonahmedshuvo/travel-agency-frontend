@@ -142,6 +142,7 @@ export type THotelPackage = {
   endDate: string;   // ISO date string
   slug: string;
   roomCategory: string;
+  location: string;   // new add location proverty
   price: number;
   bedRoom: number;
   bathRoom: number;

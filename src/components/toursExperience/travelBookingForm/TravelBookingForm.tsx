@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { ChevronDown, Calendar, Clock, Users, MapPin } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 
 // Reusable Dropdown component
@@ -79,6 +80,8 @@ function DatePicker({ value, onChange }: { value: string; onChange: (value: stri
 }
 
 export default function TravelBookingForm() {
+  const router  = useRouter() 
+
   // Sample data for dropdowns
   const locations = ["Dhaka, Bangladesh", "Kuala Lumpur, Malaysia", "Bangkok, Thailand", "Singapore", "Tokyo, Japan"]
   const destinations = ["Bali, Indonesia", "Phuket, Thailand", "Maldives", "Paris, France", "New York, USA"]
@@ -101,13 +104,20 @@ export default function TravelBookingForm() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle search functionality here
-    console.log({
-      pickupLocation,
-      destination,
-      date,
-      duration,
-      passengers,
-    })
+    // console.log({
+    //   pickupLocation,
+    //   destination,
+    //   date,
+    //   duration,
+    //   passengers,
+    // })
+  router.push("#")
+
+  if(pickupLocation){
+    console.log(pickupLocation)
+  }
+
+
   }
 
   return (

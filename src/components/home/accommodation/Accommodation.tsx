@@ -122,7 +122,7 @@ const Accommodation = () => {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
           {
             data?.data?.map((product:THotelPackage, index:number) =><div key={index}>
-                <AccommodationCard id={product.id} imageUrl={product.images[1].url} title={product.title} address={"addresss"}  price={product.price} ratting={'5.0'}/>
+                <AccommodationCard id={product.id} imageUrl={product?.images[1]?.url} title={product.title} address={"addresss"}  price={product.price} ratting={'5.0'}/>
             </div>)
           }
           </div>

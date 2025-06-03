@@ -32,7 +32,14 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
     
     getAllRoomBookings : builder.query({
       query : () => '/room-bookings'
-    })
+    }),
+
+    getSingleRoomBooking : builder.query({
+      query : (id) => `/room-bookings/${id}`
+    }),
+
+    
+
     
 
 
@@ -44,5 +51,5 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery } =
+export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery } =
   hotelPackagesApi;

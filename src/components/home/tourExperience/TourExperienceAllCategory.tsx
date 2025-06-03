@@ -18,7 +18,7 @@ const TourExperienceAllCategory = () => {
       try {
         const token = localStorage.getItem('token')
         const response = await fetch(
-          `https://supermariobos-api.code-commando.com/api/v1/tour-packages?category=${activeTab}`,{
+          `http://localhost:6333/api/v1/tour-packages?category=${activeTab}`,{
             method: "GET",
             headers: {
                 "Content-Type": "Application/json",

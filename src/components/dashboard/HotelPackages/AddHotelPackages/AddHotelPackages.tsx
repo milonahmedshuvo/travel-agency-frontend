@@ -58,6 +58,7 @@ export default function AddHotelTourPackageForm () {
   // State for form data
   const [formData, setFormData] = useState({
     title: "",
+    location: "",
     roomCategory: "",
     duration: "",
     startDate: "",
@@ -242,6 +243,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   const fullData = {
   title: formData.title,
 //   slug: formData.slug || formData.title?.toLowerCase().replace(/\s+/g, '-'),
+  location: formData.location,
   description: content,
   startDate: new Date(formData.startDate).toISOString(),
   endDate: new Date(formData.endDate).toISOString(),
@@ -308,6 +310,22 @@ file.forEach(f => formDatas.append("images", f));
              className="py-2.5 px-2 border border-[#98A2B3] w-full rounded focus:outline-none "
             placeholder="Tip to keep your keywords to all the hotspots"
             value={formData.title}
+            onChange={handleInputChange}
+            // required
+          />
+        </div>
+
+
+        <div className="space-y-2">
+          <label htmlFor="location" className="block text-[18px] font-medium">
+           Location <span className="text-red-500">*</span>
+          </label>
+          <input
+            id="location"
+            name="location"
+             className="py-2.5 px-2 border border-[#98A2B3] w-full rounded focus:outline-none "
+            placeholder="Tip to keep your keywords to all the hotspots"
+            value={formData.location}
             onChange={handleInputChange}
             // required
           />

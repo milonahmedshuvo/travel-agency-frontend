@@ -25,6 +25,7 @@ export default function BookingReview() {
 
 
 const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];  
+
 const handleBookingDataSend = async () => {
 
   if (!selectTourDateDatails || !selectTourDateDatails.date) {
@@ -37,7 +38,7 @@ const handleBookingDataSend = async () => {
   duration: selectTourDateDatails?.duration,
   groupSize: selectTourDateDatails?.groupSize,
   customerId: user?.id,
-  isVehicleBooking: true,
+  isVehicleBooking: false,
   guests: guests,
 
 };

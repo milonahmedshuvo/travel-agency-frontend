@@ -17,7 +17,9 @@ export default function BookingReview() {
      const accommodationGustDatailsTwo = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsTwo)
      const accommodationGustDatailsThree = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsThree)
    
-    // const hotelPackageId = useAppSelector((state) => state.accommodationBooking.hotelPackageId)
+    const hotelPackageId = useAppSelector((state) => state.accommodationBooking.hotelPackageId)
+
+   
 
 
     // customer datails 
@@ -42,7 +44,7 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
     checkOutDate: new Date(acommodationStayBooking.checkOutDate).toISOString(),
     numberOfGuests: acommodationStayBooking.numberOfGuests,
     roomType: acommodationStayBooking.roomType,
-    hotelPackageId: "68359870981abc53052aa9cf",
+    hotelPackageId: hotelPackageId,
     customerId: user?.id,
     guests: guests
   }
@@ -52,7 +54,7 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
   const result = await createRoomBooking(payload).unwrap()
   console.log('Result Room booking', result)
 
-  console.log(result?.data)
+  console.log("Rooom and Hotel booking data:", result?.data)
   // store clientSecret and amount in redux 
   //  dispatch(setRoomBookingPayment({clientSecret: "", amount: 10 }))
     

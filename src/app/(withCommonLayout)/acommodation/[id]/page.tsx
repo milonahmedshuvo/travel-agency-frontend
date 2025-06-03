@@ -117,7 +117,7 @@ export default function Page() {
                         className = ""
                          />
 
-            <div className=" my-5">
+            <div className=" my-5 bg-white py-6 px-4">
               <div className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: data?.data?.description }} ></div>
             </div>
 

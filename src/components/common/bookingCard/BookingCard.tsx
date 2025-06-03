@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ArrowRight, Info, Triangle, Flame } from "lucide-react";
-import Link from "next/link";
+// import Link from "next/link";
 
 interface BookingCardProps {
   title: string;
@@ -69,11 +70,11 @@ export default function BookingCard({
      
       {/* </Link> */}
 
-      <Link href={`${route}`}> 
+      {/* <Link href={`${route}`}> 
       <button className="w-full my-4 cursor-pointer bg-[#333333] text-white py-3 rounded-md transition-colors flex justify-center">
          Package Inquiry
       </button>
-      </Link>
+      </Link> */}
 
 
     </div>
