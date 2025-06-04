@@ -22,7 +22,7 @@ export function TourGrid() {
         const token = localStorage.getItem("token");
 
         // Build URL based on tab
-        let url = "http://localhost:6333/api/v1/tour-packages";
+        let url = "https://supermariobos-api.code-commando.com/api/v1/tour-packages";
         if (selectedSort !== "ALL") {
           url += `?category=${selectedSort}`;
         }

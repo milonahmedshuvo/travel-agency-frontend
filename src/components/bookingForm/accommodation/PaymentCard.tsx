@@ -14,13 +14,12 @@ export default function AccommodationPaymentCard() {
   // modal state 
    const [isModalOpen, setModalOpen] = useState(false);
 
-
   console.log("booking iddddddddddddd", id)
 
   const handleRoomBookingByStripe = () => {
     const makeStripePayment = async () => {
     const token = localStorage.getItem('token'); 
-    const url = `http://localhost:6333/api/v1/room-bookings/full-payment/${id}/stripe`;
+    const url = `https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment/${id}/stripe`;
 
   try {
     const response = await fetch(url, {
@@ -66,7 +65,7 @@ makeStripePayment();
 
     const makeStripePayment = async () => {
     const token = localStorage.getItem('token'); 
-    const url = `http://localhost:6333/api/v1/room-bookings/full-payment/${id}/paypal`;
+    const url = `https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment/${id}/paypal`;
 
   try {
     const response = await fetch(url, {
@@ -136,7 +135,7 @@ makeStripePayment();
 
     const makeStripePayment = async () => {
     const token = localStorage.getItem('token'); 
-    const url = `http://localhost:6333/api/v1/room-bookings/${id}/split-pay`;
+    const url = `https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay`;
 
   try {
     const response = await fetch(url, {
@@ -188,7 +187,7 @@ makeStripePayment();
 
        const makeStripePayment = async () => {
        const token = localStorage.getItem('token'); 
-       const url = `http://localhost:6333/api/v1/room-bookings/${id}/split-pay`;
+       const url = `https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay`;
 
       try {
     const response = await fetch(url, {

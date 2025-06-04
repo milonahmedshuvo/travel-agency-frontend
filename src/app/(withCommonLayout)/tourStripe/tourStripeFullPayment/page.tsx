@@ -1,28 +1,26 @@
 "use client"
 
-import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const RoomStripeFullPaymentPage = () => {
-    const amount = useAppSelector((state) => state.booking.roomBookingPayment?.amount)
-    const clientSecret  = useAppSelector((state) => state.booking.roomBookingPayment?.clientSecret)
-    const id = useAppSelector((state) => state.booking.roomBookingId)
-    const {data:roomBooking}= useGetSingleRoomBookingQuery(id)
-    
-    
-    console.log("transition id ",  roomBooking?.data?.transactions?.id)
+
+const TourStripeFullPaymentPage = () => {
+    const amount = useAppSelector((state) => state.booking.tourBookingPayment?.amount)
+    const clientSecret  = useAppSelector((state) => state.booking?.tourBookingPayment?.clientSecret)
+    const tourBookingId = useAppSelector((state) => state.booking.tourBookingId)
 
 
-
-   
-
+    const router = useRouter()
 
 
 
     const stripe = useStripe();
     const elements = useElements();
+
+
+
 
 
     const handleRoomBookingFullPaymentByStripe = async () => {
@@ -44,7 +42,7 @@ const RoomStripeFullPaymentPage = () => {
       payment_method: {
         card: cardElement,
         billing_details: {
-          name: 'user',
+          name: 'Mizan',
         },
       },
     });
@@ -54,64 +52,41 @@ const RoomStripeFullPaymentPage = () => {
       toast.error("Payment failed, Please try again!!")
     } else {
       if (result.paymentIntent?.status === 'succeeded') {
-        console.log("card success result:", result)
         console.log("Payment succeeded paymentIntent!", result.paymentIntent );
 
 
         // TODO: Call backend to update payment status
         console.log('paymentMethodId', result?.paymentIntent?.id)
         const paymentMethodId = result.paymentIntent.id;
-        console.log('paymethod idddddddddd', paymentMethodId)
-
-
-
-
-
-
-
-    //   confirm 20% payment for stripe
-
 
         const token = localStorage.getItem('token');
 
         try {
-        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay/initial`, {
+        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/tour-bookings/full-payment-confirm/${tourBookingId}/stripe`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.transactions?.id }),
+          body: JSON.stringify({ paymentMethodId }),
         });
 
         const data = await res.json();
 
-    
-
-        if (data) {
-          toast.success( `${data.message} 20% ` || "Payment 20% confirmed successfully!");
+        if (data.success) {
+          toast.success( data.message || "Payment confirmed successfully!");
           console.log("Backend response:", data);
 
-
+          router.push('/booking/ConfirmedBooking')
+           
         } else {
           toast.error("Failed to confirm payment.");
           console.error("Error from backend:", data);
         }
-
-
-
       } catch (error) {
         toast.error("Something went wrong while confirming payment.");
         console.error("Fetch error:", error);
       }
-
-
-
-
-
-
-
-
 
       }
     }
@@ -134,10 +109,10 @@ const RoomStripeFullPaymentPage = () => {
           type="submit"
           className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
         >
-          {`Confirm Payment  $${amount}`}
+          {`Confirm Payment $${amount}`}
         </button>
     </div>
   )
 }
 
-export default RoomStripeFullPaymentPage;
+export default TourStripeFullPaymentPage;

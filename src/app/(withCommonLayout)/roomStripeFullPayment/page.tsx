@@ -53,7 +53,7 @@ const RoomStripeFullPaymentPage = () => {
         const token = localStorage.getItem('token');
 
         try {
-        const res = await fetch(`http://localhost:6333/api/v1/room-bookings/full-payment-confirm/${id}/stripe`, {
+        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment-confirm/${id}/stripe`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -77,14 +77,6 @@ const RoomStripeFullPaymentPage = () => {
         toast.error("Something went wrong while confirming payment.");
         console.error("Fetch error:", error);
       }
-
-
-
-
-
-
-
-
 
       }
     }

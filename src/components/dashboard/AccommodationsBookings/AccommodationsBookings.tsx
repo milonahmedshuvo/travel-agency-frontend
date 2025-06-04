@@ -1,40 +1,42 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"
-import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi"
-import { TRoomBooking } from "@/components/lib/types"
+import { useState } from "react";
+import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import { TRoomBooking } from "@/components/lib/types";
 
 export default function AccommodationsBookings() {
-  const {data} = useGetAllRoomBookingsQuery("")
-  const [searchTerm, setSearchTerm] = useState("")
+  const { data } = useGetAllRoomBookingsQuery("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  console.log({searchTerm})
+  console.log({ searchTerm });
 
-
-
-
-  const [dateFilter, setDateFilter] = useState("Today")
-  const [showDateDropdown, setShowDateDropdown] = useState(false)
+  const [dateFilter, setDateFilter] = useState("Today");
+  const [showDateDropdown, setShowDateDropdown] = useState(false);
   // const [showEntriesDropdown, setShowEntriesDropdown] = useState(false)
   // const [entriesPerPage, setEntriesPerPage] = useState("8")
 
-  const dateOptions = ["Today", "Yesterday", "This Week", "This Month", "Custom Range"]
+  const dateOptions = [
+    "Today",
+    "Yesterday",
+    "This Week",
+    "This Month",
+    "Custom Range",
+  ];
 
+  const filterRoomBooking = data?.data?.data?.filter(
+    (booking: TRoomBooking) =>
+      booking?.hotelPackage?.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      booking.roomType.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const filterRoomBooking = data?.data?.data?.filter((booking:TRoomBooking) => 
-   booking.hotelPackage.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  booking.roomType.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-
-
-
-  const dateFormated = (date:string) => {
-    const formatedDate = new Date(date)
-    const stringFormatedDated = formatedDate.toLocaleDateString()
-    return stringFormatedDated
-  }
-
+  const dateFormated = (date: string) => {
+    const formatedDate = new Date(date);
+    const stringFormatedDated = formatedDate.toLocaleDateString();
+    return stringFormatedDated;
+  };
 
   return (
     <div className="space-y-6 ">
@@ -71,8 +73,8 @@ export default function AccommodationsBookings() {
                       key={option}
                       className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
-                        setDateFilter(option)
-                        setShowDateDropdown(false)
+                        setDateFilter(option);
+                        setShowDateDropdown(false);
                       }}
                     >
                       {option}
@@ -100,14 +102,18 @@ export default function AccommodationsBookings() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {filterRoomBooking?.map((booking:TRoomBooking, index:number) => (
+            {filterRoomBooking?.map((booking: TRoomBooking, index: number) => (
               <tr key={index} className="bg-white">
-                <td className="px-4 py-3">{booking.hotelPackage.title}</td>
+                <td className="px-4 py-3">{booking?.hotelPackage?.title}</td>
                 <td className="px-4 py-3">{"bookingCode N/A"}</td>
-                <td className="px-4 py-3">{booking.roomType}</td>
-                <td className="px-4 py-3">{ dateFormated(booking.checkInDate)}  </td>
-                <td className="px-4 py-3">{dateFormated(booking.checkOutDate)}</td>
-                <td className="px-4 py-3">{booking.hotelPackage.price}</td>
+                <td className="px-4 py-3">{booking?.roomType}</td>
+                <td className="px-4 py-3">
+                  {dateFormated(booking?.checkInDate)}{" "}
+                </td>
+                <td className="px-4 py-3">
+                  {dateFormated(booking?.checkOutDate)}
+                </td>
+                <td className="px-4 py-3">{booking?.hotelPackage?.price}</td>
                 <td className="px-4 py-3">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white">
                     {/* {booking.status} */} Confirmed
@@ -121,11 +127,16 @@ export default function AccommodationsBookings() {
 
       {/* Mobile Cards - Shown only on mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:hidden gap-4">
-        {filterRoomBooking?.map((booking:TRoomBooking, index:number) => (
-          <div key={index} className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        {filterRoomBooking?.map((booking: TRoomBooking, index: number) => (
+          <div
+            key={index}
+            className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+          >
             <div className="px-4 py-3 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium">{booking.hotelPackage.title}</h3>
+                <h3 className="text-lg font-medium">
+                  {booking?.hotelPackage?.title}
+                </h3>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white">
                   {/* {booking.status} */} Confirmed
                 </span>
@@ -134,23 +145,25 @@ export default function AccommodationsBookings() {
             <div className="px-4 py-3 space-y-2 text-sm">
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Booking Code:</span>
-                <span>{'N/A'}</span>
+                <span>{"N/A"}</span>
               </div>
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Room Type:</span>
-                <span>{booking.roomType}</span>
+                <span>{booking?.roomType}</span>
               </div>
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Check-In:</span>
-                <span>{dateFormated(booking.checkInDate)}</span>
+                <span>{dateFormated(booking?.checkInDate)}</span>
               </div>
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Check-Out:</span>
-                <span>{dateFormated(booking.checkOutDate)}</span>
+                <span>{dateFormated(booking?.checkOutDate)}</span>
               </div>
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Price:</span>
-                <span className="font-medium">{booking.hotelPackage.price}</span>
+                <span className="font-medium">
+                  {booking?.hotelPackage?.price}
+                </span>
               </div>
             </div>
           </div>
@@ -193,8 +206,6 @@ export default function AccommodationsBookings() {
           out of 286
         </div> */}
 
-
-
         <div className="flex items-center space-x-2">
           <button
             className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-400 cursor-not-allowed"
@@ -229,5 +240,5 @@ export default function AccommodationsBookings() {
         </div>
       </div>
     </div>
-  )
+  );
 }

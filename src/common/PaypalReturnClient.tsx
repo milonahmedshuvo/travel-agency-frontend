@@ -33,7 +33,7 @@ export default function PaypalReturnClient() {
     const capturePayment = async () => {
       try {
         const res = await fetch(
-          `http://localhost:6333/api/v1/paypal/complete-order/${token}`,
+          `https://supermariobos-api.code-commando.com/api/v1/paypal/complete-order/${token}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

@@ -57,6 +57,10 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     // GET all tour booking
     getAllTourBookings: builder.query({
         query : () => "/tour-bookings" 
+    }),
+
+    getSingleTourBooking : builder.query({
+        query : (id) => `/tour-bookings/${id}`
     })
      
    
@@ -66,4 +70,4 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     }),
   });
   
-  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery, useGetAllTourBookingsQuery, useGetCurturalTourQuery, useGetGastroTourQuery } = tourPackagesApi;
+  export const { useCreatetourPackagesMutation, useGetLandTourQuery, useGetSingleTourQuery, useCreateTourBookingMutation, useGetSeaTourQuery, useGetAllTourBookingsQuery, useGetCurturalTourQuery, useGetGastroTourQuery, useGetSingleTourBookingQuery } = tourPackagesApi;

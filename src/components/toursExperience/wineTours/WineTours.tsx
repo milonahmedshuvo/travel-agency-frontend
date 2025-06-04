@@ -22,7 +22,7 @@ const WineTours = () => {
       try {
         const token = localStorage.getItem('token')
         const response = await fetch(
-          "http://localhost:6333/api/v1/tour-packages?category=GASTRO_WINE_TOUR",
+          "https://supermariobos-api.code-commando.com/api/v1/tour-packages?category=GASTRO_WINE_TOUR",
           {
             method: "GET",
             headers: {

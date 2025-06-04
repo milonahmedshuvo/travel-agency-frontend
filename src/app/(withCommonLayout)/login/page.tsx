@@ -71,11 +71,9 @@ const onSubmit = async (data: FormValues) => {
             const decodedUser = jwtDecode(response?.data?.access_token)
             console.log('decoded user', decodedUser)
 
-
             dispatch(setUser({user: decodedUser, token: response?.data?.access_token}))
-
             reset()  
-            router.push('/') 
+            // router.push('/') 
         }
 
 

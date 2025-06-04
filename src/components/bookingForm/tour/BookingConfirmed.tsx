@@ -1,16 +1,30 @@
 "use client";
-import Link from "next/link";
+// import Link from "next/link";
 import { ConfirmedSize } from "./ConfirmedSize";
+import { useAppSelector } from "@/redux/hook";
+import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+
 
 
 export default function BookingConfirmed() {
+
+      const tourBookingId = useAppSelector((state) => state.booking.tourBookingId)
+
+      const {data} = useGetSingleTourBookingQuery(tourBookingId)
+
+      console.log("tour booking data", data?.data?.transactions)
+
+
+
+
+
 
 
   return (
     <section className="space-y-6 bg-[#F4F4F4] ">
       <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
         <div className="mb-3">
-          <p className="text-lg font-medium mb-5">Step 05</p>
+          {/* <p className="text-lg font-medium mb-5">Step 05</p> */}
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
           Booking 
             <span className="text-[#F78C41] ml-2.5">
@@ -33,19 +47,19 @@ export default function BookingConfirmed() {
 
 
            {/* <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" /> */}
-           <ConfirmedSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" paymentMethod="Stripe" bookingReference=" #SANTORINI20250310-9876" />
+           <ConfirmedSize date={data?.data?.availableDate} duration={data?.data?.duration} groupSize={data?.data?.groupSize} paymentMethod={data?.data?.transactions?.paymentMethodType} bookingReference=" #SANTORINI20250310-9876" />
 
 
 
           
         </div>
 
-        <Link href="/booking/payment">
+        {/* <Link href="/booking/payment"> */}
           <button
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
           >
-            Confirm & Pay Now
+            view my bookings
             <svg
               className="w-5 h-5 ml-2"
               fill="none"
@@ -61,7 +75,7 @@ export default function BookingConfirmed() {
               ></path>
             </svg>
           </button>
-        </Link>
+        {/* </Link> */}
       </div>
     </section>
   );

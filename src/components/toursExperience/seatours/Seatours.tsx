@@ -22,7 +22,7 @@ const SeaTour = () => {
              try {
                const token = localStorage.getItem('token')
                const response = await fetch(
-                 "http://localhost:6333/api/v1/tour-packages?category=SEA_TOUR",
+                 "https://supermariobos-api.code-commando.com/api/v1/tour-packages?category=SEA_TOUR",
                  {
                    method: "GET",
                    headers: {

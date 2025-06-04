@@ -31,7 +31,7 @@ export function HotelGrid( ) {
         const token = localStorage.getItem("token");
 
         // Build URL based on tab
-        let url = "http://localhost:6333/api/v1/hotel-packages";
+        let url = "https://supermariobos-api.code-commando.com/api/v1/hotel-packages";
         if (selectedSort !== "ALL") {
           url += `?roomCategory=${selectedSort}`;
         }

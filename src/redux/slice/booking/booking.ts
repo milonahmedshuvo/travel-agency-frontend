@@ -47,6 +47,11 @@ interface TRoomBookingPayment {
     amount : number;
 }
 
+interface TTourBookingPayment {
+    clientSecret : string;
+    amount : number;
+}
+
 
 
 
@@ -57,9 +62,10 @@ interface BookingState {
   gustDatailsTwo: TGustDatailsTwo | null
   gustDatailsThree: TGustDatailsThree | null
   roomBookingPayment : TRoomBookingPayment | null
+  tourBookingPayment : TTourBookingPayment | null
   // Room Booking id without payment 
   roomBookingId : string | null
-  hotelPackagesId : string | null
+  tourBookingId : string | null
 }
 
 const initialState:BookingState = {
@@ -68,9 +74,10 @@ const initialState:BookingState = {
     gustDatailsTwo: null,
     gustDatailsThree : null,
     roomBookingPayment: null,
+    tourBookingPayment : null,
     // Room Booking id without payment 
     roomBookingId : null,
-    hotelPackagesId : null
+    tourBookingId : null
 }
 
 const booking = createSlice({
@@ -116,6 +123,19 @@ const booking = createSlice({
       state.roomBookingPayment = null
     },
 
+
+     // Room booking payment 
+    setTourBookingPayment(state, action:PayloadAction<TRoomBookingPayment>) {
+      state.tourBookingPayment = action.payload
+    },
+    clearTourBoookingPayment(state) {
+      state.tourBookingPayment = null
+    },
+
+
+
+
+
    // Room Booking id without payment 
    setRoomBookingId(state, action){
     state.roomBookingId = action.payload
@@ -125,11 +145,11 @@ const booking = createSlice({
    },
 
 
-   setHotelPackagesId (state, action){
-    state.hotelPackagesId = action.payload
+   setTourBookingId (state, action){
+    state.tourBookingId = action.payload
    },
    clearhotelPackagesId(state) {
-    state.hotelPackagesId = null
+    state.tourBookingId = null
    }
 
 
@@ -140,7 +160,7 @@ const booking = createSlice({
   },
 });
 
-export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setHotelPackagesId } = booking.actions;
+export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setTourBookingId, setTourBookingPayment } = booking.actions;
 export default booking.reducer;
 
 
