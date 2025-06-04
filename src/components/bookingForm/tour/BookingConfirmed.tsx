@@ -117,6 +117,11 @@ const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
          </div>
         </div>
 
+
+
+
+
+
         {/* <Link href="/booking/payment"> */}
           <button
             type="submit"
