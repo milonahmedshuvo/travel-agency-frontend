@@ -148,14 +148,14 @@ const onSubmit = async (data: FormValues) => {
         </button>
       </form>
 
-      <div className="mt-6 flex justify-center items-center">
-        {/* <Separator className="flex-grow" /> */}
-        <span className="px-3 text-gray-500 text-md">or with</span>
-        {/* <Separator className="flex-grow" /> */}
-      </div>
+      <div className="flex items-center justify-center gap-6 mt-6">
+          <h1 className="w-[165px] h-[1px] bg-[#98A2B3]"> </h1>
+          <h1 className="uppercase">or</h1>
+          <h1 className="w-[165px] h-[1px] bg-[#98A2B3]"> </h1>
+        </div>
 
       <button
-        className="w-full mt-4 py-3 border border-[#98A2B3] rounded text-[#98A2B3]"
+        className="w-full mt-4 py-3 border border-[#98A2B3] rounded text-[#98A2B3] "
         onClick={() => {
           toast.success('Continuing as a guest user')
         }}
