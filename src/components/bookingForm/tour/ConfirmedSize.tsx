@@ -3,7 +3,7 @@ interface BookingSizeProps {
     date: string
     duration: string
     groupSize: string
-    paymentMethod: string
+    paymentMethod: string | React.ReactNode;
     bookingReference?:string
     className?: string
   }
@@ -72,7 +72,7 @@ return formattedDate
             <div className="flex items-center gap-2 ">
               <span className="font-medium text-gray-700">Payment Method:</span>
             </div>
-            <span className="text-gray-600">{paymentMethod} <span className="text-green-600">(PAID)</span></span>
+            <span className="text-gray-600">{paymentMethod} </span>
           </div>
 
           {/* <div className="flex flex-col sm:flex-row sm:items-center gap-2  pb-1">

@@ -144,7 +144,7 @@ const onSubmit = async (data: FormValues) => {
           className="w-full py-3 rounded bg-gradient-to-r from-blue-500 to-blue-400 hover:from-blue-600 hover:to-blue-500 text-white font-medium cursor-pointer"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Creating Account..." : "Create Account"}
+          {isSubmitting ? "procecing..." : "Login"}
         </button>
       </form>
 

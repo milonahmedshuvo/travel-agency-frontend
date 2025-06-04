@@ -40,7 +40,7 @@ interface BookingSizeProps {
             <div className="flex items-center gap-2 ">
               <span className="font-medium text-gray-700">Group Size:</span>
             </div>
-            <span className="text-gray-600">{groupSize}</span>
+            <span className="text-gray-600">{groupSize} Person </span>
           </div>
   
         

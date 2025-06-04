@@ -3,13 +3,28 @@ import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import toast from "react-hot-toast";
-import { useCreateTourBookingMutation } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useCreateTourBookingMutation, useGetSingleTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { useRouter } from "next/navigation";
 import { setTourBookingId } from "@/redux/slice/booking/booking";
+import { useGetMeQuery } from "@/redux/api/auth/authApi";
+
 
 export default function BookingReview() {
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const booktourPackagesId = useAppSelector((state) => state.vehicleBooking.tourPackageId)
+  // console.log("booktourPackagesId", booktourPackagesId)
+  const {data:bookTourPacakages} = useGetSingleTourQuery(booktourPackagesId)
+  console.log("dataaaaaaaaaaaa", bookTourPacakages?.data?.title)
+
+
+
+
+
+
+
+
+  // const bookTourPackages = 
 
 
   const selectTourDateDatails = useAppSelector(
@@ -30,10 +45,16 @@ export default function BookingReview() {
   );
 
   // customer datails
-  const user = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);  
   const [createTourBooking] = useCreateTourBookingMutation();
+  const {data} = useGetMeQuery("")
 
+  console.log("get me", data?.data)
   console.log("current user id", user);
+
+
+
+
 
   const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];
 
@@ -47,13 +68,16 @@ export default function BookingReview() {
       availableDate: new Date(selectTourDateDatails?.date).toISOString(),
       duration: selectTourDateDatails?.duration,
       groupSize: selectTourDateDatails?.groupSize,
-      customerId: "684012103e2080e803d2a697", // "682bcf874d812a015c005b61",  //user?.id,
+      customerId: data?.data?.customer?.id, 
       isVehicleBooking: false,
       guests: guests,
     };
 
 
-    console.log("vehicle booking payload..", payload);
+
+
+
+    // console.log("vehicle booking payload..", payload);
     //  router.push('/booking/payment')
 
     try {
@@ -63,9 +87,7 @@ export default function BookingReview() {
       const tourBookingId = result?.data?.id
       
       dispatch(setTourBookingId(tourBookingId))
-
-
-      console.log('tourBookingId', tourBookingId)
+      // console.log('tourBookingId', tourBookingId)
 
 
 
@@ -104,7 +126,7 @@ export default function BookingReview() {
 
         <div className=" mt-6">
           <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">
-            Santorini Sunset Catamaran Cruise
+             {bookTourPacakages?.data?.title}
           </h1>
 
           <BookingSize

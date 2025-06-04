@@ -7,14 +7,13 @@ import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPacka
 
 
 export default function BookingConfirmed() {
-
       const tourBookingId = useAppSelector((state) => state.booking.tourBookingId)
-
       const {data} = useGetSingleTourBookingQuery(tourBookingId)
 
       console.log("tour booking data", data?.data?.transactions)
+      console.log("tourPackage", data?.data?.tourPackage?.title)
 
-
+      console.log('20 % persen ',  data?.data?.transactions?.splitPaymentType)
 
 
 
@@ -40,14 +39,14 @@ export default function BookingConfirmed() {
         <div className=" mt-6">
 
           <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">
-            Santorini Sunset Catamaran Cruise
+             {data?.data?.tourPackage?.title}
           </h1>
            
            
 
 
            {/* <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" /> */}
-           <ConfirmedSize date={data?.data?.availableDate} duration={data?.data?.duration} groupSize={data?.data?.groupSize} paymentMethod={data?.data?.transactions?.paymentMethodType} bookingReference=" #SANTORINI20250310-9876" />
+           <ConfirmedSize date={data?.data?.availableDate} duration={data?.data?.duration} groupSize={data?.data?.groupSize} paymentMethod={ data?.data?.transactions?.splitPaymentType ? ( <> {data?.data?.transactions?.paymentMethodType}{' '} <span className="text-green-600">20% (PAID)</span> </> ) : ( <> {data?.data?.transactions?.paymentMethodType} {' '} <span className="text-green-600"> (PAID)</span>  </>)    }/>
 
 
 
@@ -59,7 +58,7 @@ export default function BookingConfirmed() {
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
           >
-            view my bookings
+            View my bookings
             <svg
               className="w-5 h-5 ml-2"
               fill="none"
