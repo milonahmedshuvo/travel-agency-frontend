@@ -85,7 +85,6 @@ export default function BookingReview() {
       console.log("result tourbooking", result);
 
       const tourBookingId = result?.data?.id
-      
       dispatch(setTourBookingId(tourBookingId))
       // console.log('tourBookingId', tourBookingId)
 

@@ -10,10 +10,39 @@ export default function BookingConfirmed() {
       const tourBookingId = useAppSelector((state) => state.booking.tourBookingId)
       const {data} = useGetSingleTourBookingQuery(tourBookingId)
 
-      console.log("tour booking data", data?.data?.transactions)
+      console.log("tour booking data", data?.data) // isVehicleBooking, splitPayment 
+
+
       console.log("tourPackage", data?.data?.tourPackage?.title)
 
-      console.log('20 % persen ',  data?.data?.transactions?.splitPaymentType)
+      // console.log('20 % persen ',  data?.data?.transactions?.splitPaymentType) for pass component 20%
+
+
+
+    // date formate 
+    const pickUpDate = "2025-06-20T00:00:00.000Z";
+
+const date = new Date(pickUpDate);
+
+const options: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+
+const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -50,7 +79,42 @@ export default function BookingConfirmed() {
 
 
 
-          
+           {/* if vehicle booking  */}
+          <div className="space-y-4 mt-5" > 
+           {
+              data?.data?.isVehicleBooking &&   <div>
+            <div  className="flex flex-col sm:flex-row sm:items-center gap-2  pb-1">
+            <div className="flex items-center gap-2 ">
+              <span className="font-medium text-gray-700">pick up Address</span>
+            </div>
+            <span className="text-gray-600">{data?.data?.vehicleBooking.pickUpAddr} </span>
+          </div>
+         </div> 
+           }
+           {
+              data?.data?.isVehicleBooking &&   <div>
+            <div  className="flex flex-col sm:flex-row sm:items-center gap-2  pb-1">
+            <div className="flex items-center gap-2 ">
+              <span className="font-medium text-gray-700">pick up Date</span>
+            </div>
+            <span className="text-gray-600">{formattedDate} </span>
+          </div>
+         </div> 
+           }
+
+           {/* paddding amout :  */}
+           {
+             data?.data?.splitPayment && <div>
+            <div  className="flex flex-col sm:flex-row sm:items-center gap-2  pb-1">
+            <div className="flex items-center gap-2 ">
+              <span className="font-medium text-gray-700">Pandding Amount : </span>
+            </div>
+            <span className="text-gray-600">{`${data?.data?.splitPayment?.finalPaymentTransaction?.amount} ${data?.data?.transactions?.currency}`   } </span>
+          </div>
+         </div> 
+           }
+
+         </div>
         </div>
 
         {/* <Link href="/booking/payment"> */}

@@ -3,9 +3,11 @@
 import { useCreateTourBookingMutation } from "@/redux/api/tourPackages/tourPackagesApi";
 import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useGetMeQuery } from "@/redux/api/auth/authApi";
+import { setTourBookingId } from "@/redux/slice/booking/booking";
 
 
 export default function BookingAndVehicleReview() {
@@ -29,6 +31,11 @@ export default function BookingAndVehicleReview() {
   const gustDatailsThree = useAppSelector((state) => state.booking.gustDatailsThree)
 
   const selectTourDateDatails = useAppSelector((state) => state.booking.bookingSelectTourDate)
+
+  const {data} = useGetMeQuery("")
+  const dispatch = useAppDispatch()
+  // console.log("get me customer : ",   data?.data?.customer?.id )
+
   
   // customer datails 
   const user = useAppSelector((state) => state.auth.user)
@@ -52,7 +59,7 @@ const handleBookingDataSend = async () => {
   availableDate: new Date(selectTourDateDatails?.date).toISOString(),
   duration: selectTourDateDatails?.duration,
   groupSize: selectTourDateDatails?.groupSize,
-  customerId: user?.id,
+  customerId: data?.data?.customer?.id,
   isVehicleBooking: true,
   guests: guests,
 
@@ -72,13 +79,25 @@ const handleBookingDataSend = async () => {
     customerId: user?.id,
   }
 };
-console.log('vehicle booking payload..', payload)
+console.log('vehicle booking payload veeeeeeeeeeeeeeee..', payload)
+
+
   //  router.push('/booking/payment')
 
  try{
   const result = await createTourBooking(payload).unwrap()
-  console.log('result tourbooking', result)
+  console.log('result tour booking', result)
   toast.success( result.message || "Tour Bookings success!!")
+
+ const tourBookingId = result?.data?.id      
+//dispatch(setTourBookingId(tourBookingId))
+ console.log("Tour booking id :", tourBookingId)
+ dispatch(setTourBookingId(tourBookingId))
+
+
+  router.push('/booking/payment')
+ 
+
  }catch(err){
   console.log('error tour booking', err)
   toast.error("bookings error")
