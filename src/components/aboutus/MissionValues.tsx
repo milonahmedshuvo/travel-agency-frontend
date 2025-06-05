@@ -31,7 +31,7 @@ export default function MissionValues() {
         {/* Right Column */}
         <div className="flex justify-end">
         <div className="space-y-6">
-          <h3 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-6">Our Mission:</h3>
+          <h3 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-6 ">Our Mission:</h3>
 
           <div className="space-y-9">
             <div className="flex gap-3 items-start">
@@ -40,7 +40,7 @@ export default function MissionValues() {
                 <span className="text-xl font-medium text-slate-800 mx-2">
                   Authenticity  — 
                 </span>
-                <span className="text-slate-700">Real local experiences, not tourist traps</span>
+                <span className="text-slate-700 text-[17px]">Real local experiences, not tourist traps</span>
               </div>
             </div>
 
@@ -50,7 +50,7 @@ export default function MissionValues() {
                 <span  className="text-xl font-medium text-slate-800 mx-2">
                   Passion for Travel —
                 </span>
-                <span className="text-slate-700">We love what we do & it shows!</span>
+                <span className="text-slate-700 text-[17px]">We love what we do & it shows!</span>
               </div>
             </div>
 
@@ -60,7 +60,7 @@ export default function MissionValues() {
                 <span className="text-xl font-medium text-slate-800 mx-2">
                   Trust & Safety —
                 </span>
-                <span className="text-slate-700">Secure booking, experienced guides, & reliable support</span>
+                <span className="text-slate-700 text-[17px]">Secure booking, experienced guides, & reliable support</span>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ export default function MissionValues() {
                 <span className="text-xl font-medium text-slate-800 mx-2">
                   Sustainability —
                 </span>
-                <span className="text-slate-700">Eco-friendly tours that support local communities</span>
+                <span className="text-slate-700 text-[17px]">Eco-friendly tours that support local communities</span>
               </div>
             </div>
           </div>

@@ -32,7 +32,7 @@ export default function ContactForm() {
         <h1 className="text-4xl md:text-5xl font-bold">
           Get in <span className="text-orange-400">Touch</span>
         </h1>
-        <p className="mt-4 text-gray-600 max-w-2xl">
+        <p className="mt-4 text-gray-600 max-w-2xl text-lg">
           Drop us a message using the contact form below and we ll get back to you within 24 hours (Monday-Friday)
         </p>
       </div>

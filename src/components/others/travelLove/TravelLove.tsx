@@ -39,7 +39,7 @@ export default function TravelLove () {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800">Unforgettable Experiences:</h3>
-                <p className="text-gray-600 mt-2">
+                <p className="text-gray-600 mt-2 text-lg">
                   Snorkel in pristine waters, kayak along scenic coastlines, and sail under golden sunsets.
                 </p>
               </div>
@@ -53,7 +53,7 @@ export default function TravelLove () {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800">Expert Guides & Instructors:</h3>
-                <p className="text-gray-600 mt-2">Learn from certified professionals who prioritize safety and fun.</p>
+                <p className="text-gray-600 mt-2 text-lg">Learn from certified professionals who prioritize safety and fun.</p>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ export default function TravelLove () {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800">Eco-Friendly & Sustainable:</h3>
-                <p className="text-gray-600 mt-2">We support marine conservation and responsible tourism.</p>
+                <p className="text-gray-600 mt-2 text-lg">We support marine conservation and responsible tourism.</p>
               </div>
             </div>
           </div>

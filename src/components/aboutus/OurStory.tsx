@@ -21,15 +21,15 @@ export default function OurStory() {
             <span className="text-[#FF914D] underline mt-11 ">Who We Are</span>
           </h2>
 
-          <p className="mt-7 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto md:mx-0">
+          <p className="mt-7 !text-[#333] dark:text-gray-300 max-w-2xl mx-auto md:mx-0 text-[18px]">
             Founded by passionate travelers, we believe every journey should be
             unique and unforgettable.
           </p>
         </div>
 
         <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center md:items-start gap-8">
-          <div className="max-w-lg text-gray-600 dark:text-gray-300">
-            <p className="flex items-start gap-2">
+          <div className="max-w-lg !text-[#333] dark:text-gray-300">
+            <p className="flex items-start gap-2 text-[18px]">
               <span className="text-blue-500">🚀</span>
               From sunset boat tours in Santorini to historical deep dives in
               Rome, we curate each tour with passion and local expertise. Our
