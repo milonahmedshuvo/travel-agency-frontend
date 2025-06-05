@@ -99,7 +99,7 @@ export default function TourBookingForm() {
     <section className="bg-[#F4F4F4]">
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
       <div className="mb-3">
-        <p className="text-lg font-medium mb-5">Step 01</p>
+        {/* <p className="text-lg font-medium mb-5">Step 01</p> */}
         <h1 className="text-4xl md:text-5xl font-semibold mb-5">
           Select <span className="text-[#F78C41]">Tour & Date</span>
         </h1>

@@ -101,7 +101,7 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors"
+              className="w-full bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors cursor-pointer "
             >
               SUBMIT NOW
             </button>

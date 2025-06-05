@@ -7,6 +7,7 @@ import { useCreateTourBookingMutation, useGetSingleTourQuery } from "@/redux/api
 import { useRouter } from "next/navigation";
 import { setTourBookingId } from "@/redux/slice/booking/booking";
 import { useGetMeQuery } from "@/redux/api/auth/authApi";
+import Link from "next/link";
 
 
 export default function BookingReview() {
@@ -15,7 +16,7 @@ export default function BookingReview() {
   const booktourPackagesId = useAppSelector((state) => state.vehicleBooking.tourPackageId)
   // console.log("booktourPackagesId", booktourPackagesId)
   const {data:bookTourPacakages} = useGetSingleTourQuery(booktourPackagesId)
-  console.log("dataaaaaaaaaaaa", bookTourPacakages?.data?.title)
+  // console.log("dataaaaaaaaaaaa", bookTourPacakages?.data?.title)
 
 
 
@@ -49,7 +50,7 @@ export default function BookingReview() {
   const [createTourBooking] = useCreateTourBookingMutation();
   const {data} = useGetMeQuery("")
 
-  console.log("get me", data?.data)
+  // console.log("get me", data?.data)
   console.log("current user id", user);
 
 
@@ -158,7 +159,6 @@ export default function BookingReview() {
           </div>
         </div>
 
-        {/* <Link href="/booking/payment"> */}
         <button
           onClick={() => handleBookingDataSend()}
           type="submit"
@@ -180,7 +180,13 @@ export default function BookingReview() {
             ></path>
           </svg>
         </button>
-        {/* </Link> */}
+      
+        <div className="flex justify-center items-center cursor-pointer">
+             <Link href="/inquiry" >
+                <button className="text-orange-400 font-semibold text-center cursor-pointer" >Inquiry</button>
+             </Link>
+        </div>
+
       </div>
     </section>
   );

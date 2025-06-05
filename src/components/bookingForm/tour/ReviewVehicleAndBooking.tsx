@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import { useCreateTourBookingMutation } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useCreateTourBookingMutation, useGetSingleTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { BookingConfirmationData } from "./BookingConfirmationData";
 import { BookingSize } from "./ReviewSize";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useGetMeQuery } from "@/redux/api/auth/authApi";
 import { setTourBookingId } from "@/redux/slice/booking/booking";
+import Link from "next/link";
 
 
 export default function BookingAndVehicleReview() {
@@ -40,7 +41,11 @@ export default function BookingAndVehicleReview() {
   // customer datails 
   const user = useAppSelector((state) => state.auth.user)
   const [createTourBooking] = useCreateTourBookingMutation()
+
+  const {data:currentTourPakages} = useGetSingleTourQuery(tourPackagesId)
+  // console.log(currentTourPakages?.data?.title) 
  
+
 
 
 
@@ -76,10 +81,10 @@ const handleBookingDataSend = async () => {
     dropOffAddr: dropOffAddr,
     needsAdditionalStops: needsAdditionalStops,
     tourPackageVehicleId: tourPackageVehicleId,
-    customerId: user?.id,
+    customerId: data?.data?.customer?.id,
   }
 };
-console.log('vehicle booking payload veeeeeeeeeeeeeeee..', payload)
+console.log('vehicle booking payload..', payload)
 
 
   //  router.push('/booking/payment')
@@ -113,7 +118,7 @@ console.log('vehicle booking payload veeeeeeeeeeeeeeee..', payload)
     <section className="space-y-6 bg-[#F4F4F4] ">
       <div className="space-y-6 max-w-[780px] mx-auto p-4 md:p-12  shadow bg-[#ffffff]">
         <div className="mb-3">
-          <p className="text-lg font-medium mb-5">Send data in backend </p>
+          {/* <p className="text-lg font-medium mb-5">Send data in backend </p> */}
           <h1 className="text-4xl md:text-5xl font-semibold mb-5 ">
               Review{" "}
             <span className="text-[#F78C41]">
@@ -129,7 +134,7 @@ console.log('vehicle booking payload veeeeeeeeeeeeeeee..', payload)
 
         <div className=" mt-6">
           <h1 className="text-2xl sm:text-3xl  font-medium mb-6  mt-12">
-            Santorini Sunset Catamaran Cruise
+              {currentTourPakages?.data?.title}
           </h1>
            
            <BookingSize date={selectTourDateDatails?.date as string } duration={selectTourDateDatails?.duration as number } groupSize={selectTourDateDatails?.groupSize as number} />
@@ -180,7 +185,7 @@ console.log('vehicle booking payload veeeeeeeeeeeeeeee..', payload)
 
 
 
-        {/* <Link href="/booking/payment"> */}
+        
           <button
             onClick={() => handleBookingDataSend()}
             type="submit"
@@ -202,7 +207,14 @@ console.log('vehicle booking payload veeeeeeeeeeeeeeee..', payload)
               ></path>
             </svg>
           </button>
-        {/* </Link> */}
+           
+            <div className="flex justify-center items-center cursor-pointer">
+             <Link href="/inquiry" >
+                <button className="text-orange-400 font-semibold text-center cursor-pointer" >Inquiry</button>
+             </Link>
+        </div>
+
+
       </div>
     </section>
   );

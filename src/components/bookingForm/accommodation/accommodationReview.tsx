@@ -6,6 +6,7 @@ import { BookingConfirmationData } from "../tour/BookingConfirmationData";
 import { useCreateRoomBookingMutation } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useRouter } from "next/navigation";
 import { setRoomBookingId } from "@/redux/slice/booking/booking";
+import Link from "next/link";
 
 
 export default function BookingReview() {
@@ -121,7 +122,7 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
           </div>
         </div>
 
-        {/* <Link href="/booking/payment"> */}
+      
           <button
             onClick={() => handleBookingDataSend()}
             type="submit"
@@ -143,7 +144,12 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
               ></path>
             </svg>
           </button>
-        {/* </Link> */}
+        
+           <div className="flex justify-center items-center cursor-pointer">
+             <Link href="/inquiry" >
+                <button className="text-orange-400 font-semibold text-center cursor-pointer" >Inquiry</button>
+             </Link>
+        </div>
 
       </div>
     </section>
