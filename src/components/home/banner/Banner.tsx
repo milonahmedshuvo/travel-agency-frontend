@@ -1,5 +1,6 @@
 import React from "react";
 import banner from "../../../assets/header/header.jpg";
+import Link from "next/link";
 
 
 const Banner = () => {
@@ -27,8 +28,8 @@ const Banner = () => {
 
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-3.5 md:gap-5 mt-5">
-            <button className="text-[#156CF0] text-[16px] bg-[#FFFFFF] w-[80%] md:w-[300px] lg:w-[200px] py-[12px] rounded-sm transition duration-300 font-semibold"> Explore Tours </button>
-            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF] w-[80%] md:w-[300px] lg:w-[200px] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold "> Book Now </button>
+            <button className="text-[#156CF0] text-[16px] bg-[#FFFFFF] w-[80%] md:w-[300px] lg:w-[200px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"> <Link href='/toursExperience'> Explore Tours </Link> </button>
+            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF] w-[80%] md:w-[300px] lg:w-[200px] px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"> <Link href='/acommodation' >Book Now</Link>  </button>
             </div>
 
 

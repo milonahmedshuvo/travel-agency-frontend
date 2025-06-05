@@ -14,6 +14,9 @@ const SeaTourItems = () => {
     return <Loading />;
   }
 
+
+  
+
   console.log("pagination current page:", newPage);
 
   return (

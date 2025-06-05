@@ -1,132 +1,24 @@
+"use client"
+
 import React from "react";
 import Pagination from "@/components/others/pagination/Pagination";
-import img1 from '../../../assets/card/accommodation/img1.jpg'
-import img2 from '../../../assets/card/accommodation/img2.jpg'
-import img3 from '../../../assets/card/accommodation/img3.jpg'
-import img4 from '../../../assets/card/accommodation/img4.jpg'
-import img5 from '../../../assets/card/accommodation/img5.jpg'
-import img6 from '../../../assets/card/accommodation/img6.jpg'
+// import img1 from '../../../assets/card/accommodation/img1.jpg'
 import AccommodationSecoundCard from "@/components/card/accommodationCard/AccommoSecoundCard";
+import { useGetAllHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import Loading from "@/components/shared/loading/Loading";
+import { THotelPackage } from "@/components/lib/types";
 
 
 
 const AccommodationItems = () => {
+   const {data, isLoading } = useGetAllHotelPackagesQuery("")
+    // console.log("hotel", data?.data)
+    
+    if(isLoading){
+      return <Loading/>
+    }
   
-  const products = [
-    {
-      id: '1',
-      imageUrl: img1,
-      title: "Cox's Bazar, Bangladesh",
-      price: "$400",
-      day: "5 Days Trip",
-      ratting: "5.0",
-      address: "Cox Bazar, Bangladesh",
-      kitchenValue: "2",
-      bedRoomValue: "5",
-      bathroom:"3",
-      livingRoom: '8'
-    ,
-    },
-    {
-        id: '2',
-        imageUrl: img2,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
 
-      },
-      {
-        id: '3',
-        imageUrl: img3,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
-
-      },
-      {
-        id: '4',
-        imageUrl: img4,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
-
-      },
-      {
-        id: '5',
-        imageUrl: img5,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
-
-      },
-      {
-        id: '6',
-        imageUrl: img6,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
-
-      },
-      {
-        id: '7',
-        imageUrl: img5,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
-
-      },
-      {
-        id: '8',
-        imageUrl: img2,
-        title: "Cox's Bazar, Bangladesh",
-        price: "$400",
-        day: "5 Days Trip",
-        ratting: "5.0",
-        address: "Cox Bazar, Bangladesh",
-        kitchenValue: "2",
-        bedRoomValue: "5",
-        bathroom:"3",
-        livingRoom: '8'
-
-      },
-      
-  ];
 
 
 
@@ -144,17 +36,17 @@ const AccommodationItems = () => {
 
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
           {
-            products.map((product, index) =><div key={index}>
+            data?.data?.map((product:THotelPackage, index:number) =><div key={index}>
                 <AccommodationSecoundCard 
                 id={product.id} 
-                imageUrl={product.imageUrl} 
+                imageUrl={product?.images[1]?.url} 
                 title={product.title} 
-                address={product.address} 
+                address={product.location} 
                 price={product.price} 
-                ratting={product.ratting}
-                kitchenValue={product.kitchenValue}
-                bedRoomValue={product.bedRoomValue}
-                bathroomValue={product.bathroom}
+                ratting={'5.0'}
+                kitchenValue={product.kitchen}
+                bedRoomValue={product.bedRoom}
+                bathroomValue={product.bathRoom}
                 livingRoomValue={product.livingRoom}
                  ></AccommodationSecoundCard>
             </div>)
@@ -165,7 +57,7 @@ const AccommodationItems = () => {
 
       {/* Handle Pagination here  */}
       {/* total means all product  */}
-      <Pagination total={50} defaultCurrent={1} className="mt-10" />
+      <Pagination total={50} defaultCurrent={1} className="mt-10"/>
     </section>
   );
 };

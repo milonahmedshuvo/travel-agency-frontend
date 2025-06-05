@@ -3,22 +3,21 @@
 import React from 'react';
 import { Card } from 'antd';
 import { FaStar } from "react-icons/fa";
-import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 const {  } = Card;
 
 
 interface CustomCardProps {
   id: string,
-  imageUrl: StaticImageData;
+  imageUrl: string,
   title: string;
-  price: string;
+  price: string | number
   ratting: string,
   address: string,
-  kitchenValue: string
-  bedRoomValue: string,
-  bathroomValue: string,
-  livingRoomValue: string
+  kitchenValue: string | number
+  bedRoomValue: string | number
+  bathroomValue: string | number
+  livingRoomValue: string | number
 }
 
 
@@ -29,7 +28,7 @@ const AccommodationSecoundCard: React.FC<CustomCardProps> = ({ imageUrl, title, 
       className="w-full rounded-lg border !border-none !hover:shadow-sm "
       cover={ <div className='overflow-hidden'>
             <Link href={`/acommodation/${id}`} > 
-            <img alt={title} src={imageUrl.src} className='w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125' />
+            <img alt={title} src={imageUrl} className='w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125' />
             </Link>
       </div> }
     >

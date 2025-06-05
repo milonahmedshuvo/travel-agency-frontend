@@ -40,6 +40,7 @@ export default function Page() {
   const params = useParams()
   const id = params.id 
  
+  
   const {data, isLoading} = useGetSingleTourQuery(id)
   
 

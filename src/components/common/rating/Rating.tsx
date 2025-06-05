@@ -2,9 +2,18 @@
 import { useState } from "react"
 import { Star } from "lucide-react"
 import { SlLike } from "react-icons/sl";
+import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 export default function RatingComponent() {
+    const params = useParams()
+    const id = params.id 
+   
+    // console.log("ratting tour packages", id)
+
+
+
   const [rating, setRating] = useState<number>(4.5)
   const [hoveredRating, setHoveredRating] = useState<number | null>(null)
   const [feedback, setFeedback] = useState<string>("")
@@ -28,9 +37,44 @@ export default function RatingComponent() {
   // Handle form submission
   const handleSubmit = () => {
     // Here you would typically send the data to your backend
-    console.log("Submitted rating:", rating)
-    console.log("Feedback:", feedback)
+    // console.log("Submitted rating:", rating)
+    // console.log("Feedback:", feedback)
 
+    const commentsData = {
+      tourPackagesId : id,
+      ratting: rating,
+      content: feedback
+    }
+
+const token = localStorage.getItem('token');
+
+fetch("https://supermariobos-api.code-commando.com/api/v1/feedbacks", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  },
+  body: JSON.stringify(commentsData)
+})
+  .then((response) => response.json() )
+  .then((data) => {
+    console.log("Feedback submitted successfully:", data);
+    toast.success("Feedback submitted successfully!!")
+  })
+  .catch((error) => {
+    console.error("Error submitting feedback:", error);
+    toast.error("Error submitting feedback!!")
+  });
+
+
+
+
+
+
+
+
+
+    // console.log(commentsData)
     // Show success message
     setSubmitted(true)
 
