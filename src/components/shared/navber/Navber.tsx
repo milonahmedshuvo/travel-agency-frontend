@@ -33,7 +33,7 @@ const Navbar = () => {
   const userLinks = [
     { href: "/dashboard", text: "Dashboard", icon: <UserRoundCheck size={16} /> },
     { href: "/customer/myTripBookings", text: "Trip Bookings", icon: <UserRoundCheck size={16} /> },
-    { href: "/customer/accommodations", text: "Accommodations", icon: <UserRoundCheck size={16} /> },
+    { href: "/customer/myHotelBookings", text: "Hotel Bookings", icon: <UserRoundCheck size={16} /> },
   ];
 
 

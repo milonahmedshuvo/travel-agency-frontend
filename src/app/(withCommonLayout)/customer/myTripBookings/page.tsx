@@ -1,6 +1,6 @@
 "use client"
 
-import { MyTripBookingsTable } from "@/components/customer/myTripBooking/page"
+import { MyTripBookingsTable } from "@/components/customer/MyTripBooking";
 import { useState } from "react";
 
 

@@ -122,7 +122,7 @@ const dateFormate = (date:string) => {
           </CustomTable>
         </div>
 
-        <div className="mt-10 flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
             Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length}
           </div>
