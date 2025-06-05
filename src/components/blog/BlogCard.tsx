@@ -1,12 +1,12 @@
 import { ArrowUpRight } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 interface BlogCardProps {
   id: number | string,
   title: string;
   description: string;
-  imageUrl: StaticImageData;
+  imageUrl: string
 }
 
 export function BlogCard({ title, description, imageUrl, id }: BlogCardProps) {
@@ -16,7 +16,10 @@ export function BlogCard({ title, description, imageUrl, id }: BlogCardProps) {
       <Image
         src={imageUrl || "/placeholder.svg"}
         alt="Scenic travel destination"
-        className="object-cover"
+        className="object-cover h-[250px] rounded"
+        width={500}
+        height={300}
+        unoptimized 
       />
       </Link>
 
