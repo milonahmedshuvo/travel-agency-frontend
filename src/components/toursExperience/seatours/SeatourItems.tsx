@@ -62,6 +62,9 @@ const SeaTourItems = () => {
       {/* Handle Pagination here  */}
       {/* <Pagination total={40} defaultCurrent={1} /> */}
 
+
+
+
       {/* call custom pagination handle here  */}
       <CustomPagination
         meta={{

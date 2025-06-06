@@ -1,6 +1,7 @@
 "use client"
 
-import MyHotelBookings from "@/components/customer/myHotelBooking"
+import MyHotelBookings from "@/components/customer/MyHotelBooking"
+
 
 
 const MyHotelBookingPage = () => {
