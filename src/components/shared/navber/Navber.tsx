@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import logo from "../../../assets/logo/navlogo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,30 +13,40 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/Dropdown";
-import { UserRoundCheck } from "lucide-react";
+import { LogOutIcon, UserRoundCheck } from "lucide-react";
 import avater from "../../../assets/logo/img1.jpg";
+import { logout } from "@/redux/slice/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+
+
   console.log("login user", user);
 
   const adminLinks = [
-    {
-      href: "/dashboard",
-      text: "Dashboard",
-      icon: <UserRoundCheck size={16} />,
-    },
+    { href: "/dashboard", text: "Dashboard", icon: <UserRoundCheck size={16} /> },
     { href: "/profile", text: "Profile", icon: <UserRoundCheck size={16} /> },
   ];
 
   const userLinks = [
-    { href: "/dashboard", text: "Dashboard", icon: <UserRoundCheck size={16} /> },
+    // { href: "/dashboard", text: "Dashboard", icon: <UserRoundCheck size={16} /> },
     { href: "/customer/myTripBookings", text: "Trip Bookings", icon: <UserRoundCheck size={16} /> },
     { href: "/customer/myHotelBookings", text: "Hotel Bookings", icon: <UserRoundCheck size={16} /> },
   ];
 
+//  Logout functionality 
+const handleLogout = async() => {
+    dispatch(logout())
 
+    // await logOut({}).unwrap
+     localStorage.removeItem('token')
+     localStorage.removeItem('refreshToken')  
+     router.push("/");
+  }
 
 
 
@@ -87,12 +97,15 @@ const Navbar = () => {
             >
               About Us
             </Link>
-            <Link
+
+            {/* <Link
               href="/dashboard"
               className="text-[#676767] text-[18px] font-normal"
             >
               Dashboard
-            </Link>
+            </Link> */}
+
+
           </div>
 
           {/* Sign Up and Login Buttons */}
@@ -150,6 +163,16 @@ const Navbar = () => {
                     </DropdownMenuShortcut>
                   </DropdownMenuItem>
                 </Link> */}
+
+
+                <DropdownMenuItem
+                    className="cursor-pointer hover:bg-gray-100 text-lg text-red-500"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                    <DropdownMenuShortcut><LogOutIcon size={16} /></DropdownMenuShortcut>
+                  </DropdownMenuItem>
+
 
               
               </DropdownMenuContent>

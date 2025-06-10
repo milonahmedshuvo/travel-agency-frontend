@@ -11,6 +11,7 @@ import toast from "react-hot-toast"
 import logos from "../../../assets/logo/logos.png"
 import { useRegisterUserMutation } from "@/redux/api/auth/authApi"
 import { useRouter } from "next/navigation"
+import { Eye, EyeOff } from "lucide-react"
 // import { Separator } from "@/components/ui/Separator"
 
 
@@ -47,6 +48,9 @@ export default function SignupForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [registerUser, { isLoading, isError, isSuccess }] = useRegisterUserMutation();
   const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+
+
 
   const {
     register,
@@ -91,11 +95,11 @@ export default function SignupForm() {
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       console.log("Form submitted singup:", data)
-
-
       const res = await registerUser(payload).unwrap();
 
+
       console.log("response", res)
+
 
       toast.success('Your account has been successfully created.')
       reset()
@@ -199,27 +203,45 @@ export default function SignupForm() {
 
 
 
-        <div className="space-y-2">
+        <div className="space-y-2 relative">
           <label htmlFor="password">Password</label>
           <input
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Create a strong password"
             {...register("password")}
             className={`border border-[#98A2B3] mt-2 py-2 px-3 w-full rounded focus:outline-none ${errors.password ? "border-red-500" : ""}`}
           />
+
+           <button
+            type="button"
+            className="absolute right-3 top-[40px] text-sm text-gray-500"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <EyeOff /> : <Eye />}
+          </button>
+
           {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 relative">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             id="confirmPassword"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Confirm your password"
             {...register("confirmPassword")}
             className={`border border-[#98A2B3] mt-2 py-2 px-3 w-full rounded focus:outline-none ${errors.confirmPassword ? "border-red-500" : ""}`}
           />
+
+           <button
+            type="button"
+            className="absolute right-3 top-[40px] text-sm text-gray-500"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <EyeOff /> : <Eye />}
+          </button>
+
           {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword.message}</p>}
         </div>
 
@@ -232,14 +254,14 @@ export default function SignupForm() {
         </button>
       </form>
 
-      <div className="mt-6 flex justify-center items-center">
-        {/* <Separator className="flex-grow" /> */}
-        <span className="px-3 text-gray-500 text-md">or with</span>
-        {/* <Separator className="flex-grow" /> */}
-      </div>
+       <div className="flex items-center justify-center gap-6 mt-6">
+          <h1 className="w-[165px] h-[1px] bg-[#98A2B3]"> </h1>
+          <h1 className="uppercase">or</h1>
+          <h1 className="w-[165px] h-[1px] bg-[#98A2B3]"> </h1>
+        </div>
 
       <button
-        className="w-full mt-4 py-3 border border-[#98A2B3] rounded text-[#98A2B3]"
+        className="w-full mt-4 py-3 border border-[#98A2B3] rounded text-[#98A2B3] cursor-pointer "
         onClick={() => {
           toast.success('Continuing as a guest user')
         }}
@@ -248,8 +270,8 @@ export default function SignupForm() {
       </button>
 
       <p className="text-center mt-6 text-gray-500">
-        If you don&apos;t have any account please{" "}
-        <Link href="/login" className="text-blue-500 hover:underline">
+        Already have your an account? please 
+        <Link href="/login" className="text-blue-500 hover:underline ml-2">
           Login
         </Link>
       </p>
