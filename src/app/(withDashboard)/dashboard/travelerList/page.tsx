@@ -1,10 +1,12 @@
 "use client"
 import studyFemale from "../../../../assets/avatars/avaters1.png"
-import { useState } from "react"
-import { ChevronLeft, ChevronRight, Search, SlidersHorizontal } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Search, SlidersHorizontal } from "lucide-react"
 import Image from "next/image"
 import Header from "@/components/dashboard/Header/Header"
 import TravelarListModal from "@/components/dashboard/modal/TravelarListModal"
+import Loading from "@/components/shared/loading/Loading"
+import TextPagination from "@/components/others/pagination/TextPagination"
 export interface TTravelersList {
   id: number | string,
   name: string,
@@ -130,36 +132,23 @@ const travelers = [
 ]
 
 const packageOptions = [
-  { value: "sea-tour", label: "Sea Tour" },
-  { value: "land-tour", label: "Land Tour" },
-  { value: "cultural-tours", label: "Cultural Tours" },
-  { value: "culinary-wine", label: "Culinary & Wine Adventures" },
+  { value: "SEA_TOUR", label: "Sea Tour" },
+  { value: "LAND_TOUR", label: "Land Tour" },
+  { value: "CULTURAL_TOUR", label: "Cultural Tours" },
+  { value: "GASTRO_WINE_TOUR", label: "Gastro wine tour" },
 ]
 
-const categoryOptions = [
-  { value: "regular", label: "Regular" },
-  { value: "premium", label: "Premium" },
-  { value: "vip", label: "VIP" },
-]
 
-const itemsOptions = [
-  { value: "10", label: "10" },
-  { value: "11", label: "11" },
-  { value: "20", label: "20" },
-  { value: "50", label: "50" },
-  { value: "100", label: "100" },
-]
 
 
 
 export default function TravelerList() {
-  const [packageFilter, setPackageFilter] = useState("")
-  const [memberCategory, setMemberCategory] = useState("")
+  const [packageFilter, setPackageFilter] = useState("SEA_TOUR")
   const [searchQuery, setSearchQuery] = useState("")
-  const [itemsPerPage, setItemsPerPage] = useState("11")
+  // const [itemsPerPage, setItemsPerPage] = useState("11")
   const [showPackageDropdown, setShowPackageDropdown] = useState(false)
-  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
-  const [showItemsDropdown, setShowItemsDropdown] = useState(false)
+  // const [showItemsDropdown, setShowItemsDropdown] = useState(false)
+
 
   const [showModal, setShowModal] = useState(false)
   const [selectedTraveler, setSelectedTraveler] = useState<TTravelersList | null >(null)
@@ -168,11 +157,72 @@ export default function TravelerList() {
 // const {data} = useGetAllTourBookingsQuery("")
 // console.log("tour booking data", data)
 
+ const [newPage, setNewPage] = useState(1);    
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tourMeta, setTourMeta] = useState<{
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  }>({
+    page: 1,
+    limit: 12,
+    total: 100,
+    totalPage: 10,
+  });
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `https://supermariobos-api.code-commando.com/api/v1/tour-packages?limit=1&category=${packageFilter}&page=${newPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // optional
+            },
+          }
+        );
+
+        const data = await response.json();
+        setTours(data?.data || []);
+        setTourMeta(data?.meta);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, [newPage, packageFilter]);
+
+
+  if (loading) {
+    return <Loading />;
+  }
+
+
+console.log('tours', tours)
+
+
+
+
+
 
 
 
   
    
+
+
+
+
+
+
   const handleRowClick = (travelers:TTravelersList) => {
         setSelectedTraveler(travelers)
         setShowModal(true)
@@ -186,11 +236,22 @@ export default function TravelerList() {
   
 
 
+
+
+
+   
+
+
+
+
+
+
+
   return (
 
     <div>
     <Header/>
-    <div className="container mx-auto py-8">
+    <div className=" px-4 md:px-6 py-8">
       <h1 className="text-2xl font-medium mb-6">Traveler List</h1>
 
 
@@ -227,7 +288,7 @@ export default function TravelerList() {
                         type="button"
                         className="block w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
                         onClick={() => {
-                          setPackageFilter(option.label)
+                          setPackageFilter(option.value)
                           setShowPackageDropdown(false)
                         }}
                       >
@@ -242,45 +303,7 @@ export default function TravelerList() {
 
 
 
-          {/* Custom Member Category Dropdown */}
-          <div className="relative w-full sm:w-[180px]">
-            <button
-              type="button"
-              className="flex items-center justify-between w-full px-3 py-2 text-sm bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-            >
-              <span className="text-gray-500">{memberCategory || "Member Category"}</span>
-              <svg
-                className="w-4 h-4 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {showCategoryDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                <ul className="py-1">
-                  {categoryOptions.map((option) => (
-                    <li key={option.value}>
-                      <button
-                        type="button"
-                        className="block w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
-                        onClick={() => {
-                          setMemberCategory(option.label)
-                          setShowCategoryDropdown(false)
-                        }}
-                      >
-                        {option.label}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+         
         </div>
 
 
@@ -365,88 +388,21 @@ export default function TravelerList() {
 
       <div className="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
         <div className="text-sm text-gray-500 flex items-center">
-          Showing
-          <div className="relative mx-2">
-            <button
-              type="button"
-              className="flex items-center justify-between w-[70px] px-2 py-1 text-sm bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={() => setShowItemsDropdown(!showItemsDropdown)}
-            >
-              <span>{itemsPerPage}</span>
-              <svg
-                className="w-4 h-4 ml-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {showItemsDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                <ul className="py-1">
-                  {itemsOptions.map((option) => (
-                    <li key={option.value}>
-                      <button
-                        type="button"
-                        className="block w-full px-2 py-1 text-sm text-left hover:bg-gray-100"
-                        onClick={() => {
-                          setItemsPerPage(option.value)
-                          setShowItemsDropdown(false)
-                        }}
-                      >
-                        {option.label}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-          out of 1,450
+         
         </div>
 
+
+
+         {/* text pagination  */}
         <div className="flex items-center gap-1">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previous</span>
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-blue-600 text-white"
-          >
-            1
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-          >
-            2
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-          >
-            3
-          </button>
-          <span className="mx-1">...</span>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-          >
-            16
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50"
-          >
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next</span>
-          </button>
+
+            <TextPagination
+                               meta={tourMeta}
+                               onPageChange={(newPage) => {
+                                 setNewPage(newPage);
+                               }}
+                             />   
+
         </div>
       </div>
 

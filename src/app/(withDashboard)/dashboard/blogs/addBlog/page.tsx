@@ -51,7 +51,7 @@ export default function NewBlogPage() {
     }
 
 
-    console.log("blogs full data:", fullData)
+    
 
 
     const formData = new FormData()
@@ -71,21 +71,26 @@ export default function NewBlogPage() {
         setLoadding(false)
       }
 
-   
-   
-
-
     // Reset form or redirect
   }
 
+
+
+  const handleBlogCencel = () => {
+    setTitle("")
+    setSubTitle("")
+    setContent("")
+    setImage(null)
+    setImagePreview(null)
+  }
 
 
 
   return (
    <div>
      <Header/>
-    <div className=" px-4 md:px-6 py-4 ">
-      <div className="rounded-lg overflow-hidden">
+    <div className=" px-4 md:px-8 py-10  ">
+      <div className="rounded-lg overflow-hidden bg-white">
         <div className="p-6">
           <h1 className="text-2xl font-[500]">Add New Blog</h1>
         </div>
@@ -101,7 +106,7 @@ export default function NewBlogPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none  "
+                className="w-full px-3 py-3.5 border border-gray-200 rounded-md focus:outline-none  "
               />
             </div>
 
@@ -117,7 +122,7 @@ export default function NewBlogPage() {
                 value={subTitle}
                 onChange={(e) => setSubTitle(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none  "
+                className="w-full px-3 py-3.5 border border-gray-200 rounded-md focus:outline-none  "
               />
             </div>
 
@@ -145,7 +150,7 @@ export default function NewBlogPage() {
                     />
                     <button
                       type="button"
-                      className="mt-4 px-4 py-2 border border-red-400 text-red-400 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none cursor-pointer  "
+                      className="mt-4 px-4 py-3.5 border border-red-400 text-red-400 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none cursor-pointer  "
                       onClick={() => {
                         setImage(null)
                         setImagePreview(null)
@@ -161,7 +166,7 @@ export default function NewBlogPage() {
                     <p className="text-xs text-gray-400 mb-4">Format: jpeg, png & Max file size: 25 MB</p>
                     <button
                       type="button"
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-4 py-3.5 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] cursor-pointer text-white rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500"
                       onClick={() => document.getElementById("image-upload")?.click()}
                     >
                       Browse Files
@@ -206,15 +211,16 @@ export default function NewBlogPage() {
 
         <div className="p-6  flex justify-end gap-2">
           <button
+            onClick={() => handleBlogCencel() }
             type="button"
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-12 py-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             onClick={handleSubmit}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none cursor-pointer"
+            className="px-6 py-3 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white rounded-md  focus:outline-none cursor-pointer"
           >
             {
               loadding ? "processing.." : "Upload Blog"

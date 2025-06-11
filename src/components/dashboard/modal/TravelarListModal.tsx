@@ -12,19 +12,50 @@ interface TravelarListModalProps {
 
 const TravelarListModal = ({ selectedTraveler, closeModal }:TravelarListModalProps) => {
 
+  console.log('click modal', selectedTraveler)
+
+
+
+
 
   return (
     <div>
-         <div className="fixed inset-0 flex items-center justify-center  z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+         <div className="fixed inset-0 flex items-center justify-center bg-black/50  z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-5xl relative">
             <button
               onClick={closeModal}
-              className="absolute top-2 right-3 text-gray-500 hover:text-red-500"
+              className="absolute top-2 right-3 text-gray-500 hover:text-red-500 cursor-pointer"
             >
               ✕
             </button>
-            <h3 className="text-xl font-semibold mb-4">Create Modal</h3>
-            <form className="space-y-4">
+            <h3 className="text-xl font-semibold mb-4">Create Modal not show data handle delete and cencel</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div className="flex justify-between gap-4 ">
+            <button className="text-black bg-gray-200 py-2 w-full rounded cursor-pointer">cencel</button>
+            <button className="text-white bg-red-500 py-2 w-full rounded cursor-pointer">cencel</button>
+          </div>
+
+
+
+
+
+
+            {/* <form className="space-y-4">
               <div>
                 <label className="block mb-1">Product Name</label>
                 <input
@@ -53,7 +84,11 @@ const TravelarListModal = ({ selectedTraveler, closeModal }:TravelarListModalPro
               >
                 Save
               </button>
-            </form>
+            </form> */}
+
+
+
+
           </div>
         </div>
     </div>
