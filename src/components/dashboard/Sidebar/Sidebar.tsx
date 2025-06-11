@@ -15,6 +15,11 @@ import {
   MenuIcon,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from '../../../assets/logo/navlogo.png'
+import { useAppDispatch } from "@/redux/hook";
+import { useRouter } from "next/navigation";
+import { logout } from "@/redux/slice/auth/authSlice";
 
 
 type SidebarProps = {
@@ -23,8 +28,9 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
   const [activeItem, setActiveItems] = useState("Overview");
-
   const menuItems = [
     {
       icon: <LayoutGrid size={20} />,
@@ -99,6 +105,16 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
 
  
 
+  const handleLogout = async() => {
+          dispatch(logout())
+          // await logOut({}).unwrap
+           localStorage.removeItem('token')
+           localStorage.removeItem('refreshToken')  
+           router.push("/");
+        }
+
+
+
   return (
     <div>
       {/* Mobile menu button */}
@@ -116,8 +132,16 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
         } md:translate-x-0 w-80 flex flex-col`}
       >
         {/* Logo */}
-        <div className="p-4 h-20 flex items-center border-b border-gray-200">
-          <Link href='/'> <div className="text-4xl font-bold text-[#FF8A65]">LOGO</div></Link>
+        <div className="p-2 h-20 flex items-center border-b border-gray-200">
+          <Link href='/'>           
+            <Image
+            src={logo}
+            width={500}
+            height={500}
+            alt="logo"
+            className="w-[175px] lg:w-[100px] xl:w-[145px] h-[80px]"
+          />
+          </Link>
         </div>
 
         {/* Menu Items */}
@@ -146,7 +170,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
 
         {/* Logout Button */}
         <div className="p-4">
-          <button className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-sm font-medium text-gray-700 bg-gray-100 rounded-md transition-colors">
+          <button className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-sm font-medium text-gray-700 bg-gray-100 rounded-md transition-colors cursor-pointer hover:text-red-500" onClick={handleLogout} >
             <LogOut size={20} />
             <span>Log Out</span>
           </button>

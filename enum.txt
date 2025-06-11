@@ -14,3 +14,5 @@ export enum VehicleType {
   AIRCRAFT = "AIRCRAFT",
 }
 
+
+bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF]

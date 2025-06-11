@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div>
       <Header />
-      <div className="container mx-auto py-8">
+      <div className="py-8 px-4 md:px-6">
         <VehicleListPage/>
       </div>
     </div>

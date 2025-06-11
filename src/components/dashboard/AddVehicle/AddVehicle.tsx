@@ -95,8 +95,8 @@ export default function AddVehicleForm() {
 
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4 mt-10 mb-10">
-      <h1 className="text-3xl font-bold mb-6">Add New Vehicle</h1>
+    <div className="w-full max-w-5xl mx-auto  mt-10 mb-10 bg-white p-20">
+      <h1 className="text-[46px] font-semibold mb-6">Add New Vehicle</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Vehicle Name */}
@@ -108,7 +108,7 @@ export default function AddVehicleForm() {
             type="text"
             placeholder="Enter the name"
             {...register("name")}
-            className="w-full border rounded-md px-3 py-2 focus:outline-none border-[#98A2B3]  "
+            className="w-full border rounded-md px-3 py-3.5 focus:outline-none border-[#98A2B3]  "
           />
           {errors.name && (
             <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
@@ -122,7 +122,7 @@ export default function AddVehicleForm() {
           </label>
           <select
             {...register("vehicleType")}
-            className="w-full border rounded-md px-3 py-2 focus:outline-none border-[#98A2B3]"
+            className="w-full border rounded-md px-3 py-3.5 focus:outline-none border-[#98A2B3]"
           >
             <option value="BOAT">Boat</option>
             <option value="CAR">Car</option>
@@ -145,7 +145,7 @@ export default function AddVehicleForm() {
             type="number"
             {...register("pricePerHR")}
             placeholder="Vehicle Price"
-            className="w-full border rounded-md px-3 py-2 focus:outline-none border-[#98A2B3]"
+            className="w-full border rounded-md px-3 py-3.5 focus:outline-none border-[#98A2B3]"
           />
           {errors.pricePerHR && (
             <p className="text-sm text-red-500 mt-1">
@@ -203,7 +203,7 @@ export default function AddVehicleForm() {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-semibold"
+          className="w-full py-3 rounded-md bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white font-semibold cursor-pointer"
         >
           { loadding? "Creatting vehicle...": "Add Vehicle" }
         </button>

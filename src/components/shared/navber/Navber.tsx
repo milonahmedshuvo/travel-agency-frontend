@@ -13,7 +13,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/Dropdown";
-import { LogOutIcon, UserRoundCheck } from "lucide-react";
+import { LayoutDashboard, LogOutIcon, UserRoundCheck } from "lucide-react";
 import avater from "../../../assets/logo/img1.jpg";
 import { logout } from "@/redux/slice/auth/authSlice";
 import { useRouter } from "next/navigation";
@@ -25,11 +25,11 @@ const Navbar = () => {
   const router = useRouter()
 
 
-  console.log("login user", user);
+  // console.log("login user", user);
 
   const adminLinks = [
-    { href: "/dashboard", text: "Dashboard", icon: <UserRoundCheck size={16} /> },
-    { href: "/profile", text: "Profile", icon: <UserRoundCheck size={16} /> },
+    { href: "/dashboard", text: "Dashboard", icon: <LayoutDashboard size={20} /> },
+    // { href: "/profile", text: "Profile", icon: <UserRoundCheck size={16} /> },
   ];
 
   const userLinks = [
@@ -37,6 +37,7 @@ const Navbar = () => {
     { href: "/customer/myTripBookings", text: "Trip Bookings", icon: <UserRoundCheck size={16} /> },
     { href: "/customer/myHotelBookings", text: "Hotel Bookings", icon: <UserRoundCheck size={16} /> },
   ];
+
 
 //  Logout functionality 
 const handleLogout = async() => {
@@ -55,8 +56,6 @@ const handleLogout = async() => {
       <div className=" flex justify-between items-center">
         {/* Left Side: Logo */}
         <div className="text-2xl font-semibold">
-          {/* <a href="/">Logo</a> */}
-          {/* https://nyc3.digitaloceanspaces.com/smtech-space/9K_c6tbvneRMSIvzQrbEA-img4.jpg */}
           <Image
             src={logo}
             width={500}
@@ -155,16 +154,6 @@ const handleLogout = async() => {
                   </Link>
                 ))}
 
-                {/* <Link href="/myTranscript" passHref>
-                  <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 text-lg">
-                    My Transcript
-                    <DropdownMenuShortcut>
-                      <LogOutIcon size={16} />
-                    </DropdownMenuShortcut>
-                  </DropdownMenuItem>
-                </Link> */}
-
-
                 <DropdownMenuItem
                     className="cursor-pointer hover:bg-gray-100 text-lg text-red-500"
                     onClick={handleLogout}
@@ -172,8 +161,6 @@ const handleLogout = async() => {
                     Log Out
                     <DropdownMenuShortcut><LogOutIcon size={16} /></DropdownMenuShortcut>
                   </DropdownMenuItem>
-
-
               
               </DropdownMenuContent>
             </DropdownMenu>) : (<Link
@@ -184,6 +171,7 @@ const handleLogout = async() => {
             </Link>)
             }
           </div>
+          
         </div>
 
 

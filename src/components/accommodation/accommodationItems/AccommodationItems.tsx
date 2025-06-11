@@ -1,22 +1,72 @@
 "use client"
 
-import React from "react";
-import Pagination from "@/components/others/pagination/Pagination";
+import React, { useEffect, useState } from "react";
 // import img1 from '../../../assets/card/accommodation/img1.jpg'
 import AccommodationSecoundCard from "@/components/card/accommodationCard/AccommoSecoundCard";
-import { useGetAllHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
+// import { useGetAllHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import Loading from "@/components/shared/loading/Loading";
 import { THotelPackage } from "@/components/lib/types";
+import CustomPagination from "@/components/others/pagination/CustomPagination";
 
 
 
 const AccommodationItems = () => {
-   const {data, isLoading } = useGetAllHotelPackagesQuery("")
-    // console.log("hotel", data?.data)
-    
-    if(isLoading){
-      return <Loading/>
-    }
+  //  const {data, isLoading } = useGetAllHotelPackagesQuery("")
+  //   // console.log("hotel", data?.data)
+  //   if(isLoading){
+  //     return <Loading/>
+  //   }
+  const [newPage, setNewPage] = useState(1);    
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tourMeta, setTourMeta] = useState<{
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  }>({
+    page: 1,
+    limit: 12,
+    total: 100,
+    totalPage: 10,
+  });
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `https://supermariobos-api.code-commando.com/api/v1/hotel-packages?limit=12&page=${newPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // optional
+            },
+          }
+        );
+
+        const data = await response.json();
+        setTours(data?.data || []);
+        setTourMeta(data?.meta);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, [newPage]);
+
+
+
+
+
+  if (loading) {
+    return <Loading />;
+  }
+
   
 
 
@@ -34,9 +84,8 @@ const AccommodationItems = () => {
 
       
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
-          {
-            data?.data?.map((product:THotelPackage, index:number) =><div key={index}>
+      <div className="my-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
+          {tours?.map((product:THotelPackage, index:number) =><div key={index}>
                 <AccommodationSecoundCard 
                 id={product.id} 
                 imageUrl={product?.images[1]?.url} 
@@ -56,8 +105,12 @@ const AccommodationItems = () => {
 
 
       {/* Handle Pagination here  */}
-      {/* total means all product  */}
-      <Pagination total={50} defaultCurrent={1} className="mt-10"/>
+      <CustomPagination
+                          meta={tourMeta}
+                          onPageChange={(newPage) => {
+                            setNewPage(newPage);
+                          }}
+                        />
     </section>
   );
 };

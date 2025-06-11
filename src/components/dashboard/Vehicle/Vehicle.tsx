@@ -34,12 +34,12 @@ export default function VehicleListPage() {
 
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Vehicle List</h1>
+        <h1 className="text-3xl text-[#000E19] font-[500]">Vehicle Listd</h1>
         <div className="flex gap-2">
             <Link href='/dashboard/addVehicle' > 
-          <button className="bg-blue-500 hover:bg-blue-600 flex justify-center items-center py-2 px-2.5 text-white rounded cursor-pointer ">
+          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF]  text-white  flex justify-center items-center py-2 px-2.5  rounded cursor-pointer ">
             <Plus className="mr-2 h-4 w-4" /> Add New Vehicle
           </button>
           </Link>
@@ -49,7 +49,7 @@ export default function VehicleListPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {data?.data?.data?.map((vehicle:TVehicle, index:number) => (
           <VehicleCard key={index} vehicle={vehicle} />
         ))}
@@ -111,7 +111,7 @@ function VehicleCard({ vehicle }: { vehicle: TVehicle }) {
             <span className="text-[#757D83]">{vehicle.pricePerHR}</span>
           </div>
         </div>
-        <button className="w-full mt-4 bg-blue-500 hover:bg-blue-600 flex items-center justify-center text-white py-2.5 px-2 rounded ">          View Service History <MoveRight className="ml-2 h-4 w-4" />
+        <button className="w-full mt-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] flex items-center justify-center text-white py-2.5 px-2 rounded cursor-pointer"> View Service History <MoveRight className="ml-2 h-4 w-4" />
         </button>
       </div>
     </div>

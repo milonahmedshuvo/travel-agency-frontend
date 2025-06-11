@@ -7,6 +7,7 @@ import { TTourPackage } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
 import CustomPagination from "@/components/others/pagination/CustomPagination";
 
+
 const CulturalTourItems = () => {
 // const {data} = useGetCurturalTourQuery("")
 // CULTURAL_TOUR
