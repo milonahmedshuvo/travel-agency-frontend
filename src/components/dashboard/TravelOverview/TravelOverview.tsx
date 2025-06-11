@@ -19,6 +19,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { PieChart, Pie, Cell } from "recharts"
 import blogImg from '../../../assets/blog/blog.png'
 import { useAnalytiseDashboardQuery } from "@/redux/api/analytise/analytiseApi"
+import { useGetAllTourBookingsQuery, useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi"
+import { TourBooking, TTourPackage } from "@/components/lib/types"
+import Link from "next/link"
 
 
 
@@ -50,96 +53,7 @@ const conversionData = [
 ]
 
 // Travel packages data
-const packagesData = [
-  {
-    id: 1,
-    location: "Cox's Bazar, Bangladesh",
-    price: "$400",
-    duration: "5 Days Trip",
-    rating: 5.0,
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    id: 2,
-    location: "Cox's Bazar, Bangladesh",
-    price: "$400",
-    duration: "5 Days Trip",
-    rating: 5.0,
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    id: 3,
-    location: "Cox's Bazar, Bangladesh",
-    price: "$400",
-    duration: "5 Days Trip",
-    rating: 5.0,
-    image: "/placeholder.svg?height=200&width=400",
-  },
-]
 
-// Bookings data
-const bookingsData = [
-  {
-    id: 1,
-    name: "Camellia Swan",
-    package: "Venice Dreams",
-    duration: "5 hr",
-    vehicle: "Bike",
-    date: "Jun 25 - Jun 30",
-    price: "$1,500",
-    status: "Confirmed",
-  },
-  {
-    id: 2,
-    name: "Raphael Goodman",
-    package: "Safari Adventure",
-    duration: "8 hr",
-    vehicle: "Car",
-    date: "Jun 25 - Jul 2",
-    price: "$3,200",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    name: "Ludwig Contessa",
-    package: "Alpine Escape",
-    duration: "9 hr",
-    vehicle: "N/A",
-    date: "Jun 26 - Jul 2",
-    price: "$2,100",
-    status: "Confirmed",
-  },
-  {
-    id: 4,
-    name: "Raphael Goodman",
-    package: "Safari Adventure",
-    duration: "8 hr",
-    vehicle: "N/A",
-    date: "Jun 25 - Jul 2",
-    price: "$3,200",
-    status: "Pending",
-  },
-  {
-    id: 5,
-    name: "Ludwig Contessa",
-    package: "Alpine Escape",
-    duration: "9 hr",
-    vehicle: "Car",
-    date: "Jun 26 - Jul 2",
-    price: "$2,100",
-    status: "Confirmed",
-  },
-  {
-    id: 6,
-    name: "James Dunn",
-    package: "Parisian Romance",
-    duration: "6 hr",
-    vehicle: "Scooter",
-    date: "Jun 26 - Jun 30",
-    price: "$1,200",
-    status: "Pending",
-  },
-]
 
 // Activities data
 const activitiesData = [
@@ -265,28 +179,37 @@ export default function TravelDashboardOverview () {
   const [revenueTimeframe, setRevenueTimeframe] = useState("Weekly")
   const [destinationsTimeframe, setDestinationsTimeframe] = useState("This Month")
   const [conversionTimeframe, setConversionTimeframe] = useState("This Month")
-  const [sortBy, setSortBy] = useState("Latest")
+  // const [sortBy, setSortBy] = useState("Latest")
   const [searchQuery, setSearchQuery] = useState("")
 
-  const filteredBookings = bookingsData.filter(
-    (booking) =>
-      booking.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      booking.package.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
-
+  
 
   // ANALYTISE DASHBORAD API FROM REDUX 
   const {data} = useAnalytiseDashboardQuery("")
-   
+  const {data:tours} = useGetSeaTourQuery("")
+  const {data:tourBookings} = useGetAllTourBookingsQuery("")
+  
+  
 
+// const filteredBookings = tourBookings?data?.filter(
+//     (booking:TourBooking) =>
+//       booking.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       booking.package.toLowerCase().includes(searchQuery.toLowerCase()),
+//   )  
+  
+
+
+  const dateFormate = (date:string) => {
+   const DateObject = new Date(date)
+   const updateDate = DateObject.toLocaleDateString()
+   return updateDate
+}
 
 
 
 
   return (
     <div className=" px-4 md:px-6 space-y-6 mt-7">
-     
-
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-200 bg-white shadow-xs">
@@ -515,39 +438,48 @@ export default function TravelDashboardOverview () {
             <div className="flex items-center justify-between">
               <h2 className="text-[20px] text-[600] ">Travel Packages</h2>
               <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-500">Sort by:</span>
-                <CustomDropdown
+                {/* <span className="text-sm text-gray-500">Sort by:</span> */}
+                {/* <CustomDropdown
                   options={["Latest", "Price: Low to High", "Price: High to Low", "Rating"]}
                   value={sortBy}
                   onChange={setSortBy}
-                />
-                <button className="inline-flex h-8 items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
+                /> */}
+                <button className="inline-flex h-8 items-center justify-center rounded-md border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none cursor-pointer">
+                  <Link href='/toursExperience'> 
                   View All
+                  </Link>
                 </button>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {packagesData.map((pkg) => (
+            {
+              tours?.data?.length > 0 ? <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {tours?.data?.slice(0, 3) .map((pkg:TTourPackage) => (
                 <div key={pkg.id} className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
                   <div className="relative h-48 w-full">
-                    <Image src={blogImg || "/placeholder.svg"} alt={pkg.location} fill className="object-cover" />
+                    <Link href={`/toursExperience/${pkg.id}`}> 
+                    <Image src={pkg.images?.[1]?.url || blogImg} alt={pkg.location} fill unoptimized className="object-cover" />
+                    </Link>
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold">{pkg.location}</h3>
-                    <p className="mt-2 text-xl font-bold text-orange-500">{pkg.price}</p>
+                    <p className="mt-2 text-xl font-bold text-orange-500">${pkg.price}</p>
                     <div className="mt-2 flex items-center justify-between">
-                      <span className="text-sm text-gray-600">{pkg.duration}</span>
+                      <span className="text-md text-gray-600">{pkg.duration} Days Trip</span>
                       <div className="flex items-center">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="ml-1 text-sm font-medium">{pkg.rating}</span>
+                        <span className="ml-1 text-sm font-medium">{'5.0'}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
+            </div> : <p className="mt-10">tours packages is not found</p>
+            }
           </div>
         </div>
+
+
+
 
         {/* Conversion Rate */}
         <div className="rounded-lg border border-gray-200 bg-white shadow-xs">
@@ -621,8 +553,10 @@ export default function TravelDashboardOverview () {
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <button className="inline-flex h-9 items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
+                <button className="inline-flex h-9 items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none cursor-pointer ">
+                  <Link href='/dashboard/tripBooking'> 
                   View All
+                  </Link>
                 </button>
               </div>
             </div>
@@ -649,16 +583,16 @@ export default function TravelDashboardOverview () {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {filteredBookings.map((booking) => (
+                    {tourBookings?.data?.map((booking:TourBooking) => (
                       <tr key={booking.id} className="py-10" >
-                        <td className="whitespace-nowrap px-4 py-6 font-medium">{booking.name}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{booking.package}</td>
+                        <td className="whitespace-nowrap px-4 py-6 font-medium">{'tour name N/A'}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{'tour package type'}</td>
                         <td className="whitespace-nowrap px-4 py-6">{booking.duration}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{booking.vehicle}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{booking.date}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{booking.price}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{'vehicle type'}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{dateFormate(booking.updatedAt)}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{"tour price N/A"}</td>
                         <td className="whitespace-nowrap px-4 py-6">
-                          <span
+                          {/* <span
                             className={`rounded-md px-2 py-1 text-xs font-medium ${
                               booking.status === "Confirmed"
                                 ? "bg-blue-100 text-blue-800"
@@ -666,7 +600,8 @@ export default function TravelDashboardOverview () {
                             }`}
                           >
                             {booking.status}
-                          </span>
+                          </span> */}
+                          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer" > Confirmed </button>
                         </td>
                       </tr>
                     ))}

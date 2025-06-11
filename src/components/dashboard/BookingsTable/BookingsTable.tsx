@@ -24,9 +24,6 @@ interface BookingsTableProps {
 
 
 
-// Sample data
-
-
 export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDateFilter }: BookingsTableProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const {data:tourBookings} = useGetAllTourBookingsQuery("")
