@@ -47,6 +47,10 @@ export default function TestimonialSlider() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
   }
 
+
+
+
+
   return (
     <section className="bg-[#FAFAFA]" >  
     <div className="custom-container mx-auto px-4 ">
@@ -111,21 +115,11 @@ export default function TestimonialSlider() {
               <p className="text-gray-600">{testimonials[currentIndex].location}</p>
             </div>
           </div>
-
-          {/* Indicator for next testimonial */}
-          {/* {currentIndex < testimonials.length - 1 && (
-            <div className="mt-8 pt-4 border-t border-gray-100">
-              <p className="text-gray-500 text-sm">Next</p>
-              <p className="font-medium">{testimonials[(currentIndex + 1) % testimonials.length].name}</p>
-              <p className="text-gray-500 text-sm">{testimonials[(currentIndex + 1) % testimonials.length].location}</p>
-            </div>
-          )} */}
-
         </div>
 
             
         {/* {currentIndex < testimonials.length - 1 && ( */}
-            <div className="mt-8 pl-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-200 xl:ml-10 h-[230px] md:h-[270px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
+            <div className="bg-[#FFFFFF] mt-8 pl-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-200 xl:ml-10 h-[230px] md:h-[270px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
               <p className="text-gray-500 text-sm">Next</p>
               <p className="font-medium">{testimonials[(currentIndex + 1) % testimonials.length].name}</p>
               <p className="text-gray-500 text-sm">{testimonials[(currentIndex + 1) % testimonials.length].location}</p>

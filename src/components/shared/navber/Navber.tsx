@@ -51,7 +51,7 @@ const handleLogout = async() => {
 
 
   return (
-    <nav className="bg-[#FFFFFF] text-[#676767] p-6 custom-container">
+    <nav className="bg-[#FFFFFF] text-[#676767] px-6 custom-container-nav">
       <div className=" flex justify-between items-center">
         {/* Left Side: Logo */}
         <div className="text-2xl font-semibold">
@@ -62,7 +62,7 @@ const handleLogout = async() => {
             width={500}
             height={500}
             alt="logo"
-            className="w-[175px] lg:w-[100px] xl:w-[175px]"
+            className="w-[175px] lg:w-[100px] xl:w-[175px] h-[140px]"
           />
         </div>
 

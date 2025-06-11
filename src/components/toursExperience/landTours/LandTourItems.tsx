@@ -1,18 +1,69 @@
 "use client"
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
-import Pagination from "@/components/others/pagination/Pagination";
-import { useGetLandTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+// import { useGetLandTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { TTourPackage } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
+import CustomPagination from "@/components/others/pagination/CustomPagination";
 
 const LandTourItems = () => {
-      const {data, isLoading } = useGetLandTourQuery("")
+      // const {data, isLoading } = useGetLandTourQuery("")
+      // if(isLoading){
+      //   return <Loading/>
+      // }
 
-      if(isLoading){
-        return <Loading/>
+  const [newPage, setNewPage] = useState(1);    
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tourMeta, setTourMeta] = useState<{
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  }>({
+    page: 1,
+    limit: 12,
+    total: 100,
+    totalPage: 10,
+  });
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `https://supermariobos-api.code-commando.com/api/v1/tour-packages?limit=12&category=LAND_TOUR&page=${newPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // optional
+            },
+          }
+        );
+
+        const data = await response.json();
+        setTours(data?.data || []);
+        setTourMeta(data?.meta);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      } finally {
+        setLoading(false);
       }
+    };
+
+    fetchTours();
+  }, [newPage]);
+
+
+
+
+
+  if (loading) {
+    return <Loading />;
+  }
+
   
 
       
@@ -28,25 +79,10 @@ const LandTourItems = () => {
       Explore our curated selection of unique and captivating properties.
       </p>
 
-      {/* button group  */}
-      <div className="flex flex-wrap gap-3.5 lg:gap-4 mt-6 justify-center items-center ">
-        
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer hover:bg-[#156CF0] hover:text-[#ffffff]  hover:border-[#156CF0]">
-          Bike Tour
-        </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0]  hover:text-[#ffffff] hover:border-[#156CF0]  ">
-          Scooter Tour
-        </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0] hover:text-[#ffffff] hover:border-[#156CF0]  ">
-          Car Tour
-        </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0] hover:text-[#ffffff] hover:border-[#156CF0]  ">
-          Boat Tour
-        </button>
-      </div>
+      
 
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 mb-10">
-        {data?.data?.map((product:TTourPackage, index:number) => (
+        {tours?.map((product:TTourPackage, index:number) => (
                   <div key={index}>
                     <TourExperienceCard
                                    id={product.id}
@@ -61,8 +97,15 @@ const LandTourItems = () => {
       </div>
 
       {/* Handle Pagination here  */}
-      {/* total means all product  */}
-      <Pagination total={50} defaultCurrent={1} />
+      <CustomPagination
+              meta={tourMeta}
+              onPageChange={(newPage) => {
+                console.log("Go to page:", newPage);
+                // fetch new data here
+                setNewPage(newPage);
+              }}
+            />
+     
     </section>
   );
 };

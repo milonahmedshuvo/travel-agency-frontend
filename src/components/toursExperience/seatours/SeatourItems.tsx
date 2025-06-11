@@ -1,21 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import img1 from "../../../assets/card/tourexperience/img1.jpg";
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
-import { useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+// import { useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { TTourPackage } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
 import CustomPagination from "@/components/others/pagination/CustomPagination";
 
-
 const SeaTourItems = () => {
   const [newPage, setNewPage] = useState(1);
-  const { data, isLoading } = useGetSeaTourQuery("");
-  if (isLoading) {
+  // const { data, isLoading } = useGetSeaTourQuery("");
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tourMeta, setTourMeta] = useState<{
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  }>({
+    page: 1,
+    limit: 12,
+    total: 100,
+    totalPage: 10,
+  });
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `https://supermariobos-api.code-commando.com/api/v1/tour-packages?limit=12&category=SEA_TOUR&page=${newPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // optional
+            },
+          }
+        );
+
+        const data = await response.json();
+        setTours(data?.data || []);
+        setTourMeta(data?.meta);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, [newPage]);
+
+  if (loading) {
     return <Loading />;
   }
-
-
-  
 
   console.log("pagination current page:", newPage);
 
@@ -28,24 +69,8 @@ const SeaTourItems = () => {
         Explore our curated selection of unique and captivating properties.
       </p>
 
-      {/* button group  */}
-      {/* <div className="flex flex-wrap gap-3.5 lg:gap-4 mt-6 justify-center items-center ">
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer hover:bg-[#156CF0] hover:text-[#ffffff]  hover:border-[#156CF0]">
-          Boat Trips
-        </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0]  hover:text-[#ffffff] hover:border-[#156CF0]  ">
-          Diving
-        </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0] hover:text-[#ffffff] hover:border-[#156CF0]  ">
-          Kayaking
-        </button>
-        <button className="border border-[#333333] rounded-lg focus:outline-none px-6.5 py-2.5 cursor-pointer  hover:bg-[#156CF0] hover:text-[#ffffff] hover:border-[#156CF0]  ">
-          Fishing
-        </button>
-      </div> */}
-
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 mb-10">
-        {data?.data?.map((product: TTourPackage, index: number) => (
+        {tours?.map((product: TTourPackage, index: number) => (
           <div key={index}>
             <TourExperienceCard
               id={product.id}
@@ -62,24 +87,15 @@ const SeaTourItems = () => {
       {/* Handle Pagination here  */}
       {/* <Pagination total={40} defaultCurrent={1} /> */}
 
-
-
-
       {/* call custom pagination handle here  */}
       <CustomPagination
-        meta={{
-          page: 3,
-          limit: 10,
-          total: 100,
-          totalPage: 5,
-        }}
+        meta={tourMeta}
         onPageChange={(newPage) => {
           console.log("Go to page:", newPage);
           // fetch new data here
           setNewPage(newPage);
         }}
       />
-
     </section>
   );
 };

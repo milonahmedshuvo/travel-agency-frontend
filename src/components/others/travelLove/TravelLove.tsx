@@ -78,8 +78,6 @@ export default function TravelLove () {
         {/* Right Images */}
         <div className="w-full md:w-1/2 relative  mt-8 md:mt-0">
             <ThreeImage/>
-           
-
         </div>
 
 

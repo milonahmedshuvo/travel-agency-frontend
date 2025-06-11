@@ -47,7 +47,7 @@ const TourExperienceAllCategory = () => {
 
 
 
-  console.log('curent tour data', tourPackages)
+  // console.log('curent tour data', tourPackages)
 
 
 

@@ -1,5 +1,8 @@
 import Link from "next/link"
-import { Facebook, Instagram, Twitter, Mail, Phone } from "lucide-react"
+import { Facebook, Instagram, Mail, Phone, Twitter } from "lucide-react"
+import Image from "next/image"
+import logo from '../../../assets/logo/navlogo.png'
+
 
 
 export default function Footer() {
@@ -44,7 +47,14 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1 lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
-              <span className="text-[#ff7b3a] text-4xl font-bold">LOGO</span>
+             
+          <Image
+            src={logo}
+            width={500}
+            height={500}
+            alt="logo"
+            className="w-[175px] lg:w-[100px] xl:w-[175px] h-[140px]"
+          />
             </Link>
             <p className="text-gray-300 mb-6">
               Go beyond the ordinary and discover hidden gems, cultural encounters, and off-the-beaten-path adventures.

@@ -1,12 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
-// import img1 from "../../../assets/card/tourexperience/img1.jpg";
-// import img2 from "../../../assets/card/tourexperience/img2.jpg";
-// import img3 from "../../../assets/card/tourexperience/img3.jpg";
-// import img4 from "../../../assets/card/tourexperience/img4.jpg";
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import Link from "next/link";
-// import { useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { TTourPackage } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
 
@@ -16,6 +11,8 @@ const SeaTour = () => {
     //  console.log('sea tour', data?.data)
      const [tours, setTours] = useState([]);
      const [loading, setLoading] = useState(true);
+     
+     
        
          useEffect(() => {
            const fetchTours = async () => {
@@ -31,7 +28,7 @@ const SeaTour = () => {
                    },
                  }
                );
-       
+               
                const data = await response.json();
                setTours(data?.data || []);
              } catch (error) {
@@ -44,6 +41,8 @@ const SeaTour = () => {
            fetchTours();
          }, []);
      
+
+
          if(loading){
            return <Loading/>
          }

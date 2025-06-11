@@ -54,7 +54,12 @@ section {
 
 
 
-
+.custom-container-nav{
+  max-width: 1580px;
+  width: 100%;
+  margin: 0px auto;
+  /* padding: 2px; */
+} 
 
 
 .custom-container{
@@ -63,6 +68,8 @@ section {
   margin: 0px auto;
   padding: 2rem;
 } 
+
+
 
 /* font style  */
 .poppins {

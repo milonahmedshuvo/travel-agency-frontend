@@ -43,6 +43,8 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({
          src={imageUrl} 
          unoptimized
         loading='lazy'
+        placeholder="blur"
+        blurDataURL="/placeholder-blur.png" 
          className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'
            />
 
