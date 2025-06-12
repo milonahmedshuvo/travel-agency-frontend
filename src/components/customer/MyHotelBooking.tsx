@@ -41,7 +41,7 @@ export default function MyHotelBookings() {
   return (
     <div className="space-y-6 ">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-[#101010] text-[20px]">Accommodations Bookings</h1>
+        <h1 className="text-[#101010] text-[20px]">My Accommodations Bookings</h1>
         <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
           <div className="relative w-full sm:w-64">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
@@ -93,7 +93,7 @@ export default function MyHotelBookings() {
           <thead className="bg-gray-50 text-gray-700">
             <tr>
               <th className="px-4 py-3 text-left font-medium">Name</th>
-              <th className="px-4 py-3 text-left font-medium">Booking Code</th>
+              {/* <th className="px-4 py-3 text-left font-medium">Booking Code</th> */}
               <th className="px-4 py-3 text-left font-medium">Room Type</th>
               <th className="px-4 py-3 text-left font-medium">Check-In</th>
               <th className="px-4 py-3 text-left font-medium">Check-Out</th>
@@ -105,7 +105,7 @@ export default function MyHotelBookings() {
             {filterRoomBooking?.map((booking: TRoomBooking, index: number) => (
               <tr key={index} className="bg-white">
                 <td className="px-4 py-3">{booking?.hotelPackage?.title}</td>
-                <td className="px-4 py-3">{"bookingCode N/A"}</td>
+                {/* <td className="px-4 py-3">{"bookingCode N/A"}</td> */}
                 <td className="px-4 py-3">{booking?.roomType}</td>
                 <td className="px-4 py-3">
                   {dateFormated(booking?.checkInDate)}{" "}
@@ -169,6 +169,12 @@ export default function MyHotelBookings() {
           </div>
         ))}
       </div>
+
+
+
+
+
+
 
       {/* Pagination */}
       <div className="flex flex-col sm:flex-row justify-end items-center gap-4">

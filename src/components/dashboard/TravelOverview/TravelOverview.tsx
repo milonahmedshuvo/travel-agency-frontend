@@ -184,18 +184,23 @@ export default function TravelDashboardOverview () {
 
   
 
+
   // ANALYTISE DASHBORAD API FROM REDUX 
   const {data} = useAnalytiseDashboardQuery("")
   const {data:tours} = useGetSeaTourQuery("")
   const {data:tourBookings} = useGetAllTourBookingsQuery("")
   
+
+  console.log("Recent tour bookings", tourBookings?.data )
+
+
   
 
-// const filteredBookings = tourBookings?data?.filter(
-//     (booking:TourBooking) =>
-//       booking.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//       booking.package.toLowerCase().includes(searchQuery.toLowerCase()),
-//   )  
+const filteredBookings = tourBookings?.data?.filter(
+    (booking:TourBooking) =>
+      booking?.tourPackage?.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      booking?.vehicleBooking?.tourPackageVehicle?.vehicleType.toLowerCase().includes(searchQuery.toLowerCase()),
+  )  
   
 
 
@@ -583,14 +588,14 @@ export default function TravelDashboardOverview () {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {tourBookings?.data?.map((booking:TourBooking) => (
+                    {filteredBookings?.data?.map((booking:TourBooking) => (
                       <tr key={booking.id} className="py-10" >
-                        <td className="whitespace-nowrap px-4 py-6 font-medium">{'tour name N/A'}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{'tour package type'}</td>
+                        <td className="whitespace-nowrap px-4 py-6 font-medium">{booking?.tourPackage?.title}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking?.tourPackage?.category}</td>
                         <td className="whitespace-nowrap px-4 py-6">{booking.duration}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{'vehicle type'}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking?.vehicleBooking?.tourPackageVehicle?.vehicleType ? booking?.vehicleBooking?.tourPackageVehicle?.vehicleType : "N/A"}</td>
                         <td className="whitespace-nowrap px-4 py-6">{dateFormate(booking.updatedAt)}</td>
-                        <td className="whitespace-nowrap px-4 py-6">{"tour price N/A"}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking?.tourPackage?.price}</td>
                         <td className="whitespace-nowrap px-4 py-6">
                           {/* <span
                             className={`rounded-md px-2 py-1 text-xs font-medium ${

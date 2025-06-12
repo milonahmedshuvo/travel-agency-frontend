@@ -227,7 +227,12 @@ type VehicleBooking = {
   createdAt: string;
   updatedAt: string;
   tourPackageVehicleId: string;
+  
+  tourPackageVehicle : { vehicleType : string }
 };
+
+
+
 
 export type TourBooking = {
   id: string;
@@ -246,6 +251,8 @@ export type TourBooking = {
   vehicleBooking: VehicleBooking | null;
   transactions: any; // Change `any` to a specific type if transaction structure is known
   splitPayment: any; // Change `any` to a specific type if splitPayment structure is known
+  tourPackage: TTourPackage;
+
 };
 
 

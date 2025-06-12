@@ -3,6 +3,7 @@ import React from "react";
 // import blog from "../../assets/blog/blog.png";
 import { BlogCard } from "./BlogCard";
 import { useGetAllBlogsQuery } from "@/redux/api/blog/blogApi";
+// import Loading from "../shared/loading/Loading";
 
 interface TBlogs {
   createdAt: string;
@@ -18,11 +19,11 @@ interface TBlogs {
 
 
 const BlogItems = () => {
-
-  
-
   const {data} = useGetAllBlogsQuery("")
   console.log(data?.data?.data)
+  /// blogs?limit=1&page=1
+  
+
 
 
 
@@ -40,6 +41,10 @@ Take A Road Trip"
           />
         ))}
       </div>
+
+
+
+
     </section>
   );
 };

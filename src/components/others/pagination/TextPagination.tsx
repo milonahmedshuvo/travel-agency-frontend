@@ -26,7 +26,7 @@ export default function TextPagination({
   const [current, setCurrent] = useState(meta.page)
 
   useEffect(() => {
-    setCurrent(meta.page)
+    setCurrent(meta?.page)
   }, [meta.page])
 
   const handleChange = (page: number) => {

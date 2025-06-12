@@ -11,38 +11,41 @@ import { CustomButton } from "@/components/ui/CustomButton"
 import { useGetAllTourBookingsQuery } from "@/redux/api/tourPackages/tourPackagesApi"
 import { TourBooking } from "@/components/lib/types"
 import { CustomBadge } from "@/components/ui/CustomBadge"
+import Link from "next/link"
+import Loading from "../shared/loading/Loading"
 
 
 
 
-interface BookingsTableProps {
-  currentPage: number
-  setCurrentPage: (page: number) => void
-  dateFilter: string
-  setDateFilter: (filter: string) => void
-}
+
 
 
 
 // Sample data
-
-
-export function MyTripBookingsTable({ currentPage, setCurrentPage, dateFilter, setDateFilter }: BookingsTableProps) {
+export function MyTripBookingsTable() {
   const [searchQuery, setSearchQuery] = useState("")
-  const {data:tourBookings} = useGetAllTourBookingsQuery("")
+ const {data:tourBookings, isLoading} = useGetAllTourBookingsQuery("")
+  
 
-  // Items per page
-  const itemsPerPage = 8
-  const totalPages = Math.ceil(tourBookings?.data?.length / itemsPerPage)
+  // console.log("Recent tour bookings", tourBookings?.data )
 
-  // Get current items
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = tourBookings?.data?.slice(indexOfFirstItem, indexOfLastItem)
+
+  if(isLoading){
+    return <Loading/>
+  }
+
 
   
 
-const dateFormate = (date:string) => {
+const filteredBookings = tourBookings?.data?.filter(
+    (booking:TourBooking) =>
+      booking?.tourPackage?.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      booking?.vehicleBooking?.tourPackageVehicle?.vehicleType.toLowerCase().includes(searchQuery.toLowerCase()),
+  )  
+  
+
+
+  const dateFormate = (date:string) => {
    const DateObject = new Date(date)
    const updateDate = DateObject.toLocaleDateString()
    return updateDate
@@ -51,134 +54,113 @@ const dateFormate = (date:string) => {
 
 
 
+
+
+
   return (
-    <Card>
-      <CardHeader className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0 pb-4">
-        <CardTitle className="text-[20px] font-[500]">Bookings</CardTitle>
-        {/* <h1>ddddddddddddddd</h1> */}
-      </CardHeader>
-      <CardContent>
-        
-        <div className="overflow-x-auto">
-          <CustomTable>
-            <CustomTableHeader>
-              <CustomTableRow>
-                <CustomTableHead className="w-[150px]">
-                  Name <ChevronDown className="ml-1 h-3 w-3 inline " />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Booking Code <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Package <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Duration <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Vehicle <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Date <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Price <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-                <CustomTableHead>
-                  Status <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
-              </CustomTableRow>
-            </CustomTableHeader>
-            <CustomTableBody>
-              {currentItems?.map((booking:TourBooking) => (
-                <CustomTableRow key={booking.id}>
-                  <CustomTableCell className="font-medium">{'tour name N/A'}</CustomTableCell>
-                  <CustomTableCell>{booking.id.slice(0, 4)}</CustomTableCell>
-                  <CustomTableCell>{'tour package type'}</CustomTableCell>
-                  <CustomTableCell>{`${booking.duration} Hours`}</CustomTableCell>
-                  <CustomTableCell>{'vehicle type'}</CustomTableCell>
-                  <CustomTableCell>{dateFormate(booking.updatedAt)}</CustomTableCell>
-                  <CustomTableCell>{"tour price N/A"}</CustomTableCell>
-                  <CustomTableCell>
-
-                    {/* <CustomBadge
-                      variant={booking.status === "Confirmed" ? "default" : "outline"}
-                      className={
-                        booking.status === "Confirmed"
-                          ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]"
-                          : "bg-blue-100 text-blue-500 hover:bg-blue-200"
-                      }
-                    >
-                      {booking.status}
-                    </CustomBadge> */}
-
-                    <CustomBadge className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" > Confirmed </CustomBadge>
+   <div className="grid grid-cols-1 gap-6 ">
+        <div className="lg:col-span-2">
+          <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+            <div className="flex flex-row items-center justify-between p-4">
+              <h3 className="text-[20px] font-[500]">My tour Bookings</h3>
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                  <input
+                    type="search"
+                    placeholder="Search anything"
+                    className="h-9 rounded-md border border-gray-300 pl-8 pr-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                {/* <button className="inline-flex h-9 items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none cursor-pointer ">
+                  <Link href='/dashboard/tripBooking'> 
+                  View All
+                  </Link>
+                </button> */}
+              </div>
+            </div>
+            <div className="p-4">
+              <div className="overflow-x-auto">
 
 
-                  </CustomTableCell>
-                </CustomTableRow>
-              ))}
-            </CustomTableBody>
-          </CustomTable>
-        </div>
+                {
+                  tourBookings?.data?.length > 0 ? <table className="w-full border-collapse">
+                  <thead className="bg-blue-50">
+                    <tr>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">Name</th>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">
+                        Package
+                      </th>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">
+                        Duration
+                      </th>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">
+                        Vehicle
+                      </th>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">Date</th>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">Price</th>
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500 ">
+                        Status
+                      </th>
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm text-muted-foreground">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length}
-          </div>
-          <div className="flex items-center space-x-2">
-            <CustomButton
-              variant="outline"
-              size="icon"
-              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </CustomButton>
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              // Show current page and surrounding pages
-              let pageToShow
-              if (totalPages <= 5) {
-                pageToShow = i + 1
-              } else if (currentPage <= 3) {
-                pageToShow = i + 1
-              } else if (currentPage >= totalPages - 2) {
-                pageToShow = totalPages - 4 + i
-              } else {
-                pageToShow = currentPage - 2 + i
-              }
+                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500 ">
+                        Status
+                      </th>
 
-              return (
-                <CustomButton
-                  key={i}
-                  variant={currentPage === pageToShow ? "default" : "outline"}
-                  size="icon"
-                  onClick={() => setCurrentPage(pageToShow)}
-                  className={currentPage === pageToShow ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" : ""}
-                >
-                  {pageToShow}
-                </CustomButton>
-              )
-            })}
-            {totalPages > 5 && currentPage < totalPages - 2 && (
-              <>
-                <span className="text-muted-foreground">...</span>
-                <CustomButton variant="outline" size="icon" onClick={() => setCurrentPage(totalPages)}>
-                  {totalPages}
-                </CustomButton>
-              </>
-            )}
-            <CustomButton
-              variant="outline"
-              size="icon"
-              onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </CustomButton>
+                       
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {filteredBookings?.map((booking:TourBooking) => (
+                      
+                      // <Link href={`/customer/myTripBookings/${booking.id}`} > </Link>
+
+
+                      <tr key={booking.id} className="py-10" >
+                        <td className="whitespace-nowrap px-4 py-6 font-medium">{booking?.tourPackage?.title}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking?.tourPackage?.category}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking.duration}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking?.vehicleBooking?.tourPackageVehicle?.vehicleType ? booking?.vehicleBooking?.tourPackageVehicle?.vehicleType : "N/A" } </td>
+                        <td className="whitespace-nowrap px-4 py-6">{dateFormate(booking.updatedAt)}</td>
+                        <td className="whitespace-nowrap px-4 py-6">{booking?.tourPackage?.price}</td>
+                        <td className="whitespace-nowrap px-4 py-6">
+                          {/* <span
+                            className={`rounded-md px-2 py-1 text-xs font-medium ${
+                              booking.status === "Confirmed"
+                                ? "bg-blue-100 text-blue-800"
+                                : "bg-yellow-100 text-yellow-800"
+                            }`}
+                          >
+                            {booking.status}
+                          </span> */}                         
+                          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer " > Confirmed </button>
+                         
+                        </td>
+
+                        <td className="whitespace-nowrap px-4 py-6 ">
+                          <Link href={`/customer/myTripBookings/${booking.id}`} >  
+                          <span className="py-0.5 px-3 border border-gray-300 rounded cursor-pointer">view</span>
+                          </Link>
+                        </td>
+                        
+                      </tr>
+
+
+                      
+                    ))}
+                  </tbody>
+                </table> : <p className="text-4xl text-center my-20">Tour booking not found</p>
+                }
+
+                
+
+
+              </div>
+            </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+   </div>
   )
 }
