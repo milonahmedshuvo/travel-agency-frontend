@@ -1,14 +1,17 @@
-import { TTourPackage } from "@/components/lib/types";
+import { THotelPackage, TTourPackage } from "@/components/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface TTourPackageStore {
     tourPackageStore : TTourPackage[] | null
+    hotelPackageStore: THotelPackage[] | null
 }
-
 
 const initialState:TTourPackageStore = {
-    tourPackageStore : null
+    tourPackageStore : null,
+    hotelPackageStore : null
 }
+
+
 
 export const searchQuery = createSlice({
     name: 'searchQuery',
@@ -19,11 +22,19 @@ export const searchQuery = createSlice({
         },
         removeTourpackages(state){
             state.tourPackageStore = null
+        },
+
+
+        addHotelPackages(state, action){
+            state.hotelPackageStore = action.payload
+        },
+        removeHotelPackages(state){
+            state.hotelPackageStore = null
         }
     } 
 })
 
 
 
-export const { addTourPackages, removeTourpackages } = searchQuery.actions;
+export const { addTourPackages, removeTourpackages, addHotelPackages, removeHotelPackages } = searchQuery.actions;
 export default searchQuery.reducer

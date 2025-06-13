@@ -22,6 +22,7 @@ import { useAnalytiseDashboardQuery } from "@/redux/api/analytise/analytiseApi"
 import { useGetAllTourBookingsQuery, useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi"
 import { TourBooking, TTourPackage } from "@/components/lib/types"
 import Link from "next/link"
+import Loading from "@/components/shared/loading/Loading"
 
 
 
@@ -187,12 +188,9 @@ export default function TravelDashboardOverview () {
 
   // ANALYTISE DASHBORAD API FROM REDUX 
   const {data} = useAnalytiseDashboardQuery("")
-  const {data:tours} = useGetSeaTourQuery("")
-  const {data:tourBookings} = useGetAllTourBookingsQuery("")
+  const {data:tours } = useGetSeaTourQuery("")
+  const {data:tourBookings, isLoading} = useGetAllTourBookingsQuery("")
   
-
-  console.log("Recent tour bookings", tourBookings?.data )
-
 
   
 
@@ -204,10 +202,17 @@ const filteredBookings = tourBookings?.data?.filter(
   
 
 
+
   const dateFormate = (date:string) => {
    const DateObject = new Date(date)
    const updateDate = DateObject.toLocaleDateString()
    return updateDate
+}
+
+
+
+if(isLoading){
+  return <Loading/>
 }
 
 
@@ -588,7 +593,7 @@ const filteredBookings = tourBookings?.data?.filter(
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {filteredBookings?.data?.map((booking:TourBooking) => (
+                    {filteredBookings?.map((booking:TourBooking) => (
                       <tr key={booking.id} className="py-10" >
                         <td className="whitespace-nowrap px-4 py-6 font-medium">{booking?.tourPackage?.title}</td>
                         <td className="whitespace-nowrap px-4 py-6">{booking?.tourPackage?.category}</td>

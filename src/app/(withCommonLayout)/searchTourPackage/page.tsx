@@ -3,16 +3,12 @@
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import { TTourPackage } from "@/components/lib/types";
 import { useAppSelector } from "@/redux/hook";
+import Link from "next/link";
 
 
 const TourPackageSearchQuery = () => {
       const tourpackages = useAppSelector((state) => state.searchQuery.tourPackageStore)
-      console.log("secdddddddddddddddd", tourpackages?.length)
-
-
-
-
-
+     
   return (
     <div className="custom-container !mb-20 mt-14"> 
     
@@ -32,7 +28,12 @@ const TourPackageSearchQuery = () => {
           </div>
         ))}
         
-      </div> : <p className="mt-10">Tour package not avaiable</p>
+      </div> : <div className='flex flex-col justify-center items-center h-screen gap-6'> 
+                <p className="text-5xl">Tour Package Not Avaiable</p>
+                <p className='text-xl text-white bg-blue-500  px-6 py-1 rounded-3xl '>
+                    <Link href="/" > GO Back To Home Page </Link>
+                </p>
+          </div>
         }
     
     
