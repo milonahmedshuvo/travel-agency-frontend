@@ -32,7 +32,6 @@ export type THotelImage = {
 };
  
 
-
  export type TTourPackage = {
   id: string;
   title: string;

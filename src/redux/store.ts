@@ -17,6 +17,7 @@ import authReducer from "./slice/auth/authSlice"
 import bookingReducer from "./slice/booking/booking"
 import vehicleBookingReducer from "./slice/vehicleBooking/vehicleBookingSlice"
 import accommodationBookingReducer from "./slice/accommodationBooking/accommodationBooking"
+import searchQueryReducer from "./slice/searchFilter/searchFilter"
 
 import { baseApi } from "./api/baseApi";
 
@@ -64,10 +65,17 @@ const accommodationStayBookingConfig = {
 };
 
 
+const searchQueryConfig = {
+  key: "searchQuery",
+  storage,
+};
+
+
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedBookingReducer = persistReducer(booking, bookingReducer )
 const persistedVehicleBookingReducer = persistReducer(VehicleBookingConfig, vehicleBookingReducer)
 const persistedAccommodationBookingReducer = persistReducer(accommodationStayBookingConfig, accommodationBookingReducer)
+const persistedSearchQueryReducer = persistReducer(searchQueryConfig,searchQueryReducer)
 
 
 
@@ -91,7 +99,8 @@ export const makeStore = () => {
       auth: persistedAuthReducer,
       booking: persistedBookingReducer,
       vehicleBooking: persistedVehicleBookingReducer,
-      accommodationBooking: persistedAccommodationBookingReducer
+      accommodationBooking: persistedAccommodationBookingReducer,
+      searchQuery : persistedSearchQueryReducer
     },
 
     
