@@ -1,7 +1,7 @@
 "use client";
 import PaymentMethodModal from "@/common/PaymentMethodModal";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setTourBookingPayment } from "@/redux/slice/booking/booking";
+import { setTourBookingEightyPayment, setTourBookingPayment } from "@/redux/slice/booking/booking";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -139,17 +139,23 @@ export default function PaymentCard() {
 
             // data?.initial.amount
             // data?.initial?.clientSecret
+            // console.log("filnal", data?.final?.clientSecret)
+            // console.log("final", data?.final?.amount)
+             
 
-            console.log("amount", data?.initial.amount);
-            console.log("clientSecret", data?.initial?.clientSecret);
 
-            // store clientSecret and amount in redux
+            // console.log("amount", data?.initial.amount);
+            // console.log("clientSecret", data?.initial?.clientSecret);
+
+            // store clientSecret and amount in redux for 20% payment 
             dispatch(
               setTourBookingPayment({
                 clientSecret: data?.initial?.clientSecret,
                 amount: data?.initial.amount,
               })
             );
+
+            dispatch(setTourBookingEightyPayment({clientSecret: data?.final?.clientSecret, amount: data?.final?.amount }))
 
             router.push("/tourTwentyPaymentStripe");
           }
@@ -165,7 +171,7 @@ export default function PaymentCard() {
     // THIS IS PAYPAL PAYMENET
 
     if (methods.initialPaymentMethod === "PAYPAL") {
-      console.log("tumi Paypal payment method choise korso");
+      // console.log("tumi Paypal payment method choise korso");
 
       const makeStripePayment = async () => {
         const token = localStorage.getItem("token");

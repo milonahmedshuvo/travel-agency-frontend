@@ -7,12 +7,15 @@ import Link from "next/link";
 
 
 
-export default function BookingConfirmed() {
+export default function EightyTourBookingConfirmed () {
+
       const tourBookingId = useAppSelector((state) => state.booking.tourBookingId)
       const {data} = useGetSingleTourBookingQuery(tourBookingId)
 
-      console.log("tour booking data", data?.data) // isVehicleBooking, splitPayment 
-      console.log("tourPackage", data?.data?.tourPackage?.title)
+
+
+      console.log("tour booking data", data?.data?.vehicleBooking?.pickUpDate) // isVehicleBooking, splitPayment 
+      console.log("tourBookingId", tourBookingId)
 
 
       // console.log('20 % persen ',  data?.data?.transactions?.splitPaymentType) for pass component 20%
@@ -20,19 +23,12 @@ export default function BookingConfirmed() {
 
 
     // date formate 
-// const pickUpDate = "2025-06-20T00:00:00.000Z";
-// const date = new Date(pickUpDate);
 
-// const options: Intl.DateTimeFormatOptions = {
-//   year: 'numeric',
-//   month: 'long',
-//   day: 'numeric',
-// };
 
 // const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
 
-const formattedDate = new Date(data?.data?.vehicleBooking?.pickUpDate).toLocaleDateString()
 
+const formattedDate = new Date(data?.data?.vehicleBooking?.pickUpDate).toLocaleDateString()
 
 
 
@@ -75,7 +71,7 @@ const formattedDate = new Date(data?.data?.vehicleBooking?.pickUpDate).toLocaleD
 
 
            {/* <BookingSize date=" March 12, 2025" duration="6 Hours" groupSize="3 Parson" /> */}
-           <ConfirmedSize date={data?.data?.availableDate} duration={data?.data?.duration} groupSize={data?.data?.groupSize} paymentMethod={ data?.data?.transactions?.splitPaymentType ? ( <> {data?.data?.transactions?.paymentMethodType}{' '} <span className="text-green-600">20% (PAID)</span> </> ) : ( <> {data?.data?.transactions?.paymentMethodType} {' '} <span className="text-green-600"> (PAID)</span>  </>)    }/>
+           <ConfirmedSize date={data?.data?.availableDate} duration={data?.data?.duration} groupSize={data?.data?.groupSize} paymentMethod={ data?.data?.transactions?.splitPaymentType ? ( <> {data?.data?.transactions?.paymentMethodType}{' '} <span className="text-green-600">80% (PAID)</span> </> ) : ( <> {data?.data?.transactions?.paymentMethodType} {' '} <span className="text-green-600"> (PAID)</span>  </>)    }/>
 
 
 
@@ -103,7 +99,8 @@ const formattedDate = new Date(data?.data?.vehicleBooking?.pickUpDate).toLocaleD
            }
 
            {/* paddding amout :  */}
-           {
+
+           {/* {
              data?.data?.splitPayment && <div>
             <div  className="flex flex-col sm:flex-row sm:items-center gap-2  pb-1">
             <div className="flex items-center gap-2 ">
@@ -112,7 +109,9 @@ const formattedDate = new Date(data?.data?.vehicleBooking?.pickUpDate).toLocaleD
             <span className="text-gray-600">{`${data?.data?.splitPayment?.finalPaymentTransaction?.amount} ${data?.data?.transactions?.currency}`   } </span>
           </div>
          </div> 
-           }
+           } */}
+
+
 
          </div>
         </div>

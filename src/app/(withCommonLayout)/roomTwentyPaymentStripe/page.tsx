@@ -105,14 +105,6 @@ const RoomStripeFullPaymentPage = () => {
         console.error("Fetch error:", error);
       }
 
-
-
-
-
-
-
-
-
       }
     }
   };

@@ -87,7 +87,8 @@ const MyTourBookingDatailsPage = () => {
   };
 
   const handleEightyPayment = () => {
-    console.log('not work')
+    dispatch(setTourBookingId(id));
+    router.push("/tourBookingEightyPayment");
   };
 
 

@@ -52,6 +52,10 @@ interface TTourBookingPayment {
     amount : number;
 }
 
+interface TTourBookingEightyPayment {
+    clientSecret : string;
+    amount : number;
+}
 
 
 
@@ -63,6 +67,8 @@ interface BookingState {
   gustDatailsThree: TGustDatailsThree | null
   roomBookingPayment : TRoomBookingPayment | null
   tourBookingPayment : TTourBookingPayment | null
+  tourBookingEightyPayment : TTourBookingEightyPayment | null
+
   // Room Booking id without payment 
   roomBookingId : string | null
   tourBookingId : string | null
@@ -75,6 +81,8 @@ const initialState:BookingState = {
     gustDatailsThree : null,
     roomBookingPayment: null,
     tourBookingPayment : null,
+    tourBookingEightyPayment: null,
+
     // Room Booking id without payment 
     roomBookingId : null,
     tourBookingId : null
@@ -124,12 +132,24 @@ const booking = createSlice({
     },
 
 
-     // Room booking payment 
+     // Tour booking payment 
     setTourBookingPayment(state, action:PayloadAction<TRoomBookingPayment>) {
       state.tourBookingPayment = action.payload
     },
     clearTourBoookingPayment(state) {
       state.tourBookingPayment = null
+    },
+
+
+
+
+
+    // Tour booking payment final 80%  
+    setTourBookingEightyPayment(state, action:PayloadAction<TRoomBookingPayment>) {
+      state.tourBookingEightyPayment = action.payload
+    },
+    clearTourBoookingEightyPayment(state) {
+      state.tourBookingEightyPayment = null
     },
 
 
@@ -160,7 +180,7 @@ const booking = createSlice({
   },
 });
 
-export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setTourBookingId, setTourBookingPayment } = booking.actions;
+export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setTourBookingId, setTourBookingPayment, setTourBookingEightyPayment } = booking.actions;
 export default booking.reducer;
 
 

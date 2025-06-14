@@ -8,16 +8,25 @@ import toast from "react-hot-toast";
 
 
 
-const TourStripeTwentyPaymentPage = () => {
+const TourStripeEightyPaymentPage = () => {
     const router = useRouter()
 
-    const amount = useAppSelector((state) => state.booking.tourBookingPayment?.amount)
-    const clientSecret  = useAppSelector((state) => state.booking.tourBookingPayment?.clientSecret)
+    const amount = useAppSelector((state) => state.booking.tourBookingEightyPayment?.amount)
+    const clientSecret  = useAppSelector((state) => state.booking.tourBookingEightyPayment?.clientSecret)
     const id = useAppSelector((state) => state.booking.tourBookingId)
-
-
     const {data:tourBooking}= useGetSingleTourBookingQuery(id)
-    console.log("transition id ",  tourBooking?.data?.transactions?.id)
+
+
+
+
+    console.log("transition id ",  tourBooking?.data?.transactions?.id,)
+    console.log("booking id", id)
+    console.log("filnal transition id", tourBooking?.data?.splitPayment?.finalPaymentTransaction?.id)
+
+
+   
+
+
 
 
 
@@ -80,13 +89,13 @@ const TourStripeTwentyPaymentPage = () => {
         const token = localStorage.getItem('token');
 
         try {
-        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/tour-bookings/${id}/split-pay/initial`, {
+        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/tour-bookings/${id}/split-pay/final`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ paymentMethodId, transactionId: tourBooking?.data?.splitPayment?.initialPaymentTransaction?.id }),
+          body: JSON.stringify({ paymentMethodId, transactionId: tourBooking?.data?.splitPayment?.finalPaymentTransaction?.id }),
         });
 
         const data = await res.json();
@@ -94,11 +103,9 @@ const TourStripeTwentyPaymentPage = () => {
     
 
         if (data) {
-          toast.success( `${data.message} 20% ` || "Payment 20% confirmed successfully!");
-          console.log("Backend response:", data);
-
-
-          router.push('/booking/ConfirmedBooking')
+          toast.success( `${data.message} 80% ` || "Payment 80% confirmed successfully!");
+          console.log("Backend responses:", data);
+          router.push('/booking/EightTourBooking')
 
         } else {
           toast.error("Failed to confirm payment.");
@@ -111,15 +118,7 @@ const TourStripeTwentyPaymentPage = () => {
         toast.error("Something went wrong while confirming payment.");
         console.error("Fetch error:", error);
       }
-
-
-
-
-
-
-
-
-
+      
       }
     }
   };
@@ -141,10 +140,10 @@ const TourStripeTwentyPaymentPage = () => {
           type="submit"
           className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
         >
-          {`20% Confirm Payment  $${amount}`}
+          {`80% Confirm Payment  $${amount}`}
         </button>
     </div>
   )
 }
 
-export default TourStripeTwentyPaymentPage;
+export default TourStripeEightyPaymentPage;
