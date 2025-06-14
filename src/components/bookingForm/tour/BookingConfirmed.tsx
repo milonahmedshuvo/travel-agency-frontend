@@ -3,6 +3,7 @@
 import { ConfirmedSize } from "./ConfirmedSize";
 import { useAppSelector } from "@/redux/hook";
 import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+import Link from "next/link";
 
 
 
@@ -122,7 +123,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
 
 
 
-        {/* <Link href="/booking/payment"> */}
+        <Link href="/customer/myTripBookings">
           <button
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
@@ -143,7 +144,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
               ></path>
             </svg>
           </button>
-        {/* </Link> */}
+        </Link>
       </div>
     </section>
   );

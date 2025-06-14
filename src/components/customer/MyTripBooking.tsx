@@ -128,14 +128,19 @@ const filteredBookings = tourBookings?.data?.filter(
                         <td className="whitespace-nowrap px-4 py-6">
                           {/* <span
                             className={`rounded-md px-2 py-1 text-xs font-medium ${
-                              booking.status === "Confirmed"
+                              booking.isPaid
                                 ? "bg-blue-100 text-blue-800"
                                 : "bg-yellow-100 text-yellow-800"
                             }`}
                           >
                             {booking.status}
-                          </span> */}                         
-                          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer " > Confirmed </button>
+                          </span>  */}
+
+                           {
+                             booking?.isPaid ?  <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer " > Confirmed </button> :<button className="bg-yellow-100 text-yellow-800 px-3 rounded  text-sm py-0.5 cursor-pointer " >   Not Confirmed </button> 
+                           }
+
+                          
                          
                         </td>
 

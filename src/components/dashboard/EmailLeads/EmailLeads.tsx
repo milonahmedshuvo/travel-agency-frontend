@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Search, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react"
-import Loading from "@/components/shared/loading/Loading"
+import { useState, useEffect } from "react";
+import { Search, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import Loading from "@/components/shared/loading/Loading";
+import TextPagination from "@/components/others/pagination/TextPagination";
 
 export type TCustomers = {
   id: string;
@@ -27,11 +28,10 @@ export type TCustomers = {
   };
 };
 
-
 export default function EmailLeadsTable() {
-  const [searchQuery, setSearchQuery] = useState("")
- 
-  const [newPage, setNewPage] = useState(1);    
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const [newPage, setNewPage] = useState(1);
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [customerMeta, setCustomerMeta] = useState<{
@@ -74,33 +74,23 @@ export default function EmailLeadsTable() {
     fetchCustomers();
   }, [newPage]);
 
-
-
-
-
   if (loading) {
     return <Loading />;
   }
 
-
- 
-
   const filteredBookings = customers?.filter(
-      (customer:TCustomers) =>
-        customer?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        customer?.contactNo?.toLowerCase().includes(searchQuery.toLowerCase()),
-    ) 
+    (customer: TCustomers) =>
+      customer?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      customer?.contactNo?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  
-  const dateFormate = (date:string) => {
-   const DateObject = new Date(date)
-   const updateDate = DateObject.toLocaleDateString()
-   return updateDate
-}
+  const dateFormate = (date: string) => {
+    const DateObject = new Date(date);
+    const updateDate = DateObject.toLocaleDateString();
+    return updateDate;
+  };
 
-
-//  console.log('all customer search', filteredBookings)
-
+  //  console.log('all customer search', filteredBookings)
 
   return (
     <div className="w-full mt-10 px-4 md:px-6">
@@ -119,7 +109,6 @@ export default function EmailLeadsTable() {
           </div>
 
           {/* Custom select dropdown */}
-         
         </div>
       </div>
 
@@ -132,20 +121,28 @@ export default function EmailLeadsTable() {
                   <input
                     type="checkbox"
                     className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                   
                     aria-label="Select all"
                   />
                 </div>
               </th>
               <th className="p-4 text-left font-medium text-gray-600">Email</th>
-              <th className="p-4 text-left font-medium text-gray-600">Subscription Date</th>
-              <th className="p-4 text-left font-medium text-gray-600">Phone Number</th>
-              <th className="p-4 text-left font-medium text-gray-600">Address</th>
+              <th className="p-4 text-left font-medium text-gray-600">
+                Subscription Date
+              </th>
+              <th className="p-4 text-left font-medium text-gray-600">
+                Phone Number
+              </th>
+              <th className="p-4 text-left font-medium text-gray-600">
+                Address
+              </th>
             </tr>
           </thead>
           <tbody>
-            {filteredBookings?.map((lead:TCustomers) => (
-              <tr key={lead.id} className="border-b border-gray-200 hover:bg-gray-50 ">
+            {filteredBookings?.map((lead: TCustomers) => (
+              <tr
+                key={lead.id}
+                className="border-b border-gray-200 hover:bg-gray-50 "
+              >
                 <td className="p-4 ">
                   <div className="flex items-center h-5">
                     <input
@@ -157,7 +154,9 @@ export default function EmailLeadsTable() {
                 <td className="p-4 text-gray-600">{lead?.email}</td>
                 <td className="p-4">{dateFormate(lead?.createdAt)}</td>
                 <td className="p-4">{lead?.contactNo}</td>
-                <td className="p-4">{lead?.customer?.location? lead?.customer?.location  : "N/A"}</td>
+                <td className="p-4">
+                  {lead?.customer?.location ? lead?.customer?.location : "N/A"}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -165,8 +164,14 @@ export default function EmailLeadsTable() {
       </div>
 
       {/* Pagination  */}
-
-
+      <div className="mt-10">
+        <TextPagination
+          meta={customerMeta}
+          onPageChange={(newPage) => {
+            setNewPage(newPage);
+          }}
+        />
+      </div>
     </div>
-  )
+  );
 }
