@@ -45,14 +45,14 @@ const TopDestinations = () => {
 
   if (isError) {
     return (
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm h-full">
         <p className="text-red-500">Failed to load top destinations data</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <>
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1">
         <div className="flex flex-row items-center justify-between p-4">
           <h3 className="text-lg font-semibold">Top Destinations</h3>
@@ -65,7 +65,7 @@ const TopDestinations = () => {
         <div className="p-6">
           {isLoading ? (
             <div className="flex h-64 items-center justify-center">
-              {/* <LoadingSpinner /> */} loading... 
+              {/* <LoadingSpinner /> */} loading...
             </div>
           ) : (
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -79,7 +79,7 @@ const TopDestinations = () => {
                       innerRadius={50}
                       outerRadius={80}
                       paddingAngle={0}
-                      dataKey="value"
+                      dataKey="totalPercentage"
                       startAngle={0}
                       endAngle={360}
                     >
@@ -120,7 +120,7 @@ const TopDestinations = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

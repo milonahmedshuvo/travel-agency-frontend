@@ -55,7 +55,7 @@ const RevenueOverview = () => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <div>
+        <div className="col-span-2">
           <div className="rounded-lg border border-gray-200 bg-white shadow-xs lg:col-span-2">
             <div className="flex flex-row items-center justify-between p-4">
               <h3 className="text-[#000E19] text-[20px] font-[500]">

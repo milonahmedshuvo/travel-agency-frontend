@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GenericResponse, RevenueOverview, TourStats } from "@/components/lib/types";
+import {
+  GenericResponse,
+  RevenueOverview,
+  TourStats,
+} from "@/components/lib/types";
 import { baseApi } from "../baseApi";
 import { reqTypes } from "../req-types";
 import { tagTypes } from "../tag-types";
@@ -61,6 +65,29 @@ export const analytiseApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.analytics],
     }),
+
+    tripsAnalytics: builder.query({
+      query: (arg: Record<string, any>) => {
+        return {
+          url: `${ANALYTICS_URL}/trips-analytics`,
+          method: reqTypes.get,
+          params: arg,
+        };
+      },
+      transformResponse: (
+        response: GenericResponse<{
+          totalTrips: number;
+          totalCompleted: number;
+        }>,
+        meta: any
+      ) => {
+        return {
+          tripsAnalytics: response.data,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.analytics],
+    }),
   }),
 });
 
@@ -69,5 +96,6 @@ export const {
   useAnalytiseTourBookingsQuery,
   useAnalyticsHotelBookingsQuery,
   useTopDestinationsQuery,
-  useRevenueOverviewQuery
+  useRevenueOverviewQuery,
+  useTripsAnalyticsQuery
 } = analytiseApi;
