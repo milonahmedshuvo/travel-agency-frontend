@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight, Search, ChevronDown, Calendar } from "lucide-react"
 import { CustomTable, CustomTableBody, CustomTableCell, CustomTableHead, CustomTableHeader, CustomTableRow } from "@/components/ui/CustomTable"
@@ -13,6 +13,7 @@ import { TourBooking } from "@/components/lib/types"
 import { CustomBadge } from "@/components/ui/CustomBadge"
 import Link from "next/link"
 import Loading from "../shared/loading/Loading"
+import TextPagination from "../others/pagination/TextPagination"
 
 
 
@@ -24,27 +25,62 @@ import Loading from "../shared/loading/Loading"
 // Sample data
 export function MyTripBookingsTable() {
   const [searchQuery, setSearchQuery] = useState("")
- const {data:tourBookings, isLoading} = useGetAllTourBookingsQuery("")
-  
-
+//  const {data:tourBookings, isLoading} = useGetAllTourBookingsQuery("")
   // console.log("Recent tour bookings", tourBookings?.data )
+ const [newPage, setNewPage] = useState(1);
+  const [tourBookings, settourBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tourBookingsMeta, settourBookingsMeta] = useState<{
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  }>({
+    page: 1,
+    limit: 12,
+    total: 100,
+    totalPage: 10,
+  });
 
+  useEffect(() => {
+    const fetchtourBookings = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `https://supermariobos-api.code-commando.com/api/v1/tour-bookings?isCancelled=false&page=${newPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // optional
+            },
+          }
+        );
 
-  if(isLoading){
-    return <Loading/>
+        const data = await response.json();
+        settourBookings(data?.data || []);
+        settourBookingsMeta(data?.meta);
+      } catch (error) {
+        console.error("Error fetching tourBookings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchtourBookings();
+  }, [newPage]);
+
+  if (loading) {
+    return <Loading />;
   }
-
-
   
 
-const filteredBookings = tourBookings?.data?.filter(
+const filteredBookings = tourBookings?.filter(
     (booking:TourBooking) =>
       booking?.tourPackage?.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       booking?.vehicleBooking?.tourPackageVehicle?.vehicleType.toLowerCase().includes(searchQuery.toLowerCase()),
   )  
   
-
-
   const dateFormate = (date:string) => {
    const DateObject = new Date(date)
    const updateDate = DateObject.toLocaleDateString()
@@ -86,7 +122,7 @@ const filteredBookings = tourBookings?.data?.filter(
 
 
                 {
-                  tourBookings?.data?.length > 0 ? <table className="w-full border-collapse">
+                  tourBookings?.length > 0 ? <table className="w-full border-collapse">
                   <thead className="bg-blue-50">
                     <tr>
                       <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">Name</th>
@@ -115,7 +151,7 @@ const filteredBookings = tourBookings?.data?.filter(
                   <tbody className="divide-y divide-gray-200">
                     {filteredBookings?.map((booking:TourBooking) => (
                       
-                      // <Link href={`/customer/myTripBookings/${booking.id}`} > </Link>
+                      // <Link href={`/tourBookings/myTripBookings/${booking.id}`} > </Link>
 
 
                       <tr key={booking.id} className="py-10" >
@@ -145,7 +181,7 @@ const filteredBookings = tourBookings?.data?.filter(
                         </td>
 
                         <td className="whitespace-nowrap px-4 py-6 ">
-                          <Link href={`/customer/myTripBookings/${booking.id}`} >  
+                          <Link href={`/tourBookings/myTripBookings/${booking.id}`} >  
                           <span className="py-0.5 px-3 border border-gray-300 rounded cursor-pointer">view</span>
                           </Link>
                         </td>
@@ -165,6 +201,18 @@ const filteredBookings = tourBookings?.data?.filter(
               </div>
             </div>
           </div>
+
+          {/* Pagination  */}
+                <div className="mt-10 flex justify-end">
+                  <TextPagination
+                    meta={tourBookingsMeta}
+                    onPageChange={(newPage) => {
+                      setNewPage(newPage);
+                    }}
+                  />
+                </div>
+
+
         </div>
    </div>
   )

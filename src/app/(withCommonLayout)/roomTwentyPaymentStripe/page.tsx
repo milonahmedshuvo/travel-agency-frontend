@@ -3,6 +3,7 @@
 import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const RoomStripeFullPaymentPage = () => {
@@ -10,10 +11,9 @@ const RoomStripeFullPaymentPage = () => {
     const clientSecret  = useAppSelector((state) => state.booking.roomBookingPayment?.clientSecret)
     const id = useAppSelector((state) => state.booking.roomBookingId)
     const {data:roomBooking}= useGetSingleRoomBookingQuery(id)
-    
-    
     console.log("transition id ",  roomBooking?.data?.transactions?.id)
-
+    const router = useRouter()
+   
 
 
    
@@ -92,7 +92,7 @@ const RoomStripeFullPaymentPage = () => {
           toast.success( `${data.message} 20% ` || "Payment 20% confirmed successfully!");
           console.log("Backend response:", data);
 
-
+          router.push('/booking/accommodation/roomTwentStripeConfirm')
         } else {
           toast.error("Failed to confirm payment.");
           console.error("Error from backend:", data);
@@ -108,6 +108,10 @@ const RoomStripeFullPaymentPage = () => {
       }
     }
   };
+
+
+
+
 
 
 

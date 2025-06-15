@@ -59,8 +59,7 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
   // store clientSecret and amount in redux 
   //  dispatch(setRoomBookingPayment({clientSecret: "", amount: 10 }))
     
-    dispatch(setRoomBookingId(result?.data.id))
-
+  dispatch(setRoomBookingId(result?.data.id))
   toast.success( result.message || "Room Bookings success!!")
   router.push("/booking/accommodation/paymentCard")
  }catch(err){

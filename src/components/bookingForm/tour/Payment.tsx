@@ -13,7 +13,7 @@ export default function PaymentCard() {
   const router = useRouter();
   const [isModalOpen, setModalOpen] = useState(false);
 
-  console.log("tttttttttttttttt", tourBookingId);
+  console.log("tourBookingId", tourBookingId);
 
   // stripe full payment
   const handleRoomBookingByStripe = () => {
@@ -141,8 +141,7 @@ export default function PaymentCard() {
             // data?.initial?.clientSecret
             // console.log("filnal", data?.final?.clientSecret)
             // console.log("final", data?.final?.amount)
-             
-
+            
 
             // console.log("amount", data?.initial.amount);
             // console.log("clientSecret", data?.initial?.clientSecret);
@@ -156,7 +155,6 @@ export default function PaymentCard() {
             );
 
             dispatch(setTourBookingEightyPayment({clientSecret: data?.final?.clientSecret, amount: data?.final?.amount }))
-
             router.push("/tourTwentyPaymentStripe");
           }
         } catch (error) {
@@ -169,10 +167,8 @@ export default function PaymentCard() {
     }
 
     // THIS IS PAYPAL PAYMENET
-
     if (methods.initialPaymentMethod === "PAYPAL") {
       // console.log("tumi Paypal payment method choise korso");
-
       const makeStripePayment = async () => {
         const token = localStorage.getItem("token");
         const url = `https://supermariobos-api.code-commando.com/api/v1/tour-bookings/${tourBookingId}/split-pay`;
