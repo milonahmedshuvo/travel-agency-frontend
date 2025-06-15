@@ -1,19 +1,26 @@
+import RevenueOverview from '../dashboard/analytics/revenue-overview';
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-//  vehicle data type 
+//  vehicle data type
+
+export interface GenericResponse<T> {
+  message: string;
+  success: boolean;
+  meta: any | null;
+  data: T;
+}
 export interface TVehicle {
   id: string;
   name: string;
   slug: string;
   img: string;
   pricePerHR: number;
-  vehicleType: 'BOAT' | 'CAR' | 'VAN' | 'AIRCRAFT'; 
-  createdAt: string; 
-  updatedAt: string; 
+  vehicleType: "BOAT" | "CAR" | "VAN" | "AIRCRAFT";
+  createdAt: string;
+  updatedAt: string;
 }
 
- 
- export type TPackageImage = {
+export type TPackageImage = {
   id: string;
   url: string;
   createdAt: string; // ISO timestamp
@@ -30,9 +37,8 @@ export type THotelImage = {
   hotelPackageId: string | null;
   tourPackageId: string | null;
 };
- 
 
- export type TTourPackage = {
+export type TTourPackage = {
   id: string;
   title: string;
   description: string;
@@ -129,19 +135,16 @@ export type THotelImage = {
   }[];
 };
 
-
-
-
-// Hotel packages type 
+// Hotel packages type
 export type THotelPackage = {
   id: string;
   title: string;
   description: string;
   startDate: string; // ISO date string
-  endDate: string;   // ISO date string
+  endDate: string; // ISO date string
   slug: string;
   roomCategory: string;
-  location: string;   // new add location proverty
+  location: string; // new add location proverty
   price: number;
   bedRoom: number;
   bathRoom: number;
@@ -185,12 +188,7 @@ export type THotelPackage = {
   };
 };
 
-
-
-
-
-
-// GET Tour Booking type 
+// GET Tour Booking type
 type Guest = {
   id: string;
   fullName: string;
@@ -226,12 +224,9 @@ type VehicleBooking = {
   createdAt: string;
   updatedAt: string;
   tourPackageVehicleId: string;
-  
-  tourPackageVehicle : { vehicleType : string }
+
+  tourPackageVehicle: { vehicleType: string };
 };
-
-
-
 
 export type TourBooking = {
   id: string;
@@ -251,12 +246,9 @@ export type TourBooking = {
   transactions: any; // Change `any` to a specific type if transaction structure is known
   splitPayment: any; // Change `any` to a specific type if splitPayment structure is known
   tourPackage: TTourPackage;
-
 };
 
-
-
-// Room Bookings 
+// Room Bookings
 export interface TRoomBooking {
   id: string;
   checkInDate: string; // ISO date string
@@ -294,7 +286,7 @@ interface HotelPackage {
   title: string;
   description: string;
   startDate: string; // ISO date string
-  endDate: string;   // ISO date string
+  endDate: string; // ISO date string
   slug: string;
   roomCategory: string;
   price: number;
@@ -320,4 +312,16 @@ interface Distance {
 
 interface Transaction {
   // Define if needed; currently null
+}
+
+export interface TourStats {
+  name: string;
+  totalParticipants: number;
+  totalPercentage: number;
+}
+
+
+export interface RevenueOverview {
+  date: string;
+  earning: number;
 }

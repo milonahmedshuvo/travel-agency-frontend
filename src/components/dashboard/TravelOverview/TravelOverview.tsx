@@ -15,43 +15,32 @@ import {
   MessageSquare,
 } from "lucide-react"
 import Image from "next/image"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts"
-import { PieChart, Pie, Cell } from "recharts"
+// import { PieChart, Pie, Cell } from "recharts"
 import blogImg from '../../../assets/blog/blog.png'
 import { useAnalytiseDashboardQuery } from "@/redux/api/analytise/analytiseApi"
 import { useGetAllTourBookingsQuery, useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi"
 import { TourBooking, TTourPackage } from "@/components/lib/types"
 import Link from "next/link"
 import Loading from "@/components/shared/loading/Loading"
+import TopDestinations from "../analytics/top-destinations"
+// import RevenueOverview from "../analytics/revenue-overview"
 
 
 
-
-
-// Revenue data
-const revenueData = [
-  { name: "Sun", value: 400 },
-  { name: "Mon", value: 420 },
-  { name: "Tue", value: 320 },
-  { name: "Wed", value: 480 },
-  { name: "Thu", value: 420 },
-  { name: "Fri", value: 450 },
-  { name: "Sat", value: 470 },
-]
 
 // Destinations data
-const destinationsData = [
-  { name: "Sea Tour", value: 35, color: "#2563eb", participants: "2,458 Participants" },
-  { name: "Land Tour", value: 28, color: "#60a5fa", participants: "2,458 Participants" },
-  { name: "Cultural Tours", value: 22, color: "#bfdbfe", participants: "2,458 Participants" },
-  { name: "Wine Adventures", value: 15, color: "#dbeafe", participants: "2,458 Participants" },
-]
+// const destinationsData = [
+//   { name: "Sea Tour", value: 35, color: "#2563eb", participants: "2,458 Participants" },
+//   { name: "Land Tour", value: 28, color: "#60a5fa", participants: "2,458 Participants" },
+//   { name: "Cultural Tours", value: 22, color: "#bfdbfe", participants: "2,458 Participants" },
+//   { name: "Wine Adventures", value: 15, color: "#dbeafe", participants: "2,458 Participants" },
+// ]
 
 // Conversion data
-const conversionData = [
-  { name: "Conversion User", value: 65, color: "#2563eb", participants: "6,458 Participants" },
-  { name: "New Visitor User", value: 35, color: "#bfdbfe", participants: "1,200 Participants" },
-]
+// const conversionData = [
+//   { name: "Conversion User", value: 65, color: "#2563eb", participants: "6,458 Participants" },
+//   { name: "New Visitor User", value: 35, color: "#bfdbfe", participants: "1,200 Participants" },
+// ]
 
 // Travel packages data
 
@@ -121,7 +110,7 @@ const activitiesData = [
 ]
 
 // Custom dropdown component
-function CustomDropdown({
+export function CustomDropdown({
   options,
   value,
   onChange,
@@ -177,9 +166,8 @@ function CustomDropdown({
 }
 
 export default function TravelDashboardOverview () {
-  const [revenueTimeframe, setRevenueTimeframe] = useState("Weekly")
-  const [destinationsTimeframe, setDestinationsTimeframe] = useState("This Month")
-  const [conversionTimeframe, setConversionTimeframe] = useState("This Month")
+  // const [destinationsTimeframe, setDestinationsTimeframe] = useState("This Month")
+  // const [conversionTimeframe, setConversionTimeframe] = useState("This Month")
   // const [sortBy, setSortBy] = useState("Latest")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -292,7 +280,7 @@ if(isLoading){
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
 
         {/* Revenue Overview */}
-        <div className="rounded-lg border border-gray-200 bg-white shadow-xs lg:col-span-2">
+        {/* <div className="rounded-lg border border-gray-200 bg-white shadow-xs lg:col-span-2">
           <div className="flex flex-row items-center justify-between  p-4">
             <h3 className="text-[#000E19] text-[20px] font-[500]">Revenue Overview</h3>
             <CustomDropdown
@@ -341,10 +329,14 @@ if(isLoading){
               </ResponsiveContainer>
             </div>
           </div>
-        </div>
+        </div> */}
+        
+        
+        {/* <RevenueOverview/> */}
+
 
         {/* Top Destinations */}
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1">
+        {/* <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1">
           <div className="flex flex-row items-center justify-between  p-4">
             <h3 className="text-lg font-semibold">Top Destinations</h3>
             <CustomDropdown
@@ -396,7 +388,11 @@ if(isLoading){
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        <TopDestinations />
+
+
       </div>
 
 
@@ -492,7 +488,7 @@ if(isLoading){
 
 
         {/* Conversion Rate */}
-        <div className="rounded-lg border border-gray-200 bg-white shadow-xs">
+        {/* <div className="rounded-lg border border-gray-200 bg-white shadow-xs">
           <div className="flex flex-row items-center justify-between px-4 pt-4 ">
             <h3 className="text-[20px] font-[500]">Conversion Rate</h3>
             <CustomDropdown
@@ -541,7 +537,7 @@ if(isLoading){
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
 
