@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Search,  ChevronDown } from "lucide-react";
 import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { TRoomBooking } from "@/components/lib/types";
+import Link from "next/link";
+import Loading from "../shared/loading/Loading";
 
 export default function MyHotelBookings() {
-  const { data } = useGetAllRoomBookingsQuery("");
+  const { data, isLoading } = useGetAllRoomBookingsQuery("");
   const [searchTerm, setSearchTerm] = useState("");
   
 
@@ -38,6 +40,11 @@ export default function MyHotelBookings() {
     const stringFormatedDated = formatedDate.toLocaleDateString();
     return stringFormatedDated;
   };
+
+
+  if(isLoading){
+    return <Loading/>
+  }
 
   return (
     <div className="space-y-6 ">
@@ -100,6 +107,8 @@ export default function MyHotelBookings() {
               <th className="px-4 py-3 text-left font-medium">Check-Out</th>
               <th className="px-4 py-3 text-left font-medium">Price</th>
               <th className="px-4 py-3 text-left font-medium">Status</th>
+              <th className="px-4 py-3 text-left font-medium">Action</th>
+             
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -125,6 +134,12 @@ export default function MyHotelBookings() {
 
 
                 </td>
+
+                 <td className="px-4 py-3">
+                   <Link href={`/customer/myHotelBookings/${booking.id}`} >  
+                          <span className="py-0.5 px-3 border border-gray-300 rounded cursor-pointer">view</span>
+                          </Link>
+                 </td>
               </tr>
             ))}
           </tbody>

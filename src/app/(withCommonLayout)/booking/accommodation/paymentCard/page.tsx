@@ -1,6 +1,9 @@
 import AccommodationPaymentCard from '@/components/bookingForm/accommodation/PaymentCard'
 import React from 'react'
 
+
+
+
 const page = () => {
 
 

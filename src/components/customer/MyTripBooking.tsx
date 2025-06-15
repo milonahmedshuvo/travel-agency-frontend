@@ -181,7 +181,7 @@ const filteredBookings = tourBookings?.filter(
                         </td>
 
                         <td className="whitespace-nowrap px-4 py-6 ">
-                          <Link href={`/tourBookings/myTripBookings/${booking.id}`} >  
+                          <Link href={`/customer/myTripBookings/${booking.id}`} >  
                           <span className="py-0.5 px-3 border border-gray-300 rounded cursor-pointer">view</span>
                           </Link>
                         </td>

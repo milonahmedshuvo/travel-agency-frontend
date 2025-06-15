@@ -1,7 +1,7 @@
 "use client";
 import PaymentMethodModal from "@/common/PaymentMethodModal";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setRoomBookingPayment } from "@/redux/slice/booking/booking";
+import { setRoomBookingEightyPayment, setRoomBookingPayment } from "@/redux/slice/booking/booking";
 import { useRouter } from "next/navigation";
 // import Link from "next/link";
 import React, { useState } from "react";
@@ -15,6 +15,9 @@ export default function AccommodationPaymentCard() {
    const [isModalOpen, setModalOpen] = useState(false);
 
   console.log("booking iddddddddddddd", id)
+
+
+  
 
   const handleRoomBookingByStripe = () => {
     const makeStripePayment = async () => {
@@ -153,15 +156,16 @@ makeStripePayment();
 
     if(data?.initial){
       // go to payment final page 20% payment and store amout transactionId, paymentMethodId
-
        // data?.initial.amount
-          // data?.initial?.clientSecret
+      // data?.initial?.clientSecret
 
       console.log("amount", data?.initial.amount)
       console.log("clientSecret", data?.initial?.clientSecret)
 
-      // store clientSecret and amount in redux 
+      // store clientSecret and amount in redux  
       dispatch(setRoomBookingPayment({clientSecret: data?.initial?.clientSecret,  amount: data?.initial.amount}))
+      dispatch(setRoomBookingEightyPayment({clientSecret: data?.final?.clientSecret,  amount: data?.final.amount}))
+
       router.push("/roomTwentyPaymentStripe")
     }
 

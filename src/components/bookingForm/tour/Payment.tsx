@@ -108,6 +108,9 @@ export default function PaymentCard() {
     setModalOpen(true);
   };
 
+
+
+
   const handlePaymentSelection = (methods: {
     initialPaymentMethod: string;
     finalPaymentMethod: string;
@@ -166,10 +169,14 @@ export default function PaymentCard() {
       makeStripePayment();
     }
 
+
+
+
+
     // THIS IS PAYPAL PAYMENET
     if (methods.initialPaymentMethod === "PAYPAL") {
       // console.log("tumi Paypal payment method choise korso");
-      const makeStripePayment = async () => {
+        const makeStripePayment = async () => {
         const token = localStorage.getItem("token");
         const url = `https://supermariobos-api.code-commando.com/api/v1/tour-bookings/${tourBookingId}/split-pay`;
 
@@ -184,13 +191,15 @@ export default function PaymentCard() {
           });
 
           const data = await response.json();
-
           console.log("20% payment paypal Success:", data);
+
 
           if (data?.initial) {
             // go to payment final page
             console.log("clientSecret paypal", data?.initial?.clientSecret);
             const link = data?.initial?.clientSecret;
+
+            console.log("Paypal link check with database", data?.initial?.clientSecret )
 
             if (link) {
               window.location.href = link;

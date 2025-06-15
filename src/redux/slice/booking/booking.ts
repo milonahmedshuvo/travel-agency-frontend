@@ -58,6 +58,12 @@ interface TTourBookingEightyPayment {
 }
 
 
+interface THotelBookingEightyPayment {
+    clientSecret : string;
+    amount : number;
+}
+
+
 
 
 interface BookingState {
@@ -68,6 +74,8 @@ interface BookingState {
   roomBookingPayment : TRoomBookingPayment | null
   tourBookingPayment : TTourBookingPayment | null
   tourBookingEightyPayment : TTourBookingEightyPayment | null
+  roomBookingEightyPayment : THotelBookingEightyPayment | null
+
 
   // Room Booking id without payment 
   roomBookingId : string | null
@@ -82,6 +90,7 @@ const initialState:BookingState = {
     roomBookingPayment: null,
     tourBookingPayment : null,
     tourBookingEightyPayment: null,
+    roomBookingEightyPayment: null,
 
     // Room Booking id without payment 
     roomBookingId : null,
@@ -130,6 +139,17 @@ const booking = createSlice({
     clearRoomBoookingPayment(state) {
       state.roomBookingPayment = null
     },
+
+    // Room booking payment 80% creadintioal
+     
+     setRoomBookingEightyPayment(state, action:PayloadAction<TRoomBookingPayment>) {
+      state.roomBookingEightyPayment = action.payload
+    },
+    clearRoomBoookingEightyPayment(state) {
+      state.roomBookingEightyPayment = null
+    },
+
+
 
 
      // Tour booking payment 
@@ -180,7 +200,7 @@ const booking = createSlice({
   },
 });
 
-export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setTourBookingId, setTourBookingPayment, setTourBookingEightyPayment } = booking.actions;
+export const { setBookingSelectTourDateDatails, clearBookingSelectTourDateDatails, setGustDatailsOne, setGustDatailsTwo, setGustDatailsThree, setRoomBookingId, setRoomBookingPayment, setTourBookingId, setTourBookingPayment, setTourBookingEightyPayment, setRoomBookingEightyPayment } = booking.actions;
 export default booking.reducer;
 
 

@@ -157,17 +157,19 @@ export default function PaypalReturnClient() {
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  const payType = searchParams.get("paymentType");
+  const payType = searchParams.get("paymentType"); 
   const payFor = searchParams.get("bookingType");
+
 
   const [payTourFull, {data:fullPayment, error:fullPaymentError}] = useCreateTourPaypalPaymentMutation();
   const [payTour20, {data:initial, error}] = useCreateTourPaypal20PaymentMutation();
   const [payTour80] = useCreateTourPaypal80PaymentMutation();
 
 
+
   console.log({initial, error})
   console.log({fullPayment, fullPaymentError})
-
+   
 
 
 
