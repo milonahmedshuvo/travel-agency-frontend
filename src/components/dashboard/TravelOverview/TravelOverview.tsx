@@ -23,7 +23,7 @@ import { TourBooking, TTourPackage } from "@/components/lib/types"
 import Link from "next/link"
 import Loading from "@/components/shared/loading/Loading"
 import TopDestinations from "../analytics/top-destinations"
-// import RevenueOverview from "../analytics/revenue-overview"
+import RevenueOverview from "../analytics/revenue-overview"
 
 
 
@@ -332,7 +332,7 @@ if(isLoading){
         </div> */}
         
         
-        {/* <RevenueOverview/> */}
+        <RevenueOverview/>
 
 
         {/* Top Destinations */}
