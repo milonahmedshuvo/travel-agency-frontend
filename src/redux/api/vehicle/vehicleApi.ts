@@ -16,7 +16,21 @@ export const vehicleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.vehicles],
     }),
+    getSingleVehicle: builder.query({
+      query: (id) => ({
+        url:`/vehicles/${id}`,
+        method: 'GET'
+      })
+    }),
+    updateVehicle: builder.mutation({
+      query: ({id,payload}) => ({
+        url: `/vehicles/${id}`,
+        method: 'PATCH',
+        body: payload
+      })
+    })
   }),
+
 });
 
-export const { useGetAllVehicleQuery, useCreateVehicleMutation } = vehicleApi;
+export const { useGetAllVehicleQuery, useCreateVehicleMutation, useGetSingleVehicleQuery, useUpdateVehicleMutation } = vehicleApi;
