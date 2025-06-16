@@ -8,15 +8,15 @@ import { useRouter } from "next/navigation";
 import { setTourBookingId } from "@/redux/slice/booking/booking";
 import { useGetMeQuery } from "@/redux/api/auth/authApi";
 import Link from "next/link";
+import { useState } from "react";
 
 
 export default function BookingReview() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const booktourPackagesId = useAppSelector((state) => state.vehicleBooking.tourPackageId)
-  // console.log("booktourPackagesId", booktourPackagesId)
   const {data:bookTourPacakages} = useGetSingleTourQuery(booktourPackagesId)
-  // console.log("dataaaaaaaaaaaa", bookTourPacakages?.data?.title)
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -59,7 +59,11 @@ export default function BookingReview() {
 
   const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];
 
+
+
   const handleBookingDataSend = async () => {
+    setLoading(true);
+
     if (!selectTourDateDatails || !selectTourDateDatails.date) {
       throw new Error("Tour date is required.");
     }
@@ -92,7 +96,7 @@ export default function BookingReview() {
 
 
       toast.success(result.message || "Tour Bookings success!!");
-
+      setLoading(false); 
       router.push('/booking/payment')
       // next page 
       // /booking/ConfirmedBooking
@@ -100,6 +104,7 @@ export default function BookingReview() {
     } catch (err) {
       console.log("error tour booking", err);
       toast.error("bookings Filed");
+      setLoading(false);
     }
   };
 
@@ -164,8 +169,12 @@ export default function BookingReview() {
           type="submit"
           className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
         >
-          Confirm & Pay Now
-          <svg
+         {
+           loading? <span className="">Processing...</span> : <span>Confirm & Pay Now</span>
+         }
+
+          {
+             !loading && <svg
             className="w-5 h-5 ml-2"
             fill="none"
             stroke="currentColor"
@@ -179,6 +188,10 @@ export default function BookingReview() {
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
+          }
+
+
+
         </button>
       
         <div className="flex justify-center items-center cursor-pointer">

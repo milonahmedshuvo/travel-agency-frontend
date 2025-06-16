@@ -26,6 +26,7 @@ type TourCustomerInfo = {
   updatedAt: string; // or Date
 };
 
+
 const MyTourBookingDatailsPage = () => {
   const params = useParams();
   const id = params.id;
@@ -121,7 +122,7 @@ const MyTourBookingDatailsPage = () => {
 
 
 
-  console.log("paypal link 20%", data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret )
+  // console.log("paypal link 20%", data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret )
 
   // 20% payment PAYPAL 
   const initial20PaypalPaymentPaypal = () => {
@@ -365,7 +366,7 @@ const MyTourBookingDatailsPage = () => {
 
                  <div className="flex gap-2 mt-3 items-center ">
                   <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
-                  <p className="text-[16px] text-[#676767] "> { data?.data?.splitPayment?.initialPaymentTransaction?.status} </p>
+                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed "> { data?.data?.splitPayment?.initialPaymentTransaction?.status} </p>
                 </div>
 
 
@@ -437,7 +438,7 @@ const MyTourBookingDatailsPage = () => {
 
                  <div className="flex gap-2 mt-3 items-center ">
                   <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
-                  <p className="text-[16px] text-[#676767] "> { data?.data?.splitPayment?.finalPaymentTransaction?.status} </p>
+                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed "> { data?.data?.splitPayment?.finalPaymentTransaction?.status} </p>
                 </div>
 
 

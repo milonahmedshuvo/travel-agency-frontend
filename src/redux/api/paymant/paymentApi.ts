@@ -1,8 +1,9 @@
 import { baseApi } from "../baseApi";
  
+
 export const paymentApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-    
+            
     createTourPaypalPayment:  builder.mutation<{message: string}, {data: {paymentMethodId: string}, id: string}>({
         query: ({data, id}) => ({
             url: `tour-bookings/full-payment-confirm/${id}/paypal`,

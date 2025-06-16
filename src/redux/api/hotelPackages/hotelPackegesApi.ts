@@ -35,7 +35,8 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
     }),
 
     getSingleRoomBooking : builder.query({
-      query : (id) => `/room-bookings/${id}`
+      query : (id) => `/room-bookings/${id}`,
+      providesTags: ['payment']
     }),
 
     

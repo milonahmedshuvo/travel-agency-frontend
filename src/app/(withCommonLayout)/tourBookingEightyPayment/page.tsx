@@ -39,7 +39,7 @@ const TourStripeEightyPaymentPage = () => {
     const elements = useElements();
 
 
-    const handleRoomBookingFullPaymentByStripe = async () => {
+    const handleTourStripeEightyPaymentByStripe = async () => {
     // console.log('Stripe full payment clientSecret:', clientSecret);
 
     if (!stripe || !elements || !clientSecret) {
@@ -136,7 +136,7 @@ const TourStripeEightyPaymentPage = () => {
 
 
          <button
-          onClick={() => handleRoomBookingFullPaymentByStripe()}
+          onClick={() => handleTourStripeEightyPaymentByStripe()}
           type="submit"
           className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
         >

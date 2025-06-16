@@ -8,15 +8,18 @@ import toast from "react-hot-toast";
 // import Link from "next/link";
 
 export default function PaymentCard() {
+   const [loading, setLoading] = useState(false);
+   const [loadingStripe, setLoadingStripe] = useState(false);
+   const [loadingPaypal, setLoadingPaypal] = useState(false);
   const tourBookingId = useAppSelector((state) => state.booking.tourBookingId);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [isModalOpen, setModalOpen] = useState(false);
-
   console.log("tourBookingId", tourBookingId);
 
   // stripe full payment
   const handleRoomBookingByStripe = () => {
+        setLoadingStripe(true);
     const makeStripePayment = async () => {
       const token = localStorage.getItem("token");
       const url = `https://supermariobos-api.code-commando.com/api/v1/tour-bookings/full-payment/${tourBookingId}/stripe`;
@@ -48,10 +51,12 @@ export default function PaymentCard() {
               amount: data?.data?.transactions?.amount,
             })
           );
+          setLoadingStripe(false)
           router.push("/tourStripe/tourStripeFullPayment");
         }
       } catch (error) {
         console.error("Tour payment requst Success:", error);
+        setLoadingStripe(false)
       }
     };
 
@@ -60,6 +65,7 @@ export default function PaymentCard() {
   };
 
   const handleRoomBookingByPaypal = () => {
+     setLoadingPaypal(true)
     const makeStripePayment = async () => {
       const token = localStorage.getItem("token");
       const url = `https://supermariobos-api.code-commando.com/api/v1/tour-bookings/full-payment/${tourBookingId}/paypal`;
@@ -85,7 +91,7 @@ export default function PaymentCard() {
           // go to payment final page
           // console.log("amount", data?.data?.transactions?.amount)
           // console.log("clientSecret", data?.data?.transactions?.clientSecret)
-
+          setLoadingPaypal(false) 
           const link = data?.data?.transactions?.clientSecret;
 
           if (link) {
@@ -96,6 +102,7 @@ export default function PaymentCard() {
         }
       } catch (error) {
         console.error("Room payment requst Success:", error);
+        setLoadingPaypal(false)
       }
     };
 
@@ -115,8 +122,7 @@ export default function PaymentCard() {
     initialPaymentMethod: string;
     finalPaymentMethod: string;
   }) => {
-    // console.log("Selected Methods:", methods);
-    // Proceed with your API call or logic
+    setLoading(true)
 
     // THIS IS STRIPE PAYMENT
     if (methods.initialPaymentMethod === "STRIPE") {
@@ -136,6 +142,7 @@ export default function PaymentCard() {
 
           const data = await response.json();
           console.log("20% payment stripe Success:", data);
+          setLoading(false)
 
           if (data?.initial) {
             // go to payment final page 20% payment and store amout transactionId, paymentMethodId
@@ -162,6 +169,7 @@ export default function PaymentCard() {
           }
         } catch (error) {
           console.error("20% requst error", error);
+          setLoading(false)
         }
       };
 
@@ -192,7 +200,7 @@ export default function PaymentCard() {
 
           const data = await response.json();
           console.log("20% payment paypal Success:", data);
-
+           setLoading(false)
 
           if (data?.initial) {
             // go to payment final page
@@ -209,6 +217,7 @@ export default function PaymentCard() {
           }
         } catch (error) {
           console.error("Room payment requst error:", error);
+          setLoading(false)
         }
       };
 
@@ -246,8 +255,12 @@ export default function PaymentCard() {
           type="submit"
           className="w-full py-3 px-4 bg-[#E8E8E8] text-[#101010] rounded-lg flex items-center justify-center cursor-pointer"
         >
-          Stripe Payment
-          <svg
+          
+          {
+            loadingStripe ? <span> Processing..</span> : "Stripe Payment"
+          }
+          {
+            !loadingStripe && <svg
             className="w-5 h-5 ml-2"
             fill="none"
             stroke="currentColor"
@@ -261,6 +274,8 @@ export default function PaymentCard() {
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
+          }
+          
         </button>
         {/* </Link> */}
 
@@ -269,7 +284,8 @@ export default function PaymentCard() {
           type="button"
           className="w-full py-3 px-4 font-medium rounded-lg flex items-center justify-center bg-[#E8E8E8] text-[#101010]  mt-3 cursor-pointer "
         >
-          <svg
+          
+          {!loadingPaypal && <svg
             className="w-5 h-5 mr-2"
             fill="none"
             stroke="currentColor"
@@ -282,8 +298,11 @@ export default function PaymentCard() {
               strokeWidth="2"
               d="M12 6v6m0 0v6m0-6h6m-6 0H6"
             ></path>
-          </svg>
-          PayPal Payment
+          </svg>}
+          {
+            loadingPaypal ? <span> Processing..</span> : "PayPal Payment"
+          }
+          
         </button>
 
         {/* // 20 % pament  */}
@@ -299,7 +318,8 @@ export default function PaymentCard() {
           type="button"
           className="w-full py-3 px-4 font-medium rounded-lg flex items-center justify-center bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff]  mt-3 cursor-pointer"
         >
-          <svg
+          {
+            !loading && <svg
             className="w-5 h-5 mr-2"
             fill="none"
             stroke="currentColor"
@@ -313,7 +333,10 @@ export default function PaymentCard() {
               d="M12 6v6m0 0v6m0-6h6m-6 0H6"
             ></path>
           </svg>
-          Deposit 20% + Cash
+          }
+          {
+            loading ? <span>Processing..</span> : "Deposit 20% + Cash"
+          }
         </button>
 
         <PaymentMethodModal

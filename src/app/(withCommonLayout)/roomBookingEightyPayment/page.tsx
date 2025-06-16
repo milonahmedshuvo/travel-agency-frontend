@@ -14,20 +14,13 @@ const RoomStripeEightyPaymentPage = () => {
 
     console.log("transition id ",  roomBooking?.data?.transactions?.id)
     const router = useRouter()
-   
-
-
-
-   
-
-
-
+      
 
     const stripe = useStripe();
     const elements = useElements();
 
 
-    const handleRoomBookingFullPaymentByStripe = async () => {
+    const handleRoomStripeEightyPayment = async () => {
     // console.log('Stripe full payment clientSecret:', clientSecret);
 
     if (!stripe || !elements || !clientSecret) {
@@ -72,7 +65,6 @@ const RoomStripeEightyPaymentPage = () => {
 
 
     //   confirm 20% payment for stripe
-
 
         const token = localStorage.getItem('token');
 
@@ -128,7 +120,7 @@ const RoomStripeEightyPaymentPage = () => {
 
 
          <button
-          onClick={() => handleRoomBookingFullPaymentByStripe()}
+          onClick={() => handleRoomStripeEightyPayment()}
           type="submit"
           className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
         >
@@ -137,5 +129,6 @@ const RoomStripeEightyPaymentPage = () => {
     </div>
   )
 }
+
 
 export default RoomStripeEightyPaymentPage;

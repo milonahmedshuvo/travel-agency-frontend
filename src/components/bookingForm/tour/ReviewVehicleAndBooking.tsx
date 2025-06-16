@@ -9,9 +9,11 @@ import toast from "react-hot-toast";
 import { useGetMeQuery } from "@/redux/api/auth/authApi";
 import { setTourBookingId } from "@/redux/slice/booking/booking";
 import Link from "next/link";
+import { useState } from "react";
 
 
 export default function BookingAndVehicleReview() {
+   const [loading, setLoading] = useState(false);
   const router = useRouter()
   const pickupLocation = useAppSelector((state) => state.vehicleBooking.pickUpAddr)
   const pickUpDate = useAppSelector((state) => state.vehicleBooking.pickUpDate)
@@ -54,6 +56,7 @@ export default function BookingAndVehicleReview() {
 const guests = [gustDatailsOne, gustDatailsTwo, gustDatailsThree];
   
 const handleBookingDataSend = async () => {
+   setLoading(true);
 
   if (!selectTourDateDatails || !selectTourDateDatails.date) {
   throw new Error("Tour date is required.");
@@ -99,13 +102,14 @@ console.log('vehicle booking payload..', payload)
  console.log("Tour booking id :", tourBookingId)
  dispatch(setTourBookingId(tourBookingId))
 
-
+  setLoading(false);
   router.push('/booking/payment')
  
 
  }catch(err){
   console.log('error tour booking', err)
   toast.error("bookings error")
+  setLoading(false);
  }
 }
 
@@ -177,35 +181,36 @@ console.log('vehicle booking payload..', payload)
               <div className="flex gap-3">
                  <h1 className="font-medium">Pick up rastaurant :</h1>
                  <h1>{pickupRestaurant}</h1>
-              </div>
-        
-
-
-
-
-
-
+              </div>        
         
           <button
             onClick={() => handleBookingDataSend()}
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] rounded-lg flex items-center justify-center text-white cursor-pointer"
           >
-            Confirm & Pay Now
-            <svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              ></path>
-            </svg>
+
+            {
+           loading? <span className="">Processing...</span> : <span>Confirm & Pay Now</span>
+         }
+
+          {
+             !loading && <svg
+            className="w-5 h-5 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+          }
+
+
           </button>
            
             <div className="flex justify-center items-center cursor-pointer">

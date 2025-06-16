@@ -60,7 +60,8 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     }),
 
     getSingleTourBooking : builder.query({
-        query : (id) => `/tour-bookings/${id}`  
+        query : (id) => `/tour-bookings/${id}`,
+        providesTags: ['payment']  
     })
      
 

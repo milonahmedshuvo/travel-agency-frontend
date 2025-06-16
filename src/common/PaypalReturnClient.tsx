@@ -139,6 +139,7 @@ import { toast } from "sonner";
 import { useAppSelector } from "@/redux/hook";
 import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 
+
 export default function PaypalReturnClient() {
   const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
   const [message, setMessage] = useState("");
@@ -146,8 +147,8 @@ export default function PaypalReturnClient() {
   const {data} = useGetSingleTourBookingQuery(tourBookingId);
 
   
-  const initialTourBookingId = data?.data?.splitPayment?.initialPaymentTransaction?.id 
-  const finalTourBookingId = data?.data?.splitPayment?.finalPaymentTransaction?.id 
+  const initialTourBookingId = data?.data?.splitPayment?.initialPaymentTransaction?.id || ""; 
+  const finalTourBookingId = data?.data?.splitPayment?.finalPaymentTransaction?.id || "";
   const fullTourBookingId = data?.data?.transactions?.id;
 
   // const bookingId = data?.data?.id;
@@ -186,7 +187,7 @@ export default function PaypalReturnClient() {
         let result;
 
         if (payFor === "tour") {
-          if (payType === "initial") {
+          if (payType === "initial" && initialTourBookingId) {
             result = toast.promise(
               payTour20({
                 data: { paymentMethodId: token!, transactionId: initialTourBookingId },
@@ -204,9 +205,10 @@ export default function PaypalReturnClient() {
                   setMessage(err.message || "20% Payment failed.");
                   return err.message;
                 },
+                
               }
             );
-          } else if (payType === "final") {
+          } else if (payType === "final" && finalTourBookingId) {
             result = toast.promise(
               payTour80({
                 data: { paymentMethodId: token!, transactionId: finalTourBookingId  },
@@ -226,7 +228,7 @@ export default function PaypalReturnClient() {
                 },
               }
             );
-          } else if (payType === "full") {
+          } else if (payType === "full" ) {
             result = toast.promise(
               payTourFull({
                 data: { paymentMethodId: token! },
@@ -250,6 +252,15 @@ export default function PaypalReturnClient() {
 
           await result;
         }
+
+
+
+       
+
+
+
+
+
       } catch (error) {
         console.error("Unexpected error during payment processing:", error);
         setStatus("error");
@@ -258,7 +269,7 @@ export default function PaypalReturnClient() {
     };
 
     handlePayment();
-  }, [payType, payFor, payTourFull, payTour80, payTour20]);
+  }, [payType, payFor, payTourFull, payTour80, payTour20, token, tourBookingId, initialTourBookingId, finalTourBookingId]);
 
 
 
