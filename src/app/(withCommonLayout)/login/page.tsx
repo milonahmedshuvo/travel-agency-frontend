@@ -13,7 +13,7 @@ import { useLoginMutation } from "@/redux/api/auth/authApi";
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch } from "@/redux/hook";
 import { setUser } from "@/redux/slice/auth/authSlice";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
 // Form validation schema
@@ -30,12 +30,26 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+
+
+
+
+
+
+
+
+
 export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+//  user managed 
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirectTo') || '/';
+
 
   const {
     register,
@@ -50,7 +64,13 @@ export default function LoginForm() {
     },
   });
 
+
+
+
+
+
   const onSubmit = async (data: FormValues) => {
+
     try {
       const response = await login(data).unwrap();
       console.log("Login Success:", response);
@@ -67,14 +87,20 @@ export default function LoginForm() {
         dispatch(
           setUser({ user: decodedUser, token: response?.data?.access_token })
         );
+
+
         reset();
-        router.push('/')
+        // router.push('/')
+         router.push(redirectTo);
       }
     } catch (err) {
       // console.error("Login Failed:", err);
       toast.error("Login Failed!!")
     }
   };
+
+
+
 
   
   return (

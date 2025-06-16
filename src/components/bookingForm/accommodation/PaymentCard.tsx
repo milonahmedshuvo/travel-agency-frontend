@@ -163,8 +163,10 @@ makeStripePayment();
        // data?.initial.amount
       // data?.initial?.clientSecret
 
-      console.log("amount", data?.initial.amount)
-      console.log("clientSecret", data?.initial?.clientSecret)
+      // console.log("amount", data?.initial.amount)
+      // console.log("clientSecret", data?.initial?.clientSecret)
+
+
 
       // store clientSecret and amount in redux  
       dispatch(setRoomBookingPayment({clientSecret: data?.initial?.clientSecret,  amount: data?.initial.amount}))

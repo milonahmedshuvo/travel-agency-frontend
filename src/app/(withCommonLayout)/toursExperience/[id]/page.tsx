@@ -29,7 +29,7 @@ import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import { useGetSingleTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { useParams, useRouter } from "next/navigation";
 import { TPackageImage } from "@/components/lib/types";
-import { useAppDispatch } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { setTourPackageId } from "@/redux/slice/vehicleBooking/vehicleBookingSlice";
 import Loading from "@/components/shared/loading/Loading";
 
@@ -39,15 +39,14 @@ export default function Page() {
   const dispatch =useAppDispatch()
   const params = useParams()
   const id = params.id 
- 
-  
   const {data, isLoading} = useGetSingleTourQuery(id)
   
+  const isAuthenticated = useAppSelector((state)=>state.auth.user?.email)
 
-  // console.log('single tour data:', data?.data?.images)
-  console.log('single tour data:', data?.data)
-  console.log('tour packages id:', data?.data?.id)
-  // console.log('tour packages vihecle id:', data?.data)
+  console.log({isAuthenticated})
+
+
+
  
 
   if(isLoading){
@@ -57,9 +56,16 @@ export default function Page() {
 
    const handleOrder = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    console.log('order click')
-    dispatch(setTourPackageId(id))
-    router.push('/booking/booking')
+    // dispatch(setTourPackageId(id))
+    // router.push('/booking/booking')
+
+    if (isAuthenticated) {
+      dispatch(setTourPackageId(id))
+       router.push('/booking/booking')
+    } else {
+      router.push('/login?redirectTo=/booking/booking');
+    }
+
    }
 
 

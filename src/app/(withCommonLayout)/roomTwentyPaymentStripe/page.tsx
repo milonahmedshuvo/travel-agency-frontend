@@ -53,6 +53,10 @@ const RoomStripeFullPaymentPage = () => {
       console.error("Payment failedddd:", result.error.message);
       toast.error("Payment failed, Please try again!!")
     } else {
+
+
+
+
       if (result.paymentIntent?.status === 'succeeded') {
         console.log("card success result:", result)
         console.log("Payment succeeded paymentIntent!", result.paymentIntent );
@@ -66,12 +70,6 @@ const RoomStripeFullPaymentPage = () => {
 
 
 
-
-
-
-    //   confirm 20% payment for stripe
-
-
         const token = localStorage.getItem('token');
 
         try {
@@ -81,7 +79,7 @@ const RoomStripeFullPaymentPage = () => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.transactions?.id }),
+          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.splitPayment?.initialPaymentTransaction?.id }),
         });
 
         const data = await res.json();
@@ -106,6 +104,9 @@ const RoomStripeFullPaymentPage = () => {
       }
 
       }
+
+
+
     }
   };
 

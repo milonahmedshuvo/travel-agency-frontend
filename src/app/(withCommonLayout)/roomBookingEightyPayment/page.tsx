@@ -8,13 +8,14 @@ import toast from "react-hot-toast";
 
 const RoomStripeEightyPaymentPage = () => {
     const amount = useAppSelector((state) => state.booking.roomBookingEightyPayment?.amount)
-    const clientSecret  = useAppSelector((state) => state.booking.roomBookingPayment?.clientSecret)
+    const clientSecret  = useAppSelector((state) => state.booking.roomBookingEightyPayment?.clientSecret)
     const id = useAppSelector((state) => state.booking.roomBookingId)
     const {data:roomBooking}= useGetSingleRoomBookingQuery(id)
-
-    console.log("transition id ",  roomBooking?.data?.transactions?.id)
     const router = useRouter()
-      
+
+    // Room booking 
+   
+    
 
     const stripe = useStripe();
     const elements = useElements();
@@ -60,33 +61,29 @@ const RoomStripeEightyPaymentPage = () => {
 
 
 
-
-
-
-
     //   confirm 20% payment for stripe
 
         const token = localStorage.getItem('token');
 
         try {
-        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay/initial`, {
+        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay/final`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.transactions?.id }),
+          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.splitPayment?.finalPaymentTransaction?.id }),
         });
 
         const data = await res.json();
 
-    
-
         if (data) {
           toast.success( `${data.message} 80% ` || "Payment 80% confirmed successfully!");
-          console.log("Backend response:", data);
+          console.log("Backend responsettttttttttt:", data);
 
           router.push('/booking/accommodation/roomTwentStripeConfirm')
+          
+         
         } else {
           toast.error("Failed to confirm payment.");
           console.error("Error from backend:", data);

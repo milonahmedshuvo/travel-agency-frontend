@@ -131,6 +131,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
+  useCreateRoomPaypal20PaymentMutation,
+  useCreateRoomPaypal80PaymentMutation,
+  useCreateRoomPaypalPaymentMutation,
   useCreateTourPaypal20PaymentMutation,
   useCreateTourPaypal80PaymentMutation,
   useCreateTourPaypalPaymentMutation,
@@ -138,6 +141,7 @@ import {
 import { toast } from "sonner";
 import { useAppSelector } from "@/redux/hook";
 import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 
 
 export default function PaypalReturnClient() {
@@ -149,12 +153,16 @@ export default function PaypalReturnClient() {
   
   const initialTourBookingId = data?.data?.splitPayment?.initialPaymentTransaction?.id || ""; 
   const finalTourBookingId = data?.data?.splitPayment?.finalPaymentTransaction?.id || "";
-  const fullTourBookingId = data?.data?.transactions?.id;
+  // const fullTourBookingId = data?.data?.transactions?.id;
 
-  // const bookingId = data?.data?.id;
+  // Room Bookings functionality implements 
+  const roomBookingId = useAppSelector((state) => state.booking.roomBookingId);
+  const {data:roomData} = useGetSingleRoomBookingQuery(roomBookingId);
 
-  console.log({initialTourBookingId, finalTourBookingId, fullTourBookingId})
-   console.log({tourBookingId})
+  const initialRoomBookingId = roomData?.data?.splitPayment?.initialPaymentTransaction?.id || "";
+  const finalRoomBookingId = roomData?.data?.splitPayment?.finalPaymentTransaction?.id || "";
+
+  
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -162,14 +170,17 @@ export default function PaypalReturnClient() {
   const payFor = searchParams.get("bookingType");
 
 
-  const [payTourFull, {data:fullPayment, error:fullPaymentError}] = useCreateTourPaypalPaymentMutation();
-  const [payTour20, {data:initial, error}] = useCreateTourPaypal20PaymentMutation();
+  const [payTourFull] = useCreateTourPaypalPaymentMutation();
+  const [payTour20] = useCreateTourPaypal20PaymentMutation();
   const [payTour80] = useCreateTourPaypal80PaymentMutation();
 
 
+   const [payRoomFull] = useCreateRoomPaypalPaymentMutation();
+  const [payRoom20] = useCreateRoomPaypal20PaymentMutation();
+  const [payRoom80] = useCreateRoomPaypal80PaymentMutation();
 
-  console.log({initial, error})
-  console.log({fullPayment, fullPaymentError})
+
+  
    
 
 
@@ -257,6 +268,75 @@ export default function PaypalReturnClient() {
 
        
 
+        // Room Booking functionality implements
+        if (payFor === "hotel") {
+          if (payType === "initial" && initialRoomBookingId) {
+            result = toast.promise(
+              payRoom20({
+                data: { paymentMethodId: token!, transactionId: initialRoomBookingId },
+                id: roomBookingId!,
+              }).unwrap(),
+              {
+                loading: "Processing 20% payment...",
+                success: (data) => {
+                  setStatus("success");
+                  setMessage(data.message || "20% Payment successful!");
+                  return data.message;
+                },
+                error: (err) => {
+                  setStatus("error");
+                  setMessage(err.message || "20% Payment failed.");
+                  return err.message;
+                },
+              }
+            );
+          } else if (payType === "final" && finalRoomBookingId) {
+            result = toast.promise(
+              payRoom80({
+                data: { paymentMethodId: token!, transactionId: finalRoomBookingId },
+                id: roomBookingId!,
+              }).unwrap(),
+              {
+                loading: "Processing 80% payment...",
+                success: (data) => {
+                  setStatus("success");
+                  setMessage(data.message || "80% Payment successful!");
+                  return data.message;
+                },
+                error: (err) => {
+                  setStatus("error");
+                  setMessage(err.message || "80% Payment failed.");
+                  return err.message;
+                },
+              }
+            );
+          } else if (payType === "full") {
+            result = toast.promise(
+              payRoomFull({
+                data: { paymentMethodId: token! },
+                id: roomBookingId!,
+              }).unwrap(),
+              {
+                loading: "Processing full payment...",
+                success: (data) => {
+                  setStatus("success");
+                  setMessage(data.message || "Full Payment successful!");
+                  return data.message;
+                },
+                error: (err) => {
+                  setStatus("error");
+                  setMessage(err.message || "Full Payment failed.");
+                  return err.message;
+                },
+              }
+            );
+          }
+
+          await result;
+        } 
+
+
+
 
 
 
@@ -269,7 +349,7 @@ export default function PaypalReturnClient() {
     };
 
     handlePayment();
-  }, [payType, payFor, payTourFull, payTour80, payTour20, token, tourBookingId, initialTourBookingId, finalTourBookingId]);
+  }, [payType, payFor, payTourFull, payTour80, payTour20, token, tourBookingId, initialTourBookingId, finalTourBookingId, payRoom20, payRoom80, payRoomFull, initialRoomBookingId, finalRoomBookingId, roomBookingId]);
 
 
 
