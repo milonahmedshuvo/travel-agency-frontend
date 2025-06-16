@@ -1,22 +1,20 @@
 "use client"
 
-import { useState } from "react";
 import { Calendar, DollarSign } from "lucide-react";
 import { StatCard } from "@/components/dashboard/StatCard/StatCard";
-import { TopPackages } from "@/components/dashboard/TopPackages/TopPackages";
-import { TripsOverview } from "@/components/dashboard/TripsOverview/TripsOverview";
 import Header from "@/components/dashboard/Header/Header";
 import AccommodationsBookings from "@/components/dashboard/AccommodationsBookings/AccommodationsBookings";
 import { useAnalyticsHotelBookingsQuery } from "@/redux/api/analytise/analytiseApi";
+import TripsOverview from "@/components/dashboard/TripsOverview/TripsOverview";
+import TopPackages from "@/components/dashboard/TopPackages/TopPackages";
 
 
 
 
 export default function HotelBooking() {
-  const [timeRange, setTimeRange] = useState("12");
 
  const {data:analytiseHotelBooking} = useAnalyticsHotelBookingsQuery("")
- console.log( 'ddddddddddd', analytiseHotelBooking?.data)
+//  console.log( 'ddddddddddd', analytiseHotelBooking?.data)
 
 
 
@@ -59,7 +57,7 @@ export default function HotelBooking() {
         </div>
 
         <div className="lg:col-span-2  xl:col-span-2  xl:row-span-3 ">
-        <TripsOverview timeRange={timeRange} setTimeRange={setTimeRange} />
+        <TripsOverview/>
         </div>
       </div>
 

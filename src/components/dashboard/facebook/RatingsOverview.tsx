@@ -2,20 +2,22 @@
 
 import { useState } from "react"
 import { MoreHorizontal } from "lucide-react"
-
-// Rating data
-const ratingCategories = [
-  { name: "Accommodation", rating: 4.6 },
-  { name: "Sea Tour", rating: 4.8 },
-  { name: "Land Tour", rating: 4.4 },
-  { name: "Cultural Tours", rating: 4.7 },
-  { name: "Culinary & Wine Adventures", rating: 4.3 },
-]
+import { useFacebookAnalytiseQuery } from "@/redux/api/analytise/facebookApi"
+import { format, subMonths } from "date-fns"
 
 export default function RatingsOverview() {
-  const overallRating = 4.5
-  const totalReviews = 1250
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // Get ratings data (last 3 months used as default)
+  const today = new Date()
+  const startDate = format(subMonths(today, 12), "yyyy-MM-dd")
+  const endDate = format(today, "yyyy-MM-dd")
+
+  const { data, isLoading } = useFacebookAnalytiseQuery({ startDate, endDate })
+  // console.log(data)
+  const overallRating = data?.totalAverage || 0
+  const totalReviews = data?.categories?.reduce((acc, curr) => acc + curr.totalFeedback, 0) || 0
+  const ratingCategories = data?.categories || []
 
   return (
     <div>
@@ -63,39 +65,46 @@ export default function RatingsOverview() {
       </div>
 
       <div className="bg-gray-100 p-4 rounded-lg mb-6 flex gap-3">
-
-        <div className="flex items-center">   
+        <div className="flex items-center">
           <div className="text-4xl font-bold text-blue-500 flex items-center">
             <span className="text-yellow-400 mr-2">★</span>
-            {overallRating}
-            <span  className="text-sm text-gray-500 font-normal ml-1">/5</span>
+            {overallRating.toFixed(1)}
+            <span className="text-sm text-gray-500 font-normal ml-1">/5</span>
           </div>
         </div>
-
         <div>
           <div className="mt-1 text-lg font-semibold text-blue-500">Excellent</div>
-           <div className="text-sm text-gray-500 mt-1">From {totalReviews.toLocaleString()} Reviews</div>
+          <div className="text-sm text-gray-500 mt-1">From {totalReviews.toLocaleString()} Reviews</div>
         </div>
-
       </div>
 
-      <div className="space-y-4">
-        {ratingCategories.map((category) => (
-          <div key={category.name} className="flex items-center justify-between">
-            <span className="text-gray-700">{category.name}</span>
-            <div className="flex items-center">
-              <div className="flex mr-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <span key={star} className="text-yellow-400">
-                    {star <= Math.floor(category.rating) ? "★" : star - 0.5 <= category.rating ? "★" : "☆"}
-                  </span>
-                ))}
+      {isLoading ? (
+        <p className="text-gray-500">Loading category ratings...</p>
+      ) : (
+        <div className="space-y-4">
+          {ratingCategories?.map((category) => (
+            <div key={category.name} className="flex items-center justify-between">
+              <span className="text-gray-700 capitalize">{category.name.replace(/_/g, " ").toLowerCase()}</span>
+              <div className="flex items-center">
+                <div className="flex mr-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span key={star} className="text-yellow-400">
+                      {star <= Math.floor(category.averageRating)
+                        ? "★"
+                        : star - 0.5 <= category.averageRating
+                        ? "★"
+                        : "☆"}
+                    </span>
+                  ))}
+                </div>
+                <span className="text-gray-700 font-medium">
+                  {category.averageRating.toFixed(2)}
+                </span>
               </div>
-              <span className="text-gray-700 font-medium">{category.rating}</span>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

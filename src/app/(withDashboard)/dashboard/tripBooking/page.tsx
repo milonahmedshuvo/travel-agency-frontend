@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { Calendar, DollarSign } from "lucide-react";
 import { StatCard } from "@/components/dashboard/StatCard/StatCard";
-import { TopPackages } from "@/components/dashboard/TopPackages/TopPackages";
-import { TripsOverview } from "@/components/dashboard/TripsOverview/TripsOverview";
 import { BookingsTable } from "@/components/dashboard/BookingsTable/BookingsTable";
 import Header from "@/components/dashboard/Header/Header";
 import { useAnalytiseTourBookingsQuery } from "@/redux/api/analytise/analytiseApi";
+import TripsOverview from "@/components/dashboard/TripsOverview/TripsOverview";
+import TopPackages from "@/components/dashboard/TopPackages/TopPackages";
 
 
 
@@ -15,7 +15,6 @@ import { useAnalytiseTourBookingsQuery } from "@/redux/api/analytise/analytiseAp
 
 export default function TripBooking() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [timeRange, setTimeRange] = useState("12");
   const [dateFilter, setDateFilter] = useState("today");
   
   const {data} = useAnalytiseTourBookingsQuery("")
@@ -74,7 +73,7 @@ export default function TripBooking() {
         </div>
 
         <div className="lg:col-span-2  xl:col-span-2  xl:row-span-3 ">
-        <TripsOverview timeRange={timeRange} setTimeRange={setTimeRange} />
+        <TripsOverview />
         </div>
       </div>
 

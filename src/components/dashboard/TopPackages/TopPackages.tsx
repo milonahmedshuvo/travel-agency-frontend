@@ -1,128 +1,127 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MoreHorizontal } from "lucide-react"
+import React, { useState } from "react";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { CustomDropdown } from "../TravelOverview/TravelOverview";
+import { useTopDestinationsQuery } from "@/redux/api/analytise/analytiseApi";
+import { TourStats } from "@/components/lib/types";
 
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#A28CF6",
+  "#FF6699",
+  "#33CC99",
+];
 
-export function TopPackages() {
+// Map display labels to API parameters
+const timeframeMap = {
+  "This Week": "week",
+  "This Month": "month",
+  "This Year": "year",
+};
 
-  
+const TopPackages = () => {
+  const [destinationsTimeframe, setDestinationsTimeframe] =
+    useState("This Month");
+
+  // Convert display timeframe to API parameter
+  const apiTimeframe =
+    timeframeMap[destinationsTimeframe as keyof typeof timeframeMap];
+
+  // Fetch data with timeframe parameter
+  const { data, isLoading, isError } = useTopDestinationsQuery(
+    { timeframe: apiTimeframe },
+    { skip: !apiTimeframe }
+  );
+
+  // Process destination data with colors
+  const topDestinations = (data?.topDestinations || []).map(
+    (item: TourStats, idx: number) => ({
+      ...item,
+      color: COLORS[idx % COLORS.length],
+    })
+  );
+
+  if (isError) {
+    return (
+      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm h-full">
+        <p className="text-red-500">Failed to load top destinations data</p>
+      </div>
+    );
+  }
+
   return (
-    <Card className="overflow-hidden h-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-[20px] font-[500]">Top Packages</CardTitle>
-        <button className="h-8 w-8">
-          <MoreHorizontal className="h-4 w-4" />
-        </button>
-      </CardHeader>
-
-
-
-      <CardContent className="p-0 pt-2 flex flex-row  xl:flex-col justify-between">
-
-        <div className="relative mx-auto  max-w-[180px]  xl:max-w-[240px] pt-4 ">
-
-
-          <div className="relative aspect-square">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              {/* Background circle */}
-              <circle cx="50" cy="50" r="40" fill="none" stroke="#E5E7EB" strokeWidth="12" />
-              {/* Sea Tour - 35% */}
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#3B82F6"
-                strokeWidth="12"
-                strokeDasharray="251.2"
-                strokeDashoffset="0"
-                transform="rotate(-90 50 50)"
-              />
-              {/* Land Tour - 28% */}
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#38BDF8"
-                strokeWidth="12"
-                strokeDasharray="251.2"
-                strokeDashoffset="251.2"
-                transform="rotate(-90 50 50)"
-              />
-              {/* Cultural Tours - 22% */}
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#93C5FD"
-                strokeWidth="12"
-                strokeDasharray="251.2"
-                strokeDashoffset="163.3"
-                transform="rotate(-90 50 50)"
-              />
-              {/* Culinary & Wine - 15% */}
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#DBEAFE"
-                strokeWidth="12"
-                strokeDasharray="251.2"
-                strokeDashoffset="201.0"
-                transform="rotate(-90 50 50)"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="text-sm text-muted-foreground">This Week</div>
-              <div className="text-[27px] font-bold">1,856</div>
-              <div className="text-xs text-muted-foreground">Total Participants</div>
-            </div>
-          </div>
+    <>
+      <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1">
+        <div className="flex flex-row items-center justify-between p-4">
+          <h3 className="text-lg font-semibold">Top Packages</h3>
+          <CustomDropdown
+            options={["This Week", "This Month", "This Year"]}
+            value={destinationsTimeframe}
+            onChange={(value) => setDestinationsTimeframe(value)}
+          />
         </div>
-
-        <div  className="mt-4 space-y-5 px-6 pb-6">
-          <div className="flex items-center">
-            <div className="h-10 w-10 rounded bg-blue-500 mr-2 flex justify-center items-center text-white text-sm">35%</div>
-
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">Sea Tour</span>
-              <span className="text-sm text-muted-foreground text-[#757D83] text-[14px]">650 Participants</span>
+        <div className="p-6">
+          {isLoading ? (
+            <div className="flex  h-64 items-center justify-center">
+              {/* <LoadingSpinner /> */} loading...
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col md:flex-col items-start justify-between">
+              <div className="h-[200px] w-[200px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={topDestinations}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={80}
+                      paddingAngle={0}
+                      dataKey="totalPercentage"
+                      startAngle={0}
+                      endAngle={360}
+                    >
+                      {topDestinations.map((entry) => (
+                        <Cell
+                          key={`cell-${entry.name}`}
+                          fill={entry.color}
+                          className="hover:opacity-80 transition-opacity"
+                        />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
 
-          <div className="flex items-center">
-            <div className="h-10 w-10 rounded bg-blue-400 mr-2 flex justify-center items-center text-white text-sm">28%</div>
-
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">Land Tour</span>
-              <span className="text-sm text-muted-foreground text-[#757D83] text-[14px]">520 Participants</span>
+              <div className="mt-4 md:mt-0">
+                <ul className="space-y-2">
+                  {topDestinations.map((item) => (
+                    <li key={item.name} className="flex items-center">
+                      <span
+                        className="mr-2 h-6 w-6 rounded-full"
+                        style={{ backgroundColor: item.color }}
+                        aria-label={`Color indicator for ${item.name}`}
+                      />
+                      <div>
+                        <p className="text-sm font-medium">
+                          {item.name} ({item.totalPercentage}%)
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {item.totalParticipants} participants
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-
-          <div className="flex items-center">
-            <div className="h-10 w-10 rounded bg-[#B9E0FF] mr-2 flex justify-center items-center text-black text-sm">18%</div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">Cultural Tours</span>
-              <span className="text-sm text-muted-foreground text-[#757D83] text-[14px]">408 Participants</span>
-            </div>
-           
-          </div>
-
-          <div className="flex items-center">
-            <div className="h-10 w-10 rounded bg-[#E8F5FF] mr-2 flex justify-center items-center text-black text-sm">15%</div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">Culinary & Wine</span>
-              <span className="text-sm text-muted-foreground text-[#757D83] text-[14px]">278 Participants</span>
-            </div>
-           
-          </div>
+          )}
         </div>
-      </CardContent>
+      </div>
+    </>
+  );
+};
 
-
-
-    </Card>
-  )
-}
+export default TopPackages;
