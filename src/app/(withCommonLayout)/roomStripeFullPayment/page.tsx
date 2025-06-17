@@ -2,6 +2,7 @@
 
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 
@@ -9,6 +10,9 @@ const RoomStripeFullPaymentPage = () => {
     const amount = useAppSelector((state) => state.booking.roomBookingPayment?.amount)
     const clientSecret  = useAppSelector((state) => state.booking.roomBookingPayment?.clientSecret)
     const id = useAppSelector((state) => state.booking.roomBookingId)
+    const router = useRouter()
+
+
 
     const stripe = useStripe();
     const elements = useElements();
@@ -38,6 +42,7 @@ const RoomStripeFullPaymentPage = () => {
       },
     });
 
+    
     if (result.error) {
       console.error("Payment failedddd:", result.error.message);
       toast.error("Payment failed, Please try again!!")
@@ -65,9 +70,11 @@ const RoomStripeFullPaymentPage = () => {
         const data = await res.json();
 
         if (data.success) {
-          toast.success( data.message || "Payment confirmed successfully!");
-          console.log("Backend response:", data);
 
+          toast.success( data.message || "Payment confirmed successfully!");
+          console.log("Backend responsesssssssssss:", data);
+
+          router.push('/booking/accommodation/roomTwentStripeConfirm')
 
         } else {
           toast.error("Failed to confirm payment.");
@@ -86,7 +93,7 @@ const RoomStripeFullPaymentPage = () => {
 
 
   return (
-    <div className="flex justify-center pt-10 pb-20 gap-2.5">
+    <div className="flex justify-center flex-col items-center pt-10 pb-20 gap-5.5 h-screen ">
 
         <div className="w-[300px] border p-4 rounded-lg">
         <CardElement />

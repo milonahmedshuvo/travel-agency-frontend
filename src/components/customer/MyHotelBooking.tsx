@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { Search,  ChevronDown } from "lucide-react";
 import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { TRoomBooking } from "@/components/lib/types";
+import Link from "next/link";
+import Loading from "../shared/loading/Loading";
 
 export default function MyHotelBookings() {
-  const { data } = useGetAllRoomBookingsQuery("");
+  const { data, isLoading } = useGetAllRoomBookingsQuery("");
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   console.log({ searchTerm });
 
@@ -37,6 +40,11 @@ export default function MyHotelBookings() {
     const stringFormatedDated = formatedDate.toLocaleDateString();
     return stringFormatedDated;
   };
+
+
+  if(isLoading){
+    return <Loading/>
+  }
 
   return (
     <div className="space-y-6 ">
@@ -99,6 +107,8 @@ export default function MyHotelBookings() {
               <th className="px-4 py-3 text-left font-medium">Check-Out</th>
               <th className="px-4 py-3 text-left font-medium">Price</th>
               <th className="px-4 py-3 text-left font-medium">Status</th>
+              <th className="px-4 py-3 text-left font-medium">Action</th>
+             
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -115,15 +125,30 @@ export default function MyHotelBookings() {
                 </td>
                 <td className="px-4 py-3">{booking?.hotelPackage?.price}</td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white">
-                    {/* {booking.status} */} Confirmed
-                  </span>
+                  {/* <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white"> */}
+                    {/* {booking.status} Confirmed */}
+                  {/* </span> */}
+                             {
+                              booking?.isPaid ?  <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer " > Confirmed </button> :<button className="bg-yellow-100 text-yellow-800 px-3 rounded  text-sm py-0.5 cursor-pointer " >   Not Confirmed </button> 
+                           }
+
+
                 </td>
+
+                 <td className="px-4 py-3">
+                   <Link href={`/customer/myHotelBookings/${booking.id}`} >  
+                          <span className="py-0.5 px-3 border border-gray-300 rounded cursor-pointer">view</span>
+                          </Link>
+                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+
+
+
 
       {/* Mobile Cards - Shown only on mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:hidden gap-4">
@@ -137,9 +162,12 @@ export default function MyHotelBookings() {
                 <h3 className="text-lg font-medium">
                   {booking?.hotelPackage?.title}
                 </h3>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white">
-                  {/* {booking.status} */} Confirmed
-                </span>
+                {/* <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white"> */}
+                  {/* {booking.status} Confirmed */}
+                {/* </span> */}
+                       {
+                              booking?.isPaid ?  <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer " > Confirmed </button> :<button className="bg-yellow-100 text-yellow-800 px-3 rounded  text-sm py-0.5 cursor-pointer " >   Not Confirmed </button> 
+                           }     
               </div>
             </div>
             <div className="px-4 py-3 space-y-2 text-sm">
@@ -178,72 +206,8 @@ export default function MyHotelBookings() {
 
       {/* Pagination */}
       <div className="flex flex-col sm:flex-row justify-end items-center gap-4">
-        {/* <div className="text-sm text-gray-500">
-          Showing{" "}
-          <div className="relative inline-block w-16 mx-1">
-            <button
-              type="button"
-              className="flex items-center justify-between w-full h-8 px-2 py-1 text-xs border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={() => setShowEntriesDropdown(!showEntriesDropdown)}
-            >
-              <span>{entriesPerPage}</span>
-              <ChevronDown className="h-3 w-3 text-gray-500" />
-            </button>
-
-            {showEntriesDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                <ul className="py-1 max-h-60 overflow-auto">
-                  {["8", "16", "24", "32"].map((option) => (
-                    <li
-                      key={option}
-                      className="px-2 py-1 text-xs hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        setEntriesPerPage(option)
-                        setShowEntriesDropdown(false)
-                      }}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>{" "}
-          out of 286
-        </div> */}
-
-        <div className="flex items-center space-x-2">
-          <button
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-400 cursor-not-allowed"
-            disabled
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previous page</span>
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-blue-600 text-white hover:bg-blue-700">
-            1
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            2
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            3
-          </button>
-
-          <span className="mx-1">...</span>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            15
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next page</span>
-          </button>
-        </div>
+        
+       
       </div>
     </div>
   );

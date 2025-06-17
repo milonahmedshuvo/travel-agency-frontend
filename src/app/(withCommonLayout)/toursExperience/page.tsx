@@ -1,6 +1,5 @@
 "use client"
-import TravelLove from '@/components/others/travelLove/TravelLove'
-// import TourAllExperience from '@/components/toursExperience/allExperience/AllExperience'
+
 import RecentBlog from '@/components/toursExperience/recentBlog/RecentBlog'
 import SeaTour from '@/components/toursExperience/seatours/Seatours'
 
@@ -30,7 +29,6 @@ const page = () => {
       <CulturalTours/>
       <WineTours/>  
 
-      <TravelLove/>
       <TestimonialSlider/>
       <RecentBlog/>
     </div>

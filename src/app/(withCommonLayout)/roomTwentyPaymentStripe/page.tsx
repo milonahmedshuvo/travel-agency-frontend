@@ -3,6 +3,7 @@
 import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const RoomStripeFullPaymentPage = () => {
@@ -10,10 +11,9 @@ const RoomStripeFullPaymentPage = () => {
     const clientSecret  = useAppSelector((state) => state.booking.roomBookingPayment?.clientSecret)
     const id = useAppSelector((state) => state.booking.roomBookingId)
     const {data:roomBooking}= useGetSingleRoomBookingQuery(id)
-    
-    
     console.log("transition id ",  roomBooking?.data?.transactions?.id)
-
+    const router = useRouter()
+   
 
 
    
@@ -53,6 +53,10 @@ const RoomStripeFullPaymentPage = () => {
       console.error("Payment failedddd:", result.error.message);
       toast.error("Payment failed, Please try again!!")
     } else {
+
+
+
+
       if (result.paymentIntent?.status === 'succeeded') {
         console.log("card success result:", result)
         console.log("Payment succeeded paymentIntent!", result.paymentIntent );
@@ -66,12 +70,6 @@ const RoomStripeFullPaymentPage = () => {
 
 
 
-
-
-
-    //   confirm 20% payment for stripe
-
-
         const token = localStorage.getItem('token');
 
         try {
@@ -81,7 +79,7 @@ const RoomStripeFullPaymentPage = () => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.transactions?.id }),
+          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.splitPayment?.initialPaymentTransaction?.id }),
         });
 
         const data = await res.json();
@@ -92,7 +90,7 @@ const RoomStripeFullPaymentPage = () => {
           toast.success( `${data.message} 20% ` || "Payment 20% confirmed successfully!");
           console.log("Backend response:", data);
 
-
+          router.push('/booking/accommodation/roomTwentStripeConfirm')
         } else {
           toast.error("Failed to confirm payment.");
           console.error("Error from backend:", data);
@@ -106,8 +104,15 @@ const RoomStripeFullPaymentPage = () => {
       }
 
       }
+
+
+
     }
   };
+
+
+
+
 
 
 

@@ -1,45 +1,27 @@
 "use client"
 
-import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-
-
-const TourStripeEightyPaymentPage = () => {
+const RoomStripeEightyPaymentPage = () => {
+    const amount = useAppSelector((state) => state.booking.roomBookingEightyPayment?.amount)
+    const clientSecret  = useAppSelector((state) => state.booking.roomBookingEightyPayment?.clientSecret)
+    const id = useAppSelector((state) => state.booking.roomBookingId)
+    const {data:roomBooking}= useGetSingleRoomBookingQuery(id)
     const router = useRouter()
 
-    const amount = useAppSelector((state) => state.booking.tourBookingEightyPayment?.amount)
-    const clientSecret  = useAppSelector((state) => state.booking.tourBookingEightyPayment?.clientSecret)
-    const id = useAppSelector((state) => state.booking.tourBookingId)
-    const {data:tourBooking}= useGetSingleTourBookingQuery(id)
-
-
-
-
-    console.log("transition id ",  tourBooking?.data?.transactions?.id,)
-    console.log("booking id", id)
-    console.log("filnal transition id", tourBooking?.data?.splitPayment?.finalPaymentTransaction?.id)
-
-
+    // Room booking 
    
-
-
-
-
-
-   
-
-
-
+    
 
     const stripe = useStripe();
     const elements = useElements();
 
 
-    const handleTourStripeEightyPaymentByStripe = async () => {
+    const handleRoomStripeEightyPayment = async () => {
     // console.log('Stripe full payment clientSecret:', clientSecret);
 
     if (!stripe || !elements || !clientSecret) {
@@ -75,38 +57,33 @@ const TourStripeEightyPaymentPage = () => {
         // TODO: Call backend to update payment status
         console.log('paymentMethodId', result?.paymentIntent?.id)
         const paymentMethodId = result.paymentIntent.id;
-        console.log('paymethod id', paymentMethodId)
-
-
-
-
+        console.log('paymethod idddddddddd', paymentMethodId)
 
 
 
     //   confirm 20% payment for stripe
 
-
         const token = localStorage.getItem('token');
 
         try {
-        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/tour-bookings/${id}/split-pay/final`, {
+        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay/final`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ paymentMethodId, transactionId: tourBooking?.data?.splitPayment?.finalPaymentTransaction?.id }),
+          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.splitPayment?.finalPaymentTransaction?.id }),
         });
 
         const data = await res.json();
 
-    
-
         if (data) {
           toast.success( `${data.message} 80% ` || "Payment 80% confirmed successfully!");
-          console.log("Backend responses:", data);
-          router.push('/booking/EightTourBooking')
+          console.log("Backend responsettttttttttt:", data);
 
+          router.push('/booking/accommodation/roomTwentStripeConfirm')
+          
+         
         } else {
           toast.error("Failed to confirm payment.");
           console.error("Error from backend:", data);
@@ -118,10 +95,14 @@ const TourStripeEightyPaymentPage = () => {
         toast.error("Something went wrong while confirming payment.");
         console.error("Fetch error:", error);
       }
-      
+
       }
     }
   };
+
+
+
+
 
 
 
@@ -136,14 +117,15 @@ const TourStripeEightyPaymentPage = () => {
 
 
          <button
-          onClick={() => handleTourStripeEightyPaymentByStripe()}
+          onClick={() => handleRoomStripeEightyPayment()}
           type="submit"
           className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
         >
-          {`80% Confirm Payment  $${amount}`}
+          {`Confirm Payment 80%  $${amount}`}
         </button>
     </div>
   )
 }
 
-export default TourStripeEightyPaymentPage;
+
+export default RoomStripeEightyPaymentPage;

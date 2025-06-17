@@ -7,13 +7,14 @@ import { useCreateRoomBookingMutation } from "@/redux/api/hotelPackages/hotelPac
 import { useRouter } from "next/navigation";
 import { setRoomBookingId } from "@/redux/slice/booking/booking";
 import Link from "next/link";
+import { useState } from "react";
 
 
 export default function BookingReview() {
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
     const dispatch = useAppDispatch()
     const acommodationStayBooking = useAppSelector((state) => state.accommodationBooking.acommodationStayBooking)
-
      const accommodationGustDatailsOne = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsOne)
      const accommodationGustDatailsTwo = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsTwo)
      const accommodationGustDatailsThree = useAppSelector((state) => state.accommodationBooking.accommodationGustDatailsThree)
@@ -34,6 +35,7 @@ export default function BookingReview() {
 
 const guests = [accommodationGustDatailsOne, accommodationGustDatailsTwo, accommodationGustDatailsThree];  
 const handleBookingDataSend = async () => {
+  setLoading(true);
 
 if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
   throw new Error("Hotel date is required.");
@@ -59,13 +61,14 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
   // store clientSecret and amount in redux 
   //  dispatch(setRoomBookingPayment({clientSecret: "", amount: 10 }))
     
-    dispatch(setRoomBookingId(result?.data.id))
-
+  dispatch(setRoomBookingId(result?.data.id))
   toast.success( result.message || "Room Bookings success!!")
+  setLoading(false);
   router.push("/booking/accommodation/paymentCard")
  }catch(err){
   console.log('error Room booking', err)
   toast.error("Room bookings Filed")
+  setLoading(false);
  }
 }
 
@@ -128,21 +131,27 @@ if (!acommodationStayBooking || !acommodationStayBooking.checkOutDate) {
             type="submit"
             className="w-full py-3 px-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]  hover:bg-blue-600 rounded-lg flex items-center justify-center text-white cursor-pointer"
           >
-            Confirm & Pay Now
-            <svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              ></path>
-            </svg>
+            {
+           loading? <span className="">Processing...</span> : <span>Confirm & Pay Now</span>
+         }
+         
+          {
+             !loading && <svg
+            className="w-5 h-5 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+          }
+
           </button>
         
            <div className="flex justify-center items-center cursor-pointer">

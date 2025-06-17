@@ -6,6 +6,7 @@ import TestimonialSection from '@/components/home/testimonial/testimonial';
 // import TourExperience from '@/components/home/tourExperience/Tour';
 // import TourExperience from '@/components/home/tourExperience/Tour';
 import TourExperienceAllCategory from '@/components/home/tourExperience/TourExperienceAllCategory';
+import WhyChooseus from '@/components/home/whyChooseus/WhyChooseus';
 import TourPackageFilterFiled from '@/components/others/tourPackageFilter/page';
 // import AllVehicleTourCards from '@/components/home/vehicle/AllVehicleTourCards';
 // import Vehicle from '@/components/home/vehicle/Vehicle';
@@ -21,24 +22,19 @@ const page = () => {
   return (
     <div>
        <Banner></Banner>
-       {/* <TravelBookingForm/> */}
        <TourPackageFilterFiled/>
-
        <ProductCarousel/>
-       {/* <TourExperience/>   */}
+
+       <WhyChooseus/> 
+
        <TourExperienceAllCategory/>
-
-
        <Accommodation/>
+
        {/* All Vehicle cards */}
        {/* <AllVehicleTourCards/> */}
-
-
        <TestimonialSection/>
+       {/* <HomeTestimonialSlider/> */}
       <RecentBlog/>
-      
-     
-
     </div>
   )
 }

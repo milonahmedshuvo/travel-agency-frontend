@@ -3,41 +3,46 @@
 import { useState } from "react"
 import Image from "next/image"
 import { ChevronUp, ChevronDown } from "lucide-react"
-import img1 from '../../../assets/logo/img1.jpg'
-import img2 from '../../../assets/logo/img2.jpg'
-import img3 from '../../../assets/logo/img3.jpg'
+// import img1 from '../../../assets/logo/img1.jpg'
+// import img2 from '../../../assets/logo/img2.jpg'
+// import img3 from '../../../assets/logo/img3.jpg'
+import { useGetAllfeedbacksQuery } from "@/redux/api/feedbacks/feedbacksApi"
 
 
 
 
 // Sample testimonial data
-const testimonials = [
-  {
-    id: 1,
-    quote:
-      "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.",
-    name: "Mike taylor",
-    location: "Cox's Bazar, Bangladesh.",
-    image: img1,
-  },
-  {
-    id: 2,
-    quote: "Travel opens your mind to new experiences and cultures. The memories you make will last a lifetime.",
-    name: "Chris Thomas",
-    location: "CEO of Tourist Guide",
-    image: img2,
-  },
-  {
-    id: 3,
-    quote: "The journey matters more than the destination. Take time to appreciate the small moments along the way.",
-    name: "Sarah Johnson",
-    location: "Paris, France",
-    image: img3,
-  },
-]
+// const testimonials = [
+//   {
+//     id: 1,
+//     quote:
+//       "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.",
+//     name: "Mike taylor",
+//     location: "Cox's Bazar, Bangladesh.",
+//     image: img1,
+//   },
+//   {
+//     id: 2,
+//     quote: "Travel opens your mind to new experiences and cultures. The memories you make will last a lifetime.",
+//     name: "Chris Thomas",
+//     location: "CEO of Tourist Guide",
+//     image: img2,
+//   },
+//   {
+//     id: 3,
+//     quote: "The journey matters more than the destination. Take time to appreciate the small moments along the way.",
+//     name: "Sarah Johnson",
+//     location: "Paris, France",
+//     image: img3,
+//   },
+// ]
 
 export default function TestimonialSlider() {
+   const { data } = useGetAllfeedbacksQuery("");
+  
+  const testimonials = data?.data?.data || [];
   const [currentIndex, setCurrentIndex] = useState(0)
+
 
   const nextTestimonial = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
@@ -100,7 +105,9 @@ export default function TestimonialSlider() {
             </button>
           </div>
 
-          <div  className="flex items-start mb-6">
+
+
+          {/* <div  className="flex items-start mb-6">
             <div className="relative h-16 w-16 rounded-full overflow-hidden mr-4">
               <Image
                 src={testimonials[currentIndex].image || "/placeholder.svg"}
@@ -114,17 +121,72 @@ export default function TestimonialSlider() {
               <h3 className="font-bold text-xl">{testimonials[currentIndex].name}</h3>
               <p className="text-gray-600">{testimonials[currentIndex].location}</p>
             </div>
-          </div>
+          </div> */}
+          <div className="flex items-start mb-6">
+                        <div className="relative h-16 w-16 rounded-full overflow-hidden mr-4">
+                          <Image
+                            src={
+                              testimonials[currentIndex]?.customer?.user?.avatar ||
+                              "/default-avatar.png"
+                            }
+                            alt={
+                              testimonials[currentIndex]?.customer?.user?.name ||
+                              "User Avatar"
+                            }
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-gray-800 mb-6 italic">
+                            "
+                            {testimonials[currentIndex]?.comment
+                              ? testimonials[currentIndex]?.comment
+                              : "No comment available"}
+                            "
+                          </p>
+                          <h3 className="font-bold text-xl">
+                            {testimonials[currentIndex]?.customer?.user?.name ||
+                              "Name not available"}
+                          </h3>
+                          <p className="text-gray-600">
+                            {testimonials[currentIndex]?.customer?.location ||
+                              "Location not available"}
+                          </p>
+                        </div>
+                      </div>
+
+
+
         </div>
 
+
+            <div className="bg-[#FFFFFF] mt-8 pl-4 pr-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-200 xl:ml-10 h-[230px] md:h-[270px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
+            <p className="text-gray-500 text-[18px]">Next</p>
+            {/* <p className="font-medium"> {testimonials[currentIndex]?.comment || "Name not available" } </p> */}
+            <p className="font-medium">
+              {testimonials[(currentIndex + 1) % testimonials.length]
+                ?.comment || "Name not Comment"}
+            </p>
+            {/* <p className="font-medium">{testimonials[(currentIndex + 1) % testimonials.length]?.customer?.lastName || "Name not Comment"}</p> location */}
+            <p className="font-medium">
+              {testimonials[(currentIndex + 1) % testimonials.length]?.customer
+                ?.location || "Location not available "}
+            </p>
+
+            {/* <p className="text-gray-500 text-sm"> { testimonials[currentIndex]?.customer?.location || "Location not available"} </p> */}
+          </div>
             
-        {/* {currentIndex < testimonials.length - 1 && ( */}
-            <div className="bg-[#FFFFFF] mt-8 pl-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-200 xl:ml-10 h-[230px] md:h-[270px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
+        
+
+
+        
+            {/* <div className="bg-[#FFFFFF] mt-8 pl-4 pb-4 pt-4 border-[1px] rounded-2xl border-gray-200 xl:ml-10 h-[230px] md:h-[270px] lg:h-[240px] w-[100%] lg:w-[100%] xl:w-[95%] flex flex-col justify-end absolute top-[70px] z-0">
               <p className="text-gray-500 text-sm">Next</p>
               <p className="font-medium">{testimonials[(currentIndex + 1) % testimonials.length].name}</p>
               <p className="text-gray-500 text-sm">{testimonials[(currentIndex + 1) % testimonials.length].location}</p>
-            </div>
-          {/* )} */}
+            </div> */}
+          
 
         </div>
 

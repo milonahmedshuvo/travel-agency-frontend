@@ -1,17 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
-
 import React, { useEffect, useState } from "react";
-// import img1 from "../../../assets/winetour/img1.jpg";
-// import img2 from "../../../assets/winetour/img2.jpg";
-// import img3 from "../../../assets/winetour/img3.jpg";
-// import img4 from "../../../assets/winetour/img4.jpg";
-
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import Link from "next/link";
 import { TTourPackage } from "@/components/lib/types";
-
-
 
 const WineTours = () => {
    const [tours, setTours] = useState([]);

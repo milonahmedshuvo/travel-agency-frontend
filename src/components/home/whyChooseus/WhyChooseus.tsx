@@ -1,18 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-// import ThreeImage from "@/components/testing/ThreeImage"
 import Image from "next/image"
 import travelAgency from "../../../assets/logo/TravelAgency.png"
 
-interface ITravelLoveProps {
-  frist?: string;
-  secound?: string;
-  thrid ?: string;
-}
 
 
 
-export default function TravelLove ({frist, secound, thrid }: ITravelLoveProps)  {
+export default function WhyChooseus ()  {
     
 
    
@@ -27,12 +21,15 @@ export default function TravelLove ({frist, secound, thrid }: ITravelLoveProps) 
         {/* Left Content */}
         <div className="w-full md:w-1/2 ">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">{frist} <span>{thrid}</span> </h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">Why <span className="text-[#FF9966]">Choose Us</span></h2>
+
+
             <div className="relative">
-              <h2 className="text-4xl md:text-5xl font-bold text-[#FF9966] leading-tight">{secound}</h2>
-              {/* <div className="absolute bottom-0 left-0 w-3/4 h-1 bg-blue-500"></div> */}
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">The Best</h2>
             </div>
           </div>
+
+          <p className="text-[18px] text-gray-600 mt-6 " >Crafting personalized trips, offering unbeatable deals, and providing seamless support - all in one place.</p>
 
 
           <div className="space-y-6 mt-8">
@@ -81,7 +78,7 @@ export default function TravelLove ({frist, secound, thrid }: ITravelLoveProps) 
 
 
         {/* Right Images */}
-        <div className="w-full md:w-1/2 relative  mt-8 md:mt-0 !py-20 ">
+        <div className="w-full md:w-1/2 relative  mt-8 md:mt-0 !py-20">
             {/* <ThreeImage/> */}
             <Image src={travelAgency} width={500} height={500} alt="static" className="w-full" />
         </div>

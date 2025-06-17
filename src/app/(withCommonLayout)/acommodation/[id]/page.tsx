@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import BookingCard from "@/components/common/bookingCard/BookingCard";
-import RatingComponent from "@/components/common/rating/Rating";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
 import { useParams, useRouter } from "next/navigation";
@@ -15,6 +14,7 @@ import ActivityCard from "@/components/common/activityCard/ActivityCard";
 import Highlights from "@/components/common/highlights/Highlights";
 import TestimonialSlider from "@/components/toursExperience/testimonialSlider/TestimonialSlider";
 import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
+import RatingHotel from "@/components/common/rating/RatingHotel";
 
 
 
@@ -185,7 +185,8 @@ export default function Page() {
             />
 
             {/* RatingComponent */}
-            <RatingComponent />
+  
+            <RatingHotel/>
           </div>
         </div>
       </div>

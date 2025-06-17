@@ -1,22 +1,29 @@
 "use client";
 import PaymentMethodModal from "@/common/PaymentMethodModal";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setRoomBookingPayment } from "@/redux/slice/booking/booking";
+import { setRoomBookingEightyPayment, setRoomBookingPayment } from "@/redux/slice/booking/booking";
 import { useRouter } from "next/navigation";
 // import Link from "next/link";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function AccommodationPaymentCard() {
+  const [loading, setLoading] = useState(false);
+   const [loadingStripe, setLoadingStripe] = useState(false);
+   const [loadingPaypal, setLoadingPaypal] = useState(false);
+
   const dispatch = useAppDispatch()
   const id = useAppSelector((state) => state.booking.roomBookingId)
   const router = useRouter()
   // modal state 
    const [isModalOpen, setModalOpen] = useState(false);
-
   console.log("booking iddddddddddddd", id)
 
+
+  
+
   const handleRoomBookingByStripe = () => {
+    setLoadingStripe(true)
     const makeStripePayment = async () => {
     const token = localStorage.getItem('token'); 
     const url = `https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment/${id}/stripe`;
@@ -37,6 +44,7 @@ export default function AccommodationPaymentCard() {
     const data = await response.json();
     console.log('Room payment requst Success:', data);
     if(data?.success){
+      setLoadingStripe(false)
       // go to payment final page 
       console.log("amount", data?.data?.transactions?.amount)
       console.log("clientSecret", data?.data?.transactions?.clientSecret)
@@ -48,7 +56,7 @@ export default function AccommodationPaymentCard() {
 
   } catch (error) {
     console.error('Room payment requst Success:', error);
-  }
+    setLoadingStripe(false)  }
 };
 
 // Call the function
@@ -60,9 +68,8 @@ makeStripePayment();
 
 
   // Paypal payment it 
-
   const handleRoomBookingByPaypal = () => {
-
+    setLoadingPaypal(true)
     const makeStripePayment = async () => {
     const token = localStorage.getItem('token'); 
     const url = `https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment/${id}/paypal`;
@@ -88,6 +95,7 @@ makeStripePayment();
       // go to payment final page 
       // console.log("amount", data?.data?.transactions?.amount)
       // console.log("clientSecret", data?.data?.transactions?.clientSecret)
+      setLoadingPaypal(false)
 
       const link = data?.data?.transactions?.clientSecret
 
@@ -95,11 +103,13 @@ makeStripePayment();
     window.location.href = link;
   } else {
     toast.error('Payment link not found!');
+    setLoadingPaypal(false)
   }
     }
 
   } catch (error) {
     console.error('Room payment requst Success:', error);
+    setLoadingPaypal(false)
   }
 };
 
@@ -110,10 +120,6 @@ makeStripePayment();
 
 
   
-
-
-
-
 
 
   // TWENTY PARSEN payment Stripe and Paypal 
@@ -127,8 +133,9 @@ makeStripePayment();
     initialPaymentMethod: string;
     finalPaymentMethod: string;
   }) => {
-    console.log('Selected Methods:', methods);
+    // console.log('Selected Methods:', methods);
     // Proceed with your API call or logic
+    setLoading(true)
 
     // THIS IS STRIPE PAYMENT 
     if(methods.initialPaymentMethod === "STRIPE"){
@@ -149,24 +156,28 @@ makeStripePayment();
 
     const data = await response.json();
     console.log('20% payment stripe Success:', data);
-
+    setLoading(false)
 
     if(data?.initial){
       // go to payment final page 20% payment and store amout transactionId, paymentMethodId
-
        // data?.initial.amount
-          // data?.initial?.clientSecret
+      // data?.initial?.clientSecret
 
-      console.log("amount", data?.initial.amount)
-      console.log("clientSecret", data?.initial?.clientSecret)
+      // console.log("amount", data?.initial.amount)
+      // console.log("clientSecret", data?.initial?.clientSecret)
 
-      // store clientSecret and amount in redux 
+
+
+      // store clientSecret and amount in redux  
       dispatch(setRoomBookingPayment({clientSecret: data?.initial?.clientSecret,  amount: data?.initial.amount}))
+      dispatch(setRoomBookingEightyPayment({clientSecret: data?.final?.clientSecret,  amount: data?.final.amount}))
+
       router.push("/roomTwentyPaymentStripe")
     }
 
   } catch (error) {
     console.error('20% requst error', error);
+    setLoading(false)
   }
 };
 
@@ -203,7 +214,7 @@ makeStripePayment();
 
 
      console.log('20% payment paypal Success:', data);
-
+     setLoading(false)
 
 
     if(data?.initial){
@@ -215,10 +226,12 @@ makeStripePayment();
     window.location.href = link;
   } else {
     toast.error('Payment link not found!');
+    setLoading(false)
   }
     }
   } catch (error) {
     console.error('Room payment requst error:', error);
+    setLoading(false)
   }
 };
 
@@ -226,18 +239,7 @@ makeStripePayment();
 makeStripePayment();
 }
 
-
-    
-
-  
-
-
-
-
-
-
-
-  };
+};
 
 
 
@@ -270,7 +272,25 @@ makeStripePayment();
           type="submit"
           className="w-full py-3 px-4 bg-[#E8E8E8] text-[#101010] rounded-lg flex items-center justify-center cursor-pointer"
         >
-          Stripe Payment
+          {
+            loadingStripe ? <span> Processing..</span> : "Stripe Payment"
+          }
+          {
+            !loadingStripe && <svg
+            className="w-5 h-5 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+          }
         </button>
         {/* </Link> */}
 
@@ -279,8 +299,25 @@ makeStripePayment();
           type="button"
           className="w-full py-3 px-4 font-medium rounded-lg flex items-center justify-center bg-[#E8E8E8] text-[#101010]  mt-5 cursor-pointer"
         >
-          PayPal Payment
+          {!loadingPaypal && <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            ></path>
+          </svg>}
+          {
+            loadingPaypal ? <span> Processing..</span> : "PayPal Payment"
+          }
         </button>
+
 
         <div className="flex items-center justify-center gap-6">
           <h1 className="w-[165px] h-[1px] bg-[#000000]"> </h1>
@@ -288,12 +325,15 @@ makeStripePayment();
           <h1 className="w-[165px] h-[1px] bg-[#000000]"> </h1>
         </div>
 
+
+
         <button
           onClick={() => handleRoomBookingTwenty()} 
           type="button"
           className="w-full py-3 px-4 font-medium rounded-lg flex items-center justify-center bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff]  mt-3 cursor-pointer"
         >
-          <svg
+          {
+            !loading && <svg
             className="w-5 h-5 mr-2"
             fill="none"
             stroke="currentColor"
@@ -307,7 +347,10 @@ makeStripePayment();
               d="M12 6v6m0 0v6m0-6h6m-6 0H6"
             ></path>
           </svg>
-          Deposit 20% + Cash
+          }
+          {
+            loading ? <span>Processing..</span> : "Deposit 20% + Cash"
+          }
         </button>
   
         <PaymentMethodModal

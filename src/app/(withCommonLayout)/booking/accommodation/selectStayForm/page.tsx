@@ -3,6 +3,7 @@ import SelectStayForm from "@/components/bookingForm/accommodation/SelectStayFor
 
 const page = () => {
   
+  
   return (
     <section> 
         <SelectStayForm/>
@@ -10,4 +11,4 @@ const page = () => {
   )
 }
 
-export default page
+export default page;

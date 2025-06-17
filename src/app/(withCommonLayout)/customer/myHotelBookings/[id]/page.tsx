@@ -2,12 +2,12 @@
 "use client";
 
 import { BookingConfirmationData } from "@/components/bookingForm/tour/BookingConfirmationData";
-import { TPackageImage } from "@/components/lib/types";
+import { THotelImage, } from "@/components/lib/types";
 import OrderCancellationModal from "@/components/others/OrderCancellationModal/OrderCancellationModal";
 import Loading from "@/components/shared/loading/Loading";
-import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { useAppDispatch } from "@/redux/hook";
-import { setTourBookingId } from "@/redux/slice/booking/booking";
+import { setRoomBookingId, } from "@/redux/slice/booking/booking";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -26,11 +26,10 @@ type TourCustomerInfo = {
   updatedAt: string; // or Date
 };
 
-
-const MyTourBookingDatailsPage = () => {
+const MyHotelBookingDatailsPage = () => {
   const params = useParams();
   const id = params.id;
-  const { data, isLoading } = useGetSingleTourBookingQuery(id);
+  const { data, isLoading } = useGetSingleRoomBookingQuery(id)
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,12 +45,12 @@ const MyTourBookingDatailsPage = () => {
       modifyReason  = customReason
     }
 
-       console.log("Custom reason:ssssssssssss", modifyReason);
+       console.log("Custom hotel reason", modifyReason);
 
     // Here you would typically send the data to your API
      try {
       const token = localStorage.getItem('token')
-    const response = await fetch(`https://supermariobos-api.code-commando.com/api/v1/tour-bookings/cancel/${id}`, {
+    const response = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/cancel/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -63,6 +62,7 @@ const MyTourBookingDatailsPage = () => {
     // console.log("Cancel Success:", data);
     if(data?.success){
        toast.success("Cancel Success!!")   
+       console.log(data)
     }else{
         toast.error( data?.message || "Cancel Filed!!")
     }
@@ -84,21 +84,29 @@ const MyTourBookingDatailsPage = () => {
 
   // Full payment Stripe and Paypal 
   const fullPaymentWithVehicle = () => {
-    dispatch(setTourBookingId(id));
-    router.push("/booking/payment");
+    dispatch(setRoomBookingId(id));
+    router.push("/booking/accommodation/paymentCard");
   };
+
+
+
 
 
   // Hanlde payment 80 % STRIPE 
   // console.log(data?.data?.splitPayment?.finalPaymentTransaction?.paymentMethodType ==="PAYPAL")
   const handleEightyPayment = () => {
-    dispatch(setTourBookingId(id));
-    router.push("/tourBookingEightyPayment");
+    dispatch(setRoomBookingId(id));
+    router.push("/roomBookingEightyPayment");
   };
+
+
+  
+
+
 
   // Hanlde payment 80 % PAYPAL  
   const handlePaymentPaypal = () => {
-     dispatch(setTourBookingId(id));
+     dispatch(setRoomBookingId(id));
 
      console.log("paypal payment")
      const link = data?.data?.splitPayment?.finalPaymentTransaction?.clientSecret
@@ -110,20 +118,18 @@ const MyTourBookingDatailsPage = () => {
             }
   }
 
-
- 
   
 // 20% payment Stripe 
   const initial20PaypalPaymentStripe = () => {
-     dispatch(setTourBookingId(id));
+     dispatch(setRoomBookingId(id));
     console.log("20% Stripe")
-    router.push("/tourTwentyPaymentStripe");
+    router.push("/roomTwentyPaymentStripe");
   }
 
 
 
-  // console.log("paypal link 20%", data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret )
 
+//   console.log("paypal link 20%", data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret )
   // 20% payment PAYPAL 
   const initial20PaypalPaymentPaypal = () => {
    console.log("20% PAYPAL")
@@ -141,15 +147,25 @@ const MyTourBookingDatailsPage = () => {
 
 
 
+
+  const dateFormate = (dates:string) => {
+     const date = new Date(dates)
+     const update = date.toLocaleDateString()
+     return update
+  }
+
+
   
 
 
 
   return (
     <div className="custom-container">
+
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {data?.data?.tourPackage?.images?.map(
-          (image: TPackageImage, index: number) => (
+        {data?.data?.hotelPackage?.images?.map(
+          (image: THotelImage, index: number) => (
             <div
               key={index}
               className={`
@@ -176,38 +192,45 @@ const MyTourBookingDatailsPage = () => {
         )}
       </div>
 
+
       <div className="bg-[#F1F5F9] py-5 px-5 my-10 rounded">
-        <h1 className="text-2xl"> {data?.data?.tourPackage.title} </h1>
+        <h1 className="text-2xl"> {data?.data?.hotelPackage.title} </h1>
         <h2 className="mt-1 text-[#333333]">
-          {`${data?.data?.tourPackage.location} - ${data?.data?.tourPackage?.duration}  Days Trip`}{" "}
+          {`${data?.data?.hotelPackage.location} - ${data?.data?.hotelPackage?.duration}  Days Trip`}{" "}
         </h2>
       </div>
+
+
+
 
       <div className="grid grid-cols-3 gap-7 ">
         {/* First div  */}
         <div className="col-span-2">
           <div className="bg-[#F1F5F9] py-5 px-5  rounded">
-            <h1 className="text-[28px] text-[#15202E]">Tour Information </h1>
+            <h1 className="text-[28px] text-[#15202E]">Hotel Information </h1>
 
             <h3 className="text-[#333333] text-[20px] mt-2.5 font-medium">
-              Date
+              Check In Date
             </h3>
             <p className="text-[16px] text-[#676767] mt-2">
-              {data?.data?.availableDate}
+              {dateFormate(data?.data?.checkInDate)}
             </p>
             <h3 className="text-[#333333] text-[20px] mt-2.5 font-medium">
-              Duration:
+              Check Out Date
             </h3>
             <p className="text-[16px] text-[#676767] mt-2 ">
-              {data?.data?.duration} Hours
+              {dateFormate(data?.data?.checkOutDate)}
             </p>
             <h3 className="text-[#333333] text-[20px] mt-2.5 font-medium">
-              Group Size:
+              Room Type
             </h3>
             <p className="text-[16px] text-[#676767] mt-2">
-              {data?.data?.groupSize} Person
+              {data?.data?.roomType} 
             </p>
           </div>
+
+
+
 
           <div className="bg-[#F1F5F9] py-5 px-5 mt-7 rounded">
             <h1 className="text-[28px] text-[#15202E]">Package Cost</h1>
@@ -218,56 +241,19 @@ const MyTourBookingDatailsPage = () => {
             <div className="flex gap-2 mt-3 items-center ">
               <h3 className="text-[#333333] text-[18px]  ">Trip Cost: </h3>
               <p className="text-[16px] text-orange-400 ">
-                {" "}
-                ${data?.data?.tourPackage?.price}
+                ${data?.data?.hotelPackage?.price}
               </p>
             </div>
 
-            {data?.data?.vehicleBooking && (
-              <div>
-                <div className="flex gap-2 items-center mt-2">
-                  <h3 className="text-[#333333] text-[18px]  ">
-                    Vehicle Cost:{" "}
-                  </h3>
-                  <p className="text-[16px]  text-orange-400">
-                    {" "}
-                    ${data?.data?.vehicleBooking?.price}
-                  </p>
-                </div>
-
-                <div className="flex gap-2 items-center mt-2">
-                  <h3 className="text-[#333333] text-[18px]  ">
-                    Vehicle price Per Hours Cost:{" "}
-                  </h3>
-                  <p className="text-[16px] text-orange-400">
-                    {" "}
-                    $
-                    {
-                      data?.data?.vehicleBooking?.tourPackageVehicle?.vehicle
-                        ?.pricePerHR
-                    }
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-2 items-center mt-2">
-              <h3 className="text-[#333333] text-[18px]  ">Total Cost: </h3>
-              <p className="text-[16px] text-orange-400">
-                {" "}
-                $
-                {data?.data?.vehicleBooking
-                  ? data?.data?.tourPackage?.price +
-                    data?.data?.vehicleBooking?.price
-                  : data?.data?.tourPackage?.price}
-              </p>
-            </div>
+        
           </div>
         </div>
 
         {/* secound div  */}
         <div className="col-span-1  bg-[#F1F5F9] py-5 px-5  rounded">
           <h1 className="text-[28px] text-[#15202E]"> Traveler Information </h1>
+
+
 
           {data?.data?.guests?.map((guest: TourCustomerInfo) => (
             <BookingConfirmationData
@@ -281,43 +267,7 @@ const MyTourBookingDatailsPage = () => {
         </div>
       </div>
 
-      {data?.data?.vehicleBooking && (
-        <div className="bg-[#F1F5F9] py-5 px-5 my-7 rounded">
-          <h1 className="text-[28px] text-[#15202E]">
-            Pick-Up & Return Preferences
-          </h1>
-          <div className="flex gap-2 mt-3 items-center ">
-            <h3 className="text-[#333333] text-[18px]  ">
-              {" "}
-              Pick-up Location:{" "}
-            </h3>
-            <p className="text-[16px] text-[#676767] ">
-              {" "}
-              {data?.data?.vehicleBooking?.pickUpAddr}
-            </p>
-          </div>
-          <div className="flex gap-2 mt-3 items-center ">
-            <h3 className="text-[#333333] text-[18px]  ">
-              {" "}
-              Expected Time of Stay:{" "}
-            </h3>
-            <p className="text-[16px] text-[#676767] ">
-              {" "}
-              {data?.data?.vehicleBooking?.expTimeSty}
-            </p>
-          </div>
-          <div className="flex gap-2 mt-3 items-center ">
-            <h3 className="text-[#333333] text-[18px]  ">
-              {" "}
-              Drop-up Location:{" "}
-            </h3>
-            <p className="text-[16px] text-[#676767] ">
-              {" "}
-              {data?.data?.vehicleBooking?.dropOffAddr}
-            </p>
-          </div>
-        </div>
-      )}
+
 
 
 
@@ -366,7 +316,7 @@ const MyTourBookingDatailsPage = () => {
 
                  <div className="flex gap-2 mt-3 items-center ">
                   <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
-                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed "> { data?.data?.splitPayment?.initialPaymentTransaction?.status} </p>
+                  <p className="text-[16px] text-[#676767] "> { data?.data?.splitPayment?.initialPaymentTransaction?.status} </p>
                 </div>
 
 
@@ -438,7 +388,7 @@ const MyTourBookingDatailsPage = () => {
 
                  <div className="flex gap-2 mt-3 items-center ">
                   <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
-                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed "> { data?.data?.splitPayment?.finalPaymentTransaction?.status} </p>
+                  <p className="text-[16px] text-[#676767] "> { data?.data?.splitPayment?.finalPaymentTransaction?.status} </p>
                 </div>
 
 
@@ -485,12 +435,12 @@ const MyTourBookingDatailsPage = () => {
             className="bg-orange-500  px-3 rounded text-white text-sm py-2.5 cursor-pointer "
           >
             {" "}
-            Cencel Trip{" "}
+            Cencel Hotel{" "}
           </button>
 
           <OrderCancellationModal
-            title={data?.data?.tourPackage?.title}
-            category={data?.data?.tourPackage?.category}
+            title={data?.data?.hotelPackage?.title}
+            category={data?.data?.hotelPackage?.roomCategory}
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             onSubmit={handleCancellationSubmit}
@@ -501,4 +451,4 @@ const MyTourBookingDatailsPage = () => {
   );
 };
 
-export default MyTourBookingDatailsPage;
+export default MyHotelBookingDatailsPage;

@@ -65,7 +65,7 @@ const TourExperienceAllCategory = () => {
           </div>
           <div className="flex items-center">
             <Link href="/toursExperience">
-              <p className="text-blue-600 hover:underline cursor-pointer">See All</p>
+              <p className="text-[#101010] text-[16px] hover:underline cursor-pointer">See All</p>
             </Link>
             <ChevronRight className="w-[18px]" />
           </div>

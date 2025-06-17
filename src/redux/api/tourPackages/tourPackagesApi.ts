@@ -56,9 +56,19 @@ export const tourPackagesApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.tourPackages],
     }),
 
+<<<<<<< HEAD
     getSingleTourBooking: builder.query({
       query: (id) => `/tour-bookings/${id}`,
       providesTags: [tagTypes.tourPackages],
+=======
+    getSingleTourBooking : builder.query({
+        query : (id) => `/tour-bookings/${id}`,
+        providesTags: ['payment']  
+    })
+     
+
+   
+>>>>>>> 7582ff5a768ac4465674cfdc0c154ea4dfce6e1c
     }),
   }),
 });

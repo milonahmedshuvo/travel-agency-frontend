@@ -19,7 +19,7 @@ const page = () => {
       {/* <TravelBookingForm/> */}
       <TourPackageFilterFiled/>
       <SeaTourItems/>
-      <TravelLove/>
+      <TravelLove frist="Why Travelers Love" secound="Our Sea Tours" thrid="" />
       <TestimonialSlider/>
       <RecentBlog/>
     </div>

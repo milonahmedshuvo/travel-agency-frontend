@@ -7,12 +7,12 @@ import toast from "react-hot-toast";
 import { useAppSelector } from "@/redux/hook";
 
 
-export default function RatingComponent() {
+export default function RatingHotel() {
     const params = useParams()
     const id = params.id 
      const isAuthenticated = useAppSelector((state)=>state.auth.user?.email)
    
-    console.log("ratting tour packages", id)
+    // console.log("ratting tour packages", id)
 
 
 
@@ -43,14 +43,12 @@ export default function RatingComponent() {
     // console.log("Feedback:", feedback)
 
     const commentsData = {
-      tourPackageId : id,
+      hotelPackageId: id,
       rating: rating,
       comment: feedback
     }
 
 console.log("Comments Data:", commentsData)
-
-
 const token = localStorage.getItem('token');
 
 fetch("https://supermariobos-api.code-commando.com/api/v1/feedbacks", {
