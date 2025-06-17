@@ -60,36 +60,44 @@ export const paymentApi = baseApi.injectEndpoints({
 
 
 
+
+
+
+
+
     // ROOM BOOKING PAYMENTS FOR STRIPE 
-     confirmRoom20StripePayment: builder.mutation({
+
+      // ✅ New mutation endpoint for confirming initial 20% payment
+     confirmInitialRoomSplitPayment: builder.mutation({
       query: ({ id, paymentMethodId, transactionId }) => ({
         url: `/room-bookings/${id}/split-pay/initial`,
-        method: "POST",
-        body: {
-          paymentMethodId,
-          transactionId,
-        },
-      }),
-      invalidatesTags: ['payment'],
-    }), 
-
-    confirmRoom80StripePayment: builder.mutation({
-      query: ({ id, paymentMethodId, transactionId, token }) => ({
-        url: `/room-bookings/${id}/split-pay/final`,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: {
-          paymentMethodId,
-          transactionId,
-        },
+        method: 'POST',
+        body: { paymentMethodId, transactionId },
       }),
       invalidatesTags: ['payment'],
     }),
 
 
+
+    // ✅ New mutation for final (80%) payment
+    confirmFinalRoomSplitPayment: builder.mutation({
+      query: ({ id, paymentMethodId, transactionId }) => ({
+        url: `/room-bookings/${id}/split-pay/final`,
+        method: 'POST',
+        body: { paymentMethodId, transactionId },
+      }),
+      invalidatesTags: ['payment'],
+    }),
+
+   
+    confirmRoomFullPayment: builder.mutation({
+       query: ({ id, paymentMethodId }) => ({
+         url: `/room-bookings/full-payment-confirm/${id}/stripe`, 
+         method: 'POST',
+         body: { paymentMethodId },
+       }),
+       invalidatesTags: ['payment'],
+    })
     })
 })
 
@@ -105,6 +113,7 @@ export const {
      useCreateRoomPaypal20PaymentMutation,
 
     //  Room booking Stripe 
-     useConfirmRoom20StripePaymentMutation,
-     useConfirmRoom80StripePaymentMutation,
+    useConfirmInitialRoomSplitPaymentMutation,
+    useConfirmFinalRoomSplitPaymentMutation,
+    useConfirmRoomFullPaymentMutation
     } = paymentApi

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search,  ChevronDown } from "lucide-react";
+import { Search,   } from "lucide-react";
 import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { TRoomBooking } from "@/components/lib/types";
 import Link from "next/link";
@@ -12,20 +12,23 @@ export default function MyHotelBookings() {
   const [searchTerm, setSearchTerm] = useState("");
   
 
-  console.log({ searchTerm });
 
-  const [dateFilter, setDateFilter] = useState("Today");
-  const [showDateDropdown, setShowDateDropdown] = useState(false);
+
+
+  
+
+  // const [dateFilter, setDateFilter] = useState("Today");
+  // const [showDateDropdown, setShowDateDropdown] = useState(false);
   // const [showEntriesDropdown, setShowEntriesDropdown] = useState(false)
   // const [entriesPerPage, setEntriesPerPage] = useState("8")
 
-  const dateOptions = [
-    "Today",
-    "Yesterday",
-    "This Week",
-    "This Month",
-    "Custom Range",
-  ];
+  // const dateOptions = [
+  //   "Today",
+  //   "Yesterday",
+  //   "This Week",
+  //   "This Month",
+  //   "Custom Range",
+  // ];
 
   const filterRoomBooking = data?.data?.data?.filter(
     (booking: TRoomBooking) =>
@@ -63,7 +66,7 @@ export default function MyHotelBookings() {
           </div>
 
           {/* Custom Select Dropdown */}
-          <div className="relative w-full sm:w-36">
+          {/* <div className="relative w-full sm:w-36">
             <button
               type="button"
               className="flex items-center justify-between w-full h-10 px-3 py-2 text-sm border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -91,7 +94,7 @@ export default function MyHotelBookings() {
                 </ul>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
 

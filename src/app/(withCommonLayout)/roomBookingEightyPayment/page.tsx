@@ -1,6 +1,8 @@
 "use client"
 
+import Loading from "@/components/shared/loading/Loading";
 import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import { useConfirmFinalRoomSplitPaymentMutation } from "@/redux/api/paymant/paymentApi";
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useRouter } from "next/navigation";
@@ -14,7 +16,7 @@ const RoomStripeEightyPaymentPage = () => {
     const router = useRouter()
 
     // Room booking 
-   
+   const [confirmFinalPayment, { isLoading: isConfirmingFinal }] = useConfirmFinalRoomSplitPaymentMutation();
     
 
     const stripe = useStripe();
@@ -51,50 +53,60 @@ const RoomStripeEightyPaymentPage = () => {
     } else {
       if (result.paymentIntent?.status === 'succeeded') {
         console.log("card success result:", result)
-        console.log("Payment succeeded paymentIntent!", result.paymentIntent );
-
-
+      
         // TODO: Call backend to update payment status
-        console.log('paymentMethodId', result?.paymentIntent?.id)
-        const paymentMethodId = result.paymentIntent.id;
-        console.log('paymethod idddddddddd', paymentMethodId)
+       const paymentMethodId = result.paymentIntent.id;
+        // const token = localStorage.getItem('token');
+        const transactionId = roomBooking?.data?.splitPayment?.finalPaymentTransaction?.id;
+
+    try {
+      const res = await confirmFinalPayment({ id, paymentMethodId, transactionId }).unwrap();
+
+      toast.success(`${res.message} 80%` || "Payment 80% confirmed successfully!");
+      console.log("Backend response:", res);
+      router.push('/booking/accommodation/roomTwentStripeConfirm');
+    } catch (error) {
+      toast.error("Something went wrong while confirming payment.");
+      console.error("RTK mutation error:", error);
+    }   
 
 
 
-    //   confirm 20% payment for stripe
 
-        const token = localStorage.getItem('token');
+      //   try {
+      //   const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay/final`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'Authorization': `Bearer ${token}`
+      //     },
+      //     body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.splitPayment?.finalPaymentTransaction?.id }),
+      //   });
 
-        try {
-        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/${id}/split-pay/final`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ paymentMethodId, transactionId: roomBooking?.data?.splitPayment?.finalPaymentTransaction?.id }),
-        });
+      //   const data = await res.json();
 
-        const data = await res.json();
+      //   if (data) {
+      //     toast.success( `${data.message} 80% ` || "Payment 80% confirmed successfully!");
+      //     console.log("Backend response:", data);
 
-        if (data) {
-          toast.success( `${data.message} 80% ` || "Payment 80% confirmed successfully!");
-          console.log("Backend responsettttttttttt:", data);
-
-          router.push('/booking/accommodation/roomTwentStripeConfirm')
+      //     router.push('/booking/accommodation/roomTwentStripeConfirm')
           
          
-        } else {
-          toast.error("Failed to confirm payment.");
-          console.error("Error from backend:", data);
-        }
+      //   } else {
+      //     toast.error("Failed to confirm payment.");
+      //     console.error("Error from backend:", data);
+      //   }
 
 
 
-      } catch (error) {
-        toast.error("Something went wrong while confirming payment.");
-        console.error("Fetch error:", error);
-      }
+      // } catch (error) {
+      //   toast.error("Something went wrong while confirming payment.");
+      //   console.error("Fetch error:", error);
+      // }
+
+
+
+
 
       }
     }
@@ -105,6 +117,9 @@ const RoomStripeEightyPaymentPage = () => {
 
 
 
+if(isConfirmingFinal){
+  return <Loading/>
+}
 
 
   return (

@@ -8,7 +8,7 @@ import Highlights from "@/components/common/highlights/Highlights";
 import ImportantInfo from "@/components/common/importantInfo/ImportantInfo";
 import { IncludedExcludedCard } from "@/components/common/includedExcludedCard/IncludedExcludedCard/IncludedExcludedCard";
 import KnowBeforeYouGo from "@/components/common/knowBeforeYouGo/KnowBeforeYouGo";
-import PickupPreferences from "@/components/common/pickupPreferences/PickupPreferences";
+// import PickupPreferences from "@/components/common/pickupPreferences/PickupPreferences";
 import RatingComponent from "@/components/common/rating/Rating";
 import RelatedTour from "@/components/common/relatedTour/RelatedTour";
 import TravelItinerary, {
@@ -207,7 +207,7 @@ export default function Page() {
 
             />
             {/* PickupPreferences */}
-            <PickupPreferences />
+            {/* <PickupPreferences /> */}
             {/* RatingComponent */}
             <RatingComponent />
           </div>

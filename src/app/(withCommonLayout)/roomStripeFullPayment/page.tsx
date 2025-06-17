@@ -1,5 +1,7 @@
 "use client"
 
+import Loading from "@/components/shared/loading/Loading";
+import { useConfirmRoomFullPaymentMutation } from "@/redux/api/paymant/paymentApi";
 import { useAppSelector } from "@/redux/hook"
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useRouter } from "next/navigation";
@@ -11,6 +13,9 @@ const RoomStripeFullPaymentPage = () => {
     const clientSecret  = useAppSelector((state) => state.booking.roomBookingPayment?.clientSecret)
     const id = useAppSelector((state) => state.booking.roomBookingId)
     const router = useRouter()
+
+    // Room 
+    const [confirmFullPayment, { isLoading: isConfirming }] = useConfirmRoomFullPaymentMutation();
 
 
 
@@ -48,42 +53,51 @@ const RoomStripeFullPaymentPage = () => {
       toast.error("Payment failed, Please try again!!")
     } else {
       if (result.paymentIntent?.status === 'succeeded') {
-        console.log("Payment succeeded paymentIntent!", result.paymentIntent );
-
-
+      
         // TODO: Call backend to update payment status
-        console.log('paymentMethodId', result?.paymentIntent?.id)
         const paymentMethodId = result.paymentIntent.id;
+        // const token = localStorage.getItem('token');
 
-        const token = localStorage.getItem('token');
+
 
         try {
-        const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment-confirm/${id}/stripe`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ paymentMethodId }),
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-
-          toast.success( data.message || "Payment confirmed successfully!");
-          console.log("Backend responsesssssssssss:", data);
-
-          router.push('/booking/accommodation/roomTwentStripeConfirm')
-
-        } else {
-          toast.error("Failed to confirm payment.");
-          console.error("Error from backend:", data);
+          const res = await confirmFullPayment({ id, paymentMethodId }).unwrap();
+           toast.success(`${res.message} ` || "Payment full payment confirmed successfully!");
+           router.push('/booking/accommodation/roomTwentStripeConfirm')
+        }catch (error) {
+          toast.error("Something went wrong while confirming payment.");
+          console.error("Fetch error:", error);
         }
-      } catch (error) {
-        toast.error("Something went wrong while confirming payment.");
-        console.error("Fetch error:", error);
-      }
+
+      //   try {
+      //   const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/room-bookings/full-payment-confirm/${id}/stripe`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'Authorization': `Bearer ${token}`
+      //     },
+      //     body: JSON.stringify({ paymentMethodId }),
+      //   });
+
+      //   const data = await res.json();
+
+      //   if (data.success) {
+
+      //     toast.success( data.message || "Payment confirmed successfully!");
+      //     console.log("Backend responsesssssssssss:", data);
+
+      //     router.push('/booking/accommodation/roomTwentStripeConfirm')
+
+      //   } else {
+      //     toast.error("Failed to confirm payment.");
+      //     console.error("Error from backend:", data);
+      //   }
+      // } catch (error) {
+      //   toast.error("Something went wrong while confirming payment.");
+      //   console.error("Fetch error:", error);
+      // }
+
+
 
       }
     }
@@ -91,6 +105,11 @@ const RoomStripeFullPaymentPage = () => {
 
 
 
+
+
+  if(isConfirming){
+    return <Loading/>
+  }
 
   return (
     <div className="flex justify-center flex-col items-center pt-10 pb-20 gap-5.5 h-screen ">
