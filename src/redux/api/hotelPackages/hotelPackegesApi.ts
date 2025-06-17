@@ -39,17 +39,6 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
       query : (id) => `/room-bookings/${id}`,
       providesTags: [tagTypes.payment]
     }),
-
-    
-
-    
-
-
-
-
-     
-
-
   }),
 });
 
