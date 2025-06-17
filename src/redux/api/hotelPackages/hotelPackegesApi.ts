@@ -1,4 +1,5 @@
 import { baseApi } from "../baseApi";
+import { tagTypes } from "../tag-types";
 
 export const hotelPackagesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -36,7 +37,7 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
 
     getSingleRoomBooking : builder.query({
       query : (id) => `/room-bookings/${id}`,
-      providesTags: ['payment']
+      providesTags: [tagTypes.payment]
     }),
 
     

@@ -1,4 +1,5 @@
 import { baseApi } from "../baseApi";
+import { tagTypes } from "../tag-types";
 
     
 export const feedbacksApi = baseApi.injectEndpoints({
@@ -6,7 +7,7 @@ export const feedbacksApi = baseApi.injectEndpoints({
 
     getAllfeedbacks : builder.query({
     query : () => '/feedbacks',
-    providesTags: ['/feedbacks']
+    providesTags: [tagTypes.feedbacks]
    }),
 
    createFeedbacks : builder.mutation({
@@ -15,7 +16,7 @@ export const feedbacksApi = baseApi.injectEndpoints({
         method: 'POST',
         body: feedbacksData
     }),
-    invalidatesTags: ['/feedbacks']
+    invalidatesTags: [tagTypes.feedbacks]
    }),
     
 

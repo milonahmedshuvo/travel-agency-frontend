@@ -1,4 +1,5 @@
 import { baseApi } from "../baseApi";
+import { tagTypes } from "../tag-types";
  
 
 export const paymentApi = baseApi.injectEndpoints({
@@ -10,7 +11,7 @@ export const paymentApi = baseApi.injectEndpoints({
             method: "POST",
             body: data
         }),
-        invalidatesTags: ['payment'],
+        invalidatesTags: [tagTypes.payment],
     }),
     createTourPaypal80Payment: builder.mutation<{message: string}, {data: {paymentMethodId: string; transactionId?: string}, id: string}>({
         query: ({data, id}) => ({
@@ -18,7 +19,7 @@ export const paymentApi = baseApi.injectEndpoints({
             method: "POST",
             body: data
         }),
-        invalidatesTags: ['payment'],
+        invalidatesTags: [tagTypes.payment],
     }),
     createTourPaypal20Payment: builder.mutation<{message: string}, {data: {paymentMethodId: string; transactionId?: string}, id: string}>({
         query: ({data, id}) => ({
@@ -26,7 +27,7 @@ export const paymentApi = baseApi.injectEndpoints({
             method: "POST",
             body: data
         }),
-        invalidatesTags: ['payment'],
+        invalidatesTags: [tagTypes.payment],
     }),
 
 
@@ -39,7 +40,7 @@ export const paymentApi = baseApi.injectEndpoints({
             method: "POST",
             body: data
         }),
-        invalidatesTags: ['payment'],
+        invalidatesTags: [tagTypes.payment],
     }),
     createRoomPaypal80Payment: builder.mutation<{message: string}, {data: {paymentMethodId: string; transactionId?: string}, id: string}>({
         query: ({data, id}) => ({
@@ -47,7 +48,7 @@ export const paymentApi = baseApi.injectEndpoints({
             method: "POST",
             body: data
         }),
-        invalidatesTags: ['payment'],
+        invalidatesTags: [tagTypes.payment],
     }),
     createRoomPaypal20Payment: builder.mutation<{message: string}, {data: {paymentMethodId: string; transactionId?: string}, id: string}>({
         query: ({data, id}) => ({
@@ -55,7 +56,7 @@ export const paymentApi = baseApi.injectEndpoints({
             method: "POST",
             body: data
         }),
-        invalidatesTags: ['payment'],
+        invalidatesTags: [tagTypes.payment],
     }),
 
 
@@ -70,7 +71,7 @@ export const paymentApi = baseApi.injectEndpoints({
           transactionId,
         },
       }),
-      invalidatesTags: ['payment'],
+      invalidatesTags: [tagTypes.payment],
     }), 
 
     confirmRoom80StripePayment: builder.mutation({
@@ -86,7 +87,7 @@ export const paymentApi = baseApi.injectEndpoints({
           transactionId,
         },
       }),
-      invalidatesTags: ['payment'],
+      invalidatesTags: [tagTypes.payment],
     }),
 
 
