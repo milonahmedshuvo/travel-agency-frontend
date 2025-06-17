@@ -23,10 +23,10 @@ export const vehicleApi = baseApi.injectEndpoints({
       })
     }),
     updateVehicle: builder.mutation({
-      query: ({id,payload}) => ({
+      query: ({id,data}) => ({
         url: `/vehicles/${id}`,
         method: 'PATCH',
-        body: payload
+        body: data
       })
     })
   }),
