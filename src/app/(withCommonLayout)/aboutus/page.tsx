@@ -11,7 +11,7 @@ const page = () => {
         <AboutusBanner/>
         <OurStory/>
         <MissionValues/>
-        <TravelLove/>
+        <TravelLove frist="Why Choose Us?" />
         <ContactForm/>
     </div>
   )

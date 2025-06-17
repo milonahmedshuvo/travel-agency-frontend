@@ -15,7 +15,7 @@ const page = () => {
       {/* <TravelBookingForm/> */}
       <TourPackageFilterFiled/>
       <LandTourItems/>
-      <TravelLove/>
+      <TravelLove frist="Experience the Ultimate" secound="Outdoor Adventure" thrid="" />
       <TestimonialSlider/>
       <RecentBlog/>
       </div>

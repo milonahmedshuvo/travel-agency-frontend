@@ -148,7 +148,7 @@ export default function Page() {
             {/* <TourOverviewWithCalender /> */}
 
 
-            <div className=" my-5">
+            <div className=" mt-5 mb-1  bg-white py-5 px-4 ">
               <div className="text-gray-600 mb-4 text-sm" dangerouslySetInnerHTML={{ __html: data?.data?.description }} ></div>
             </div>
 
