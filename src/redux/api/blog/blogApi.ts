@@ -1,4 +1,5 @@
 import { baseApi } from "../baseApi";
+import { tagTypes } from "../tag-types";
  
 export const blogApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,12 +10,12 @@ export const blogApi = baseApi.injectEndpoints({
             method: "POST",
             body: blogData
         }),
-        invalidatesTags: ['blog'],
+        invalidatesTags: [tagTypes.blog],
     }),
 
     getAllBlogs : builder.query({
         query: () => "/blogs",
-        providesTags: ['blog'],
+        providesTags: [tagTypes.blog],
     }),
 
     getSingleBlog : builder.query({
@@ -26,7 +27,7 @@ export const blogApi = baseApi.injectEndpoints({
            url: `/blogs/${id}`,
            method: 'DELETE', 
         }),
-       invalidatesTags: ['blog'],
+       invalidatesTags: [tagTypes.blog],
     }),
 
     })

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/role-supports-aria-props */
 "use client"
 import { useEffect} from "react"
 import { useForm, type SubmitHandler } from "react-hook-form"

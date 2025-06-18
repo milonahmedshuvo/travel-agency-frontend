@@ -1,12 +1,16 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { ChevronLeft, ChevronRight, ListFilter, MoveRight, Plus } from "lucide-react"
+import Image from "next/image";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ListFilter,
+  Plus,
+} from "lucide-react";
 // import VehicleImg  from "../../../assets/landTour/img1.jpg"
-import Link from "next/link"
-import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi"
-import Loading from "@/components/shared/loading/Loading"
-
+import Link from "next/link";
+import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi";
+import Loading from "@/components/shared/loading/Loading";
 
 export type TVehicle = {
   id: string;
@@ -14,51 +18,44 @@ export type TVehicle = {
   slug: string;
   img: string;
   pricePerHR: number;
-  vehicleType: string; 
+  vehicleType: string;
   createdAt: string;
   updatedAt: string;
 };
 
-
-
-
 export default function VehicleListPage() {
-  const {data, isLoading} = useGetAllVehicleQuery(undefined)
-  console.log('get vehicle', data?.data?.data) 
-  if(isLoading){
-    return <Loading/>
+  const { data, isLoading } = useGetAllVehicleQuery(undefined);
+  console.log("get vehicle", data?.data?.data);
+  if (isLoading) {
+    return <Loading />;
   }
- 
-
-
-
 
   return (
     <div className="px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl text-[#000E19] font-[500]">Vehicle Listd</h1>
+        <h1 className="text-3xl text-[#000E19] font-[500]">Vehicle List</h1>
         <div className="flex gap-2">
-            <Link href='/dashboard/addVehicle' > 
-          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF]  text-white  flex justify-center items-center py-2 px-2.5  rounded cursor-pointer ">
-            <Plus className="mr-2 h-4 w-4" /> Add New Vehicle
-          </button>
+          <Link href="/dashboard/addVehicle">
+            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF]  text-white  flex justify-center items-center py-2 px-2.5  rounded cursor-pointer ">
+              <Plus className="mr-2 h-4 w-4" /> Add New Vehicle
+            </button>
           </Link>
-          <button  className="lg:hidden">
+          <button className="lg:hidden">
             <ListFilter className="h-4 w-4" />
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {data?.data?.data?.map((vehicle:TVehicle, index:number) => (
+        {data?.data?.data?.map((vehicle: TVehicle, index: number) => (
           <VehicleCard key={index} vehicle={vehicle} />
         ))}
       </div>
 
-
       <div className="mt-8 flex items-center justify-between">
         <div className="text-sm text-gray-500">
-          Showing <span className="font-medium">11</span> out of <span className="font-medium">1,450</span>
+          Showing <span className="font-medium">11</span> out of{" "}
+          <span className="font-medium">1,450</span>
         </div>
         <div className="flex items-center space-x-2">
           <button>
@@ -68,16 +65,10 @@ export default function VehicleListPage() {
           <button className="bg-blue-500 text-white hover:bg-blue-600 w-6">
             1
           </button>
-          <button>
-            2
-          </button>
-          <button>
-            3
-          </button>
+          <button>2</button>
+          <button>3</button>
           <span className="px-2">...</span>
-          <button>
-            16
-          </button>
+          <button>16</button>
           <button>
             <ChevronRight className="h-4 w-4 text-black  " />
             <span className="sr-only">Next page</span>
@@ -85,18 +76,23 @@ export default function VehicleListPage() {
         </div>
       </div>
 
-      <div className="mt-8 text-center text-sm text-gray-500">Copyright © 2024 Travel Agency</div>
+      <div className="mt-8 text-center text-sm text-gray-500">
+        Copyright © 2024 Travel Agency
+      </div>
     </div>
-  )
+  );
 }
-
-
 
 function VehicleCard({ vehicle }: { vehicle: TVehicle }) {
   return (
     <div className="rounded-lg overflow-hidden">
       <div className="relative h-56">
-        <Image src={vehicle.img || "/placeholder.svg"} alt={vehicle.name} fill className="object-cover" />
+        <Image
+          src={vehicle.img || "/placeholder.svg"}
+          alt={vehicle?.name}
+          fill
+          className="object-cover"
+        />
       </div>
 
       <div className="p-4">
@@ -111,11 +107,13 @@ function VehicleCard({ vehicle }: { vehicle: TVehicle }) {
             <span className="text-[#757D83]">{vehicle.pricePerHR}</span>
           </div>
         </div>
-        <button className="w-full mt-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] flex items-center justify-center text-white py-2.5 px-2 rounded cursor-pointer"> View Service History <MoveRight className="ml-2 h-4 w-4" />
+        <button className="w-full mt-4 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] flex items-center justify-center text-white py-2.5 px-2 rounded cursor-pointer">
+          {" "}
+          <Link href={`/dashboard/update-vehicle/${vehicle?.id}`} >Update Vehicle </Link>
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 // Sample data

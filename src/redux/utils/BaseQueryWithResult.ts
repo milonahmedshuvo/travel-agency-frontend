@@ -8,7 +8,9 @@ import type {
 // import Cookies from "js-cookie";
 // import { logout } from "../slice/auth/authSlice";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL
+const baseUrl =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://supermariobos-api.code-commando.com/api/v1";
 
 
 const rawBaseQuery = fetchBaseQuery({
@@ -18,9 +20,9 @@ const rawBaseQuery = fetchBaseQuery({
   
   prepareHeaders: (headers) => {
     // const token = Cookies.get("token");
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
     if (token) {
-      headers.set("authorization",  `Bearer ${token}`);
+      headers.set("authorization", `Bearer ${token}`);
     }
     headers.set("accept", "application/json");
     return headers;

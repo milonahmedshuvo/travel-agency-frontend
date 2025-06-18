@@ -6,7 +6,6 @@ import { FaStar } from "react-icons/fa";
 // import Image, { } from 'next/image';
 import Link from 'next/link';
 import Image from 'next/image';
-const {  } = Card;
 
 
 interface CustomCardProps {

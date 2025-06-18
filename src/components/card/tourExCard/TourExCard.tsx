@@ -36,20 +36,17 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({
         <div className="overflow-hidden">
           <Link href={`/toursExperience/${id}`}>
             <Image
-         width={500} 
-         height={500} 
-         quality={75} 
-         alt={title} 
-         src={imageUrl} 
-         unoptimized
-        loading='lazy'
-        placeholder="blur"
-        blurDataURL="/placeholder-blur.png" 
-         className=' w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125'
-           />
-
-           
-           
+              width={500}
+              height={500}
+              quality={75}
+              alt={title}
+              src={imageUrl}
+              unoptimized
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="/placeholder-blur.png"
+              className=" w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125"
+            />
 
             {/* <img
               src={imageUrl}
@@ -59,7 +56,6 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({
               loading="lazy" // or "lazy"
               className=" w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125"
             /> */}
-
           </Link>
         </div>
       }

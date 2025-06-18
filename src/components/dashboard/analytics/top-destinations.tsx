@@ -21,7 +21,7 @@ const timeframeMap = {
   "This Year": "year",
 };
 
-const TopPackages = () => {
+const TopDestinations = () => {
   const [destinationsTimeframe, setDestinationsTimeframe] =
     useState("This Month");
 
@@ -55,7 +55,7 @@ const TopPackages = () => {
     <>
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1">
         <div className="flex flex-row items-center justify-between p-4">
-          <h3 className="text-lg font-semibold">Top Packages</h3>
+          <h3 className="text-lg font-semibold">Top Destinations</h3>
           <CustomDropdown
             options={["This Week", "This Month", "This Year"]}
             value={destinationsTimeframe}
@@ -64,11 +64,11 @@ const TopPackages = () => {
         </div>
         <div className="p-6">
           {isLoading ? (
-            <div className="flex  h-64 items-center justify-center">
+            <div className="flex h-64 items-center justify-center">
               {/* <LoadingSpinner /> */} loading...
             </div>
           ) : (
-            <div className="flex flex-col md:flex-col items-start justify-between">
+            <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="h-[200px] w-[200px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -124,4 +124,4 @@ const TopPackages = () => {
   );
 };
 
-export default TopPackages;
+export default TopDestinations;

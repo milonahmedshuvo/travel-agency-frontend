@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client"
 import React, { useState } from "react";
 import { CustomDropdown } from "../TravelOverview/TravelOverview";
 import {
@@ -14,7 +12,7 @@ import {
 } from "recharts";
 import { useRevenueOverviewQuery } from "@/redux/api/analytise/analytiseApi";
 
-const TripsOverview = () => {
+const RevenueOverview = () => {
   const [revenueTimeframe, setRevenueTimeframe] = useState("Weekly");
 
   // Compute dynamic start and end dates based on timeframe
@@ -61,7 +59,7 @@ const TripsOverview = () => {
           <div className="rounded-lg border border-gray-200 bg-white shadow-xs lg:col-span-2">
             <div className="flex flex-row items-center justify-between p-4">
               <h3 className="text-[#000E19] text-[20px] font-[500]">
-                Trip Overview
+                Revenue Overview
               </h3>
               <CustomDropdown
                 options={["Daily", "Weekly", "Monthly"]}
@@ -121,4 +119,4 @@ const TripsOverview = () => {
   );
 };
 
-export default TripsOverview;
+export default RevenueOverview;
