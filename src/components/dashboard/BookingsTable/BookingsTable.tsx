@@ -11,6 +11,7 @@ import { CustomButton } from "@/components/ui/CustomButton"
 import { useGetAllTourBookingsQuery } from "@/redux/api/tourPackages/tourPackagesApi"
 import { TourBooking } from "@/components/lib/types"
 import { CustomBadge } from "@/components/ui/CustomBadge"
+import Link from "next/link"
 
 
 
@@ -111,6 +112,7 @@ const dateFormate = (date:string) => {
             </CustomTableHeader>
             <CustomTableBody>
               {filteredBookings?.map((booking:TourBooking) => (
+                // <Link href={`/dashboard/tripBooking/${booking.id}`} key={booking.id}> </Link>
                 <CustomTableRow key={booking.id}>
                   <CustomTableCell className="font-normal">{booking?.tourPackage?.title || "N/A"}</CustomTableCell>
                   <CustomTableCell>{booking.id.slice(0, 5)}</CustomTableCell>
@@ -137,9 +139,15 @@ const dateFormate = (date:string) => {
                     </CustomBadge> */}
 
                     <CustomBadge className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" > Confirmed </CustomBadge>
-
-
                   </CustomTableCell>
+
+                   <CustomTableCell>
+                    <Link href={`/dashboard/tripBooking/${booking.id}`}>
+                      <button className="border border-gray-400 px-2 py-0.5 rounded cursor-pointer">View</button>
+                    </Link>
+                   </CustomTableCell>
+
+
                 </CustomTableRow>
               ))}
             </CustomTableBody>
