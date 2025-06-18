@@ -2,7 +2,8 @@ import AccommodationBanner from '@/components/accommodation/accommodationBanner/
 // import AccommodationBookingForm from '@/components/accommodation/accommodationBookingForm/AccommodationBookingForm'
 import AccommodationItems from '@/components/accommodation/accommodationItems/AccommodationItems'
 import RoomFilterOptionInputFiled from '@/components/others/RoomFilterOptions/RoomFilterOptions'
-import TravelLove from '@/components/others/travelLove/TravelLove'
+import AccommodationLove from '@/components/others/travelLove/AccommodationLove'
+// import TravelLove from '@/components/others/travelLove/TravelLove'
 import RecentBlog from '@/components/toursExperience/recentBlog/RecentBlog'
 import TestimonialSlider from '@/components/toursExperience/testimonialSlider/TestimonialSlider'
 import React from 'react'
@@ -15,7 +16,8 @@ const page = () => {
       <RoomFilterOptionInputFiled/>
       <AccommodationItems/>
        
-      <TravelLove/>
+      {/* <TravelLove/> */}
+      <AccommodationLove frist="Experience History" secound="Never Before" thrid="Like" ></AccommodationLove>
       <TestimonialSlider/>
         <RecentBlog/>
     </div>
