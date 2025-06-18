@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { TRoomBooking } from "@/components/lib/types";
+import Loading from "@/components/shared/loading/Loading";
+import Link from "next/link";
 
 export default function AccommodationsBookings() {
-  const { data } = useGetAllRoomBookingsQuery("");
+  const { data, isLoading } = useGetAllRoomBookingsQuery("");
   const [searchTerm, setSearchTerm] = useState("");
 
   console.log({ searchTerm });
@@ -37,6 +39,14 @@ export default function AccommodationsBookings() {
     const stringFormatedDated = formatedDate.toLocaleDateString();
     return stringFormatedDated;
   };
+
+
+  if (isLoading) {
+    return <Loading/>;
+  }
+
+
+
 
   return (
     <div className="space-y-6 ">
@@ -119,6 +129,13 @@ export default function AccommodationsBookings() {
                     {/* {booking.status} */} Confirmed
                   </span>
                 </td>
+
+                <td className="px-4 py-3">
+                  <Link href={`/dashboard/hotelBooking/${booking.id}`}>
+                      <button className="border border-gray-400 px-2 py-0.5 rounded cursor-pointer">View</button>
+                    </Link>
+                  </td>
+
               </tr>
             ))}
           </tbody>
