@@ -47,12 +47,35 @@ const dateFormate = (date:string) => {
 
 
 
+ const filteredBookings = currentItems?.filter(
+    (booking: TourBooking) =>
+      booking?.tourPackage?.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      booking?.vehicleBooking?.tourPackageVehicle?.vehicleType
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+  );
+
+
 
   return (
     <Card>
       <CardHeader className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0 pb-4">
         <CardTitle className="text-[20px] font-[500]">Bookings</CardTitle>
-        {/* <h1>ddddddddddddddd</h1> */}
+       
+       <div className="relative">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                  <input
+                    type="search"
+                    placeholder="Search anything"
+                    className="h-9 rounded-md border border-gray-300 pl-8 pr-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+
+
       </CardHeader>
       <CardContent>
         
@@ -87,15 +110,19 @@ const dateFormate = (date:string) => {
               </CustomTableRow>
             </CustomTableHeader>
             <CustomTableBody>
-              {currentItems?.map((booking:TourBooking) => (
+              {filteredBookings?.map((booking:TourBooking) => (
                 <CustomTableRow key={booking.id}>
-                  <CustomTableCell className="font-medium">{'tour name N/A'}</CustomTableCell>
-                  <CustomTableCell>{booking.id.slice(0, 4)}</CustomTableCell>
-                  <CustomTableCell>{'tour package type'}</CustomTableCell>
+                  <CustomTableCell className="font-normal">{booking?.tourPackage?.title || "N/A"}</CustomTableCell>
+                  <CustomTableCell>{booking.id.slice(0, 5)}</CustomTableCell>
+                  <CustomTableCell>{booking?.tourPackage?.category}</CustomTableCell>
                   <CustomTableCell>{`${booking.duration} Hours`}</CustomTableCell>
-                  <CustomTableCell>{'vehicle type'}</CustomTableCell>
+                  <CustomTableCell>{booking?.vehicleBooking?.tourPackageVehicle
+                            ?.vehicleType
+                            ? booking?.vehicleBooking?.tourPackageVehicle
+                                ?.vehicleType
+                            : "N/A"}</CustomTableCell>
                   <CustomTableCell>{dateFormate(booking.updatedAt)}</CustomTableCell>
-                  <CustomTableCell>{"tour price N/A"}</CustomTableCell>
+                  <CustomTableCell>${booking?.tourPackage?.price || "N/A" }</CustomTableCell>
                   <CustomTableCell>
 
                     {/* <CustomBadge
@@ -121,7 +148,7 @@ const dateFormate = (date:string) => {
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length}
+            {/* Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length} */}
           </div>
           <div className="flex items-center space-x-2">
             <CustomButton
@@ -132,6 +159,8 @@ const dateFormate = (date:string) => {
             >
               <ChevronLeft className="h-4 w-4" />
             </CustomButton>
+
+
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               // Show current page and surrounding pages
               let pageToShow
