@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/dashboard/Header/Header";
-// import TravelarListModal from "@/components/dashboard/modal/TravelarListModal";
+import TravelarListModal from "@/components/dashboard/modal/TravelarListModal";
 import Loading from "@/components/shared/loading/Loading";
 import TextPagination from "@/components/others/pagination/TextPagination";
 import { useGetAllTourBookingsQuery } from "@/redux/api/travellist/travellist";
@@ -20,8 +20,8 @@ export default function TravelerList() {
   const [packageFilter, setPackageFilter] = useState("SEA_TOUR");
   const [searchQuery, setSearchQuery] = useState("");
   const [showPackageDropdown, setShowPackageDropdown] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
-  // const [selectedBooking, setSelectedBooking] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const [page, setPage] = useState(1);
   const limit = 10;
 
@@ -32,15 +32,18 @@ export default function TravelerList() {
     ...(searchQuery && { search: searchQuery }),
   });
 
-  // const handleRowClick = (booking: any) => {
-  //   setSelectedBooking(booking);
-  //   setShowModal(true);
-  // };
+  const handleRowClick = (booking: any) => {
+    setSelectedBooking(booking);
+    setShowModal(true);
+  };
 
-  // const closeModal = () => {
-  //   setShowModal(false);
-  //   setSelectedBooking(null);
-  // };
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedBooking(null);
+  };
+
+
+  
 
   if (isLoading) {
     return <Loading />;
@@ -53,6 +56,22 @@ export default function TravelerList() {
       </div>
     );
   }
+
+
+  const filteredBookings = data?.data?.filter(
+      (booking) =>
+          booking.customer?.firstName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+           booking.customer?.user?.email
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+          booking.customer?.user?.contactNo.toLowerCase().includes(searchQuery.toLowerCase()) 
+    );
+
+
+
+
 
   return (
     <div>
@@ -143,7 +162,7 @@ export default function TravelerList() {
                     Phone
                   </th>
                   <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Package
+                    Package Name
                   </th>
                   <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -157,11 +176,11 @@ export default function TravelerList() {
                 </div>
                 :
                 <tbody className="divide-y divide-gray-200">
-                {data?.data?.map((booking) => (
+                {filteredBookings?.map((booking) => (
                   <tr
                     key={booking.id}
                     className="hover:bg-gray-50 cursor-pointer"
-                    // onClick={() => handleRowClick(booking)}
+                    onClick={() => handleRowClick(booking)}
                   >
                     <td className="px-6 py-6 whitespace-nowrap">
                       <div className="flex items-center gap-3">
@@ -223,12 +242,12 @@ export default function TravelerList() {
               </div>
             )}
 
-            {/* {showModal && selectedBooking && (
+            {showModal && selectedBooking && (
               <TravelarListModal
-                selectedBooking={selectedBooking}
+                selectedTraveler={selectedBooking}
                 closeModal={closeModal}
               />
-            )} */}
+            )}
           </div>
         </div>
 
