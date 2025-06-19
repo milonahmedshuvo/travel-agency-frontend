@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import { Plus } from "lucide-react"
 import Loading from "@/components/shared/loading/Loading"
 import { TTourPackage } from "@/components/lib/types"
-import TourExperienceCard from "@/components/card/tourExCard/TourExCard"
 import Link from "next/link"
+import TourExperienceCardDashboard from "@/components/card/tourExCard/TourExCardDashboard"
 
 
 
@@ -135,14 +135,14 @@ export function TourGrid() {
                 tourPackages.length > 0 ? <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
             {tourPackages?.map((product:TTourPackage, index:number) => (
               <div key={index}>
-                <TourExperienceCard
+                <TourExperienceCardDashboard
                    id={product.id}
                   imageUrl={product.images?.[1]?.url  }
                   title={product.title}
                   price={`$${product.price}`}
                   day={`${product.duration} Days Trip`}
                   ratting={'5.0'}
-                ></TourExperienceCard>
+                ></TourExperienceCardDashboard>
               </div>
             ))}
             

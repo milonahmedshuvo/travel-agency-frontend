@@ -12,7 +12,7 @@ interface FeatureListProps {
 
 export default function WineTourFeatures({ heading, features }: FeatureListProps) {
   return (
-    <div className="px-4 py-8 md:py-12 bg-white mt-5">
+    <div className="px-4 py-8 md:py-12 bg-white mt-5 rounded-lg">
       <h2 className="text-3xl font-medium mb-8 text-gray-800">{heading}</h2>
       <div className="space-y-6">
         {features.map((feature, index) => (
