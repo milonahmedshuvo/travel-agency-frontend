@@ -46,7 +46,7 @@ const MyTourBookingDatailsPage = () => {
       modifyReason  = customReason
     }
 
-       console.log("Custom reason:ssssssssssss", modifyReason);
+       
 
     // Here you would typically send the data to your API
      try {

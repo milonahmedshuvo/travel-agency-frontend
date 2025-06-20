@@ -48,6 +48,7 @@ export const tourPackagesApi = baseApi.injectEndpoints({
         method: "POST",
         body: tourBooking,
       }),
+      invalidatesTags: [tagTypes?.TourBookings]
     }),
 
     // GET all tour booking
@@ -60,6 +61,19 @@ export const tourPackagesApi = baseApi.injectEndpoints({
       query: (id) => `/tour-bookings/${id}`,
       providesTags: [tagTypes.tourPackages],
     }),
+
+    // Cencel tour booking by reason 
+    cancelTourBooking: builder.mutation({
+      query : ({id, reason}) => ({
+        url: `/tour-bookings/cancel/${id}`,
+        method: "PATCH",
+        body: {reason}
+      }),
+      invalidatesTags: [tagTypes?.TourBookings]
+    }),
+
+
+
   }),
 });
 
@@ -73,4 +87,6 @@ export const {
   useGetCurturalTourQuery,
   useGetGastroTourQuery,
   useGetSingleTourBookingQuery,
+
+  useCancelTourBookingMutation 
 } = tourPackagesApi;

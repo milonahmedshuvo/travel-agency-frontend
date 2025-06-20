@@ -30,13 +30,14 @@ const SeaTourItems = () => {
     const fetchTours = async () => {
       try {
         const token = localStorage.getItem("token");
+        console.log({token})
         const response = await fetch(
           `https://supermariobos-api.code-commando.com/api/v1/tour-packages?limit=12&category=SEA_TOUR&page=${newPage}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // optional
+              Authorization: `${token}`, // optional
             },
           }
         );
