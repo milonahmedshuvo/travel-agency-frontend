@@ -16,7 +16,7 @@ export default function Highlights({highlights, title}: TThighlightsType) {
   
 
   return (
-    <section className="w-full px-4 py-12 md:py-16 bg-white mt-5 rounded-lg">
+    <section className="w-full px-4 py-12 md:py-16 bg-white rounded-lg">
       <h2 className="text-3xl md:text-4xl font-medium mb-8 text-gray-900">{title}</h2>
       <div className="space-y-6">        
         {

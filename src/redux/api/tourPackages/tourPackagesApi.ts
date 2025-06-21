@@ -12,6 +12,18 @@ export const tourPackagesApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.tourPackages],
     }),
 
+    
+    updateTourPackage: builder.mutation({
+      query: ({id, tourPackageData } ) => ({
+         url : `/tour-packages/${id}`,
+         method: "PATCH",
+         body: tourPackageData
+      })
+    }),
+
+
+
+
     // Get sea tour
     getSeaTour: builder.query({
       query: () => "/tour-packages?category=SEA_TOUR",
@@ -40,6 +52,13 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     getSingleTour: builder.query({
       query: (id) => `/tour-packages/${id}`,
     }),
+
+    
+
+
+
+
+
 
     // POST tOUR bOOKING
     createTourBooking: builder.mutation({
@@ -74,6 +93,9 @@ export const tourPackagesApi = baseApi.injectEndpoints({
 
 
 
+
+
+
   }),
 });
 
@@ -88,5 +110,7 @@ export const {
   useGetGastroTourQuery,
   useGetSingleTourBookingQuery,
 
-  useCancelTourBookingMutation 
+  useCancelTourBookingMutation,
+  useUpdateTourPackageMutation 
+
 } = tourPackagesApi;

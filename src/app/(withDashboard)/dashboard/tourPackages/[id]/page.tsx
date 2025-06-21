@@ -21,6 +21,7 @@ import { TPackageImage } from "@/components/lib/types";
 import {  useAppSelector } from "@/redux/hook";
 import Loading from "@/components/shared/loading/Loading";
 import Header from "@/components/dashboard/Header/Header";
+import Link from "next/link";
 
 
 export default function Page() {
@@ -84,7 +85,7 @@ export default function Page() {
 
 
 {/* travel card  */}
-           <div className="mt-10">
+           <div className="mt-10 flex justify-between bg-white  ">
 
              <TravelCard title ={data?.data?.title}
                         location={data?.data?.location}
@@ -94,6 +95,12 @@ export default function Page() {
                         href=''
                         className = ""
                          />
+
+
+                         <div className="flex flex-col justify-between p-4 sm:p-5 ">
+                             <h1 className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white py-1.5 px-3 rounded-lg cursor-pointer"> <Link href={`/dashboard/tourPackages/update/${data?.data?.id}`} > Edit Package </Link></h1>
+                             <h2 className="text-2xl text-orange-400" >${data?.data?.price}</h2>
+                         </div>
            </div>
 
 

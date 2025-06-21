@@ -41,7 +41,6 @@ const MyTourBookingDatailsPage = () => {
 
   const closeModal = () => {
     setShowModal(false);
-
   };
 
 

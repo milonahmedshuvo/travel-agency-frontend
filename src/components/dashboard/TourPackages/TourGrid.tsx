@@ -123,7 +123,7 @@ export function TourGrid() {
 
         <Link href='/dashboard/addTourPackages'> 
         <button
-          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% rounded-md  transition-colors"
+          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-linear-to-t from-[#156CF0]  via-50%  to-[#38B6FF] to-50% rounded-md  transition-colors cursor-pointer"
         > 
           <Plus className="h-4 w-4 mr-2" /> Add Packages 
         </button>

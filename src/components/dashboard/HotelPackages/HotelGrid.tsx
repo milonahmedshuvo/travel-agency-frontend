@@ -5,8 +5,8 @@ import Loading from "@/components/shared/loading/Loading"
 import Link from "next/link"
 import { Plus } from "lucide-react"
 import { THotelPackage } from "@/components/lib/types"
-import AccommodationCard from "@/components/card/accommodationCard/AccommodationCard"
 import CustomPagination from "@/components/others/pagination/CustomPagination"
+import HotelCardDashboard from "@/components/card/accommodationCard/HotelCardDash"
 
 
 
@@ -208,10 +208,18 @@ export function HotelGrid( ) {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {
             hotelPackages?.map((product:THotelPackage, index:number) =><div key={index}>
-                <AccommodationCard id={product.id} imageUrl={product?.images[1]?.url} title={product.title} address={"address"}  price={product.price} ratting={'5.0'}/>
+                <HotelCardDashboard id={product.id} imageUrl={product?.images[1]?.url} title={product.title} address={"address"}  price={product.price} ratting={'5.0'}/>
             </div>)
           }
     </div>
+
+
+
+
+
+
+
+
 
        {/* call custom pagination handle here  */}
             <CustomPagination

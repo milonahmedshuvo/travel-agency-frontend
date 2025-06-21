@@ -4,13 +4,14 @@
 "use client"
 
 import type React from "react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { PlusCircle, X, Upload } from "lucide-react"
 import { Switch } from 'antd';
 import dynamic from "next/dynamic";
 import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi";
-import { useCreatetourPackagesMutation } from "@/redux/api/tourPackages/tourPackagesApi";
+import { useGetSingleTourQuery, useUpdateTourPackageMutation } from "@/redux/api/tourPackages/tourPackagesApi";
 import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });;
 
 
@@ -50,8 +51,10 @@ export type TVehicleOfObject = {
 
 export default function TourPackageForm() {
    const {data} = useGetAllVehicleQuery("")
-   const [createTourPackages, {data:tourData, error} ] = useCreatetourPackagesMutation()
-
+   const params = useParams()
+   const id = params.id 
+   const {data:tourPackage} = useGetSingleTourQuery(id)
+   const [updateTourPackage] = useUpdateTourPackageMutation()
 
 
   // State for form data
@@ -74,6 +77,33 @@ export default function TourPackageForm() {
     isVehicleService: false
 
   })
+
+  useEffect(()=>{
+     console.log("call")
+     setFormData({
+    title: tourPackage?.data?.title,
+    category:tourPackage?.data?.category,
+    location: tourPackage?.data?.location,
+    duration: tourPackage?.data?.duration,
+    date: tourPackage?.data?.packageDate,
+    price: tourPackage?.data?.price,
+    image: null,
+    slug: "sunset-sea-adventure",
+    // improtent 
+    meetingPointGoogleMap : tourPackage?.data?.importantInfo?.meetingPointGoogleMap,
+    transportation :  tourPackage?.data?.importantInfo?.transportation,
+    dressCode:  tourPackage?.data?.importantInfo?. dressCode,
+    ageRequirement:  tourPackage?.data?.importantInfo?.ageRequirement,
+    mobileTicket:  tourPackage?.data?.importantInfo?.mobileTicket,
+    // vehicle 
+    isVehicleService: tourPackage?.data?.isVehicleService
+  }) 
+
+   },[tourPackage])
+
+
+
+
   const [ file, setFile ] = useState<File[]>([])
 
 
@@ -82,6 +112,7 @@ export default function TourPackageForm() {
   const [tourLovingReasons, setTourLovingReasons] = useState<TourLovingReasons[]>([
       { title: "", description: "" }
     ])
+
   // Detailed Itinerary state
   const [detailedItinerarys, setDetailedItinerarys] = useState<TourLovingReasons[]>([
       { title: "", description: "" }
@@ -120,6 +151,90 @@ export default function TourPackageForm() {
     groupSize: 0,
     languages: [""] 
   })
+
+
+
+
+// reset and store in the state 
+useEffect(() => {
+  if (tourPackage?.data?.tourLovingReasons) {
+    setTourLovingReasons(tourPackage.data.tourLovingReasons);
+  }
+}, [tourPackage]);
+
+useEffect(()=> {
+  if(tourPackage?.data?.detailedItineraries){
+    setDetailedItinerarys(tourPackage?.data?.detailedItineraries)
+  }
+}, [tourPackage])
+
+useEffect(() => {
+  if(tourPackage?.data?. activity){
+    setActivity(tourPackage?.data?.activity)
+  }
+}, [tourPackage])
+
+useEffect(()=>{
+  if(tourPackage?.data?.highlights){
+    setHighlights(tourPackage?.data?.highlights)
+  }
+},[tourPackage])
+
+useEffect(() =>{
+  if(tourPackage?.data?.descriptions){
+    setDescriptions(tourPackage?.data?.descriptions)
+  }
+},[tourPackage])
+
+
+useEffect(()=> {
+  if(tourPackage?.data?.includes){
+   setIncludeds(tourPackage?.data?.includes)
+  }
+}, [tourPackage])
+
+useEffect(() => {
+  if(tourPackage?.data?.excludes){
+    setExcludeds(tourPackage?.data?.excludes) 
+  }
+}, [tourPackage])
+
+useEffect(() => {
+  if(tourPackage?.data?.brings){
+    setBring(tourPackage?.data?.brings)
+  }
+}, [tourPackage])
+
+useEffect(()=> {
+  if(tourPackage?.data?.knowBeforeYouGoes){
+    setknowBeforeYouGoes(tourPackage?.data?.knowBeforeYouGoes)
+  }
+}, [tourPackage])
+
+useEffect(()=> {
+  if(tourPackage?.data?.tourPackageVehicles){
+    setTourPackageVehicles(tourPackage?.data?.tourPackageVehicles)
+  }
+}, [tourPackage])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -352,15 +467,19 @@ const [loadding, setLoadding] = useState(false)
 
 
 
+useEffect(() =>{
+  setContent(tourPackage?.data?.description)
+},[tourPackage])
+
 
 
 
   
 
-
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault()
   setLoadding(true)
+
 
 
   const fullData = {
@@ -398,25 +517,37 @@ const handleSubmit = async (e: React.FormEvent) => {
 }
 
 
-const formDatas = new FormData();
-formDatas.append("data", JSON.stringify(fullData));
 
-file.forEach(f => formDatas.append("images", f));
+
+// const formDatas = new FormData();
+// formDatas.append("data", JSON.stringify(fullData));
+// if(file?.length > 0){
+//    file.forEach(f => formDatas.append("images", f));
+// }
 
 
   try {
-    const result = await createTourPackages(formDatas).unwrap()
-    console.log("Tour Packages created successfully:", result)
-    toast.success(result.message || "Tour Packages created successfully!")
+    const result = await updateTourPackage({id, tourPackageData: fullData }).unwrap()
+    if(result?.success){
+      toast.success(result.message || "Tour Packages update successfully!")
+    }
+    
     setLoadding(false)
   } catch (err: any) {
-    console.error("Failed to create Tour Packages:", err)
-    toast.error("Failed to create Tour Packages.")
+    console.error("Failed to update Tour Packages:", err)
+    toast.error("Failed to update Tour Packages.")
      setLoadding(false)
   }
 }
 
   
+
+
+
+
+
+
+
 // image delete 
  const handleDelete = (index: number) => {
     const updatedFiles = [...file];
@@ -427,8 +558,10 @@ file.forEach(f => formDatas.append("images", f));
 
 
   return (
+
+    // onSubmit={handleSubmit}
     <form onSubmit={handleSubmit} className=" px-4 md:px-7 space-y-8 mt-10 mb-10">
-      <div className="text-2xl font-bold">Add New Package</div>
+      <div className="text-2xl font-bold">Update tour Package</div>
 
 
        <div className="space-y-2">

@@ -138,7 +138,14 @@ const dateFormate = (date:string) => {
                       {booking.status}
                     </CustomBadge> */}
 
-                    <CustomBadge className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" > Confirmed </CustomBadge>
+
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${booking?.transactions?.status === "SUCCEEDED" && "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]"}  ${booking?.transactions?.status === "PROCESSING" && "bg-blue-300 text-blue-500 hover:bg-blue-200"}   ${booking?.transactions?.status === "REQUIRES_PAYMENT_METHOD" && "bg-amber-400"} ${booking?.transactions === null && 'bg-red-500 opacity-80' }    text-white`}>
+
+                    { booking?.transactions?.status}
+                    {booking?.transactions === null && "Not pay" }  
+                  </span>
+
+                    {/* <CustomBadge className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" > Confirmed </CustomBadge> */}
                   </CustomTableCell>
 
                    <CustomTableCell>

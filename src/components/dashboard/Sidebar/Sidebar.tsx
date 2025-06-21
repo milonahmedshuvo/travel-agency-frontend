@@ -97,9 +97,9 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
     { icon: <HeadphonesIcon size={20} />, label: "Support", key: "11" },
     {
       icon: <XCircle size={20} />,
-      label: "Facebook",
+      label: "Feedback",
       key: "11",
-      path: "/dashboard/facebook",
+      path: "/dashboard/feedback",
     },
   ];
 
