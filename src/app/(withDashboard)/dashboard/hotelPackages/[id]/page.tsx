@@ -10,6 +10,7 @@ import BestPlaces from "@/components/common/roomCard/bestPlaces/BestPlaces";
 import ActivityCard from "@/components/common/activityCard/ActivityCard";
 import Highlights from "@/components/common/highlights/Highlights";
 import Header from "@/components/dashboard/Header/Header";
+import Link from "next/link";
 
 export default function HotelDatailsAdmin() {
   const params = useParams();
@@ -69,8 +70,12 @@ export default function HotelDatailsAdmin() {
             />
 
             <div className="flex flex-col justify-between p-4 sm:p-5 ">
-                             <h1 className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white py-1.5 px-3 rounded-lg cursor-pointer">Edit Package</h1>
-                             <h2 className="text-2xl text-orange-400" >${data?.data?.price}</h2>
+              
+                     <h1 className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white py-1.5 px-3 rounded-lg cursor-pointer">
+                      <Link href={`/dashboard/hotelPackages/update/${id}`}> Edit Package </Link>
+                     </h1>
+
+                     <h2 className="text-2xl text-orange-400" >$ {data?.data?.price} </h2>
              </div>
          </div>
 

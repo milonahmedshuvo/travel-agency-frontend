@@ -11,6 +11,17 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
       }),
     }),
 
+
+   updatedHotelPackages: builder.mutation({
+      query: ({id, hotelData}) => ({
+        url: `/hotel-packages/${id}`,
+        method: "PATCH",
+        body: hotelData,
+      }),
+    }),
+
+
+
     //GET ALL HOTEL PACKAGES
     getAllHotelPackages: builder.query({
       query: () => "/hotel-packages",
@@ -55,5 +66,5 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery, useCencelHotelBookingMutation } =
+export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery, useCencelHotelBookingMutation, useUpdatedHotelPackagesMutation } =
   hotelPackagesApi;

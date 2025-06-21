@@ -12,6 +12,7 @@ import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi";
 import { useGetSingleTourQuery, useUpdateTourPackageMutation } from "@/redux/api/tourPackages/tourPackagesApi";
 import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
+import Header from "@/components/dashboard/Header/Header";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });;
 
 
@@ -559,7 +560,9 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   return (
 
-    // onSubmit={handleSubmit}
+      <div>
+         <Header/> 
+  
     <form onSubmit={handleSubmit} className=" px-4 md:px-7 space-y-8 mt-10 mb-10">
       <div className="text-2xl font-bold">Update tour Package</div>
 
@@ -1341,5 +1344,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           </button>
       </div>
     </form>
+    </div>
   )
 }
