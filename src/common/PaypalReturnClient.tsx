@@ -79,7 +79,7 @@
 //   //   const capturePayment = async () => {
 //   //     try {
 //   //       const res = await fetch(
-//   //         `https://supermariobos-api.code-commando.com/api/v1/paypal/complete-order/${token}`,
+//   //         `${getBaseUrl()}/paypal/complete-order/${token}`,
 //   //         {
 //   //           method: "POST",
 //   //           headers: { "Content-Type": "application/json" },
@@ -124,12 +124,9 @@
 //   );
 // }
 
-
-
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import {
   useCreateRoomPaypal20PaymentMutation,
   useCreateRoomPaypal80PaymentMutation,
@@ -138,58 +135,50 @@ import {
   useCreateTourPaypal80PaymentMutation,
   useCreateTourPaypalPaymentMutation,
 } from "@/redux/api/paymant/paymentApi";
-import { toast } from "sonner";
-import { useAppSelector } from "@/redux/hook";
 import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
-import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
-
+import { useAppSelector } from "@/redux/hook";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function PaypalReturnClient() {
-  const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
+  const [status, setStatus] = useState<"processing" | "success" | "error">(
+    "processing"
+  );
   const [message, setMessage] = useState("");
-  const tourBookingId = useAppSelector((state) => state.booking.tourBookingId)
-  const {data} = useGetSingleTourBookingQuery(tourBookingId);
+  const tourBookingId = useAppSelector((state) => state.booking.tourBookingId);
+  const { data } = useGetSingleTourBookingQuery(tourBookingId);
 
-  
-  const initialTourBookingId = data?.data?.splitPayment?.initialPaymentTransaction?.id || ""; 
-  const finalTourBookingId = data?.data?.splitPayment?.finalPaymentTransaction?.id || "";
+  const initialTourBookingId =
+    data?.data?.splitPayment?.initialPaymentTransaction?.id || "";
+  const finalTourBookingId =
+    data?.data?.splitPayment?.finalPaymentTransaction?.id || "";
   // const fullTourBookingId = data?.data?.transactions?.id;
 
-  // Room Bookings functionality implements 
+  // Room Bookings functionality implements
   const roomBookingId = useAppSelector((state) => state.booking.roomBookingId);
-  const {data:roomData} = useGetSingleRoomBookingQuery(roomBookingId);
+  const { data: roomData } = useGetSingleRoomBookingQuery(roomBookingId);
 
-  const initialRoomBookingId = roomData?.data?.splitPayment?.initialPaymentTransaction?.id || "";
-  const finalRoomBookingId = roomData?.data?.splitPayment?.finalPaymentTransaction?.id || "";
-
-  
+  const initialRoomBookingId =
+    roomData?.data?.splitPayment?.initialPaymentTransaction?.id || "";
+  const finalRoomBookingId =
+    roomData?.data?.splitPayment?.finalPaymentTransaction?.id || "";
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  const payType = searchParams.get("paymentType"); 
+  const payType = searchParams.get("paymentType");
   const payFor = searchParams.get("bookingType");
-
 
   const [payTourFull] = useCreateTourPaypalPaymentMutation();
   const [payTour20] = useCreateTourPaypal20PaymentMutation();
   const [payTour80] = useCreateTourPaypal80PaymentMutation();
 
-
-   const [payRoomFull] = useCreateRoomPaypalPaymentMutation();
+  const [payRoomFull] = useCreateRoomPaypalPaymentMutation();
   const [payRoom20] = useCreateRoomPaypal20PaymentMutation();
   const [payRoom80] = useCreateRoomPaypal80PaymentMutation();
 
-
-  
-   
-
-
-
-
-
-
   useEffect(() => {
-    if ( !payType || !payFor) return;
+    if (!payType || !payFor) return;
 
     // const tourId = "684d9bb839ec80254f7c6886"; // replace with dynamic ID if needed
 
@@ -201,7 +190,10 @@ export default function PaypalReturnClient() {
           if (payType === "initial" && initialTourBookingId) {
             result = toast.promise(
               payTour20({
-                data: { paymentMethodId: token!, transactionId: initialTourBookingId },
+                data: {
+                  paymentMethodId: token!,
+                  transactionId: initialTourBookingId,
+                },
                 id: tourBookingId!,
               }).unwrap(),
               {
@@ -216,13 +208,15 @@ export default function PaypalReturnClient() {
                   setMessage(err.message || "20% Payment failed.");
                   return err.message;
                 },
-                
               }
             );
           } else if (payType === "final" && finalTourBookingId) {
             result = toast.promise(
               payTour80({
-                data: { paymentMethodId: token!, transactionId: finalTourBookingId  },
+                data: {
+                  paymentMethodId: token!,
+                  transactionId: finalTourBookingId,
+                },
                 id: tourBookingId!,
               }).unwrap(),
               {
@@ -239,7 +233,7 @@ export default function PaypalReturnClient() {
                 },
               }
             );
-          } else if (payType === "full" ) {
+          } else if (payType === "full") {
             result = toast.promise(
               payTourFull({
                 data: { paymentMethodId: token! },
@@ -264,16 +258,15 @@ export default function PaypalReturnClient() {
           await result;
         }
 
-
-
-       
-
         // Room Booking functionality implements
         if (payFor === "hotel") {
           if (payType === "initial" && initialRoomBookingId) {
             result = toast.promise(
               payRoom20({
-                data: { paymentMethodId: token!, transactionId: initialRoomBookingId },
+                data: {
+                  paymentMethodId: token!,
+                  transactionId: initialRoomBookingId,
+                },
                 id: roomBookingId!,
               }).unwrap(),
               {
@@ -293,7 +286,10 @@ export default function PaypalReturnClient() {
           } else if (payType === "final" && finalRoomBookingId) {
             result = toast.promise(
               payRoom80({
-                data: { paymentMethodId: token!, transactionId: finalRoomBookingId },
+                data: {
+                  paymentMethodId: token!,
+                  transactionId: finalRoomBookingId,
+                },
                 id: roomBookingId!,
               }).unwrap(),
               {
@@ -333,14 +329,7 @@ export default function PaypalReturnClient() {
           }
 
           await result;
-        } 
-
-
-
-
-
-
-
+        }
       } catch (error) {
         console.error("Unexpected error during payment processing:", error);
         setStatus("error");
@@ -349,10 +338,23 @@ export default function PaypalReturnClient() {
     };
 
     handlePayment();
-  }, [payType, payFor, payTourFull, payTour80, payTour20, token, tourBookingId, initialTourBookingId, finalTourBookingId, payRoom20, payRoom80, payRoomFull, initialRoomBookingId, finalRoomBookingId, roomBookingId]);
-
-
-
+  }, [
+    payType,
+    payFor,
+    payTourFull,
+    payTour80,
+    payTour20,
+    token,
+    tourBookingId,
+    initialTourBookingId,
+    finalTourBookingId,
+    payRoom20,
+    payRoom80,
+    payRoomFull,
+    initialRoomBookingId,
+    finalRoomBookingId,
+    roomBookingId,
+  ]);
 
   return (
     <div className="min-h-screen flex items-center justify-center flex-col gap-4 text-center p-6">

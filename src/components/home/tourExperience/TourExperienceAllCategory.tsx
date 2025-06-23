@@ -3,6 +3,7 @@
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import { TTourPackage } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
+import { getBaseUrl } from "@/config/base-url";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -12,19 +13,19 @@ const TourExperienceAllCategory = () => {
   const [tourPackages, setTourPackages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  
   useEffect(() => {
     const fetchTours = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://supermariobos-api.code-commando.com/api/v1/tour-packages?category=${activeTab}`,{
+          `${getBaseUrl()}/tour-packages?category=${activeTab}`,
+          {
             method: "GET",
             headers: {
-                "Content-Type": "Application/json",
-                Authorization: `Bearer ${token}`,
-            }
+              "Content-Type": "Application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         const data = await response.json();
@@ -39,17 +40,11 @@ const TourExperienceAllCategory = () => {
     fetchTours();
   }, [activeTab]);
 
-  if(loading){
-    return <Loading/>
+  if (loading) {
+    return <Loading />;
   }
 
-
-
-
-
   // console.log('curent tour data', tourPackages)
-
-
 
   return (
     <div>
@@ -57,15 +52,19 @@ const TourExperienceAllCategory = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="font-semibold text-[40px] md:text-[48px] ">
-              Find Your <span className="text-[#FF914D]">Perfect Experience</span>
+              Find Your{" "}
+              <span className="text-[#FF914D]">Perfect Experience</span>
             </h1>
             <p className="text-[#333333] text-[16px] font-normal mt-1.5">
-              Explore our curated selection of unique and captivating properties.
+              Explore our curated selection of unique and captivating
+              properties.
             </p>
           </div>
           <div className="flex items-center">
             <Link href="/toursExperience">
-              <p className="text-[#101010] text-[16px] hover:underline cursor-pointer">See All</p>
+              <p className="text-[#101010] text-[16px] hover:underline cursor-pointer">
+                See All
+              </p>
             </Link>
             <ChevronRight className="w-[18px]" />
           </div>
@@ -95,26 +94,26 @@ const TourExperienceAllCategory = () => {
 
         {/* Tour Package Content */}
 
-        {
-            tourPackages.length > 0 ? <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
-        {tourPackages?.slice(0, 8)?.map((product:TTourPackage, index:number) => (
-          <div key={index}>
-            <TourExperienceCard
-               id={product.id}
-              imageUrl={product.images?.[1]?.url  }
-              title={product.title}
-              price={`$${product.price}`}
-              day={`${product.duration} Days Trip`}
-              ratting={'5.0'}
-            ></TourExperienceCard>
+        {tourPackages.length > 0 ? (
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 xl:gap-6 ">
+            {tourPackages
+              ?.slice(0, 8)
+              ?.map((product: TTourPackage, index: number) => (
+                <div key={index}>
+                  <TourExperienceCard
+                    id={product.id}
+                    imageUrl={product.images?.[1]?.url}
+                    title={product.title}
+                    price={`$${product.price}`}
+                    day={`${product.duration} Days Trip`}
+                    ratting={"5.0"}
+                  ></TourExperienceCard>
+                </div>
+              ))}
           </div>
-        ))}
-        
-      </div> : <p className="mt-10">No tours found for this category.</p>
-        }
-
-        
-        
+        ) : (
+          <p className="mt-10">No tours found for this category.</p>
+        )}
       </div>
     </div>
   );

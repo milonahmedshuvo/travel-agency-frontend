@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import Link from "next/link";
 import { TTourPackage } from "@/components/lib/types";
+import { getBaseUrl } from "@/config/base-url";
 
 const WineTours = () => {
    const [tours, setTours] = useState([]);
@@ -14,7 +15,7 @@ const WineTours = () => {
       try {
         const token = localStorage.getItem('token')
         const response = await fetch(
-          "https://supermariobos-api.code-commando.com/api/v1/tour-packages?category=GASTRO_WINE_TOUR",
+          `${getBaseUrl()}/tour-packages?category=GASTRO_WINE_TOUR`,
           {
             method: "GET",
             headers: {

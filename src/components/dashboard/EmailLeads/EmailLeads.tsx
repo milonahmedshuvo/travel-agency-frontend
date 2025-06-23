@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState, useEffect } from "react";
-import { Search, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import Loading from "@/components/shared/loading/Loading";
 import TextPagination from "@/components/others/pagination/TextPagination";
+import Loading from "@/components/shared/loading/Loading";
+import { getBaseUrl } from "@/config/base-url";
+import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export type TCustomers = {
   id: string;
@@ -51,7 +52,7 @@ export default function EmailLeadsTable() {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://supermariobos-api.code-commando.com/api/v1/customers?page=${newPage}`,
+          `${getBaseUrl()}/customers?page=${newPage}`,
           {
             method: "GET",
             headers: {

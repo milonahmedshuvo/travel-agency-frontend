@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import img1 from "../../../assets/card/tourexperience/img1.jpg";
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 // import { useGetSeaTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { TTourPackage } from "@/components/lib/types";
-import Loading from "@/components/shared/loading/Loading";
 import CustomPagination from "@/components/others/pagination/CustomPagination";
+import Loading from "@/components/shared/loading/Loading";
+import { getBaseUrl } from "@/config/base-url";
 
 const SeaTourItems = () => {
   const [newPage, setNewPage] = useState(1);
@@ -31,7 +32,7 @@ const SeaTourItems = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://supermariobos-api.code-commando.com/api/v1/tour-packages?limit=12&category=SEA_TOUR&page=${newPage}`,
+          `${getBaseUrl()}/tour-packages?limit=12&category=SEA_TOUR&page=${newPage}`,
           {
             method: "GET",
             headers: {
