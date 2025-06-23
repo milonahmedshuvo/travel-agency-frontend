@@ -1,5 +1,6 @@
 export const getBaseUrl = (): string => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://api.hvarlocal.com/api/v1";
 
   if (!baseUrl) {
     console.warn(
