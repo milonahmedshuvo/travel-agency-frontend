@@ -1,13 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react"
+import Loading from "@/components/shared/loading/Loading"
+import Link from "next/link"
+import { Plus } from "lucide-react"
+import { THotelPackage } from "@/components/lib/types"
+import CustomPagination from "@/components/others/pagination/CustomPagination"
 import AccommodationCard from "@/components/card/accommodationCard/AccommodationCard";
-import { THotelPackage } from "@/components/lib/types";
-import CustomPagination from "@/components/others/pagination/CustomPagination";
-import Loading from "@/components/shared/loading/Loading";
-import { getBaseUrl } from "@/config/base-url";
-import { Plus } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+
+// Utility function to get the base URL
+function getBaseUrl() {
+  if (typeof window !== "undefined") {
+    // Adjust this as needed for your environment
+    return process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api";
+  }
+  return process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api";
+}
 
 export function HotelGrid() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

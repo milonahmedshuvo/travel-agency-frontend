@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { TRoomBooking } from "@/components/lib/types";
+import Loading from "@/components/shared/loading/Loading";
+import Link from "next/link";
 
 export default function AccommodationsBookings() {
-  const { data } = useGetAllRoomBookingsQuery("");
+  const { data, isLoading } = useGetAllRoomBookingsQuery("");
   const [searchTerm, setSearchTerm] = useState("");
 
   console.log({ searchTerm });
@@ -37,6 +39,14 @@ export default function AccommodationsBookings() {
     const stringFormatedDated = formatedDate.toLocaleDateString();
     return stringFormatedDated;
   };
+
+
+  if (isLoading) {
+    return <Loading/>;
+  }
+
+
+
 
   return (
     <div className="space-y-6 ">
@@ -93,7 +103,7 @@ export default function AccommodationsBookings() {
           <thead className="bg-gray-50 text-gray-700">
             <tr>
               <th className="px-4 py-3 text-left font-medium">Name</th>
-              <th className="px-4 py-3 text-left font-medium">Booking Code</th>
+              {/* <th className="px-4 py-3 text-left font-medium">Booking Code</th> */}
               <th className="px-4 py-3 text-left font-medium">Room Type</th>
               <th className="px-4 py-3 text-left font-medium">Check-In</th>
               <th className="px-4 py-3 text-left font-medium">Check-Out</th>
@@ -105,7 +115,7 @@ export default function AccommodationsBookings() {
             {filterRoomBooking?.map((booking: TRoomBooking, index: number) => (
               <tr key={index} className="bg-white">
                 <td className="px-4 py-3">{booking?.hotelPackage?.title}</td>
-                <td className="px-4 py-3">{"bookingCode N/A"}</td>
+                {/* <td className="px-4 py-3">{"bookingCode N/A"}</td> */}
                 <td className="px-4 py-3">{booking?.roomType}</td>
                 <td className="px-4 py-3">
                   {dateFormated(booking?.checkInDate)}{" "}
@@ -115,10 +125,22 @@ export default function AccommodationsBookings() {
                 </td>
                 <td className="px-4 py-3">{booking?.hotelPackage?.price}</td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white">
-                    {/* {booking.status} */} Confirmed
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${booking?.transactions?.status === "SUCCEEDED" && "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]"}  ${booking?.transactions?.status === "PROCESSING" && "bg-blue-300 text-blue-500 hover:bg-blue-200"} ${booking?.transactions?.status === "REQUIRES_PAYMENT_METHOD" && "bg-amber-400"} ${booking?.transactions === null && 'bg-red-500 opacity-80' } text-white`}>
+                    { booking?.transactions?.status}  
+                    {booking?.transactions === null && "Not pay" }
                   </span>
+                  {/* {
+                    booking?.transactions?.status
+                  } */}
+
                 </td>
+
+                <td className="px-4 py-3">
+                  <Link href={`/dashboard/hotelBooking/${booking.id}`}>
+                      <button className="border border-gray-400 px-2 py-0.5 rounded cursor-pointer">View</button>
+                    </Link>
+                  </td>
+
               </tr>
             ))}
           </tbody>

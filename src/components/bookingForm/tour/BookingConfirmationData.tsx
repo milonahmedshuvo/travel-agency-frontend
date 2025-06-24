@@ -19,7 +19,7 @@ export function BookingConfirmationData({
 
 
   return (
-    <div className={`w-full rounded-lg mt-7 ${className}`}>
+    <div className={`w-full rounded-lg mt-7 text-[16px] ${className}`}>
 
       <div  className=" ">
 

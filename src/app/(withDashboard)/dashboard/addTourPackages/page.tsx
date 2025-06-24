@@ -14,10 +14,6 @@ const page = () => {
         <Header/>
          <AddTourPackagesForm/>
         {/* <GroupLanguageForm/> */}
-
-     
-        
-
     </div>
   )
 }

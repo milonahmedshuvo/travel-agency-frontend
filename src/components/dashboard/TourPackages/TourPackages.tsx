@@ -19,12 +19,12 @@ export default function TourPackages() {
           {/* Left Column - New Package */}
           <div className="lg:col-span-2">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-[#101010] text-[14px] font-[500]">
+              <h2 className="text-[#101010] text-[18px] font-[500] cursor-pointer">
                 New Package
               </h2>
               <Link href="/dashboard/addTourPackages">
                 <button className="bg-linear-to-t from-[#156CF0] via-50%  to-[#38B6FF] to-50% px-4 py-1.5 rounded flex items-center justify-center text-white cursor-pointer hover:bg-blue-600  ">
-                  <Plus className="h-4 w-4 mr-2" /> Add Packageu
+                  <Plus className="h-4 w-4 mr-2" /> Add Package
                 </button>
               </Link>
             </div>

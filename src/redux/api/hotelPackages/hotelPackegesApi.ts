@@ -11,6 +11,17 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
       }),
     }),
 
+
+   updatedHotelPackages: builder.mutation({
+      query: ({id, hotelData}) => ({
+        url: `/hotel-packages/${id}`,
+        method: "PATCH",
+        body: hotelData,
+      }),
+    }),
+
+
+
     //GET ALL HOTEL PACKAGES
     getAllHotelPackages: builder.query({
       query: () => "/hotel-packages",
@@ -28,11 +39,13 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
         url: "/room-bookings",
         method: "POST",
         body: roomBookingData
-      }) 
+      }),
+      invalidatesTags: [tagTypes?.hotelBookings] 
     }),
     
     getAllRoomBookings : builder.query({
-      query : () => '/room-bookings'
+      query : () => '/room-bookings',
+      providesTags: [tagTypes?.hotelBookings]
     }),
 
 
@@ -44,10 +57,21 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
 
     getSingleRoomBooking : builder.query({
       query : (id) => `/room-bookings/${id}`,
-      providesTags: [tagTypes.payment]
+      providesTags: [tagTypes?.hotelBookings]
     }),
+   
+    cencelHotelBooking : builder.mutation({
+      query : ({id, reason}) => ({
+        url: `/room-bookings/cancel/${id}`,
+        method: "PATCH",
+        body: {reason}
+      }),
+      invalidatesTags: [tagTypes?.hotelBookings]
+    })
+
+
   }),
 });
 
-export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery, useGetAllRoomBookingsWithPaginationQuery } =
+export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery, useCencelHotelBookingMutation, useUpdatedHotelPackagesMutation } =
   hotelPackagesApi;

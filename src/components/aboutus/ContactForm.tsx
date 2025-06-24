@@ -4,6 +4,8 @@ import type React from "react"
 
 import { useState } from "react"
 import { Mail, MapPin, Phone } from "lucide-react"
+import { useCreateContactMutation } from "@/redux/api/contact/ContactApi"
+import toast from "react-hot-toast"
 
 
 export default function ContactForm() {
@@ -13,21 +15,50 @@ export default function ContactForm() {
     email: "",
     message: "",
   })
+  const [createContact] = useCreateContactMutation()
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // Handle form submission logic here
-    console.log("Form submitted:", formData)
     // Reset form or show success message
+    setLoading(true)
+   const contactData = {
+     name: formData.name,
+     contactNo : formData.phone,
+     email : formData.email,
+     message : formData.message
   }
+// console.log("Form submitted:", contactData)
+
+  try{
+    const result = await await createContact(contactData).unwrap();
+    if(result?.success){
+      console.log("Successfully create contact", result)
+      toast.success("Successfully create contact")
+      setLoading(false)
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+       })
+  }
+  }catch(err){
+    console.log("Filed contact", err)
+    toast.error('Filed contact')
+    setLoading(false)
+  } }
+
+
 
   return (
-    <section className="custom-container px-4 py-12 ">
+    <section className="custom-container px-4 py-12 !mb-28 ">
       <div className="mb-8">
         <h1 className="text-4xl md:text-5xl font-bold">
           Get in <span className="text-orange-400">Touch</span>
@@ -103,7 +134,9 @@ export default function ContactForm() {
               type="submit"
               className="w-full bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-white py-3 rounded-md transition-colors cursor-pointer "
             >
-              SUBMIT NOW
+              {
+                loading ? 'Processing...' : 'SUBMIT NOW'
+              }
             </button>
           </form>
         </div>

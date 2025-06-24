@@ -68,11 +68,11 @@ export default function TripBooking() {
         </div>
 
 
-        <div className=" xl:row-span-4 ">
+        <div className=" xl:row-span-4">
         <TopPackages />
         </div>
 
-        <div className="lg:col-span-2  xl:col-span-2  xl:row-span-3 ">
+        <div className="lg:col-span-2  xl:col-span-2  xl:row-span-3">
         <TripsOverview />
         </div>
       </div>

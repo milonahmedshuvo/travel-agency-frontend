@@ -57,7 +57,7 @@ const TripsOverview = () => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <div className="col-span-2">
+        <div className="col-span-2 !h-full">
           <div className="rounded-lg border border-gray-200 bg-white shadow-xs lg:col-span-2">
             <div className="flex flex-row items-center justify-between p-4">
               <h3 className="text-[#000E19] text-[20px] font-[500]">
@@ -70,7 +70,7 @@ const TripsOverview = () => {
               />
             </div>
             <div className="p-4">
-              <div className="h-[300px] w-full">
+              <div className="h-[400px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     data={revenueData}

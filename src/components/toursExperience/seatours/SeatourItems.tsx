@@ -31,13 +31,14 @@ const SeaTourItems = () => {
     const fetchTours = async () => {
       try {
         const token = localStorage.getItem("token");
+        console.log({token})
         const response = await fetch(
           `${getBaseUrl()}/tour-packages?limit=12&category=SEA_TOUR&page=${newPage}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // optional
+              Authorization: `${token}`, // optional
             },
           }
         );

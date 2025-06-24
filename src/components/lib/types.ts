@@ -312,7 +312,9 @@ interface Distance {
 
 interface Transaction {
   // Define if needed; currently null
+  status: string,
 }
+
 
 export interface TourStats {
   name: string;

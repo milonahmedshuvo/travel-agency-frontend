@@ -1,0 +1,18 @@
+
+export enum TourPackageCategory {
+  SEA_TOUR = "SEA_TOUR",
+  LAND_TOUR = "LAND_TOUR",
+  CULTURAL_TOUR = "CULTURAL_TOUR",
+  GASTRO_WINE_TOUR = "GASTRO_WINE_TOUR",
+}
+
+
+export enum VehicleType {
+  BOAT = "BOAT",
+  CAR = "CAR",
+  VAN = "VAN",
+  AIRCRAFT = "AIRCRAFT",
+}
+
+
+bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white py-1.5 px-3 rounded-lg cursor-pointer

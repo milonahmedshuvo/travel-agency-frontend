@@ -53,7 +53,7 @@ const TopPackages = () => {
 
   return (
     <>
-      <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1">
+      <div className="rounded-lg border border-gray-200 bg-white shadow-sm lg:col-span-1 h-full">
         <div className="flex flex-row items-center justify-between p-4">
           <h3 className="text-lg font-semibold">Top Packages</h3>
           <CustomDropdown

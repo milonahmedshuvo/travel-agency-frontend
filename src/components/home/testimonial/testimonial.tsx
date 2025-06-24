@@ -74,7 +74,7 @@ export default function TestimonialSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-20 w-full px-4 lg:px-0 py-16 lg:py-0 flex flex-col md:flex-row items-center lg:gap-10 ">
+      <div className="relative z-20 w-full px-4 lg:px-0 py-16 lg:py-0 flex flex-col md:flex-row items-center lg:gap-24 ">
         {/* lg and destop divise  */}
 
         <div

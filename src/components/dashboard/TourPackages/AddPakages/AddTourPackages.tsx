@@ -50,7 +50,7 @@ export type TVehicleOfObject = {
 
 export default function TourPackageForm() {
    const {data} = useGetAllVehicleQuery("")
-   const [createTourPackages, {data:tourData, error}] = useCreatetourPackagesMutation()
+   const [createTourPackages, {data:tourData, error} ] = useCreatetourPackagesMutation()
 
 
 

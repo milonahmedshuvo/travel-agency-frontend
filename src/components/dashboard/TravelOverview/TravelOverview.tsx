@@ -465,7 +465,7 @@ export default function TravelDashboardOverview() {
                       <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">
                         Status
                       </th>
-                    </tr>
+                    </tr> 
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {filteredBookings?.map((booking: TourBooking) => (

@@ -247,8 +247,8 @@ export default function AddHotelTourPackageForm() {
       distances,
     };
 
+    
     console.log({ fullData });
-
     const formDatas = new FormData();
     formDatas.append("data", JSON.stringify(fullData));
 

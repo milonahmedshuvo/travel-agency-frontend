@@ -7,7 +7,10 @@ export enum tagTypes {
   vehicles = "vehicles",
   TourBookings = "TourBookings",
   payment = "payment",
-  feedbacks = "feedbacks"
+  feedbacks = "feedbacks",
+  customer = "customer",
+  hotelBookings = "hotelBookings",
+  contacts = "contacts",
 }
 
 export const tagTypesList = [
@@ -18,7 +21,10 @@ export const tagTypesList = [
   tagTypes.tourPackages,
   tagTypes.vehicles,
   tagTypes.TourBookings,
-    tagTypes.payment,
-    tagTypes.feedbacks
+  tagTypes.payment,
+  tagTypes.feedbacks,
+  tagTypes.customer,
+  tagTypes.hotelBookings,
+  tagTypes.contacts
 
 ];

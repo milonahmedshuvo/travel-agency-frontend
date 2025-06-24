@@ -16,7 +16,7 @@ export function IncludedExcludedCard({
 }: IncludedExcludedCardProps) {
   return (
     <Card >
-        <h1 className="text-[28px] ml-6 mb-10 pt-4 mt-9 font-semibold ">Whats Included & Excluded?</h1>
+        <h1 className="text-[28px] ml-6 mb-10 pt-4 rounded-lg font-semibold ">Whats Included & Excluded?</h1>
       <CardContent>
         <IncludedExcludedList includedItems={includedItems} excludedItems={excludedItems} />
       </CardContent>
