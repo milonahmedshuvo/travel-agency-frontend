@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Loading from "@/components/shared/loading/Loading";
 import { useGetSingleRoomBookingQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
@@ -30,7 +30,7 @@ const RoomStripeFullPaymentPage = () => {
 
     if (!stripe || !elements || !clientSecret) {
       console.error("Stripe.js has not yet loaded or clientSecret is missing.");
-      toast.error("Stripe.js has not yet loaded or clientSecret is missing.")
+      toast.error("Stripe.js has not yet loaded or clientSecret is missing.");
       return;
     }
 
@@ -44,7 +44,7 @@ const RoomStripeFullPaymentPage = () => {
       payment_method: {
         card: cardElement,
         billing_details: {
-          name: 'user',
+          name: "user",
         },
       },
     });
@@ -52,7 +52,7 @@ const RoomStripeFullPaymentPage = () => {
 
     if (result.error) {
       console.error("Payment failedddd:", result.error.message);
-      toast.error("Payment failed, Please try again!!")
+      toast.error("Payment failed, Please try again!!");
     } else {
 
 
@@ -91,7 +91,11 @@ const RoomStripeFullPaymentPage = () => {
 
       //   const data = await res.json();
 
-    
+          // if (data) {
+          //   toast.success(
+          //     `${data.message} 20% ` || "Payment 20% confirmed successfully!"
+          //   );
+          //   console.log("Backend response:", data);
 
       //   if (data) {
       //     toast.success( `${data.message} 20% ` || "Payment 20% confirmed successfully!");
@@ -125,22 +129,19 @@ const RoomStripeFullPaymentPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center pt-10 pb-20 gap-5.5  h-screen ">
-
-        <div className="w-[300px] border p-4 rounded-lg">
+      <div className="w-[300px] border p-4 rounded-lg">
         <CardElement />
       </div>
 
-
-
-         <button
-          onClick={() => handleRoomBookingFullPaymentByStripe()}
-          type="submit"
-          className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
-        >
-          {`Confirm Payment  $${amount}`}
-        </button>
+      <button
+        onClick={() => handleRoomBookingFullPaymentByStripe()}
+        type="submit"
+        className="w-[300px] py-3 px-4 bg-linear-to-b from-[#38B6FF] from-30%  to-[#156CF0]  text-[#fff] rounded-lg flex items-center justify-center cursor-pointer"
+      >
+        {`Confirm Payment  $${amount}`}
+      </button>
     </div>
-  )
-}
+  );
+};
 
 export default RoomStripeFullPaymentPage;

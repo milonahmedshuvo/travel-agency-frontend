@@ -5,6 +5,7 @@ import { BookingConfirmationData } from "@/components/bookingForm/tour/BookingCo
 import { TPackageImage } from "@/components/lib/types";
 import OrderCancellationModal from "@/components/others/OrderCancellationModal/OrderCancellationModal";
 import Loading from "@/components/shared/loading/Loading";
+import { getBaseUrl } from "@/config/base-url";
 import { useGetSingleTourBookingQuery } from "@/redux/api/tourPackages/tourPackagesApi";
 import { useAppDispatch } from "@/redux/hook";
 import { setTourBookingId } from "@/redux/slice/booking/booking";
@@ -26,7 +27,6 @@ type TourCustomerInfo = {
   updatedAt: string; // or Date
 };
 
-
 const MyTourBookingDatailsPage = () => {
   const params = useParams();
   const id = params.id;
@@ -35,115 +35,103 @@ const MyTourBookingDatailsPage = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-
-  const handleCancellationSubmit = async (reason: string, customReason?: string) => {
-
-   let modifyReason = reason  
+  const handleCancellationSubmit = async (
+    reason: string,
+    customReason?: string
+  ) => {
+    let modifyReason = reason;
 
     // console.log("Cancellation reason:", reason);
     if (customReason) {
-      modifyReason  = customReason
+      modifyReason = customReason;
     }
 
-       console.log("Custom reason:ssssssssssss", modifyReason);
+    console.log("Custom reason:ssssssssssss", modifyReason);
 
     // Here you would typically send the data to your API
-     try {
-      const token = localStorage.getItem('token')
-    const response = await fetch(`https://supermariobos-api.code-commando.com/api/v1/tour-bookings/cancel/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({ reason: modifyReason }),
-    });
-    const data = await response.json();
-    // console.log("Cancel Success:", data);
-    if(data?.success){
-       toast.success("Cancel Success!!")   
-    }else{
-        toast.error( data?.message || "Cancel Filed!!")
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `${getBaseUrl()}/tour-bookings/cancel/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ reason: modifyReason }),
+        }
+      );
+      const data = await response.json();
+      // console.log("Cancel Success:", data);
+      if (data?.success) {
+        toast.success("Cancel Success!!");
+      } else {
+        toast.error(data?.message || "Cancel Filed!!");
+      }
+    } catch (error) {
+      console.error("Error cancelling booking:", error);
+      toast.error("Error cancelling booking");
     }
-   
-  } catch (error) {
-    console.error("Error cancelling booking:", error);
-     toast.error("Error cancelling booking")
-  }
-
 
     setIsModalOpen(false);
   };
 
   // console.log(data?.data?.tourPackage?.title)
- 
+
   if (isLoading) {
     return <Loading />;
   }
 
-  // Full payment Stripe and Paypal 
+  // Full payment Stripe and Paypal
   const fullPaymentWithVehicle = () => {
     dispatch(setTourBookingId(id));
     router.push("/booking/payment");
   };
 
-
-  // Hanlde payment 80 % STRIPE 
+  // Hanlde payment 80 % STRIPE
   // console.log(data?.data?.splitPayment?.finalPaymentTransaction?.paymentMethodType ==="PAYPAL")
   const handleEightyPayment = () => {
     dispatch(setTourBookingId(id));
     router.push("/tourBookingEightyPayment");
   };
 
-  // Hanlde payment 80 % PAYPAL  
+  // Hanlde payment 80 % PAYPAL
   const handlePaymentPaypal = () => {
-     dispatch(setTourBookingId(id));
+    dispatch(setTourBookingId(id));
 
-     console.log("paypal payment")
-     const link = data?.data?.splitPayment?.finalPaymentTransaction?.clientSecret
+    console.log("paypal payment");
+    const link =
+      data?.data?.splitPayment?.finalPaymentTransaction?.clientSecret;
 
-            if (link) {
-              window.location.href = link;
-            } else {
-              toast.error("Payment link not found!");
-            }
-  }
+    if (link) {
+      window.location.href = link;
+    } else {
+      toast.error("Payment link not found!");
+    }
+  };
 
-
- 
-  
-// 20% payment Stripe 
+  // 20% payment Stripe
   const initial20PaypalPaymentStripe = () => {
-     dispatch(setTourBookingId(id));
-    console.log("20% Stripe")
+    dispatch(setTourBookingId(id));
+    console.log("20% Stripe");
     router.push("/tourTwentyPaymentStripe");
-  }
-
-
+  };
 
   // console.log("paypal link 20%", data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret )
 
-  // 20% payment PAYPAL 
+  // 20% payment PAYPAL
   const initial20PaypalPaymentPaypal = () => {
-   console.log("20% PAYPAL")
-   const link = data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret
+    console.log("20% PAYPAL");
+    const link =
+      data?.data?.splitPayment?.initialPaymentTransaction?.clientSecret;
 
-            if (link) {
-              window.location.href = link;
-            } else {
-              toast.error("Payment link not found!");
-            }
-  }
-
-
-
-
-
-
-  
-
-
+    if (link) {
+      window.location.href = link;
+    } else {
+      toast.error("Payment link not found!");
+    }
+  };
 
   return (
     <div className="custom-container">
@@ -319,12 +307,7 @@ const MyTourBookingDatailsPage = () => {
         </div>
       )}
 
-
-
-
-
       <div className="bg-[#F1F5F9] py-5 px-5 my-7 rounded flex justify-between items-center ">
-
         {/* YOU BOOKING BUT NOT PAYMENT METHOD SELECTED  */}
 
         <div className="">
@@ -334,11 +317,9 @@ const MyTourBookingDatailsPage = () => {
               className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-2.5 cursor-pointer "
             >
               {" "}
-              payment & Confirmed {" "}
+              payment & Confirmed{" "}
             </button>
           )}
-
-
 
           {
             //  data?.data?.splitPayment?.initialPaymentTransaction
@@ -358,125 +339,123 @@ const MyTourBookingDatailsPage = () => {
                   </p>
                 </div>
 
-
                 <div className="flex gap-2 mt-3 items-center ">
                   <h3 className="text-[#333333] text-[18px]  ">Amount : </h3>
-                  <p className="text-[16px] text-[#676767] "> ${ data?.data?.splitPayment?.initialPaymentTransaction?.amount} </p>
+                  <p className="text-[16px] text-[#676767] ">
+                    {" "}
+                    $
+                    {
+                      data?.data?.splitPayment?.initialPaymentTransaction
+                        ?.amount
+                    }{" "}
+                  </p>
                 </div>
 
-                 <div className="flex gap-2 mt-3 items-center ">
+                <div className="flex gap-2 mt-3 items-center ">
                   <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
-                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed "> { data?.data?.splitPayment?.initialPaymentTransaction?.status} </p>
+                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed ">
+                    {" "}
+                    {
+                      data?.data?.splitPayment?.initialPaymentTransaction
+                        ?.status
+                    }{" "}
+                  </p>
                 </div>
-
 
                 {/* Paypal 20% button  SUCCEEDED */}
                 {
-                   data?.data?.splitPayment?.initialPaymentTransaction?.status === "PROCESSING" && <div>
-                     {
-                    data?.data?.splitPayment?.initialPaymentTransaction?.paymentMethodType ==="PAYPAL" ? <button
-                    onClick={initial20PaypalPaymentPaypal}
-                  className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
-                >
-                  pay now 20% Paypal
-                </button> : <button
-                    onClick={initial20PaypalPaymentStripe}
-                  className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
-                >
-                  pay now 20% Stripe 
-                </button>
-                 }
-                   </div>
+                  data?.data?.splitPayment?.initialPaymentTransaction
+                    ?.status === "PROCESSING" && (
+                    <div>
+                      {data?.data?.splitPayment?.initialPaymentTransaction
+                        ?.paymentMethodType === "PAYPAL" ? (
+                        <button
+                          onClick={initial20PaypalPaymentPaypal}
+                          className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
+                        >
+                          pay now 20% Paypal
+                        </button>
+                      ) : (
+                        <button
+                          onClick={initial20PaypalPaymentStripe}
+                          className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
+                        >
+                          pay now 20% Stripe
+                        </button>
+                      )}
+                    </div>
+                  )
 
-
-                
-
-
-
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                //    <button
-                //   className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
-                // >
-                //   pay now 20%
-                // </button>
+                  //    <button
+                  //   className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
+                  // >
+                  //   pay now 20%
+                  // </button>
                 }
-
               </div>
             )
           }
 
-
-
-
           {/* payment stripe and paypal 80 % */}
 
-          {
-             data?.data?.splitPayment?.finalPaymentTransaction && (  <div className="mt-6">
-                <h1 className="text-[28px] text-[#15202E]">Final Payment</h1>
-                <div className="flex gap-2 mt-3 items-center ">
-                  <h3 className="text-[#333333] text-[18px]  ">
-                    Payment Method :
-                  </h3>
-                  <p className="text-[16px] text-[#676767] ">
-                    {
-                      data?.data?.splitPayment?.finalPaymentTransaction
-                        ?.paymentMethodType
-                    }
-                  </p>
+          {data?.data?.splitPayment?.finalPaymentTransaction && (
+            <div className="mt-6">
+              <h1 className="text-[28px] text-[#15202E]">Final Payment</h1>
+              <div className="flex gap-2 mt-3 items-center ">
+                <h3 className="text-[#333333] text-[18px]  ">
+                  Payment Method :
+                </h3>
+                <p className="text-[16px] text-[#676767] ">
+                  {
+                    data?.data?.splitPayment?.finalPaymentTransaction
+                      ?.paymentMethodType
+                  }
+                </p>
+              </div>
+
+              <div className="flex gap-2 mt-3 items-center ">
+                <h3 className="text-[#333333] text-[18px]  ">Amount : </h3>
+                <p className="text-[16px] text-[#676767] ">
+                  {" "}
+                  ${
+                    data?.data?.splitPayment?.finalPaymentTransaction?.amount
+                  }{" "}
+                </p>
+              </div>
+
+              <div className="flex gap-2 mt-3 items-center ">
+                <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
+                <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed ">
+                  {" "}
+                  {
+                    data?.data?.splitPayment?.finalPaymentTransaction?.status
+                  }{" "}
+                </p>
+              </div>
+
+              {data?.data?.splitPayment?.finalPaymentTransaction?.status ===
+                "PROCESSING" && (
+                <div>
+                  {data?.data?.splitPayment?.finalPaymentTransaction
+                    ?.paymentMethodType === "PAYPAL" ? (
+                    <button
+                      onClick={handlePaymentPaypal}
+                      className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
+                    >
+                      payment & Confirmed (80%) PAYPAL
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleEightyPayment}
+                      className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
+                    >
+                      payment & Confirmed (80%) STRIPE
+                    </button>
+                  )}
                 </div>
-               
-               <div className="flex gap-2 mt-3 items-center ">
-                  <h3 className="text-[#333333] text-[18px]  ">Amount : </h3>
-                  <p className="text-[16px] text-[#676767] "> ${ data?.data?.splitPayment?.finalPaymentTransaction?.amount} </p>
-                </div>
-
-                 <div className="flex gap-2 mt-3 items-center ">
-                  <h3 className="text-[#333333] text-[18px]  ">Status : </h3>
-                  <p className="text-[14px] text-white bg-blue-500 px-3 py-0.5 rounded cursor-not-allowed "> { data?.data?.splitPayment?.finalPaymentTransaction?.status} </p>
-                </div>
-
-
-
-
-                 {
-                   data?.data?.splitPayment?.finalPaymentTransaction?.status === "PROCESSING" && <div>
-                     {
-                    data?.data?.splitPayment?.finalPaymentTransaction?.paymentMethodType ==="PAYPAL" ? <button
-                   onClick={handlePaymentPaypal}
-                  className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
-                >
-                  payment & Confirmed (80%) PAYPAL
-                </button> : <button
-                  onClick={handleEightyPayment}
-                  className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-1.5 cursor-pointer mt-6 "
-                >
-                  payment & Confirmed (80%) STRIPE
-                </button>
-                 }
-                   </div>
-
-
-                 }
-
- 
-                 
-             </div> )
-             
-
-            
-          }
-
-
-
-
-
-
+              )}
+            </div>
+          )}
         </div>
 
         <div>

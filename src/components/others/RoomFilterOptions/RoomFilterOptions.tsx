@@ -1,76 +1,66 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { MapPin, Bed, DollarSign, Search } from "lucide-react"
-import { useAppDispatch } from "@/redux/hook"
-import { addHotelPackages, removeHotelPackages } from "@/redux/slice/searchFilter/searchFilter"
-import { useRouter } from "next/navigation"
+import { getBaseUrl } from "@/config/base-url";
+import { useAppDispatch } from "@/redux/hook";
+import {
+  addHotelPackages,
+  removeHotelPackages,
+} from "@/redux/slice/searchFilter/searchFilter";
+import { Bed, DollarSign, MapPin, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function RoomFilterOptionInputFiled() {
-  const [location, setLocation] = useState("")
-  const [room, setRoom] = useState("")
-  const [priceRange, setPriceRange] = useState("")
-  const [loading, setLoading] = useState(false)
-  const dispatch = useAppDispatch()
-  const router = useRouter()
-
-
-
+  const [location, setLocation] = useState("");
+  const [room, setRoom] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleSearch = async () => {
-    console.log({ location, room, priceRange })
+    console.log({ location, room, priceRange });
     // Handle search logic here
-        setLoading(true)
+    setLoading(true);
 
+    if (location || room || priceRange) {
+      const queryParams = new URLSearchParams();
 
+      if (location) queryParams.append("location", location);
+      if (room) queryParams.append("bedRoom", room); // assuming date is a string like "2025-06-20"
+      if (priceRange) queryParams.append("price", String(priceRange)); // or use min/max format if needed
 
-        if(location || room || priceRange){
-          
-       const queryParams = new URLSearchParams();
-       
-        if (location) queryParams.append("location", location);
-        if (room) queryParams.append("bedRoom", room); // assuming date is a string like "2025-06-20"
-        if (priceRange) queryParams.append("price", String(priceRange)); // or use min/max format if needed
-    
-        try {
-          const res = await fetch(`https://supermariobos-api.code-commando.com/api/v1/hotel-packages?${queryParams.toString()}&page=1`);
-          
-          const data = await res.json();
-          console.log("Search Results:", data);
-           console.log('actully array', data?.data)
-          // Optional: update state or dispatch to Redux here
-         
-    
-    
-          if(data?.data?.length > 0 ){
-             console.log('data have store')
-             setLocation("")
-             
-            //  store reduxt state    
-            dispatch(addHotelPackages(data?.data))
-            router.push('/searchHotelPackage')
-             setLoading(false) 
-    
-          }else{
-            console.log("data no store")
-            // store redux state  
-             dispatch(removeHotelPackages(data?.data))
-             router.push('/searchHotelPackage')
-            setLoading(false)
-          }
+      try {
+        const res = await fetch(
+          `${getBaseUrl()}/hotel-packages?${queryParams.toString()}&page=1`
+        );
 
-        } catch (err) {
-          console.error("Search Error:", err);
-          setLoading(false)
+        const data = await res.json();
+        console.log("Search Results:", data);
+        console.log("actully array", data?.data);
+        // Optional: update state or dispatch to Redux here
+
+        if (data?.data?.length > 0) {
+          console.log("data have store");
+          setLocation("");
+
+          //  store reduxt state
+          dispatch(addHotelPackages(data?.data));
+          router.push("/searchHotelPackage");
+          setLoading(false);
+        } else {
+          console.log("data no store");
+          // store redux state
+          dispatch(removeHotelPackages(data?.data));
+          router.push("/searchHotelPackage");
+          setLoading(false);
         }
-        }
+      } catch (err) {
+        console.error("Search Error:", err);
+        setLoading(false);
       }
-
-
-
-
-
-
+    }
+  };
 
   return (
     <div className="w-full custom-container p-4 mt-10">
@@ -108,7 +98,9 @@ export default function RoomFilterOptionInputFiled() {
 
           {/* Price Range Field */}
           <div className="space-y-2">
-            <label className="text-lg  font-medium text-gray-700">Price range</label>
+            <label className="text-lg  font-medium text-gray-700">
+              Price range
+            </label>
             <div className="relative mt-2.5">
               <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-orange-500 w-4 h-4" />
               <input
@@ -129,13 +121,11 @@ export default function RoomFilterOptionInputFiled() {
               className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center cursor-pointer"
             >
               <Search className="w-4 h-4 mr-2 cursor-pointer" />
-                 {
-                   loading? "Serching..." : "Search"
-                 }
+              {loading ? "Serching..." : "Search"}
             </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
