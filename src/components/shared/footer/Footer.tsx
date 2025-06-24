@@ -71,17 +71,17 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/service" className="hover:text-[#ff7b3a] transition-colors">
                     Services
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/contact" className="hover:text-[#ff7b3a] transition-colors">
                     Contact
                   </Link>
                 </li>
                 <li>
-                  <Link href="/support" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/support" className="hover:text-[#ff7b3a] transition-colors">
                     Support
                   </Link>
                 </li>
@@ -94,22 +94,22 @@ export default function Footer() {
             <nav>
               <ul className="space-y-4">
                 <li>
-                  <Link href="/terms" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/terms" className="hover:text-[#ff7b3a] transition-colors">
                     Terms &amp; Conditions
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/privacy" className="hover:text-[#ff7b3a] transition-colors">
                     Privacy policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/cookies" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/cookiePolicy" className="hover:text-[#ff7b3a] transition-colors">
                     Cookie policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/affiliate" className="hover:text-[#ff7b3a] transition-colors">
+                  <Link href="/footer/affiliateProgram" className="hover:text-[#ff7b3a] transition-colors">
                     Affiliate program
                   </Link>
                 </li>
