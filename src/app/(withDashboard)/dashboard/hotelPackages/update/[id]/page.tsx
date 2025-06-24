@@ -199,9 +199,10 @@ useEffect(()=>{
     field: keyof aboutStays,
     value: string
   ) => {
-    const updated = [...aboutStays];
-    updated[index][field] = value;
-    setaboutStays(updated);
+    // const updated = [...aboutStays];
+    // updated[index][field] = value;
+    // setaboutStays(updated);
+    setaboutStays((prev) => prev.map((item, i) => i === index ? {...item, [field]: value}: item ))
   };
 
   const addFeature = () => {
@@ -214,15 +215,18 @@ useEffect(()=>{
     setaboutStays(updated);
   };
 
+
+
   // Detailed Itinerary function
   const handleChangeItinerary = (
     index: number,
     field: keyof aboutStays,
     value: string
   ) => {
-    const updated = [...bestPlaces];
-    updated[index][field] = value;
-    setbestPlaces(updated);
+    // const updated = [...bestPlaces];
+    // updated[index][field] = value;
+    // setbestPlaces(updated);
+    setbestPlaces((prev) => prev.map((item, i) => i === index ? {...item, [field]: value}: item ))
   };
 
   const addFeatureItinerary = () => {
@@ -252,10 +256,12 @@ useEffect(()=>{
     field: keyof Tamenities,
     value: string
   ) => {
-    const updated = [...amenities];
-    updated[index][field] = value;
-    setamenities(updated);
+    // const updated = [...amenities];
+    // updated[index][field] = value;
+    // setamenities(updated);
+    setamenities((prev) => prev.map((item, i) => i === index ? {...item, [field]: value}: item ))
   };
+
 
   const addFeatureamenities = () => {
     setamenities([...amenities, { title: "" }]);
@@ -273,11 +279,13 @@ useEffect(()=>{
     field: keyof Tamenities,
     value: string
   ) => {
-    const updated = [...distances];
-    updated[index][field] = value;
-    setdistances(updated);
+    // const updated = [...distances];
+    // updated[index][field] = value;
+    // setdistances(updated);
+    setdistances((prev) => prev.map((item, i) => i === index ? {...item, [field]: value}: item ))
   };
 
+  
   const addFeaturedistances = () => {
     setdistances([...distances, { title: "" }]);
   };
