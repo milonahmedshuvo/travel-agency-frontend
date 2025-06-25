@@ -327,3 +327,73 @@ export interface RevenueOverview {
   date: string;
   earning: number;
 }
+
+
+
+
+
+
+
+
+
+
+// Review type start 
+export interface TReview {
+  id: string;
+  hotelPackageId: string | null;
+  tourPackageId: string | null;
+  customerId: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  tourPackage: TourPackage | null;
+  hotelPackage: any | null;
+  customer: Customer;
+}
+
+interface TourPackage {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  location: string;
+  tourType: string;
+  category: string;
+  duration: number;
+  price: number;
+  isVehicleService: boolean;
+  packageDate: string;
+  createdAt: string;
+  updatedAt: string;
+  includes: IncludeExcludeItem[];
+  excludes: IncludeExcludeItem[];
+}
+
+interface IncludeExcludeItem {
+  title: string;
+}
+
+interface Customer {
+  id: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  location: string | null;
+  createdAt: string;
+  updatedAt: string;
+  user: User;
+}
+
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  contactNo: string;
+  password: string;
+  role: string;
+  avatar: string | null;
+  createdAt: string;
+  updatedAt: string;
+  userStatus: string;
+}

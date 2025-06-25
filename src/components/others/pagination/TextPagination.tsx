@@ -23,7 +23,10 @@ export default function TextPagination({
   onPageChange,
   className,
 }: PaginationProps) {
-  const [current, setCurrent] = useState(meta.page)
+  const [current, setCurrent] = useState(meta?.page)
+  
+
+
 
   useEffect(() => {
     setCurrent(meta?.page)

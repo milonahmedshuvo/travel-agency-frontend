@@ -27,7 +27,7 @@ const HotelCardDashboard: React.FC<CustomCardProps> = ({ imageUrl, title, price,
       hoverable
       className="w-full rounded-lg border !border-none !hover:shadow-sm "
       cover={ <div className='overflow-hidden'>
-            <Link href={`/dashboard/hotelPackages/${id}`} > 
+            <Link href={`/dashboard/hotelPackages/${id}`}> 
             {/* <Image  width={500} height={500} quality={75} priority alt={title} src={imageUrl} className='w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125' /> */}
                <Image
               src={imageUrl}
@@ -38,7 +38,7 @@ const HotelCardDashboard: React.FC<CustomCardProps> = ({ imageUrl, title, price,
               unoptimized
               placeholder="blur"
               blurDataURL="/placeholder-blur.png"
-              className=" w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125"
+              className=" w-full h-[300px] object-cover transition-transform duration-300 ease-in-out hover:scale-125"  
             />
             </Link>
       </div> }

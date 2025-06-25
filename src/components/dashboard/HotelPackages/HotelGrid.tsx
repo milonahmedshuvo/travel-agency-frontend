@@ -6,25 +6,23 @@ import Link from "next/link"
 import { Plus } from "lucide-react"
 import { THotelPackage } from "@/components/lib/types"
 import CustomPagination from "@/components/others/pagination/CustomPagination"
-import AccommodationCard from "@/components/card/accommodationCard/AccommodationCard";
+import HotelCardDashboard from "@/components/card/accommodationCard/HotelCardDash";
+import { getBaseUrl } from "@/config/base-url";
 
-// Utility function to get the base URL
-function getBaseUrl() {
-  if (typeof window !== "undefined") {
-    // Adjust this as needed for your environment
-    return process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api";
-  }
-  return process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api";
-}
+
+
 
 export function HotelGrid() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedSort, setSelectedSort] = useState("ALL");
+  const [selectedSort, setSelectedSort] = useState("ALL");  //SUITE
 
   const [hotelPackages, setHotelPackages] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [newPage, setNewPage] = useState(0);
+
+
+
+
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -38,6 +36,7 @@ export function HotelGrid() {
           url += `?roomCategory=${selectedSort}`;
         }
 
+
         const response = await fetch(url, {
           method: "GET",
           headers: {
@@ -45,6 +44,8 @@ export function HotelGrid() {
             Authorization: `Bearer ${token}`,
           },
         });
+
+
 
         const data = await response.json();
         // console.log("HOtel packages", data?.meta?.totalPage)
@@ -59,6 +60,12 @@ export function HotelGrid() {
 
     fetchTours();
   }, [selectedSort]);
+
+
+
+
+
+
 
   if (loading) {
     return <Loading />;
@@ -75,6 +82,10 @@ export function HotelGrid() {
   //  console.log("hotel type", selectedSort)
   //  console.log("HOtel packages", hotelPackages)
   console.log(newPage);
+  console.log(hotelPackages)
+
+
+
 
   return (
     <div>
@@ -202,11 +213,11 @@ export function HotelGrid() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {hotelPackages?.map((product: THotelPackage, index: number) => (
           <div key={index}>
-            <AccommodationCard
+            <HotelCardDashboard
               id={product.id}
               imageUrl={product?.images[1]?.url}
               title={product.title}
-              address={"address"}
+              address={"Address"}
               price={product.price}
               ratting={"5.0"}
             />

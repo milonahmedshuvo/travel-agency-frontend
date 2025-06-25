@@ -10,6 +10,12 @@ export const feedbacksApi = baseApi.injectEndpoints({
     providesTags: [tagTypes.feedbacks]
    }),
 
+
+   getAllfeedbacksWithJPagintion : builder.query({
+    query : (page) => `/feedbacks?page=${page}`,
+    providesTags: [tagTypes.feedbacks]
+   }),
+
    createFeedbacks : builder.mutation({
     query : (feedbacksData) => ({
         url : '/feedbacks',
@@ -22,8 +28,7 @@ export const feedbacksApi = baseApi.injectEndpoints({
 
 
 
-
     }), 
   });
   
-  export const {useGetAllfeedbacksQuery, useCreateFeedbacksMutation} = feedbacksApi;
+  export const {useGetAllfeedbacksQuery, useCreateFeedbacksMutation, useGetAllfeedbacksWithJPagintionQuery } = feedbacksApi;

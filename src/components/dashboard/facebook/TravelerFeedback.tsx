@@ -1,83 +1,14 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Search, ChevronLeft, ChevronRight, Calendar, ChevronDown } from "lucide-react"
+import { Search, Calendar, ChevronDown } from "lucide-react"
+import {  useGetAllfeedbacksWithJPagintionQuery } from "@/redux/api/feedbacks/feedbacksApi"
+import { TReview } from "@/components/lib/types"
+import Image from "next/image"
+
 
 // Sample data for traveler feedback
-const travelers = [
-  {
-    id: 1,
-    name: "Camellia Swan",
-    initials: "CS",
-    package: "Venice Dreams",
-    rating: 4.5,
-    review:
-      "The Venice Dreams package was fantastic! The gondola ride was magical, and the guided tours were very informative. I highly recommend this tour for anyone looking to experience the charm of Venice.",
-  },
-  {
-    id: 2,
-    name: "Raphael Goodman",
-    initials: "RG",
-    package: "Safari Adventure",
-    rating: 5,
-    review:
-      "A well-organized Safari Adventure with knowledgeable guides, unforgettable close encounters with the Big Five, and luxurious tented camps offering stunning Serengeti views.",
-  },
-  {
-    id: 3,
-    name: "Ludwig Contessa",
-    initials: "LC",
-    package: "Alpine Escape",
-    rating: 4,
-    review:
-      "The Alpine Escape tour offered stunning Swiss Alps views, top-notch accommodations, and a perfect activity-relaxation mix. A must-do for nature lovers and adventure seekers.",
-  },
-  {
-    id: 4,
-    name: "Armina Raul Meyes",
-    initials: "AR",
-    package: "Caribbean Cruise",
-    rating: 3.5,
-    review:
-      "The Caribbean Cruise featured beautiful destinations, excellent food, friendly staff, and luxurious amenities, despite some schedule delays. Overall, it was an enjoyable and good experience.",
-  },
-  {
-    id: 5,
-    name: "James Dunn",
-    initials: "JD",
-    package: "Parisian Romance",
-    rating: 5,
-    review:
-      "The Parisian Romance package exceeded expectations with fantastic Eiffel Tower and Louvre tours, a charming hotel, delicious meals, and a perfect getaway for couples exploring Paris.",
-  },
-  {
-    id: 6,
-    name: "Sophia Lee",
-    initials: "SL",
-    package: "Tokyo Cultural Adventure",
-    rating: 4.5,
-    review:
-      "Tokyo Cultural Adventure offered deep insights into Japanese culture and history with a well-balanced itinerary. Highly recommended for cultural enthusiasts seeking an enlightening experience.",
-  },
-  {
-    id: 7,
-    name: "Michael Smith",
-    initials: "MS",
-    package: "Greek Island Hopping",
-    rating: 4,
-    review:
-      "The Greek Island Hopping tour was wonderful with unique island experiences and excellent accommodations. Despite some ferry schedule issues, it was overall a great adventure.",
-  },
-  {
-    id: 8,
-    name: "Emily Davis",
-    initials: "ED",
-    package: "Bali Beach Escape",
-    rating: 5,
-    review:
-      "Bali Beach Escape was a dream with a stunning beachfront villa, well-planned activities, relaxing spa treatments, and yoga sessions. I left rejuvenated and eager to return.",
-  },
-]
+
 
 const packages = [
   "All Packages",
@@ -103,8 +34,13 @@ const dateRanges = [
 const itemsPerPageOptions = ["4", "8", "12", "16", "24"]
 
 export default function TravelerFeedback() {
+  // const [newPage, setPage] = useState(1)
+  const {data} = useGetAllfeedbacksWithJPagintionQuery(1)
+
+
+
   const [searchQuery, setSearchQuery] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
+  // const [currentPage, setCurrentPage] = useState(1)
   const [selectedPackage, setSelectedPackage] = useState("All Packages")
   const [dateRange, setDateRange] = useState("1 June 28 - 15 July 28")
   const [itemsPerPage, setItemsPerPage] = useState(8)
@@ -117,7 +53,9 @@ export default function TravelerFeedback() {
   const itemsPerPageDropdownRef = useRef<HTMLDivElement>(null)
 
   const totalItems = 286 // Total number of reviews as shown in the design
-  const totalPages = Math.ceil(totalItems / itemsPerPage)
+  // const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -138,7 +76,10 @@ export default function TravelerFeedback() {
     }
   }, [])
 
+
+
   const renderStars = (rating: number) => {
+
     return (
       <div className="flex text-yellow-400">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -148,11 +89,17 @@ export default function TravelerFeedback() {
     )
   }
 
-  const filteredTravelers = travelers.filter(
-    (traveler) =>
-      traveler.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      traveler.package.toLowerCase().includes(searchQuery.toLowerCase()),
+
+
+  const filteredTravelers = data?.data?.data?.filter(
+    (traveler:TReview) =>
+      traveler?.customer.user?.username?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      traveler?.customer?.location?.toLowerCase().includes(searchQuery.toLowerCase()),
   )
+
+  console.log("travellers", data?.data?.meta)
+
+
 
   return (
     <div>
@@ -233,24 +180,31 @@ export default function TravelerFeedback() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredTravelers.map((traveler) => (
+        {filteredTravelers?.map((traveler:TReview) => (
           <div key={traveler.id} className="bg-gray-50 rounded-lg p-4">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium mr-3">
-                {traveler.initials}
+                {/* {traveler.initials} */} 
+                {/* <Image src={ traveler?.customer?.user?.avatar || "ddd" } width={500} height={500} alt="image" />
+                <h3 className="font-semibold">{traveler?.customer?.user?.username.charAt(0)}</h3> */}
+                 {
+                    traveler?.customer?.user?.avatar? <Image src={ traveler?.customer?.user?.avatar || "ddd" } width={500} height={500} alt="image" /> : <h3 className="font-semibold">{traveler?.customer?.user?.username.charAt(0)}</h3>
+                 }
+
               </div>
+
               <div>
-                <h3 className="font-semibold">{traveler.name}</h3>
-                <p className="text-sm text-gray-500">{traveler.package}</p>
+                <h3 className="font-semibold">{traveler?.customer?.user?.username}</h3>
+                <p className="text-sm text-gray-500">{traveler?.tourPackage?.category}</p>
               </div>
             </div>
 
             <div className="mb-2 flex items-center">
-              {renderStars(traveler.rating)}
-              <span className="ml-2 text-gray-700">{traveler.rating}</span>
+              {renderStars(traveler?.rating)}
+              <span className="ml-2 text-gray-700">{traveler?.rating}</span>
             </div>
 
-            <p className="text-sm text-gray-700 line-clamp-4">{traveler.review}</p>
+            <p className="text-sm text-gray-700 line-clamp-4">{`${traveler?.comment ? traveler?.comment : 'No comment' }`} </p>
           </div>
         ))}
       </div>
@@ -289,7 +243,7 @@ export default function TravelerFeedback() {
           <span className="text-sm text-gray-500 ml-2">out of {totalItems}</span>
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <button
             className="p-2 border border-gray-300 rounded-md mr-1 hover:bg-gray-100 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -333,7 +287,16 @@ export default function TravelerFeedback() {
           >
             <ChevronRight className="h-4 w-4" />
           </button>
-        </div>
+        </div> */}
+{/* 
+             <div className="flex items-center gap-1">
+                    <TextPagination
+                      meta={data?.data?.meta}
+                      onPageChange={(newPage) => setPage(newPage)}
+                    />
+                  </div> */}
+
+
       </div>
     </div>
   )

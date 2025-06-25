@@ -13,6 +13,7 @@ import {
 } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import Header from "@/components/dashboard/Header/Header";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 interface aboutStays {
@@ -397,6 +398,8 @@ const endDate =
   };
 
   return (
+        <div> 
+    <Header/>
     <form
       onSubmit={handleSubmit}
       className=" px-4 md:px-7 space-y-8 mt-10 mb-10"
@@ -949,5 +952,6 @@ const endDate =
         </button>
       </div>
     </form>
+     </div>
   );
 }

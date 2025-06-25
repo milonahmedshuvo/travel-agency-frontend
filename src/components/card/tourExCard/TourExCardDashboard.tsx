@@ -73,7 +73,7 @@ const TourExperienceCardDashboard: React.FC<CustomCardProps> = ({
           </span>
           <span className="text-[18px] text-[#525252] font-[300] poppins flex items-center gap-1.5">
             {" "}
-            <FaStar className="text-[#FFB525] text-sm"></FaStar> {ratting}
+            <FaStar className="text-[#FFB525] text-sm"></FaStar> {`${ratting ? ratting : "N/A"}`}
           </span>
         </div>
       </div>

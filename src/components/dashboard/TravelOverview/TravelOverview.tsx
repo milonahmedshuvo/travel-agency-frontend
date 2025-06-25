@@ -350,7 +350,7 @@ export default function TravelDashboardOverview() {
                         <div className="flex items-center">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                           <span className="ml-1 text-sm font-medium">
-                            {"5.0"}
+                            {/* {"5.0"} */}
                           </span>
                         </div>
                       </div>
