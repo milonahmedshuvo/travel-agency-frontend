@@ -17,6 +17,7 @@ import { LayoutDashboard, LogOutIcon, UserRoundCheck } from "lucide-react";
 import avater from "../../../assets/logo/img1.jpg";
 import { logout } from "@/redux/slice/auth/authSlice";
 import { useRouter } from "next/navigation";
+import { GoogleTranslate } from "@/components/google-translator";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -68,22 +69,22 @@ const handleLogout = async() => {
         {/* Right Side: Content and Buttons */}
         <div className="flex items-center space-x-6">
           {/* Content (can be links or any text) */}
-          <div className="hidden lg:flex space-x-3 xl:space-x-8">
-            <a href="/" className="text-[#676767] text-[18px] font-normal">
+          <div className="hidden lg:flex space-x-3 xl:space-x-8 items-center">
+            <Link href="/" className="text-[#676767] text-[18px] font-normal">
               Home
-            </a>
-            <a
+            </Link>
+            <Link
               href="/toursExperience"
               className="text-[#676767] text-[18px] font-normal"
             >
               Tours & Experience
-            </a>
-            <a
+            </Link>
+            <Link
               href="/acommodation"
               className="text-[#676767] text-[18px] font-normal"
             >
               Accommodations
-            </a>
+            </Link>
             <Link
               href="/blog"
               className="text-[#676767] text-[18px] font-normal"
@@ -96,6 +97,10 @@ const handleLogout = async() => {
             >
               About Us
             </Link>
+
+            <div>
+              <GoogleTranslate prefLangCookie="" />
+            </div>
 
             {/* <Link
               href="/dashboard"

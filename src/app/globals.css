@@ -9,6 +9,20 @@
   --breakpoint-2xl: 1440;
 } */
 
+body > div[id="google_translate_element"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+ 
+iframe.skiptranslate,
+.skiptranslate {
+  display: none !important;
+}
+ 
+
 
 
 :root {
