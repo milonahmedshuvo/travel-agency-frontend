@@ -1,8 +1,8 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import Script from "next/script";
-import React from "react";
+import { getCookie } from "cookies-next";
 
 declare global {
   interface Window {
@@ -20,19 +20,27 @@ declare global {
 
 export const languages = [
   { label: "English", value: "en", src: "https://flagcdn.com/h60/us.png" },
-  { label: "German",   value: "de", src: "https://flagcdn.com/h60/de.png" },
-  { label: "French",   value: "fr", src: "https://flagcdn.com/h60/fr.png" },
-  { label: "Spanish",  value: "es", src: "https://flagcdn.com/h60/es.png" },
+  { label: "German", value: "de", src: "https://flagcdn.com/h60/de.png" },
+  { label: "French", value: "fr", src: "https://flagcdn.com/h60/fr.png" },
+  { label: "Spanish", value: "es", src: "https://flagcdn.com/h60/es.png" },
 ];
 
-export function GoogleTranslate({ prefLangCookie }: { prefLangCookie: string }) {
-  const [selected, setSelected] = useState(
-    languages.find((l) => l.value === decodeURIComponent(prefLangCookie)) ||
-      languages[0]
-  );
+export function GoogleTranslate() {
+  const [selected, setSelected] = useState(languages[0]);
+
+  // Read from cookie on mount
+  useEffect(() => {
+    const cookieValue = getCookie("googtrans"); // e.g. "/auto/fr"
+    if (cookieValue && typeof cookieValue === "string") {
+      const parts = cookieValue.split("/");
+      const targetLang = parts[2]; // third part is the target language
+      const match = languages.find((l) => l.value === targetLang);
+      if (match) setSelected(match);
+    }
+  }, []);
 
   // initialize Google Translate
-  React.useEffect(() => {
+  useEffect(() => {
     window.googleTranslateElementInit = () => {
       if (window.google && window.google.translate) {
         new window.google.translate.TranslateElement(
@@ -46,12 +54,10 @@ export function GoogleTranslate({ prefLangCookie }: { prefLangCookie: string }) 
     };
   }, []);
 
-  // whenever user picks a new lang...
+  // Change language
   function onChange(lang: typeof languages[0]) {
     setSelected(lang);
-    const combo = document.querySelector(
-      ".goog-te-combo"
-    ) as HTMLSelectElement | null;
+    const combo = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
     if (combo) {
       combo.value = lang.value;
       combo.dispatchEvent(new Event("change"));
@@ -60,7 +66,6 @@ export function GoogleTranslate({ prefLangCookie }: { prefLangCookie: string }) 
 
   return (
     <div className="w-48">
-      {/* invisible native widget */}
       <div id="google_translate_element" className="hidden" />
 
       <Listbox value={selected} onChange={onChange}>
