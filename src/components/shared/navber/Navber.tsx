@@ -99,7 +99,7 @@ const handleLogout = async() => {
             </Link>
 
             <div>
-              <GoogleTranslate prefLangCookie="" />
+              <GoogleTranslate />
             </div>
 
             {/* <Link
