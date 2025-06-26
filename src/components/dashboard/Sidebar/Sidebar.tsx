@@ -101,6 +101,12 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       key: "11",
       path: "/dashboard/feedback",
     },
+    {
+      icon: <XCircle size={20} />,
+      label: "Support",
+      key: "12",
+      path: "/dashboard/support",
+    },
   ];
 
  
