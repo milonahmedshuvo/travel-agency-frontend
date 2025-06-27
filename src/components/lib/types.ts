@@ -397,3 +397,15 @@ interface User {
   updatedAt: string;
   userStatus: string;
 }
+
+
+
+
+// Scroll Type 
+export interface Component1Props {
+  onButtonClick: () => void;
+}
+
+export interface Component5Props {
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+}

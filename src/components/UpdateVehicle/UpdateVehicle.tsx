@@ -108,6 +108,7 @@ export default function UpdateVehicle({ id }: { id: string }) {
         formData.append("img", "null");
       }
 
+      
       const result = await updateVehicle({
         id,
         data: formData,

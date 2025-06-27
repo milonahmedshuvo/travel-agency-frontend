@@ -9,16 +9,24 @@ import SeaTourItems from '@/components/toursExperience/seatours/SeatourItems'
 
 import TestimonialSlider from '@/components/toursExperience/testimonialSlider/TestimonialSlider'
 // import TravelBookingForm from '@/components/toursExperience/travelBookingForm/TravelBookingForm'
-import React from 'react'
+import React, { useRef } from 'react'
 
 
-const page = () => {
+const SeaTourPage = () => {
+
+  const scrollToRef = useRef<HTMLDivElement | null>(null);
+  
+    const handleScroll = () => {
+      scrollToRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+
   return (
     <div>
-      <SeatourBanner/>
+      <SeatourBanner onButtonClick={handleScroll} />
       {/* <TravelBookingForm/> */}
       <TourPackageFilterFiled/>
-      <SeaTourItems/>
+      <SeaTourItems scrollRef={scrollToRef} />
       <TravelLove frist="Why Travelers Love" secound="Our Sea Tours" thrid="" />
       <TestimonialSlider/>
       <RecentBlog/>
@@ -27,4 +35,4 @@ const page = () => {
 }
 
 
-export default page
+export default SeaTourPage;

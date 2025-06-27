@@ -8,13 +8,16 @@ import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import logos from "../../../assets/logo/logos.png";
+import logos from "../../../assets/logo/navlogo.png";
 import { useLoginMutation } from "@/redux/api/auth/authApi";
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch } from "@/redux/hook";
 import { setUser } from "@/redux/slice/auth/authSlice";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import Cookies from "js-cookie";
+
+
 
 // Form validation schema
 const formSchema = z.object({
@@ -51,6 +54,9 @@ export default function LoginForm() {
   const redirectTo = searchParams.get('redirectTo') || '/';
 
 
+ 
+
+
   const {
     register,
     handleSubmit,
@@ -80,6 +86,7 @@ export default function LoginForm() {
       if (response?.data?.access_token) {
         toast.success("Login success!!");
         localStorage.setItem("token", response?.data?.access_token);
+        await Cookies.set('token', response?.data?.access_token)
 
         const decodedUser = jwtDecode(response?.data?.access_token);
         console.log("decoded user", decodedUser);

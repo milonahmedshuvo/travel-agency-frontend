@@ -1,7 +1,15 @@
 import React from "react";
 import tourBanner from "../../../assets/header/tour.jpg";
 
-const ToursExperiBanner = () => {
+interface Component1Props {
+  onButtonClick: () => void;
+}
+
+
+
+const ToursExperiBanner = ({onButtonClick}:Component1Props) => {
+
+
   return (
     <div
       style={{ backgroundImage: `url('${tourBanner.src}')` }}
@@ -25,8 +33,10 @@ const ToursExperiBanner = () => {
           </p>
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-3.5 md:gap-5 mt-6">
-            <button className="text-[#156CF0] text-[16px] bg-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"> Get Personalized Recommendations </button>
-            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold w-[185px] cursor-pointer"> Book Now </button>
+
+            <button onClick={onButtonClick} className="text-[#156CF0] text-[16px] bg-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold cursor-pointer"> View All Recommendations </button>
+
+            {/* <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold w-[185px] cursor-pointer"> Book Now </button> */}
             </div>
 
 

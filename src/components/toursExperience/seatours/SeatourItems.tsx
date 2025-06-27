@@ -7,7 +7,14 @@ import CustomPagination from "@/components/others/pagination/CustomPagination";
 import Loading from "@/components/shared/loading/Loading";
 import { getBaseUrl } from "@/config/base-url";
 
-const SeaTourItems = () => {
+interface Component5Props {
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+}
+
+
+
+const SeaTourItems = ({scrollRef}:Component5Props) => {
+
   const [newPage, setNewPage] = useState(1);
   // const { data, isLoading } = useGetSeaTourQuery("");
   // if (isLoading) {
@@ -63,7 +70,7 @@ const SeaTourItems = () => {
   console.log("pagination current page:", newPage);
 
   return (
-    <section className="custom-container">
+    <section ref={scrollRef} className="custom-container">
       <h1 className="font-semibold text-[48px] text-center">
         Find Your <span className="text-[#FF914D]">Perfect Experience</span>
       </h1>

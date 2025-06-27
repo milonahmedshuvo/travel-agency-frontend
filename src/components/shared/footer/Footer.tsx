@@ -21,9 +21,10 @@ export default function Footer() {
               Get exclusive travel deals, expert tips, and inspiring itineraries delivered to your inbox.
             </p>
           </div>
+
           <div className="w-full md:w-auto max-w-md">
 
-            <div className="flex flex-col sm:flex-row w-full md:w-[496px] relative ">
+            {/* <div className="flex flex-col sm:flex-row w-full md:w-[496px] relative ">
               <input
                 type="email"
                 placeholder="Enter your mail"
@@ -33,7 +34,7 @@ export default function Footer() {
               <button className="absolute top-[4px] right-[4px] bg-[#2196f3] hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition-colors">
                 Subscribe
               </button>
-            </div>
+            </div> */}
 
           </div>
         </div>

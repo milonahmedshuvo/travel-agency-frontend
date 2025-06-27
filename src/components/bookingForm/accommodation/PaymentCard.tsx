@@ -93,6 +93,7 @@ export default function AccommodationPaymentCard() {
         const data = await response.json();
         console.log("Room paypallllllllll payment requst Success:", data);
 
+        
         if (data?.success) {
           // go to payment final page
           // console.log("amount", data?.data?.transactions?.amount)

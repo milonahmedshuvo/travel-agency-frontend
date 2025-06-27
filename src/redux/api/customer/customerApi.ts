@@ -30,10 +30,27 @@ export const CustomerApi = baseApi.injectEndpoints({
             invalidatesTags: [tagTypes.customer],
         }),
 
+        updateCustomer : builder.mutation({
+            query: ({id, data}) => ({
+                url: `/customers/${id}`,
+                method: "PATCH",
+                body: data
+            })
+        }),
+
+        updateAdmin : builder.mutation({
+            query: ({id, data}) => ({
+                url: `/admins/${id}`,
+                method: "PATCH",
+                body: data
+            })
+        }),
+
+
 
 
 
     }), 
   });
   
-  export const { useGetAllCustomersQuery, useCreateCustomerMutation, useGetSingleCustomersQuery  } = CustomerApi;
+  export const { useGetAllCustomersQuery, useCreateCustomerMutation, useGetSingleCustomersQuery, useUpdateCustomerMutation, useUpdateAdminMutation } = CustomerApi;

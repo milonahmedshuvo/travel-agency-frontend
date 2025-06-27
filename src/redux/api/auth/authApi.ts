@@ -24,6 +24,15 @@ export const authApi = baseApi.injectEndpoints({
     }),
 
 
+    registerAdmin: builder.mutation({
+      query: (userData) => ({
+        url: '/users/create-admin', 
+        method: 'POST',
+        body: userData,
+      }),
+    }),
+
+
     getMe : builder.query({
       query : () => "/auth/get-me"
     }),
@@ -33,4 +42,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterUserMutation, useGetMeQuery } = authApi;
+export const { useLoginMutation, useRegisterUserMutation, useGetMeQuery, useRegisterAdminMutation } = authApi;

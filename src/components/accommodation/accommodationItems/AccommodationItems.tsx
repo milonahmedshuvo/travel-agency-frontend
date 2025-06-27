@@ -9,12 +9,28 @@ import CustomPagination from "@/components/others/pagination/CustomPagination";
 import Loading from "@/components/shared/loading/Loading";
 import { getBaseUrl } from "@/config/base-url";
 
-const AccommodationItems = () => {
+
+
+
+interface Component5Props {
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+}
+
+
+
+
+const AccommodationItems = ({scrollRef}:Component5Props) => {
+
+
+
   //  const {data, isLoading } = useGetAllHotelPackagesQuery("")
   //   // console.log("hotel", data?.data)
   //   if(isLoading){
   //     return <Loading/>
   //   }
+
+
+
   const [newPage, setNewPage] = useState(1);
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,7 +79,7 @@ const AccommodationItems = () => {
   }
 
   return (
-    <section className="custom-container">
+    <section ref={scrollRef} className="custom-container">
       <h1 className="font-semibold text-[48px] text-center">
         Top Picks for <span className="text-[#FF914D]">Your Stay</span>
       </h1>

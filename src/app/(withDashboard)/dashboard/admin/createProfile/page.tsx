@@ -8,10 +8,11 @@ import * as z from "zod"
 import Image from "next/image"
 import Link from "next/link"
 import toast from "react-hot-toast"
-import logos from "../../../assets/logo/navlogo.png"
-import { useRegisterUserMutation } from "@/redux/api/auth/authApi"
+import logos from "../../../../../assets/logo/logos.png"
+import { useRegisterAdminMutation, useRegisterUserMutation } from "@/redux/api/auth/authApi"
 import { useRouter } from "next/navigation"
 import { Eye, EyeOff } from "lucide-react"
+import Header from "@/components/dashboard/Header/Header"
 // import { Separator } from "@/components/ui/Separator"
 
 
@@ -44,9 +45,13 @@ const formSchema = z
 
 type FormValues = z.infer<typeof formSchema>
 
-export default function SignupForm() {
+
+
+
+
+export default function AdminSignupForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [registerUser, { isLoading, isError, isSuccess }] = useRegisterUserMutation();
+  const [registerAdmin, { isLoading, isError, isSuccess }] =  useRegisterAdminMutation()    
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);
 
@@ -83,7 +88,7 @@ export default function SignupForm() {
       email: data?.email,
       password: data?.password,
       contactNo: data?.contactNo,
-      role: "CUSTOMER"
+      role: "ADMIN"
     };
 
 
@@ -95,7 +100,7 @@ export default function SignupForm() {
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       console.log("Form submitted singup:", data)
-      const res = await registerUser(payload).unwrap();
+      const res = await registerAdmin(payload).unwrap();
 
 
       console.log("response", res)
@@ -115,7 +120,9 @@ export default function SignupForm() {
 
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-6 sm:p-8 mb-20 mt-10">
+    <div>
+    <Header/>
+    <div className="w-full max-w-5xl mx-auto bg-white rounded-lg shadow-sm p-6 sm:p-8 mb-20 mt-10">
       <div className="flex flex-col items-center mb-6">
         <div className="w-32 h-32 mb-4">
           <Image src={logos || "/hvar-logo.png" } alt="HVAR Local Travel" width={150} height={150} className="w-full h-auto" />
@@ -275,6 +282,7 @@ export default function SignupForm() {
           Login
         </Link>
       </p>
+    </div>
     </div>
   )
 }

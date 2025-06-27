@@ -30,11 +30,11 @@ const Navbar = () => {
 
   const adminLinks = [
     { href: "/dashboard", text: "Dashboard", icon: <LayoutDashboard size={20} /> },
-    // { href: "/profile", text: "Profile", icon: <UserRoundCheck size={16} /> },
+    { href: "/dashboard/admin/adminProfile", text: "Profile", icon: <UserRoundCheck size={16} /> },
   ];
 
   const userLinks = [
-    // { href: "/dashboard", text: "Dashboard", icon: <UserRoundCheck size={16} /> },
+    { href: "/customer/profile", text: "Profile", icon: <UserRoundCheck size={16} /> },
     { href: "/customer/myTripBookings", text: "Trip Bookings", icon: <UserRoundCheck size={16} /> },
     { href: "/customer/myHotelBookings", text: "Hotel Bookings", icon: <UserRoundCheck size={16} /> },
   ];

@@ -1,7 +1,15 @@
 import React from "react";
 import accomBanner from "../../../assets/header/accommodationBanner.jpg";
 
-const AccommodationBanner = () => {
+interface Component1Props {
+  onButtonClick: () => void;
+}
+
+
+
+const AccommodationBanner = ({onButtonClick}:Component1Props) => {
+
+
   return (
     <section
       style={{ backgroundImage: `url('${accomBanner.src}')` }}
@@ -25,7 +33,7 @@ const AccommodationBanner = () => {
           </p>
 
           <div className="flex justify-center  mt-6">
-            <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold  cursor-pointer"> View All Accommodations </button>
+            <button onClick={onButtonClick} className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] text-[16px] text-[#FFFFFF]  px-[36px] py-[12px] rounded-sm transition duration-300 font-semibold  cursor-pointer"> View All Accommodations </button>
             </div>
 
 

@@ -3,12 +3,12 @@
 import TourExperienceCard from "@/components/card/tourExCard/TourExCard";
 import { useEffect, useState } from "react";
 // import { useGetLandTourQuery } from "@/redux/api/tourPackages/tourPackagesApi";
-import { TTourPackage } from "@/components/lib/types";
+import { Component5Props, TTourPackage } from "@/components/lib/types";
 import CustomPagination from "@/components/others/pagination/CustomPagination";
 import Loading from "@/components/shared/loading/Loading";
 import { getBaseUrl } from "@/config/base-url";
 
-const LandTourItems = () => {
+const LandTourItems = ({scrollRef}:Component5Props) => {
   // const {data, isLoading } = useGetLandTourQuery("")
   // if(isLoading){
   //   return <Loading/>
@@ -62,7 +62,7 @@ const LandTourItems = () => {
   }
 
   return (
-    <section className="custom-container">
+    <section ref={scrollRef} className="custom-container">
       <h1 className="font-semibold text-[48px] text-center">
         Find Your <span className="text-[#FF914D]">Perfect Experience</span>
       </h1>

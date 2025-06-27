@@ -6,25 +6,31 @@ import SeaTour from '@/components/toursExperience/seatours/Seatours'
 
 import TestimonialSlider from '@/components/toursExperience/testimonialSlider/TestimonialSlider'
 import ToursExperiBanner from '@/components/toursExperience/ToursExperiBanner/ToursExperiBanner'
-import React from 'react'
+import React, { useRef } from 'react'
 import CulturalTours from '@/components/toursExperience/culturalTours/CulturalTours'
 import WineTours from '@/components/toursExperience/wineTours/WineTours'
 import LandTours from '@/components/toursExperience/landTours/Landtours'
 import TourPackageFilterFiled from '@/components/others/tourPackageFilter/page'
 
 
-const page = () => {
+const TourExperiencePage = () => {
 
+   const scrollToRef = useRef<HTMLDivElement | null>(null);
   
+    const handleScroll = () => {
+      scrollToRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+  
+
   return (
     <div>
-      <ToursExperiBanner/>
+      <ToursExperiBanner onButtonClick={handleScroll} />
       {/* <TravelBookingForm/> */}
       <TourPackageFilterFiled/>
 
 
       {/*show all tour*/}
-      <SeaTour/>
+      <SeaTour scrollRef={scrollToRef}/>
        <LandTours/>
       <CulturalTours/>
       <WineTours/>  
@@ -35,4 +41,4 @@ const page = () => {
   )
 }
 
-export default page
+export default TourExperiencePage;

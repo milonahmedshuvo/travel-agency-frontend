@@ -6,7 +6,13 @@ import { getBaseUrl } from "@/config/base-url";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const SeaTour = () => {
+interface Component5Props {
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+}
+
+
+
+const SeaTour = ({scrollRef}:Component5Props) => {
   //  const {data, isLoading} = useGetSeaTourQuery("")
   //  console.log('sea tour', data?.data)
   const [tours, setTours] = useState([]);
@@ -46,7 +52,7 @@ const SeaTour = () => {
   //  console.log('Seatour:',  tours)
 
   return (
-    <section className="custom-container">
+    <section ref={scrollRef} className="custom-container">
       <h1 className="font-semibold text-[48px] text-center">
         Find Your perfect <span className="text-[#FF914D]">Sea Tours</span>
       </h1>
