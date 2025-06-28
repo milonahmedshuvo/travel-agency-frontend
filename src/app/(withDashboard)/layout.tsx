@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hook";
 
-
 // const inter = Inter({ subsets: ["latin"] })
 
 export default function RootLayout({
@@ -16,32 +15,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [collapsed, setCollapsed] = useState(false);
-  const role = useAppSelector((state)=>state.auth.user?.role) 
+  const role = useAppSelector((state) => state.auth.user?.role);
 
-// router.push('/login?redirectTo=/booking/booking'); 
- const router = useRouter();
-
+  // router.push('/login?redirectTo=/booking/booking');
+  const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
 
     if (!token) {
       router.replace("/login");
     }
 
-    if(token){
-      if(  role === "CUSTOMER"){
-         router.push('/')
+    if (token) {
+      if (role === "CUSTOMER") {
+        router.push("/");
       }
     }
-
   }, []);
-
-  
-  
-
- 
-
 
   return (
     <div>
