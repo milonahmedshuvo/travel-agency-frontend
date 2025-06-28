@@ -10,8 +10,7 @@ import type {
 // import { logout } from "../slice/auth/authSlice";
 
 const baseUrl =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://supermariobos-api.code-commando.com/api/v1";
+  process.env.NEXT_PUBLIC_BASE_URL || "https://api.hvarlocalguide.com/api/v1";
 
 
 const rawBaseQuery = fetchBaseQuery({
