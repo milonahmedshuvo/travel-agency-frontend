@@ -3,6 +3,8 @@
 import {
   CalendarCheck,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   DollarSign,
   Search,
   Star,
@@ -23,92 +25,8 @@ import blogImg from "../../../assets/blog/blog.png";
 import RevenueOverview from "../analytics/revenue-overview";
 import TopDestinations from "../analytics/top-destinations";
 import TripsAnalytics from "../analytics/trips-analytics";
+import { CustomButton } from "@/components/ui/CustomButton";
 
-// Destinations data
-// const destinationsData = [
-//   { name: "Sea Tour", value: 35, color: "#2563eb", participants: "2,458 Participants" },
-//   { name: "Land Tour", value: 28, color: "#60a5fa", participants: "2,458 Participants" },
-//   { name: "Cultural Tours", value: 22, color: "#bfdbfe", participants: "2,458 Participants" },
-//   { name: "Wine Adventures", value: 15, color: "#dbeafe", participants: "2,458 Participants" },
-// ]
-
-// Conversion data
-// const conversionData = [
-//   { name: "Conversion User", value: 65, color: "#2563eb", participants: "6,458 Participants" },
-//   { name: "New Visitor User", value: 35, color: "#bfdbfe", participants: "1,200 Participants" },
-// ]
-
-// Travel packages data
-
-// Activities data
-// const activitiesData = [
-//   {
-//     id: 1,
-//     icon: <User className="h-5 w-5 text-white" />,
-//     iconBg: "bg-blue-500",
-//     content: (
-//       <>
-//         <span className="font-medium">Alberto Cortez</span> updated his profile
-//         and added a new payment method
-//       </>
-//     ),
-//     time: "9:30 AM",
-//     today: true,
-//   },
-//   {
-//     id: 2,
-//     icon: <Calendar className="h-5 w-5 text-white" />,
-//     iconBg: "bg-blue-500",
-//     content: (
-//       <>
-//         <span className="font-medium">Camellia Swan</span> booked the Venice
-//         Dreams package for June 25, 2024.
-//       </>
-//     ),
-//     time: "10:00 AM",
-//     today: true,
-//   },
-//   {
-//     id: 3,
-//     icon: <CreditCard className="h-5 w-5 text-white" />,
-//     iconBg: "bg-blue-500",
-//     content: (
-//       <>
-//         Payment was processed for{" "}
-//         <span className="font-medium">Ludwig Contessas</span> Alpine Escape
-//         package.
-//       </>
-//     ),
-//     time: "11:15 AM",
-//     today: true,
-//   },
-//   {
-//     id: 4,
-//     icon: <Calendar className="h-5 w-5 text-white" />,
-//     iconBg: "bg-blue-500",
-//     content: (
-//       <>
-//         <span className="font-medium">Armina Raul Meyes</span> canceled her
-//         Caribbean Cruise package.
-//       </>
-//     ),
-//     time: "12:45 PM",
-//     today: true,
-//   },
-//   {
-//     id: 5,
-//     icon: <MessageSquare className="h-5 w-5 text-white" />,
-//     iconBg: "bg-blue-500",
-//     content: (
-//       <>
-//         <span className="font-medium">Lydia Billings</span> submitted a review
-//         for her recent package.
-//       </>
-//     ),
-//     time: "2:30 PM",
-//     today: true,
-//   },
-// ];
 
 // Custom dropdown component
 export function CustomDropdown({
@@ -180,8 +98,21 @@ export default function TravelDashboardOverview() {
   const { data: tours } = useGetSeaTourQuery("");
   // console.log("sajib", tours);
   const { data: tourBookings, isLoading } = useGetAllTourBookingsQuery("");
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8
+  const totalPages = Math.ceil(tourBookings?.data?.length / itemsPerPage)
 
-  const filteredBookings = tourBookings?.data?.filter(
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = tourBookings?.data?.slice(indexOfFirstItem, indexOfLastItem)
+
+
+
+
+
+  const filteredBookings = currentItems?.filter(
     (booking: TourBooking) =>
       booking?.tourPackage?.title
         .toLowerCase()
@@ -190,6 +121,9 @@ export default function TravelDashboardOverview() {
         .toLowerCase()
         .includes(searchQuery.toLowerCase())
   );
+
+
+
 
   const dateFormate = (date: string) => {
     const DateObject = new Date(date);
@@ -200,6 +134,13 @@ export default function TravelDashboardOverview() {
   if (isLoading) {
     return <Loading />;
   }
+
+
+
+  
+
+
+
 
   return (
     <div className=" px-4 md:px-6 space-y-6 mt-7">
@@ -220,9 +161,9 @@ export default function TravelDashboardOverview() {
                 </h3>
               </div>
             </div>
-            <div className="rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+            {/* <div className="rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
               +2.98%
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -241,9 +182,9 @@ export default function TravelDashboardOverview() {
                 </h3>
               </div>
             </div>
-            <div className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
+            {/* <div className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
               -1.45%
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -262,9 +203,9 @@ export default function TravelDashboardOverview() {
                 </h3>
               </div>
             </div>
-            <div className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
+            {/* <div className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
               -1.45%
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -283,9 +224,9 @@ export default function TravelDashboardOverview() {
                 </h3>
               </div>
             </div>
-            <div className="rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+            {/* <div className="rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
               +3.75%
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -462,7 +403,7 @@ export default function TravelDashboardOverview() {
                       <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">
                         Price
                       </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-left text-xs font-medium text-gray-500">
+                      <th className="whitespace-nowrap px-4 py-2 text-center text-xs font-medium text-gray-500">
                         Status
                       </th>
                     </tr> 
@@ -492,7 +433,9 @@ export default function TravelDashboardOverview() {
                         <td className="whitespace-nowrap px-4 py-6">
                           {booking?.tourPackage?.price}
                         </td>
-                        <td className="whitespace-nowrap px-4 py-6">
+
+
+                        <td className="whitespace-nowrap  py-6 flex justify-center ">
                           {/* <span
                             className={`rounded-md px-2 py-1 text-xs font-medium ${
                               booking.status === "Confirmed"
@@ -502,10 +445,18 @@ export default function TravelDashboardOverview() {
                           >
                             {booking.status}
                           </span> */}
-                          <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer">
+                          {/* <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer">
                             {" "}
                             Confirmed{" "}
-                          </button>
+                          </button> */}
+
+                          
+
+                          <span className={` inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${booking?.transactions?.status === "SUCCEEDED" && "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]"}  ${booking?.transactions?.status === "PROCESSING" && "bg-blue-300 text-blue-500 hover:bg-blue-200"}   ${booking?.transactions?.status === "REQUIRES_PAYMENT_METHOD" && "bg-amber-400"} ${booking?.transactions === null && 'bg-red-500 opacity-80' }    text-white`}>
+
+                    { booking?.transactions?.status}
+                    {booking?.transactions === null && "Not pay" }  
+                  </span>
                         </td>
                       </tr>
                     ))}
@@ -514,6 +465,67 @@ export default function TravelDashboardOverview() {
               </div>
             </div>
           </div>
+
+           {/* PAGINATION  */}
+            <div className="mt-4 flex items-center justify-between">
+                     <div className="text-sm text-muted-foreground">
+                       {/* Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length} */}
+                     </div>
+                     <div className="flex items-center space-x-2">
+                       <CustomButton
+                         variant="outline"
+                         size="icon"
+                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                         disabled={currentPage === 1}
+                       >
+                         <ChevronLeft className="h-4 w-4" />
+                       </CustomButton>
+           
+           
+                       {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                         // Show current page and surrounding pages
+                         let pageToShow
+                         if (totalPages <= 5) {
+                           pageToShow = i + 1
+                         } else if (currentPage <= 3) {
+                           pageToShow = i + 1
+                         } else if (currentPage >= totalPages - 2) {
+                           pageToShow = totalPages - 4 + i
+                         } else {
+                           pageToShow = currentPage - 2 + i
+                         }
+           
+                         return (
+                           <CustomButton
+                             key={i}
+                             variant={currentPage === pageToShow ? "default" : "outline"}
+                             size="icon"
+                             onClick={() => setCurrentPage(pageToShow)}
+                             className={currentPage === pageToShow ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" : ""}
+                           >
+                             {pageToShow}
+                           </CustomButton>
+                         )
+                       })}
+                       {totalPages > 5 && currentPage < totalPages - 2 && (
+                         <>
+                           <span className="text-muted-foreground">...</span>
+                           <CustomButton variant="outline" size="icon" onClick={() => setCurrentPage(totalPages)}>
+                             {totalPages}
+                           </CustomButton>
+                         </>
+                       )}
+                       <CustomButton
+                         variant="outline"
+                         size="icon"
+                         onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                         disabled={currentPage === totalPages}
+                       >
+                         <ChevronRight className="h-4 w-4" />
+                       </CustomButton>
+                     </div>
+                   </div>
+           
         </div>
 
         {/* Recent Activity */}

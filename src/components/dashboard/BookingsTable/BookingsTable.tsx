@@ -12,9 +12,7 @@ import { useGetAllTourBookingsQuery } from "@/redux/api/tourPackages/tourPackage
 import { TourBooking } from "@/components/lib/types"
 import { CustomBadge } from "@/components/ui/CustomBadge"
 import Link from "next/link"
-
-
-
+import Loading from "@/components/shared/loading/Loading"
 
 interface BookingsTableProps {
   currentPage: number
@@ -25,9 +23,10 @@ interface BookingsTableProps {
 
 
 
+
 export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDateFilter }: BookingsTableProps) {
   const [searchQuery, setSearchQuery] = useState("")
-  const {data:tourBookings} = useGetAllTourBookingsQuery("")
+  const {data:tourBookings, isLoading} = useGetAllTourBookingsQuery("")
 
   // Items per page
   const itemsPerPage = 8
@@ -37,14 +36,6 @@ export function BookingsTable({ currentPage, setCurrentPage, dateFilter, setDate
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = tourBookings?.data?.slice(indexOfFirstItem, indexOfLastItem)
-
-  
-
-const dateFormate = (date:string) => {
-   const DateObject = new Date(date)
-   const updateDate = DateObject.toLocaleDateString()
-   return updateDate
-}
 
 
 
@@ -58,6 +49,18 @@ const dateFormate = (date:string) => {
         .includes(searchQuery.toLowerCase())
   );
 
+
+//  DATE FORMATE SETUP 
+  const dateFormate = (date:string) => {
+   const DateObject = new Date(date)
+   const updateDate = DateObject.toLocaleDateString()
+   return updateDate
+}
+
+
+  if(isLoading){
+    return <Loading/>
+  }
 
 
   return (
@@ -87,9 +90,9 @@ const dateFormate = (date:string) => {
                 <CustomTableHead className="w-[150px]">
                   Name <ChevronDown className="ml-1 h-3 w-3 inline " />
                 </CustomTableHead>
-                <CustomTableHead>
+                {/* <CustomTableHead>
                   Booking Code <ChevronDown className="ml-1 h-3 w-3 inline" />
-                </CustomTableHead>
+                </CustomTableHead> */}
                 <CustomTableHead>
                   Package <ChevronDown className="ml-1 h-3 w-3 inline" />
                 </CustomTableHead>
@@ -115,7 +118,7 @@ const dateFormate = (date:string) => {
                 // <Link href={`/dashboard/tripBooking/${booking.id}`} key={booking.id}> </Link>
                 <CustomTableRow key={booking.id}>
                   <CustomTableCell className="font-normal">{booking?.tourPackage?.title || "N/A"}</CustomTableCell>
-                  <CustomTableCell>{booking.id.slice(0, 5)}</CustomTableCell>
+                  {/* <CustomTableCell>{booking.id.slice(0, 5)}</CustomTableCell> */}
                   <CustomTableCell>{booking?.tourPackage?.category}</CustomTableCell>
                   <CustomTableCell>{`${booking.duration} Hours`}</CustomTableCell>
                   <CustomTableCell>{booking?.vehicleBooking?.tourPackageVehicle
@@ -160,6 +163,9 @@ const dateFormate = (date:string) => {
             </CustomTableBody>
           </CustomTable>
         </div>
+
+
+
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
@@ -219,6 +225,9 @@ const dateFormate = (date:string) => {
             </CustomButton>
           </div>
         </div>
+
+
+
       </CardContent>
     </Card>
   )

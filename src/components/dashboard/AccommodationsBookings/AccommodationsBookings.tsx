@@ -1,32 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { Search, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight,  } from "lucide-react";
 import { useGetAllRoomBookingsQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { TRoomBooking } from "@/components/lib/types";
 import Loading from "@/components/shared/loading/Loading";
 import Link from "next/link";
+import { CustomButton } from "@/components/ui/CustomButton";
 
 export default function AccommodationsBookings() {
   const { data, isLoading } = useGetAllRoomBookingsQuery("");
   const [searchTerm, setSearchTerm] = useState("");
+  const roomBooking = data?.data?.data || [];
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8
+  const totalPages = Math.ceil(roomBooking?.length / itemsPerPage)
 
-  console.log({ searchTerm });
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = roomBooking?.slice(indexOfFirstItem, indexOfLastItem)
+ 
+ 
 
-  const [dateFilter, setDateFilter] = useState("Today");
-  const [showDateDropdown, setShowDateDropdown] = useState(false);
-  // const [showEntriesDropdown, setShowEntriesDropdown] = useState(false)
-  // const [entriesPerPage, setEntriesPerPage] = useState("8")
 
-  const dateOptions = [
-    "Today",
-    "Yesterday",
-    "This Week",
-    "This Month",
-    "Custom Range",
-  ];
 
-  const filterRoomBooking = data?.data?.data?.filter(
+
+
+
+
+
+
+  // const dateOptions = [
+  //   "Today",
+  //   "Yesterday",
+  //   "This Week",
+  //   "This Month",
+  //   "Custom Range",
+  // ];
+
+
+
+  const filterRoomBooking = currentItems?.filter(
     (booking: TRoomBooking) =>
       booking?.hotelPackage?.title
         .toLowerCase()
@@ -65,7 +81,7 @@ export default function AccommodationsBookings() {
           </div>
 
           {/* Custom Select Dropdown */}
-          <div className="relative w-full sm:w-36">
+          {/* <div className="relative w-full sm:w-36">
             <button
               type="button"
               className="flex items-center justify-between w-full h-10 px-3 py-2 text-sm border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -93,7 +109,9 @@ export default function AccommodationsBookings() {
                 </ul>
               </div>
             )}
-          </div>
+
+
+          </div> */}
         </div>
       </div>
 
@@ -193,74 +211,65 @@ export default function AccommodationsBookings() {
       </div>
 
       {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-end items-center gap-4">
-        {/* <div className="text-sm text-gray-500">
-          Showing{" "}
-          <div className="relative inline-block w-16 mx-1">
-            <button
-              type="button"
-              className="flex items-center justify-between w-full h-8 px-2 py-1 text-xs border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={() => setShowEntriesDropdown(!showEntriesDropdown)}
-            >
-              <span>{entriesPerPage}</span>
-              <ChevronDown className="h-3 w-3 text-gray-500" />
-            </button>
-
-            {showEntriesDropdown && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                <ul className="py-1 max-h-60 overflow-auto">
-                  {["8", "16", "24", "32"].map((option) => (
-                    <li
-                      key={option}
-                      className="px-2 py-1 text-xs hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        setEntriesPerPage(option)
-                        setShowEntriesDropdown(false)
-                      }}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>{" "}
-          out of 286
-        </div> */}
-
-        <div className="flex items-center space-x-2">
-          <button
-            className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-400 cursor-not-allowed"
-            disabled
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previous page</span>
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-blue-600 text-white hover:bg-blue-700">
-            1
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            2
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            3
-          </button>
-
-          <span className="mx-1">...</span>
-
-          <button className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            15
-          </button>
-
-          <button className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next page</span>
-          </button>
-        </div>
-      </div>
+        {/* PAGINATION  */}
+                   <div className="mt-4 flex items-center justify-between">
+                            <div className="text-sm text-muted-foreground">
+                              {/* Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length} */}
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <CustomButton
+                                variant="outline"
+                                size="icon"
+                                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                                disabled={currentPage === 1}
+                              >
+                                <ChevronLeft className="h-4 w-4" />
+                              </CustomButton>
+                  
+                  
+                              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                // Show current page and surrounding pages
+                                let pageToShow
+                                if (totalPages <= 5) {
+                                  pageToShow = i + 1
+                                } else if (currentPage <= 3) {
+                                  pageToShow = i + 1
+                                } else if (currentPage >= totalPages - 2) {
+                                  pageToShow = totalPages - 4 + i
+                                } else {
+                                  pageToShow = currentPage - 2 + i
+                                }
+                  
+                                return (
+                                  <CustomButton
+                                    key={i}
+                                    variant={currentPage === pageToShow ? "default" : "outline"}
+                                    size="icon"
+                                    onClick={() => setCurrentPage(pageToShow)}
+                                    className={currentPage === pageToShow ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" : ""}
+                                  >
+                                    {pageToShow}
+                                  </CustomButton>
+                                )
+                              })}
+                              {totalPages > 5 && currentPage < totalPages - 2 && (
+                                <>
+                                  <span className="text-muted-foreground">...</span>
+                                  <CustomButton variant="outline" size="icon" onClick={() => setCurrentPage(totalPages)}>
+                                    {totalPages}
+                                  </CustomButton>
+                                </>
+                              )}
+                              <CustomButton
+                                variant="outline"
+                                size="icon"
+                                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                                disabled={currentPage === totalPages}
+                              >
+                                <ChevronRight className="h-4 w-4" />
+                              </CustomButton>
+                            </div>
+                          </div>
     </div>
   );
 }

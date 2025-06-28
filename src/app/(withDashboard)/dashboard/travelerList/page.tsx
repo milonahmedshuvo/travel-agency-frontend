@@ -32,6 +32,7 @@ export default function TravelerList() {
     ...(searchQuery && { search: searchQuery }),
   });
 
+
   const handleRowClick = (booking: any) => {
     setSelectedBooking(booking);
     setShowModal(true);
@@ -43,7 +44,7 @@ export default function TravelerList() {
   };
 
 
-  
+  console.log("tour bookings", data )
 
   if (isLoading) {
     return <Loading />;

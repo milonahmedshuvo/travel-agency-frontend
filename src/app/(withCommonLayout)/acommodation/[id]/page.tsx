@@ -1,20 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import ActivityCard from "@/components/common/activityCard/ActivityCard";
 import BookingCard from "@/components/common/bookingCard/BookingCard";
+import Highlights from "@/components/common/highlights/Highlights";
+import RatingHotel from "@/components/common/rating/RatingHotel";
+import BestPlaces from "@/components/common/roomCard/bestPlaces/BestPlaces";
 import { TravelCard } from "@/components/common/travelCard/TravelCard";
 import WineTourFeatures from "@/components/common/wineTourFeatures/WineTourFeatures";
-import { useParams, useRouter } from "next/navigation";
-import { useAppDispatch } from "@/redux/hook";
-import { useGetSingleHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
 import { THotelImage } from "@/components/lib/types";
-import { setHotelPackageseId } from "@/redux/slice/accommodationBooking/accommodationBooking";
+// import MapWithDefaultRoute from "@/components/MapWithDefaultRoute/MapWithDefaultRoute";
+import MapWithCroatiaMarkers from "@/components/MapWithDefaultRoute/MapWithMarker";
 import Loading from "@/components/shared/loading/Loading";
-import BestPlaces from "@/components/common/roomCard/bestPlaces/BestPlaces";
-import ActivityCard from "@/components/common/activityCard/ActivityCard";
-import Highlights from "@/components/common/highlights/Highlights";
-import TestimonialSlider from "@/components/toursExperience/testimonialSlider/TestimonialSlider";
 import RecentBlog from "@/components/toursExperience/recentBlog/RecentBlog";
-import RatingHotel from "@/components/common/rating/RatingHotel";
+import TestimonialSlider from "@/components/toursExperience/testimonialSlider/TestimonialSlider";
+import { useGetSingleHotelPackagesQuery } from "@/redux/api/hotelPackages/hotelPackegesApi";
+import { useAppDispatch } from "@/redux/hook";
+import { setHotelPackageseId } from "@/redux/slice/accommodationBooking/accommodationBooking";
+import { useParams, useRouter } from "next/navigation";
 
 
 
@@ -190,6 +192,12 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+       {/* <MapWithDistance /> */}
+
+       {/* <GoogleMapComponent/> */}
+       {/* <MapWithDefaultRoute /> */}
+       <MapWithCroatiaMarkers/>
 
        <TestimonialSlider/>
         <RecentBlog/>

@@ -11,6 +11,8 @@ import {
 import Link from "next/link";
 import { useGetAllVehicleQuery } from "@/redux/api/vehicle/vehicleApi";
 import Loading from "@/components/shared/loading/Loading";
+import { useState } from "react";
+import { CustomButton } from "@/components/ui/CustomButton";
 
 export type TVehicle = {
   id: string;
@@ -25,10 +27,27 @@ export type TVehicle = {
 
 export default function VehicleListPage() {
   const { data, isLoading } = useGetAllVehicleQuery(undefined);
-  console.log("get vehicle", data?.data?.data);
+  // console.log("get vehicle", data?.data?.data);
+  const vehicles = data?.data?.data
+ 
+  // pagination 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8
+  const totalPages = Math.ceil(vehicles?.length / itemsPerPage)
+
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = vehicles?.slice(indexOfFirstItem, indexOfLastItem)
+
+
+ 
+ 
+ 
   if (isLoading) {
     return <Loading />;
   }
+
 
   return (
     <div className="px-4 py-8">
@@ -46,35 +65,71 @@ export default function VehicleListPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {data?.data?.data?.map((vehicle: TVehicle, index: number) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
+        {currentItems?.map((vehicle: TVehicle, index: number) => (
           <VehicleCard key={index} vehicle={vehicle} />
         ))}
       </div>
 
-      <div className="mt-8 flex items-center justify-between">
-        <div className="text-sm text-gray-500">
-          Showing <span className="font-medium">11</span> out of{" "}
-          <span className="font-medium">1,450</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button>
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previous page</span>
-          </button>
-          <button className="bg-blue-500 text-white hover:bg-blue-600 w-6">
-            1
-          </button>
-          <button>2</button>
-          <button>3</button>
-          <span className="px-2">...</span>
-          <button>16</button>
-          <button>
-            <ChevronRight className="h-4 w-4 text-black  " />
-            <span className="sr-only">Next page</span>
-          </button>
-        </div>
-      </div>
+       {/* PAGINATION  */}
+            <div className="mt-4 flex items-center justify-between">
+                     <div className="text-sm text-muted-foreground">
+                       {/* Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length} */}
+                     </div>
+                     <div className="flex items-center space-x-2">
+                       <CustomButton
+                         variant="outline"
+                         size="icon"
+                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                         disabled={currentPage === 1}
+                       >
+                         <ChevronLeft className="h-4 w-4" />
+                       </CustomButton>
+           
+           
+                       {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                         // Show current page and surrounding pages
+                         let pageToShow
+                         if (totalPages <= 5) {
+                           pageToShow = i + 1
+                         } else if (currentPage <= 3) {
+                           pageToShow = i + 1
+                         } else if (currentPage >= totalPages - 2) {
+                           pageToShow = totalPages - 4 + i
+                         } else {
+                           pageToShow = currentPage - 2 + i
+                         }
+           
+                         return (
+                           <CustomButton
+                             key={i}
+                             variant={currentPage === pageToShow ? "default" : "outline"}
+                             size="icon"
+                             onClick={() => setCurrentPage(pageToShow)}
+                             className={currentPage === pageToShow ? "bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF]" : ""}
+                           >
+                             {pageToShow}
+                           </CustomButton>
+                         )
+                       })}
+                       {totalPages > 5 && currentPage < totalPages - 2 && (
+                         <>
+                           <span className="text-muted-foreground">...</span>
+                           <CustomButton variant="outline" size="icon" onClick={() => setCurrentPage(totalPages)}>
+                             {totalPages}
+                           </CustomButton>
+                         </>
+                       )}
+                       <CustomButton
+                         variant="outline"
+                         size="icon"
+                         onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                         disabled={currentPage === totalPages}
+                       >
+                         <ChevronRight className="h-4 w-4" />
+                       </CustomButton>
+                     </div>
+                   </div>
 
       <div className="mt-8 text-center text-sm text-gray-500">
         Copyright © 2024 Travel Agency
