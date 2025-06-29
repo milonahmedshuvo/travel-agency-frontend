@@ -196,19 +196,21 @@ const handleLogout = async() => {
           >
             Tours & Experience
           </Link>
+
           <Link
-            href="/services"
+            href="/acommodation"
             className="text-[#676767] text-[18px] font-normal block"
           >
             Accommodations
           </Link>
+
           <Link
-            href="/contact"
+            href="/blog"
             className="text-[#676767] text-[18px] font-normal block"
           >
             Blog
           </Link>
-          <Link href="/" className="text-[#676767] text-[18px] font-normal block">
+          <Link href="/aboutus" className="text-[#676767] text-[18px] font-normal block">
             About Us
           </Link>
 
@@ -237,7 +239,7 @@ const handleLogout = async() => {
                 ).map((link) => (
                   <Link href={link.href} key={link.href} passHref>
                     <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 text-lg">
-                      {link.text}
+                      {link.text}   
                       <DropdownMenuShortcut>{link.icon}</DropdownMenuShortcut>
                     </DropdownMenuItem>
                   </Link>
