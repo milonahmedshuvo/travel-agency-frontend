@@ -139,6 +139,7 @@ export default function VehicleListPage() {
 }
 
 function VehicleCard({ vehicle }: { vehicle: TVehicle }) {
+  
   return (
     <div className="rounded-lg overflow-hidden">
       <div className="relative h-56">

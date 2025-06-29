@@ -73,5 +73,5 @@ export const hotelPackagesApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery, useCencelHotelBookingMutation, useUpdatedHotelPackagesMutation } =
+export const { useCreateHotelPackagesMutation, useGetAllHotelPackagesQuery, useGetSingleHotelPackagesQuery, useCreateRoomBookingMutation, useGetAllRoomBookingsQuery, useGetSingleRoomBookingQuery, useCencelHotelBookingMutation, useUpdatedHotelPackagesMutation, useGetAllRoomBookingsWithPaginationQuery } =
   hotelPackagesApi;

@@ -77,6 +77,10 @@ export function MyTripBookingsTable() {
     return updateDate;
   };
 
+
+
+
+
   return (
     <div className="grid grid-cols-1 gap-6 ">
       <div className="lg:col-span-2">
@@ -214,6 +218,7 @@ export function MyTripBookingsTable() {
             }}
           />
         </div>
+        
       </div>
     </div>
   );

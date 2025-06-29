@@ -126,12 +126,13 @@ export default function TourPackageFilterFiled() {
             </div>
           </div>
 
+
           {/* Search Button */}
           <div className="space-y-2">
             <div className="hidden md:block text-lg ">&nbsp;</div>
             <button
               onClick={handleSearch}
-              className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center cursor-pointer"
+              className="w-full h-12 bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] text-white rounded-lg font-medium flex items-center justify-center cursor-pointer"
             >
               <Search className="w-4 h-4 mr-2 cursor-pointer" />
               {loading ? "Serching..." : "Search"}
