@@ -9,16 +9,18 @@ declare global {
     googleTranslateElementInit?: () => void;
     google?: {
       translate: {
-        TranslateElement: new (
-          options: object,
-          container: string
-        ) => void;
+        TranslateElement: new (options: object, container: string) => void;
       };
     };
   }
 }
 
 export const languages = [
+  {
+    label: "Croatian",
+    value: "hr",
+    src: "https://flagcdn.com/h60/hr.png",
+  },
   { label: "English", value: "en", src: "https://flagcdn.com/h60/us.png" },
   { label: "German", value: "de", src: "https://flagcdn.com/h60/de.png" },
   { label: "French", value: "fr", src: "https://flagcdn.com/h60/fr.png" },
@@ -55,9 +57,11 @@ export function GoogleTranslate() {
   }, []);
 
   // Change language
-  function onChange(lang: typeof languages[0]) {
+  function onChange(lang: (typeof languages)[0]) {
     setSelected(lang);
-    const combo = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
+    const combo = document.querySelector(
+      ".goog-te-combo"
+    ) as HTMLSelectElement | null;
     if (combo) {
       combo.value = lang.value;
       combo.dispatchEvent(new Event("change"));
