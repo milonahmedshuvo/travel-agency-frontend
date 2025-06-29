@@ -1,6 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { Shield, Eye, Lock, Users, Globe, Mail } from "lucide-react"
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Hvarlocalguide - Privacy Policy",
+  description: "Hvar Local Travel Agency",
+};
 
 
 export default function PrivacyPage() {

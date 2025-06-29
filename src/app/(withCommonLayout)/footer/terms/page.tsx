@@ -1,5 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Metadata } from "next";
 
+
+
+export const metadata: Metadata = {
+  title: "Hvarlocalguide - Terms & Conditions",
+  description: "Hvar Local Travel Agency",
+};
 
 
 export default function TermsPage() {

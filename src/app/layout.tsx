@@ -14,7 +14,7 @@ const poppins = Poppins({
 
 
 export const metadata: Metadata = {
-  title: "Hvarlocalguide - Home",
+  title: "Hvarlocalguide - Travel Agency",
   description: "Hvar Local Travel Agency",
 };
 
