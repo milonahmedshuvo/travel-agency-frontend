@@ -39,6 +39,7 @@
     "react-redux": "^9.2.0",
     "recharts": "^2.15.2",
     "redux-persist": "^6.0.0",
+    "sitemap": "^8.0.0",
     "sonner": "^2.0.5",
     "sooner": "^1.1.4",
     "stripe": "^18.2.0",
