@@ -8,7 +8,6 @@ import CulturalTours from "@/components/toursExperience/culturalTours/CulturalTo
 import WineTours from "@/components/toursExperience/wineTours/WineTours";
 import LandTours from "@/components/toursExperience/landTours/Landtours";
 import TourPackageFilterFiled from "@/components/others/tourPackageFilter/page";
-import { Metadata } from "next";
 
 const TourExperience = () => {
   const scrollToRef = useRef<HTMLDivElement | null>(null);
