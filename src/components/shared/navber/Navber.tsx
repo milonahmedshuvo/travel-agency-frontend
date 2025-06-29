@@ -57,13 +57,15 @@ const handleLogout = async() => {
       <div className=" flex justify-between items-center">
         {/* Left Side: Logo */}
         <div className="text-2xl font-semibold">
-          <Image
-            src={logo}
-            width={500}
-            height={500}
-            alt="logo"
-            className="w-[175px] lg:w-[100px] xl:w-[175px] h-[140px]"
-          />
+          <Link href={`/`}>
+            <Image
+              src={logo}
+              width={500}
+              height={500}
+              alt="logo"
+              className="w-[175px] lg:w-[100px] xl:w-[175px] h-[140px]"
+            />
+          </Link>
         </div>
 
         {/* Right Side: Content and Buttons */}
@@ -74,7 +76,7 @@ const handleLogout = async() => {
               Home
             </Link>
             <Link
-              href="/toursExperience"
+              href="/tours-experience"
               className="text-[#676767] text-[18px] font-normal"
             >
               Tours & Experience
@@ -89,10 +91,10 @@ const handleLogout = async() => {
               href="/blog"
               className="text-[#676767] text-[18px] font-normal"
             >
-              Blog
+              Blogs
             </Link>
             <Link
-              href="/aboutus"
+              href="/about-us"
               className="text-[#676767] text-[18px] font-normal"
             >
               About Us
@@ -103,62 +105,56 @@ const handleLogout = async() => {
             </div>
           </div>
 
-          
-
           <div className="hidden md:flex items-center gap-4">
-            {
-              user ? (<DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border border-white">
-                  {/* Avatar or Icon Here */}
-                  <Image
-                    className="h-[50px] w-[50px] rounded-full"
-                    src={avater}
-                    width={500}
-                    height={200}
-                    alt="user"
-                  />
-                </button>
-              </DropdownMenuTrigger>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border border-white">
+                    {/* Avatar or Icon Here */}
+                    <Image
+                      className="h-[50px] w-[50px] rounded-full"
+                      src={avater}
+                      width={500}
+                      height={200}
+                      alt="user"
+                    />
+                  </button>
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-56 bg-white shadow-lg rounded-md">
-                {(user?.role === "SUPER_ADMIN" || user?.role === "ADMIN"
-                  ? adminLinks
-                  : userLinks
-                ).map((link) => (
-                  <Link href={link.href} key={link.href} passHref>
-                    <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 text-lg">
-                      {link.text}
-                      <DropdownMenuShortcut>{link.icon}</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </Link>
-                ))}
+                <DropdownMenuContent className="w-56 bg-white shadow-lg rounded-md">
+                  {(user?.role === "SUPER_ADMIN" || user?.role === "ADMIN"
+                    ? adminLinks
+                    : userLinks
+                  ).map((link) => (
+                    <Link href={link.href} key={link.href} passHref>
+                      <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 text-lg">
+                        {link.text}
+                        <DropdownMenuShortcut>{link.icon}</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </Link>
+                  ))}
 
-                <DropdownMenuItem
+                  <DropdownMenuItem
                     className="cursor-pointer hover:bg-gray-100 text-lg text-red-500"
                     onClick={handleLogout}
                   >
                     Log Out
-                    <DropdownMenuShortcut><LogOut size={16} /></DropdownMenuShortcut>
+                    <DropdownMenuShortcut>
+                      <LogOut size={16} />
+                    </DropdownMenuShortcut>
                   </DropdownMenuItem>
-              
-              </DropdownMenuContent>
-            </DropdownMenu>) : (<Link
-              href="/login"
-              className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
-            >
-              Login
-            </Link>)
-            }
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                href="/login"
+                className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
+              >
+                Login
+              </Link>
+            )}
           </div>
-          
         </div>
-
-
-
-
-
-
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
@@ -187,7 +183,10 @@ const handleLogout = async() => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-gray-100 text-white py-8 px-4  mt-4 flex flex-col space-y-5 rounded ">
-          <Link href="/" className="text-[#676767] text-[18px] font-normal block">
+          <Link
+            href="/"
+            className="text-[#676767] text-[18px] font-normal block"
+          >
             Home
           </Link>
           <Link
@@ -210,62 +209,63 @@ const handleLogout = async() => {
           >
             Blog
           </Link>
-          <Link href="/aboutus" className="text-[#676767] text-[18px] font-normal block">
+          <Link
+            href="/aboutus"
+            className="text-[#676767] text-[18px] font-normal block"
+          >
             About Us
           </Link>
 
-          
-           {/* Show the Profile it   */}
-           <div className=" md:hidden sm:flex items-center gap-4 ">
-            {
-              user ? (<DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className=" rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border border-white">
-                  {/* Avatar or Icon Here */}
-                  <Image
-                    className="h-[50px] w-[50px] rounded-full"
-                    src={avater}
-                    width={500}
-                    height={200}
-                    alt="user"
-                  />
-                </button>
-              </DropdownMenuTrigger>
+          {/* Show the Profile it   */}
+          <div className=" md:hidden sm:flex items-center gap-4 ">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className=" rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border border-white">
+                    {/* Avatar or Icon Here */}
+                    <Image
+                      className="h-[50px] w-[50px] rounded-full"
+                      src={avater}
+                      width={500}
+                      height={200}
+                      alt="user"
+                    />
+                  </button>
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-56 bg-white shadow-lg rounded-md">
-                {(user?.role === "SUPER_ADMIN" || user?.role === "ADMIN"
-                  ? adminLinks
-                  : userLinks
-                ).map((link) => (
-                  <Link href={link.href} key={link.href} passHref>
-                    <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 text-lg">
-                      {link.text}   
-                      <DropdownMenuShortcut>{link.icon}</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </Link>
-                ))}
+                <DropdownMenuContent className="w-56 bg-white shadow-lg rounded-md">
+                  {(user?.role === "SUPER_ADMIN" || user?.role === "ADMIN"
+                    ? adminLinks
+                    : userLinks
+                  ).map((link) => (
+                    <Link href={link.href} key={link.href} passHref>
+                      <DropdownMenuItem className="cursor-pointer hover:bg-gray-100 text-lg">
+                        {link.text}
+                        <DropdownMenuShortcut>{link.icon}</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </Link>
+                  ))}
 
-                <DropdownMenuItem
+                  <DropdownMenuItem
                     className="cursor-pointer hover:bg-gray-100 text-lg text-red-500"
                     onClick={handleLogout}
                   >
                     Log Out
-                    <DropdownMenuShortcut><LogOut size={16} /></DropdownMenuShortcut>
+                    <DropdownMenuShortcut>
+                      <LogOut size={16} />
+                    </DropdownMenuShortcut>
                   </DropdownMenuItem>
-              
-              </DropdownMenuContent>
-            </DropdownMenu>) : (<Link
-              href="/login"
-              className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
-            >
-              Login
-            </Link>)
-            }
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                href="/login"
+                className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] px-[36px] py-[12px] text-white  rounded-sm transition duration-300 font-semibold"
+              >
+                Login
+              </Link>
+            )}
           </div>
-
-
-
-
         </div>
       )}
     </nav>
