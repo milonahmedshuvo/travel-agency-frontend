@@ -165,6 +165,10 @@ export default function AccommodationsBookings() {
         </table>
       </div>
 
+
+
+
+
       {/* Mobile Cards - Shown only on mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:hidden gap-4">
         {filterRoomBooking?.map((booking: TRoomBooking, index: number) => (
@@ -199,12 +203,25 @@ export default function AccommodationsBookings() {
                 <span className="text-gray-500">Check-Out:</span>
                 <span>{dateFormated(booking?.checkOutDate)}</span>
               </div>
+
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Price:</span>
                 <span className="font-medium">
                   {booking?.hotelPackage?.price}
                 </span>
               </div>
+
+                <div className="grid grid-cols-2 gap-1">
+                <span className="text-gray-500">Action</span>
+                <span className="font-medium">
+                   <Link href={`/dashboard/hotelBooking/${booking.id}`}>
+                      <button className="border border-gray-400 px-2 py-0.5 rounded cursor-pointer">View</button>
+                    </Link>
+                </span>
+              </div>
+
+
+
             </div>
           </div>
         ))}

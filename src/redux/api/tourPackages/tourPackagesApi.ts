@@ -92,7 +92,9 @@ export const tourPackagesApi = baseApi.injectEndpoints({
     }),
 
 
-
+   getAllTourCencelPackage : builder.query({
+    query : () => '/tour-bookings?isCancelled=true&page=1'
+   })
 
 
 
@@ -111,6 +113,7 @@ export const {
   useGetSingleTourBookingQuery,
 
   useCancelTourBookingMutation,
-  useUpdateTourPackageMutation 
+  useUpdateTourPackageMutation,
+  useGetAllTourCencelPackageQuery
 
 } = tourPackagesApi;

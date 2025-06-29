@@ -150,7 +150,7 @@ export default function TravelerList() {
 
         <div className="bg-white border-0 rounded-lg overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            {/* <table className="w-full">
               <thead className="bg-[#E8F5FF] text-left">
                 <tr>
                   <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -235,7 +235,201 @@ export default function TravelerList() {
               </tbody>
               }
               
-            </table>
+            </table> */}
+
+
+            <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm bg-white">
+  {/* Table View (Desktop & Tablet) */}
+  <div className="hidden md:block">
+    <table className="w-full">
+      <thead className="bg-[#E8F5FF] text-left">
+        <tr>
+          {["Name", "Booking Date", "Phone", "Package Name", "Status"].map((title) => (
+            <th
+              key={title}
+              className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              {title}
+            </th>
+          ))}
+        </tr>
+      </thead>
+
+      {isLoading ? (
+        <tbody>
+          <tr>
+            <td colSpan={5} className="text-center py-6">
+              <Loading />
+            </td>
+          </tr>
+        </tbody>
+      ) : (
+        <tbody className="divide-y divide-gray-200">
+          {filteredBookings?.map((booking) => (
+            <tr
+              key={booking.id}
+              className="hover:bg-gray-50 cursor-pointer"
+              onClick={() => handleRowClick(booking)}
+            >
+              {/* Name */}
+              <td className="px-6 py-6 whitespace-nowrap">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 bg-sky-100 flex-shrink-0 rounded-full overflow-hidden">
+                    {booking.customer?.user?.avatar ? (
+                      <Image
+                        width={40}
+                        height={40}
+                        src={booking.customer.user.avatar}
+                        alt={booking.customer.firstName}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center bg-blue-500 text-white">
+                        {booking.customer?.firstName?.charAt(0) || "G"}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-900">
+                      {booking.customer?.firstName} {booking.customer?.lastName}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {booking.customer?.user?.email}
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              {/* Booking Date */}
+              <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                {new Date(booking.createdAt).toLocaleDateString()}
+              </td>
+
+              {/* Phone */}
+              <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                {booking.customer?.user?.contactNo || "N/A"}
+              </td>
+
+              {/* Package Name */}
+              <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                {booking.tourPackage?.title}
+              </td>
+
+              {/* Status */}
+              <td className="px-6 py-4 whitespace-nowrap">
+                <span
+                  className={`px-2 py-1 text-xs rounded-full ${
+                    booking.isCancelled
+                      ? "bg-red-100 text-red-800"
+                      : booking.isPaid
+                      ? "bg-green-100 text-green-800"
+                      : "bg-yellow-100 text-yellow-800"
+                  }`}
+                >
+                  {booking.isCancelled
+                    ? "Cancelled"
+                    : booking.isPaid
+                    ? "Paid"
+                    : "Pending"}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      )}
+    </table>
+  </div>
+
+  {/* Card View (Mobile) */}
+  <div className="block md:hidden p-4 space-y-4">
+    {isLoading ? (
+      <div className="text-center">
+        <Loading />
+      </div>
+    ) : (
+      filteredBookings?.map((booking) => (
+        <div
+          key={booking.id}
+          className="rounded-md border border-gray-200 p-4 shadow-sm bg-white space-y-2"
+          onClick={() => handleRowClick(booking)}
+        >
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full overflow-hidden bg-sky-100">
+              {booking.customer?.user?.avatar ? (
+                <Image
+                  width={40}
+                  height={40}
+                  src={booking.customer.user.avatar}
+                  alt={booking.customer.firstName}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="h-full w-full flex items-center justify-center bg-blue-500 text-white">
+                  {booking.customer?.firstName?.charAt(0) || "G"}
+                </div>
+              )}
+            </div>
+            <div>
+              <div className="font-medium text-gray-900">
+                {booking.customer?.firstName} {booking.customer?.lastName}
+              </div>
+              <div className="text-sm text-gray-500">
+                {booking.customer?.user?.email}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-sm text-gray-600">
+            <strong>Booking Date:</strong>{" "}
+            {new Date(booking.createdAt).toLocaleDateString()}
+          </div>
+          <div className="text-sm text-gray-600">
+            <strong>Phone:</strong>{" "}
+            {booking.customer?.user?.contactNo || "N/A"}
+          </div>
+          <div className="text-sm text-gray-600">
+            <strong>Package:</strong> {booking.tourPackage?.title}
+          </div>
+          <div className="text-sm">
+            <strong>Status: </strong>
+            <span
+              className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                booking.isCancelled
+                  ? "bg-red-100 text-red-800"
+                  : booking.isPaid
+                  ? "bg-green-100 text-green-800"
+                  : "bg-yellow-100 text-yellow-800"
+              }`}
+            >
+              {booking.isCancelled
+                ? "Cancelled"
+                : booking.isPaid
+                ? "Paid"
+                : "Pending"}
+            </span>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {data?.data?.length === 0 && (
               <div className="p-8 text-center text-gray-500">
@@ -251,6 +445,9 @@ export default function TravelerList() {
             )}
           </div>
         </div>
+
+
+
 
         <div className="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
           <div className="text-sm text-gray-500">
