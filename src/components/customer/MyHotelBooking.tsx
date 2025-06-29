@@ -194,12 +194,28 @@ export default function MyHotelBookings() {
                 <span className="text-gray-500">Check-Out:</span>
                 <span>{dateFormated(booking?.checkOutDate)}</span>
               </div>
+
               <div className="grid grid-cols-2 gap-1">
                 <span className="text-gray-500">Price:</span>
                 <span className="font-medium">
                   {booking?.hotelPackage?.price}
                 </span>
               </div>
+
+                 
+                 <div className="grid grid-cols-2 gap-1">
+
+                <span className="text-gray-500">Action</span>
+                <span className="font-medium">
+                   <Link href={`/customer/myHotelBookings/${booking.id}`} >  
+                          <span className="py-0.5 px-3 border border-gray-300 rounded cursor-pointer">view</span>
+                          </Link>
+                </span>
+              </div>
+
+              
+
+
             </div>
           </div>
         ))}

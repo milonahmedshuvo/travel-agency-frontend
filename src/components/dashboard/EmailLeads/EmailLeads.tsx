@@ -113,7 +113,7 @@ export default function EmailLeadsTable() {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      {/* <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-blue-50">
@@ -162,7 +162,89 @@ export default function EmailLeadsTable() {
             ))}
           </tbody>
         </table>
+      </div> */}
+
+      {/* Table View - Desktop & Tablet */}
+<div className="hidden md:block overflow-x-auto">
+  <table className="w-full border-collapse">
+    <thead>
+      <tr className="bg-blue-50">
+        <th className="p-4 text-left">
+          <div className="flex items-center h-5">
+            <input
+              type="checkbox"
+              className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              aria-label="Select all"
+            />
+          </div>
+        </th>
+        <th className="p-4 text-left font-medium text-gray-600">Email</th>
+        <th className="p-4 text-left font-medium text-gray-600">Subscription Date</th>
+        <th className="p-4 text-left font-medium text-gray-600">Phone Number</th>
+        <th className="p-4 text-left font-medium text-gray-600">Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filteredBookings?.map((lead: TCustomers) => (
+        <tr
+          key={lead.id}
+          className="border-b border-gray-200 hover:bg-gray-50"
+        >
+          <td className="p-4">
+            <div className="flex items-center h-5">
+              <input
+                type="checkbox"
+                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+            </div>
+          </td>
+          <td className="p-4 text-gray-600">{lead?.email}</td>
+          <td className="p-4">{dateFormate(lead?.createdAt)}</td>
+          <td className="p-4">{lead?.contactNo}</td>
+          <td className="p-4">
+            {lead?.customer?.location ? lead?.customer?.location : "N/A"}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+
+{/* Mobile View - Cards */}
+<div className="block md:hidden space-y-4">
+  {filteredBookings?.map((lead: TCustomers) => (
+    <div
+      key={lead.id}
+      className="rounded-lg border border-gray-200 p-4 shadow-sm"
+    >
+      <div className="flex justify-between items-start">
+        <div>
+          <p className="text-sm text-gray-500 mb-1">
+            <strong>Email:</strong> {lead?.email}
+          </p>
+          <p className="text-sm text-gray-500 mb-1">
+            <strong>Phone:</strong> {lead?.contactNo || "N/A"}
+          </p>
+          <p className="text-sm text-gray-500 mb-1">
+            <strong>Address:</strong>{" "}
+            {lead?.customer?.location || "N/A"}
+          </p>
+          <p className="text-sm text-gray-500">
+            <strong>Subscription:</strong> {dateFormate(lead?.createdAt)}
+          </p>
+        </div>
+        <input
+          type="checkbox"
+          className="w-4 h-4 rounded border-gray-300 text-blue-600 mt-1 focus:ring-blue-500"
+        />
       </div>
+    </div>
+  ))}
+</div>
+
+
 
       {/* Pagination  */}
       <div className="mt-10">

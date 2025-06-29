@@ -361,7 +361,8 @@ export default function TravelDashboardOverview() {
       {/* Recent Bookings and Activity */}
       <div className="w-full">
         <div className="lg:col-span-2">
-          <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+
+          {/* <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
             <div className="flex flex-row items-center justify-between p-4">
               <h3 className="text-[20px] font-[500]">Recent Bookings</h3>
               <div className="flex items-center space-x-2">
@@ -436,19 +437,7 @@ export default function TravelDashboardOverview() {
 
 
                         <td className="whitespace-nowrap  py-6 flex justify-center ">
-                          {/* <span
-                            className={`rounded-md px-2 py-1 text-xs font-medium ${
-                              booking.status === "Confirmed"
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-yellow-100 text-yellow-800"
-                            }`}
-                          >
-                            {booking.status}
-                          </span> */}
-                          {/* <button className="bg-gradient-to-t from-20% from-[#156CF0] to-[#38B6FF] hover:from-[#4f88df] hover:to-[#0096FF] px-3 rounded text-white text-sm py-0.5 cursor-pointer">
-                            {" "}
-                            Confirmed{" "}
-                          </button> */}
+                         
 
                           
 
@@ -464,12 +453,131 @@ export default function TravelDashboardOverview() {
                 </table>
               </div>
             </div>
-          </div>
+          </div> */}
+
+          <div className="rounded-lg border border-gray-200 bg-white shadow-sm overflow-hidden">
+  {/* Header */}
+  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 p-4">
+    <h3 className="text-xl font-semibold">Recent Bookings</h3>
+    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+      {/* Search */}
+      <div className="relative w-full sm:w-auto">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+        <input
+          type="search"
+          placeholder="Search anything"
+          className="w-full h-9 rounded-md border border-gray-300 pl-8 pr-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+      {/* View All Button */}
+      <Link
+        href="/dashboard/tripBooking"
+        className="inline-flex h-9 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+      >
+        View All
+      </Link>
+    </div>
+  </div>
+
+  {/* Table View for Tablet & Desktop */}
+  <div className="hidden md:block p-4 overflow-x-auto">
+    <table className="min-w-full border-collapse text-sm">
+      <thead className="bg-blue-50">
+        <tr>
+          {["Name", "Package", "Duration", "Vehicle", "Date", "Price", "Status"].map((heading) => (
+            <th
+              key={heading}
+              className={`whitespace-nowrap px-4 py-2 text-left font-medium text-gray-500 ${
+                heading === "Status" ? "!text-center" : ""
+              }`}
+            >
+              {heading}
+            </th>
+          ))}
+
+        </tr>
+
+        
+      </thead>
+      <tbody className="divide-y divide-gray-200">
+        {filteredBookings?.map((booking: TourBooking) => (
+          <tr key={booking.id}>
+            <td className="px-4 py-4 font-medium">{booking?.tourPackage?.title}</td>
+            <td className="px-4 py-4">{booking?.tourPackage?.category}</td>
+            <td className="px-4 py-4">{booking.duration}</td>
+            <td className="px-4 py-4">
+              {booking?.vehicleBooking?.tourPackageVehicle?.vehicleType ?? "N/A"}
+            </td>
+            <td className="px-4 py-4">{dateFormate(booking.updatedAt)}</td>
+            <td className="px-4 py-4">{booking?.tourPackage?.price}</td>
+            <td className="px-4 py-4 text-center">
+              <span
+                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white ${
+                  booking?.transactions?.status === "SUCCEEDED"
+                    ? "bg-gradient-to-t from-[#156CF0] to-[#38B6FF]"
+                    : booking?.transactions?.status === "PROCESSING"
+                    ? "bg-blue-300 text-blue-700"
+                    : booking?.transactions?.status === "REQUIRES_PAYMENT_METHOD"
+                    ? "bg-amber-400"
+                    : booking?.transactions === null
+                    ? "bg-red-500 opacity-80"
+                    : "bg-gray-300"
+                }`}
+              >
+                {booking?.transactions?.status || "Not pay"}
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Mobile Card View */}
+  <div className="block md:hidden p-4 space-y-4">
+    {filteredBookings?.map((booking: TourBooking) => (
+      <div
+        key={booking.id}
+        className="rounded-md border border-gray-200 p-4 shadow-sm bg-white space-y-1"
+      >
+        <div className="text-sm"><strong>Name:</strong> {booking?.tourPackage?.title}</div>
+        <div className="text-sm"><strong>Package:</strong> {booking?.tourPackage?.category}</div>
+        <div className="text-sm"><strong>Duration:</strong> {booking.duration}</div>
+        <div className="text-sm"><strong>Vehicle:</strong> {booking?.vehicleBooking?.tourPackageVehicle?.vehicleType ?? "N/A"}</div>
+        <div className="text-sm"><strong>Date:</strong> {dateFormate(booking.updatedAt)}</div>
+        <div className="text-sm"><strong>Price:</strong> {booking?.tourPackage?.price}</div>
+        <div className="text-sm flex items-center gap-1">
+          <strong>Status:</strong>
+          <span
+            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white ${
+              booking?.transactions?.status === "SUCCEEDED"
+                ? "bg-gradient-to-t from-[#156CF0] to-[#38B6FF]"
+                : booking?.transactions?.status === "PROCESSING"
+                ? "bg-blue-300 text-blue-700"
+                : booking?.transactions?.status === "REQUIRES_PAYMENT_METHOD"
+                ? "bg-amber-400"
+                : booking?.transactions === null
+                ? "bg-red-500 opacity-80"
+                : "bg-gray-300"
+            }`}
+          >
+            {booking?.transactions?.status || "Not pay"}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
 
            {/* PAGINATION  */}
             <div className="mt-4 flex items-center justify-between">
                      <div className="text-sm text-muted-foreground">
-                       {/* Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, tourBookings?.data?.length)} out of {tourBookings?.data?.length} */}
+                       
                      </div>
                      <div className="flex items-center space-x-2">
                        <CustomButton
@@ -524,44 +632,11 @@ export default function TravelDashboardOverview() {
                          <ChevronRight className="h-4 w-4" />
                        </CustomButton>
                      </div>
-                   </div>
-           
-        </div>
-
-        {/* Recent Activity */}
-        {/* <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-          <div className="p-2">
-            <h3 className="text-[20px] font-[500]">Recent Activity</h3>
-          </div>
-          <div className="p-4">
-            <div className="space-y-6">
-              <div>
-                <h3 className="mb-4 text-sm font-medium text-gray-500">
-                  Today
-                </h3>
-                <div className="space-y-4">
-                  {activitiesData.map((activity) => (
-                    <div
-                      key={activity.id}
-                      className="flex items-start space-x-3"
-                    >
-                      <div className={`rounded-full p-2 ${activity.iconBg}`}>
-                        {activity.icon}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-[#333E47] text-[16px] mb-2.5">
-                          {activity.content}
-                        </p>
-                        <p className="text-xs text-gray-500">{activity.time}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
-          </div>
-        </div> */}
+        </div>
       </div>
+
+
 
       <footer className="py-4 text-center text-sm text-gray-500">
         Copyright © 2024 Travel Agency
