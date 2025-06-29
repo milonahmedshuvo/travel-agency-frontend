@@ -1,11 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, Cookie, Settings, Mail } from "lucide-react"
+import { Metadata } from "next";
 
 
+
+export const metadata: Metadata = {
+  title: "Hvarlocalguide - Cookie Policy",
+  description: "Hvar Local Travel Agency",
+};
 
 export default function CookiePolicyPage() {
-
-
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 pt-12 !pb-28">
