@@ -8,7 +8,7 @@ import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import logos from "../../../assets/logo/navlogo.png";
+import logos from "@/assets/logo/navlogo.png";
 import { useLoginMutation } from "@/redux/api/auth/authApi";
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch } from "@/redux/hook";

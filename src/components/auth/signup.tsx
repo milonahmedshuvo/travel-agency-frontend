@@ -8,7 +8,7 @@ import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import logos from "../../../assets/logo/navlogo.png";
+import logos from "@/assets/logo/navlogo.png";
 import { useRegisterUserMutation } from "@/redux/api/auth/authApi";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
