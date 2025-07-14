@@ -27,7 +27,7 @@ const ChatWidget: React.FC = () => {
 
         const data = await res.json();
 
-        console.log(`see user id`, data);
+        console.log(data);
 
         Cookies.set("user_id", data.user_id, { expires: 30 });
       } catch (err) {
@@ -72,13 +72,11 @@ const ChatWidget: React.FC = () => {
       );
 
       const data = await res.json();
-
-      console.log(`see message`, data);
-
       const botReply = data?.content || "Sorry, something went wrong.";
 
       setMessages((prev) => [...prev, { from: "bot", text: botReply }]);
     } catch (err) {
+      console.log(err);
       setMessages((prev) => [
         ...prev,
         { from: "bot", text: "⚠️ Error contacting server." },

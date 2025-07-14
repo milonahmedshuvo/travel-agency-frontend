@@ -4,7 +4,6 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import ReduxStoreProvider from "@/redux/utils/ReduxProvider";
 import { Toaster } from "react-hot-toast";
-import TawkTo from "@/components/twak/twak";
 import ChatWidget from "@/components/widget/chat-widget";
 
 const poppins = Poppins({
