@@ -19,7 +19,7 @@ const ChatWidget: React.FC = () => {
     const existing = Cookies.get("user_id");
     if (!existing) {
       try {
-        const res = await fetch(`${getWidgetUrl()}/api/v1/generate-user-id`, {
+        const res = await fetch(`${getWidgetUrl()}/generate-user-id`, {
           method: "POST",
         });
 
