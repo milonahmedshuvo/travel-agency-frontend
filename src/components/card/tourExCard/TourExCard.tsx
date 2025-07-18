@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React from "react";
 import { Card } from "antd";
-import { FaStar } from "react-icons/fa";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { FaStar } from "react-icons/fa";
 // import Image from "next/image";
 const {} = Card;
 
@@ -34,7 +34,7 @@ const TourExperienceCard: React.FC<CustomCardProps> = ({
       //   style={{ width: 340,}}
       cover={
         <div className="overflow-hidden">
-          <Link href={`/toursExperience/${id}`}>
+          <Link href={`/tours-experience/${id}`}>
             <Image
               width={500}
               height={500}
